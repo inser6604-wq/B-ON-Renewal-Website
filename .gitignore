@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+
+# Shopify CLI
+.shopify/
+
+# 환경 변수
+.env
+.env.*
