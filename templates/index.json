@@ -9,8 +9,13 @@
  */
 {
   "sections": {
+    "bnon_hero": {
+      "type": "bnon-hero",
+      "settings": {}
+    },
     "image_banner": {
       "type": "image-banner",
+      "disabled": true,
       "blocks": {
         "heading": {
           "type": "heading",
@@ -78,6 +83,7 @@
     }
   },
   "order": [
+    "bnon_hero",
     "image_banner",
     "featured_collection"
   ]

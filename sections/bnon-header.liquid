@@ -1,0 +1,66 @@
+{%- liquid
+  assign logo_text = section.settings.logo_text | default: 'B&ON UNIVERSE'
+  assign contact_link = section.settings.contact_link | default: '/pages/contact'
+-%}
+
+<header class="bnon-section bnon-header">
+  <div class="bnon-container bnon-header__inner">
+    <a class="bnon-header__brand" href="{{ routes.root_url }}" aria-label="{{ logo_text | escape }} 홈">
+      {%- if section.settings.logo_image != blank -%}
+        {{ section.settings.logo_image | image_url: width: 440 | image_tag: class: 'bnon-header__logo-image', widths: '110, 220, 440', sizes: '(min-width: 1024px) 220px, 176px', alt: logo_text }}
+      {%- else -%}
+        <span>{{ logo_text | escape }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="bnon-header__nav" aria-label="주요 메뉴">
+      <ul class="bnon-header__menu" role="list">
+        {%- if section.settings.menu != blank -%}
+          {%- for link in section.settings.menu.links -%}
+            <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+        {%- else -%}
+          <li><a href="/pages/portfolio">PORTFOLIO</a></li>
+          <li><a href="/pages/about">ABOUT</a></li>
+          <li><a href="/pages/service">SERVICE</a></li>
+          <li><a href="/pages/contact">CONTACT</a></li>
+        {%- endif -%}
+      </ul>
+    </nav>
+
+    <a class="bnon-header__contact" href="{{ contact_link | escape }}">{{ section.settings.contact_label | escape }}</a>
+
+    <details class="bnon-header__mobile-menu">
+      <summary aria-label="메뉴 열기"><span></span><span></span><span></span></summary>
+      <nav aria-label="모바일 주요 메뉴">
+        <ul role="list">
+          {%- if section.settings.menu != blank -%}
+            {%- for link in section.settings.menu.links -%}
+              <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a href="/pages/portfolio">PORTFOLIO</a></li>
+            <li><a href="/pages/about">ABOUT</a></li>
+            <li><a href="/pages/service">SERVICE</a></li>
+            <li><a href="/pages/contact">CONTACT</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "B&ON Header",
+  "tag": "div",
+  "class": "bnon-header-section",
+  "settings": [
+    { "type": "image_picker", "id": "logo_image", "label": "로고 이미지" },
+    { "type": "text", "id": "logo_text", "label": "텍스트 로고", "default": "B&ON UNIVERSE", "info": "로고 이미지가 없을 때 표시됩니다." },
+    { "type": "link_list", "id": "menu", "label": "메뉴", "info": "PORTFOLIO, ABOUT, SERVICE, CONTACT 순서로 설정하세요." },
+    { "type": "text", "id": "contact_label", "label": "문의 CTA 문구", "default": "프로젝트 문의" },
+    { "type": "url", "id": "contact_link", "label": "문의 CTA 링크", "info": "비워두면 /pages/contact로 이동합니다." }
+  ]
+}
+{% endschema %}

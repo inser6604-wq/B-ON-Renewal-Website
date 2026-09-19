@@ -1,0 +1,82 @@
+<script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign heading_lines = section.settings.heading | newline_to_br | split: '<br />'
+  assign keywords = section.settings.keyword_line | split: '·'
+  assign clip_id = 'bnon-hero-clip-' | append: section.id
+  assign portfolio_link = section.settings.portfolio_link | default: '/pages/portfolio'
+  assign contact_link = section.settings.contact_link | default: '/pages/contact'
+-%}
+
+<section class="bnon-section bnon-hero" aria-labelledby="bnon-hero-heading-{{ section.id }}">
+  <div class="bnon-container">
+    <div class="bnon-hero__layout">
+      <h1 class="bnon-hero__heading" id="bnon-hero-heading-{{ section.id }}">
+        {%- for line in heading_lines -%}
+          <span class="bnon-hero__line">{{ line | strip | escape }}{%- if forloop.last -%}<span class="bnon-hero__accent">{{ section.settings.accent_text | escape }}</span>{%- endif -%}</span>
+        {%- endfor -%}
+      </h1>
+
+      {%- if section.settings.show_universe -%}
+        <bnon-hero-universe class="bnon-hero__universe">
+          <div class="bnon-hero__art" aria-hidden="true">
+            <svg class="bnon-hero__svg" viewBox="-220 -220 440 440" focusable="false" aria-hidden="true">
+              <defs>
+                <clipPath id="{{ clip_id }}"><circle cx="0" cy="0" r="184" /></clipPath>
+              </defs>
+              <circle class="bnon-hero__sphere" cx="0" cy="0" r="184" />
+              <g clip-path="url(#{{ clip_id }})">
+                <!-- Static rings remain visible without JavaScript or when motion is disabled. -->
+                <path class="bnon-hero__ring" data-bnon-ring-a d="M -164 -73 A 180 70 24 1 0 164 73 A 180 70 24 1 0 -164 -73 Z" />
+                <path class="bnon-hero__ring" data-bnon-ring-b d="M -77 41 A 87 180 -28 1 0 77 -41 A 87 180 -28 1 0 -77 41 Z" />
+                <circle class="bnon-hero__planet" data-bnon-planet-a cx="142" cy="87" r="4" />
+                <circle class="bnon-hero__planet" data-bnon-planet-b cx="-83" cy="31" r="3" />
+              </g>
+            </svg>
+            {%- if section.settings.universe_fallback != blank -%}
+              {{ section.settings.universe_fallback | image_url: width: 880 | image_tag: class: 'bnon-hero__fallback', widths: '220, 440, 660, 880', sizes: '(min-width: 1024px) 440px, 280px', alt: '', loading: 'lazy' }}
+            {%- endif -%}
+          </div>
+          <button class="bnon-hero__motion" type="button" data-bnon-motion-toggle hidden>
+            <span data-bnon-motion-label>애니메이션 일시정지</span>
+          </button>
+        </bnon-hero-universe>
+      {%- endif -%}
+
+      <p class="bnon-hero__description">{{ section.settings.description | escape | newline_to_br }}</p>
+      <p class="bnon-hero__keywords">
+        {%- for keyword in keywords -%}
+          {%- unless forloop.first -%}<span class="bnon-hero__separator" aria-hidden="true">·</span>{%- endunless -%}
+          <span>{{ keyword | strip | escape }}</span>
+        {%- endfor -%}
+      </p>
+      <div class="bnon-hero__actions">
+        <a class="bnon-hero__portfolio" href="{{ portfolio_link | escape }}">{{ section.settings.portfolio_label | escape }}</a>
+        <a class="bnon-hero__contact" href="{{ contact_link | escape }}">{{ section.settings.contact_label | escape }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Hero",
+  "tag": "div",
+  "class": "bnon-hero-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    { "type": "textarea", "id": "heading", "label": "제목 (줄바꿈 가능)", "default": "YOUR BRAND’S\nUNIVERSE\nSTARTS HERE" },
+    { "type": "text", "id": "accent_text", "label": "제목 마지막 강조 문자", "default": "." },
+    { "type": "text", "id": "keyword_line", "label": "키워드 (·로 구분)", "default": "SHOPIFY · DESIGN · GLOBAL COMMERCE" },
+    { "type": "textarea", "id": "description", "label": "설명", "default": "브랜드의 정체성을 Shopify 스토어로 구현하고\n글로벌 판매 환경까지 연결합니다." },
+    { "type": "text", "id": "portfolio_label", "label": "포트폴리오 링크 문구", "default": "VIEW PORTFOLIO ↓" },
+    { "type": "url", "id": "portfolio_link", "label": "포트폴리오 링크", "info": "비워두면 /pages/portfolio로 이동합니다. 포트폴리오 섹션 구현 후 해당 앵커로 변경할 수 있습니다." },
+    { "type": "text", "id": "contact_label", "label": "문의 버튼 문구", "default": "프로젝트 문의하기" },
+    { "type": "url", "id": "contact_link", "label": "문의 링크", "info": "비워두면 /pages/contact로 이동합니다." },
+    { "type": "checkbox", "id": "show_universe", "label": "Universe 비주얼 표시", "default": true },
+    { "type": "image_picker", "id": "universe_fallback", "label": "애니메이션 오류 시 대체 이미지", "info": "미지정 또는 JavaScript 비활성 상태에서는 정적 SVG를 유지합니다." }
+  ],
+  "presets": [{ "name": "B&ON Hero" }]
+}
+{% endschema %}
