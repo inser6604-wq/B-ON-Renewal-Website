@@ -157,17 +157,6 @@
             "link": ""
           }
         },
-        "service_QqNdAT": {
-          "type": "service",
-          "settings": {
-            "title_en": "",
-            "title_ko": "",
-            "description": "",
-            "feature_text": "",
-            "link_label": "서비스 자세히 보기 →",
-            "link": ""
-          }
-        },
         "us_corporation_3pl": {
           "type": "service",
           "settings": {
@@ -196,7 +185,7 @@
             "title_en": "SHOPIFY EDUCATION",
             "title_ko": "쇼피파이 관리자 교육",
             "description": "쇼피파이 스토어를 직접 운영할 수 있도록\n관리자 기능부터 상품·주문 관리까지 교육합니다.실무에 바로 활용할 수 있는 운영 역량을 제공합니다.",
-            "feature_text": "",
+            "feature_text": "관리자 교육 · 스토어 운영 · 실무 교육",
             "link_label": "서비스 자세히 보기 →",
             "link": ""
           }
@@ -205,7 +194,6 @@
       "block_order": [
         "shopify_store_development",
         "digital_marketing",
-        "service_QqNdAT",
         "us_corporation_3pl",
         "amazon",
         "shopify_education"
@@ -233,7 +221,7 @@
           "type": "step",
           "settings": {
             "title": "전략 및 구조 설계",
-            "description": "사용자 흐름과 콘텐츠를 정리하고 스토어의 전체 구조를 설계합니다.",
+            "description": "사용자 흐름과 콘텐츠를 정리하고 스토어의\n전체 구조를 설계합니다.",
             "feature_text": "사이트맵 · 사용자 흐름 · 콘텐츠 구조",
             "confirm_text": "",
             "image": "shopify://shop_images/process_img02.webp"
@@ -243,7 +231,7 @@
           "type": "step",
           "settings": {
             "title": "UX/UI 디자인",
-            "description": "브랜드 아이덴티티를 반영해 주요 화면과 사용자 경험을 디자인합니다",
+            "description": "브랜드 아이덴티티를 반영해 주요 화면과\n사용자 경험을 디자인합니다",
             "feature_text": "디자인 방향 · 주요 화면 · 반응형 UI",
             "confirm_text": "CONFIRM 01 — 디자인 방향 확인",
             "image": "shopify://shop_images/process_img03.webp"
@@ -253,7 +241,7 @@
           "type": "step",
           "settings": {
             "title": "Shopify 구축",
-            "description": "확정된 디자인을 기반으로 반응형 화면과 필요한 기능을 구현합니다.",
+            "description": "확정된 디자인을 기반으로 반응형 화면과\n필요한 기능을 구현합니다.",
             "feature_text": "테마 개발 · 기능 구현 · 반응형 적용",
             "confirm_text": "CONFIRM 02 — 기능 및 최종 검수",
             "image": "shopify://shop_images/process_img04.webp"
@@ -263,7 +251,7 @@
           "type": "step",
           "settings": {
             "title": "스토어 오픈 및 운영 지원",
-            "description": "결제와 배송 환경을 점검하고 안정적인 오픈과 운영을 지원합니다.",
+            "description": "결제와 배송 환경을 점검하고 안정적인 오픈과\n운영을 지원합니다.",
             "feature_text": "최종 점검 · 스토어 오픈 · 운영 지원",
             "confirm_text": "",
             "image": "shopify://shop_images/process_img05.webp"
@@ -281,6 +269,8 @@
       "settings": {
         "heading": "PROCESS",
         "description": "함께 확인하며 완성하는 B&ON의 프로젝트 진행 과정",
+        "confirm_01": "CONFIRM 01 · 디자인 방향 확인",
+        "confirm_02": "CONFIRM 02 · 기능 및 최종 검수",
         "enable_autoplay": true,
         "autoplay_interval": 5
       }

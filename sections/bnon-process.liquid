@@ -1,0 +1,112 @@
+<script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
+
+<bnon-process
+  data-bnon-process
+  data-enable-autoplay="{{ section.settings.enable_autoplay }}"
+  data-autoplay-interval="{{ section.settings.autoplay_interval | times: 1000 }}"
+>
+  <section class="bnon-section bnon-process" aria-labelledby="bnon-process-heading-{{ section.id }}">
+    <div class="bnon-container bnon-process__container">
+      <header class="bnon-process__intro">
+        <h2 class="bnon-process__heading" id="bnon-process-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+        {%- if section.settings.description != blank -%}
+          <p class="bnon-process__description">{{ section.settings.description | escape }}</p>
+        {%- endif -%}
+      </header>
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="bnon-process__stage">
+          <div class="bnon-process__content" aria-live="polite">
+            {%- for block in section.blocks -%}
+              {%- assign step_number = forloop.index | prepend: '0' -%}
+              <article
+                class="bnon-process__panel{% if forloop.first %} is-active{% endif %}"
+                data-bnon-process-panel
+                data-bnon-process-id="{{ block.id }}"
+                {% unless forloop.first %}hidden{% endunless %}
+                {{ block.shopify_attributes }}
+              >
+                <p class="bnon-process__step-title"><span aria-hidden="true">{{ step_number }}</span> {{ block.settings.title | escape }}</p>
+                {%- if block.settings.description != blank -%}<p class="bnon-process__step-description">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+                {%- if block.settings.feature_text != blank -%}<p class="bnon-process__feature">{{ block.settings.feature_text | escape }}</p>{%- endif -%}
+                {%- if block.settings.confirm_text != blank -%}<p class="bnon-process__confirm-text">{{ block.settings.confirm_text | escape }}</p>{%- endif -%}
+              </article>
+            {%- endfor -%}
+          </div>
+
+          <div class="bnon-process__media" aria-hidden="true">
+            {%- for block in section.blocks -%}
+              <div class="bnon-process__image{% if forloop.first %} is-active{% endif %}" data-bnon-process-image data-bnon-process-id="{{ block.id }}"{% unless forloop.first %} hidden{% endunless %}>
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '480, 768, 1024, 1400', sizes: '(min-width: 1024px) 50vw, 100vw', alt: '' }}
+                {%- else -%}
+                  <div class="bnon-process__image-placeholder"></div>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <nav class="bnon-process__navigation" aria-label="프로젝트 진행 단계">
+          <div class="bnon-process__progress" aria-hidden="true"><span data-bnon-process-progress></span></div>
+          <div class="bnon-process__steps">
+            {%- for block in section.blocks -%}
+              {%- assign step_number = forloop.index | prepend: '0' -%}
+              <div class="bnon-process__step-anchor bnon-process__step-anchor--{{ forloop.index }}">
+                {%- if forloop.index == 3 and section.settings.confirm_01 != blank -%}<p class="bnon-process__confirm bnon-process__confirm--step-3">{{ section.settings.confirm_01 | escape }}</p>{%- endif -%}
+                {%- if forloop.index == 4 and section.settings.confirm_02 != blank -%}<p class="bnon-process__confirm bnon-process__confirm--step-4">{{ section.settings.confirm_02 | escape }}</p>{%- endif -%}
+                <button class="bnon-process__step-button{% if forloop.first %} is-active{% endif %}" type="button" data-bnon-process-trigger data-bnon-process-id="{{ block.id }}" aria-current="{% if forloop.first %}step{% else %}false{% endif %}">
+                  <span aria-hidden="true">{{ step_number }}</span><span>{{ block.settings.title | escape }}</span>
+                </button>
+              </div>
+            {%- endfor -%}
+          </div>
+        </nav>
+      {%- endif -%}
+    </div>
+  </section>
+</bnon-process>
+
+{% schema %}
+{
+  "name": "B&ON PROCESS",
+  "tag": "div",
+  "class": "bnon-process-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["index"] },
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "제목", "default": "PROCESS" },
+    { "type": "textarea", "id": "description", "label": "설명", "default": "함께 확인하며 완성하는 B&ON의 프로젝트 진행 과정" },
+    { "type": "text", "id": "confirm_01", "label": "CONFIRM 01", "default": "CONFIRM 01 · 디자인 방향 확인" },
+    { "type": "text", "id": "confirm_02", "label": "CONFIRM 02", "default": "CONFIRM 02 · 기능 및 최종 검수" },
+    { "type": "checkbox", "id": "enable_autoplay", "label": "자동 전환 사용", "default": true },
+    { "type": "range", "id": "autoplay_interval", "label": "자동 전환 간격", "min": 3, "max": 8, "step": 1, "unit": "초", "default": 5 }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "진행 단계",
+      "settings": [
+        { "type": "text", "id": "title", "label": "제목" },
+        { "type": "textarea", "id": "description", "label": "설명" },
+        { "type": "text", "id": "feature_text", "label": "핵심 범위" },
+        { "type": "text", "id": "confirm_text", "label": "Confirm 문구" },
+        { "type": "image_picker", "id": "image", "label": "이미지" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON PROCESS",
+      "blocks": [
+        { "type": "step", "settings": { "title": "상담 및 방향 설정", "description": "브랜드의 목표와 필요한 기능, 프로젝트 범위를 함께 확인합니다.", "feature_text": "프로젝트 브리프 · 목표 설정 · 범위 협의" } },
+        { "type": "step", "settings": { "title": "전략 및 구조 설계" } },
+        { "type": "step", "settings": { "title": "UX/UI 디자인", "confirm_text": "CONFIRM 01 · 디자인 방향 확인" } },
+        { "type": "step", "settings": { "title": "Shopify 구축" } },
+        { "type": "step", "settings": { "title": "스토어 오픈 및 운영 지원", "confirm_text": "CONFIRM 02 · 기능 및 최종 검수" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

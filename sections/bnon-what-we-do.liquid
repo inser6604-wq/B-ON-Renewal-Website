@@ -1,0 +1,103 @@
+<script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
+
+<bnon-what-we-do data-bnon-what-we-do>
+  <section class="bnon-section bnon-what-we-do" aria-labelledby="bnon-what-we-do-heading-{{ section.id }}">
+    <div class="bnon-container">
+      <div class="bnon-what-we-do__intro">
+        <p class="bnon-what-we-do__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        <h2 class="bnon-what-we-do__heading" id="bnon-what-we-do-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+        {%- assign description_parts = section.settings.description | split: '비앤온은' -%}
+        <p class="bnon-what-we-do__description">
+          {%- if description_parts.size > 1 -%}
+            <span class="bnon-what-we-do__description-medium">{{ description_parts.first | append: '비앤온은' | escape }}</span><span class="bnon-what-we-do__description-extrabold">{{ description_parts[1] | escape }}</span>
+          {%- else -%}
+            <span class="bnon-what-we-do__description-medium">{{ section.settings.description | escape }}</span>
+          {%- endif -%}
+        </p>
+      </div>
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="bnon-what-we-do__accordion">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign item_number = forloop.index | prepend: '0'
+              assign trigger_id = 'bnon-what-we-do-trigger-' | append: section.id | append: '-' | append: block.id
+              assign panel_id = 'bnon-what-we-do-panel-' | append: section.id | append: '-' | append: block.id
+            -%}
+            <article class="bnon-what-we-do__item{% if forloop.first %} is-open{% endif %}" data-bnon-service-item {{ block.shopify_attributes }}>
+              <button
+                class="bnon-what-we-do__trigger"
+                type="button"
+                id="{{ trigger_id }}"
+                aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-controls="{{ panel_id }}"
+                data-bnon-service-trigger
+                data-bnon-service-id="{{ block.id }}"
+              >
+                <span class="bnon-what-we-do__trigger-label"><span aria-hidden="true">{{ item_number }}</span><span>{{ block.settings.title_en | escape }}</span></span>
+                <span class="bnon-what-we-do__arrow" aria-hidden="true"><svg viewBox="0 0 22 12.5" focusable="false"><path d="M1.5 1.5L11 11L20.5 1.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+              </button>
+
+              <div class="bnon-what-we-do__panel-wrap" data-bnon-service-panel-wrap>
+                <div class="bnon-what-we-do__panel" id="{{ panel_id }}" role="region" aria-labelledby="{{ trigger_id }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" data-bnon-service-panel>
+                  <div class="bnon-what-we-do__detail">
+                    {%- if block.settings.title_ko != blank -%}<h3 class="bnon-what-we-do__detail-title">{{ block.settings.title_ko | escape }}</h3>{%- endif -%}
+                    {%- if block.settings.description != blank -%}<div class="bnon-what-we-do__detail-description">{{ block.settings.description | escape | newline_to_br }}</div>{%- endif -%}
+                    {%- if block.settings.feature_text != blank -%}<p class="bnon-what-we-do__feature">{{ block.settings.feature_text | escape }}</p>{%- endif -%}
+                    {%- if block.settings.link != blank -%}
+                      <a class="bnon-what-we-do__link" href="{{ block.settings.link | escape }}"{% unless forloop.first %} tabindex="-1"{% endunless %} data-bnon-service-link>{{ block.settings.link_label | escape }}</a>
+                    {%- else -%}
+                      <span class="bnon-what-we-do__link is-disabled">{{ block.settings.link_label | escape }}</span>
+                    {%- endif -%}
+                  </div>
+                  <span class="bnon-what-we-do__decorative-number" aria-hidden="true">{{ item_number }}</span>
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+</bnon-what-we-do>
+
+{% schema %}
+{
+  "name": "B&ON What We Do",
+  "tag": "div",
+  "class": "bnon-what-we-do-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "아이브로", "default": "WHAT WE DO" },
+    { "type": "text", "id": "heading", "label": "제목", "default": "FROM STORE TO GLOBAL." },
+    { "type": "textarea", "id": "description", "label": "설명", "default": "브랜드 구축부터 글로벌 판매와 운영까지, 비앤온은 커머스의 전 과정을 연결합니다." }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "서비스",
+      "settings": [
+        { "type": "text", "id": "title_en", "label": "영문 서비스명" },
+        { "type": "text", "id": "title_ko", "label": "국문 서비스명" },
+        { "type": "textarea", "id": "description", "label": "설명" },
+        { "type": "text", "id": "feature_text", "label": "핵심 범위" },
+        { "type": "text", "id": "link_label", "label": "링크 문구", "default": "서비스 자세히 보기 →" },
+        { "type": "url", "id": "link", "label": "링크" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON What We Do",
+      "blocks": [
+        { "type": "service", "settings": { "title_en": "SHOPIFY STORE DEVELOPMENT", "title_ko": "쇼피파이 스토어 구축", "description": "브랜드의 정체성과 비즈니스 목표를 반영해 사용하기 쉽고 확장 가능한 Shopify 스토어를 구축합니다.\n기획부터 UX/UI 디자인, 개발과 오픈까지 전 과정을 함께합니다.", "feature_text": "브랜드 전략 · UX/UI 디자인 · Shopify 개발" } },
+        { "type": "service", "settings": { "title_en": "DIGITAL MARKETING" } },
+        { "type": "service", "settings": { "title_en": "US CORPORATION & 3PL" } },
+        { "type": "service", "settings": { "title_en": "AMAZON" } },
+        { "type": "service", "settings": { "title_en": "SHOPIFY EDUCATION" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

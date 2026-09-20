@@ -137,3 +137,269 @@ if (!customElements.get('bnon-hero-universe')) {
 
   customElements.define('bnon-hero-universe', BnonHeroUniverse);
 }
+
+if (!customElements.get('bnon-main-portfolio')) {
+  class BnonMainPortfolio extends HTMLElement {
+    connectedCallback() {
+      if (this.controller) return;
+
+      this.tabs = Array.from(this.querySelectorAll('[data-bnon-project-tab]'));
+      this.panels = Array.from(this.querySelectorAll('[data-bnon-project-panel]'));
+      this.current = this.querySelector('[data-bnon-project-current]');
+      this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
+      if (!this.tabs.length || !this.panels.length || !this.current) return;
+
+      this.controller = new AbortController();
+      const options = { signal: this.controller.signal };
+      this.tabs.forEach((tab) => {
+        tab.addEventListener('click', () => this.activate(tab), options);
+        tab.addEventListener('keydown', (event) => this.onKeydown(event, tab), options);
+      });
+      this.reduced.addEventListener('change', () => this.updateNextHint(), options);
+      document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
+      this.updateNextHint();
+    }
+
+    disconnectedCallback() {
+      this.transitionTimer && clearTimeout(this.transitionTimer);
+      this.controller?.abort();
+      this.controller = null;
+    }
+
+    onKeydown(event, tab) {
+      const index = this.tabs.indexOf(tab);
+      let nextIndex = index;
+      if (event.key === 'ArrowRight') nextIndex = Math.min(index + 1, this.tabs.length - 1);
+      else if (event.key === 'ArrowLeft') nextIndex = Math.max(index - 1, 0);
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = this.tabs.length - 1;
+      else return;
+
+      event.preventDefault();
+      const nextTab = this.tabs[nextIndex];
+      this.activate(nextTab);
+      nextTab.focus();
+    }
+
+    onBlockSelect(event) {
+      if (this.sectionId && event.detail.sectionId !== this.sectionId) return;
+      const tab = this.tabs.find((item) => item.dataset.bnonProjectId === event.detail.blockId);
+      if (tab) this.activate(tab);
+    }
+
+    activate(tab) {
+      const nextId = tab.dataset.bnonProjectId;
+      const nextPanel = this.panels.find((panel) => panel.dataset.bnonProjectId === nextId);
+      const activeTab = this.tabs.find((item) => item.getAttribute('aria-selected') === 'true');
+      const activePanel = this.panels.find((panel) => panel.classList.contains('is-active'));
+      if (!nextPanel || tab === activeTab) return;
+
+      this.transitionTimer && clearTimeout(this.transitionTimer);
+      this.tabs.forEach((item) => {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      });
+
+      nextPanel.hidden = false;
+      nextPanel.classList.remove('is-leaving');
+      requestAnimationFrame(() => nextPanel.classList.add('is-active'));
+
+      if (activePanel) {
+        activePanel.classList.remove('is-active');
+        activePanel.classList.add('is-leaving');
+      }
+
+      this.transitionTimer = window.setTimeout(() => {
+        this.panels.forEach((panel) => {
+          if (panel === nextPanel) return;
+          panel.hidden = true;
+          panel.classList.remove('is-active', 'is-leaving');
+        });
+      }, this.reduced.matches ? 0 : 700);
+
+      this.current.textContent = String(this.tabs.indexOf(tab) + 1).padStart(2, '0');
+      this.updateNextHint();
+    }
+
+    updateNextHint() {
+      this.tabs.forEach((tab) => tab.removeAttribute('data-bnon-next-hint'));
+      if (this.dataset.enableNextHint !== 'true' || this.reduced.matches) return;
+
+      const activeIndex = this.tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+      const nextTab = this.tabs[activeIndex + 1];
+      if (!nextTab) return;
+      nextTab.setAttribute('data-bnon-next-hint', '');
+    }
+  }
+
+  customElements.define('bnon-main-portfolio', BnonMainPortfolio);
+}
+
+if (!customElements.get('bnon-what-we-do')) {
+  class BnonWhatWeDo extends HTMLElement {
+    connectedCallback() {
+      if (this.controller) return;
+
+      this.items = Array.from(this.querySelectorAll('[data-bnon-service-item]'));
+      this.triggers = Array.from(this.querySelectorAll('[data-bnon-service-trigger]'));
+      this.panels = Array.from(this.querySelectorAll('[data-bnon-service-panel]'));
+      this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
+      if (!this.items.length || !this.triggers.length) return;
+
+      this.controller = new AbortController();
+      const options = { signal: this.controller.signal };
+      this.triggers.forEach((trigger) => trigger.addEventListener('click', () => this.activate(trigger), options));
+      document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
+    }
+
+    disconnectedCallback() {
+      this.controller?.abort();
+      this.controller = null;
+    }
+
+    onBlockSelect(event) {
+      if (this.sectionId && event.detail.sectionId !== this.sectionId) return;
+      const trigger = this.triggers.find((item) => item.dataset.bnonServiceId === event.detail.blockId);
+      if (trigger) this.activate(trigger);
+    }
+
+    activate(trigger) {
+      const current = this.triggers.find((item) => item.getAttribute('aria-expanded') === 'true');
+      if (current === trigger) return;
+
+      this.triggers.forEach((item) => {
+        const open = item === trigger;
+        item.setAttribute('aria-expanded', String(open));
+        const serviceItem = item.closest('[data-bnon-service-item]');
+        serviceItem?.classList.toggle('is-open', open);
+        const panel = serviceItem?.querySelector('[data-bnon-service-panel]');
+        panel?.setAttribute('aria-hidden', String(!open));
+        serviceItem?.querySelectorAll('[data-bnon-service-link]').forEach((link) => {
+          link.tabIndex = open ? 0 : -1;
+        });
+      });
+    }
+  }
+
+  customElements.define('bnon-what-we-do', BnonWhatWeDo);
+}
+
+if (!customElements.get('bnon-process')) {
+  class BnonProcess extends HTMLElement {
+    connectedCallback() {
+      if (this.controller) return;
+
+      this.triggers = Array.from(this.querySelectorAll('[data-bnon-process-trigger]'));
+      this.panels = Array.from(this.querySelectorAll('[data-bnon-process-panel]'));
+      this.images = Array.from(this.querySelectorAll('[data-bnon-process-image]'));
+      this.progress = this.querySelector('[data-bnon-process-progress]');
+      this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
+      this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.currentIndex = 0;
+      this.visible = false;
+      this.timer = null;
+      this.layerTimers = new Map();
+      if (!this.triggers.length || !this.panels.length || !this.progress) return;
+
+      this.controller = new AbortController();
+      const options = { signal: this.controller.signal };
+      this.triggers.forEach((trigger) => trigger.addEventListener('click', () => this.activate(this.triggers.indexOf(trigger), true), options));
+      document.addEventListener('visibilitychange', () => this.syncAutoplay(), options);
+      document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
+      this.reduced.addEventListener('change', () => this.syncAutoplay(), options);
+      this.observer = new IntersectionObserver(([entry]) => {
+        this.visible = entry.isIntersecting;
+        this.syncAutoplay();
+      }, { threshold: 0.2 });
+      this.observer.observe(this);
+      this.updateProgress(false);
+      this.syncAutoplay();
+    }
+
+    disconnectedCallback() {
+      this.stopAutoplay();
+      this.layerTimers?.forEach((timer) => clearTimeout(timer));
+      this.layerTimers?.clear();
+      this.observer?.disconnect();
+      this.controller?.abort();
+      this.controller = null;
+    }
+
+    onBlockSelect(event) {
+      if (this.sectionId && event.detail.sectionId !== this.sectionId) return;
+      const index = this.triggers.findIndex((trigger) => trigger.dataset.bnonProcessId === event.detail.blockId);
+      if (index >= 0) this.activate(index, true);
+    }
+
+    canAutoplay() {
+      return this.dataset.enableAutoplay === 'true' && !this.reduced.matches && this.visible && !document.hidden && this.triggers.length > 1;
+    }
+
+    syncAutoplay() {
+      this.stopAutoplay();
+      if (!this.canAutoplay()) return;
+      const interval = Number(this.dataset.autoplayInterval) || 5000;
+      this.timer = window.setTimeout(() => this.activate((this.currentIndex + 1) % this.triggers.length), interval);
+    }
+
+    stopAutoplay() {
+      if (this.timer) clearTimeout(this.timer);
+      this.timer = null;
+    }
+
+    activate(index, userInitiated = false) {
+      if (index < 0 || index >= this.triggers.length) return;
+      const previousIndex = this.currentIndex;
+      const changed = index !== previousIndex;
+      this.currentIndex = index;
+      this.stopAutoplay();
+
+      this.triggers.forEach((trigger, triggerIndex) => {
+        const active = triggerIndex === index;
+        trigger.classList.toggle('is-active', active);
+        trigger.setAttribute('aria-current', active ? 'step' : 'false');
+      });
+      this.panels.forEach((panel, panelIndex) => this.toggleLayer(panel, panelIndex === index, changed));
+      this.images.forEach((image, imageIndex) => this.toggleLayer(image, imageIndex === index, changed));
+      this.updateProgress(changed && index < previousIndex);
+      this.syncAutoplay();
+    }
+
+    toggleLayer(layer, active, animate) {
+      const existingTimer = this.layerTimers.get(layer);
+      if (existingTimer) clearTimeout(existingTimer);
+      this.layerTimers.delete(layer);
+      if (active) {
+        layer.hidden = false;
+        layer.classList.remove('is-leaving');
+        if (animate && !this.reduced.matches) requestAnimationFrame(() => layer.classList.add('is-active'));
+        else layer.classList.add('is-active');
+        return;
+      }
+      if (!layer.classList.contains('is-active')) return;
+      layer.classList.remove('is-active');
+      if (!animate || this.reduced.matches) {
+        layer.hidden = true;
+        return;
+      }
+      layer.classList.add('is-leaving');
+      const timer = window.setTimeout(() => {
+        layer.hidden = true;
+        layer.classList.remove('is-leaving');
+        this.layerTimers.delete(layer);
+      }, 650);
+      this.layerTimers.set(layer, timer);
+    }
+
+    updateProgress(skipTransition) {
+      const fraction = (this.currentIndex + 0.5) / this.triggers.length;
+      this.progress.classList.toggle('is-resetting', skipTransition);
+      this.progress.style.setProperty('--bnon-process-progress', String(fraction));
+      if (skipTransition) requestAnimationFrame(() => this.progress.classList.remove('is-resetting'));
+    }
+  }
+
+  customElements.define('bnon-process', BnonProcess);
+}
