@@ -11,80 +11,285 @@
   "sections": {
     "bnon_hero": {
       "type": "bnon-hero",
-      "settings": {}
+      "settings": {
+        "heading": "YOUR BRAND’S\nUNIVERSE\nSTARTS HERE",
+        "accent_text": ".",
+        "keyword_line": "SHOPIFY · DESIGN · GLOBAL COMMERCE",
+        "description": "브랜드의 정체성을 Shopify 스토어로 구현하고\n글로벌 판매 환경까지 연결합니다.",
+        "portfolio_label": "VIEW PORTFOLIO ↓",
+        "portfolio_link": "",
+        "contact_label": "프로젝트 문의하기",
+        "contact_link": "",
+        "show_universe": true
+      }
     },
-    "image_banner": {
-      "type": "image-banner",
-      "disabled": true,
+    "bnon_main_portfolio": {
+      "type": "bnon-main-portfolio",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "monclos": {
+          "type": "project",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "published": true,
+            "project_name": "MONCLOS",
+            "category": "BEAUTY · SKINCARE",
+            "scope_1": "BRAND STRATEGY",
+            "scope_2": "UX/UI DESIGN",
+            "scope_3": "SHOPIFY DEVELOPMENT",
+            "background_image": "shopify://shop_images/main-fullscreen01.webp",
+            "mockup_image": "shopify://shop_images/MONCLOS-mockup.webp",
+            "view_project_label": "VIEW PROJECT",
+            "project_link": ""
           }
         },
-        "button": {
-          "type": "buttons",
+        "entalpy": {
+          "type": "project",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "published": true,
+            "project_name": "ENTALPY",
+            "category": "PERFUME • FRAGRANCE",
+            "scope_1": "BRAND STRATEGY",
+            "scope_2": "UX/UI DESIGN",
+            "scope_3": "SHOPIFY DEVELOPMENT",
+            "background_image": "shopify://shop_images/main-fullscreen02.webp",
+            "mockup_image": "shopify://shop_images/Entalpy-mockup.webp",
+            "view_project_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "ollocdam": {
+          "type": "project",
+          "settings": {
+            "published": true,
+            "project_name": "OLLOCDAM",
+            "category": "WELLNESS • NUTRITION",
+            "scope_1": "BRAND STRATEGY",
+            "scope_2": "UX/UI DESIGN",
+            "scope_3": "SHOPIFY DEVELOPMENT",
+            "background_image": "shopify://shop_images/main-fullscreen03.webp",
+            "mockup_image": "shopify://shop_images/ollocdam-mockup.webp",
+            "view_project_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "cclime": {
+          "type": "project",
+          "settings": {
+            "published": true,
+            "project_name": "CCLIME",
+            "category": "BEAUTY • SKINCARE",
+            "scope_1": "BRAND STRATEGY",
+            "scope_2": "UX/UI DESIGN",
+            "scope_3": "SHOPIFY DEVELOPMENT",
+            "background_image": "shopify://shop_images/main-fullscreen04.webp",
+            "mockup_image": "shopify://shop_images/CCLIME-mockup.webp",
+            "view_project_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "hozi": {
+          "type": "project",
+          "settings": {
+            "published": true,
+            "project_name": "HOZI",
+            "category": "PET • LIFESTYLE",
+            "scope_1": "GLOBAL E-COMMERCE",
+            "scope_2": "UX/UI DESIGN",
+            "scope_3": "SHOPIFY DEVELOPMENT",
+            "background_image": "shopify://shop_images/main-fullscreen05.webp",
+            "mockup_image": "shopify://shop_images/hozi-mockup.webp",
+            "view_project_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "inmi_seoul": {
+          "type": "project",
+          "settings": {
+            "published": true,
+            "project_name": "INMI SEOUL",
+            "category": "BEAUTY • SKINCARE",
+            "scope_1": "BRAND STRATEGY",
+            "scope_2": "UX/UI DESIGN",
+            "scope_3": "SHOPIFY DEVELOPMENT",
+            "background_image": "shopify://shop_images/main-fullscreen06.webp",
+            "mockup_image": "shopify://shop_images/inmi-mockup.webp",
+            "view_project_label": "VIEW PROJECT",
+            "project_link": ""
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "monclos",
+        "entalpy",
+        "ollocdam",
+        "cclime",
+        "hozi",
+        "inmi_seoul"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "heading": "Portfolio",
+        "view_all_label": "VIEW ALL PROJECT",
+        "view_all_link": "",
+        "enable_next_hint": true
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "bnon_what_we_do": {
+      "type": "bnon-what-we-do",
+      "blocks": {
+        "shopify_store_development": {
+          "type": "service",
+          "settings": {
+            "title_en": "SHOPIFY STORE DEVELOPMENT",
+            "title_ko": "쇼피파이 스토어 구축",
+            "description": "브랜드의 정체성과 비즈니스 목표를 반영해 사용하기 쉽고 확장 가능한 Shopify 스토어를 구축합니다.\n기획부터 UX/UI 디자인, 개발과 오픈까지 전 과정을 함께합니다.",
+            "feature_text": "브랜드 전략 · UX/UI 디자인 · Shopify 개발",
+            "link_label": "서비스 자세히 보기 →",
+            "link": ""
+          }
+        },
+        "digital_marketing": {
+          "type": "service",
+          "settings": {
+            "title_en": "DIGITAL MARKETING",
+            "title_ko": "디지털 마케팅",
+            "description": "브랜드와 고객이 만나는 접점을 설계하고  데이터를 기반으로 최적의 마케팅 전략을 구축합니다.  광고 운영부터 성과 분석까지, \n지속 가능한 브랜드 성장을 지원합니다.",
+            "feature_text": "퍼포먼스 마케팅 · 데이터 분석 · 광고 운영",
+            "link_label": "서비스 자세히 보기 →",
+            "link": ""
+          }
+        },
+        "service_QqNdAT": {
+          "type": "service",
+          "settings": {
+            "title_en": "",
+            "title_ko": "",
+            "description": "",
+            "feature_text": "",
+            "link_label": "서비스 자세히 보기 →",
+            "link": ""
+          }
+        },
+        "us_corporation_3pl": {
+          "type": "service",
+          "settings": {
+            "title_en": "US CORPORATION & 3PL",
+            "title_ko": "미국 법인 설립 & 3PL",
+            "description": "미국 시장 진출에 필요한 법인 설립부터 \n물류 운영과 배송 시스템 구축까지 지원합니다.\n복잡한 해외 진출 과정을 효율적으로 연결합니다.",
+            "feature_text": "미국 법인 설립 · 3PL 물류 · 해외 진출",
+            "link_label": "서비스 자세히 보기 →",
+            "link": ""
+          }
+        },
+        "amazon": {
+          "type": "service",
+          "settings": {
+            "title_en": "AMAZON",
+            "title_ko": "아마존 입점 & 운영",
+            "description": "아마존 입점에 필요한 초기 세팅부터\n상품 등록과 스토어 운영 전반을 지원합니다.\n글로벌 마켓에서 안정적인 판매 환경을 구축합니다.",
+            "feature_text": "아마존 입점 · 상품 등록 · 스토어 운영",
+            "link_label": "서비스 자세히 보기 →",
+            "link": ""
+          }
+        },
+        "shopify_education": {
+          "type": "service",
+          "settings": {
+            "title_en": "SHOPIFY EDUCATION",
+            "title_ko": "쇼피파이 관리자 교육",
+            "description": "쇼피파이 스토어를 직접 운영할 수 있도록\n관리자 기능부터 상품·주문 관리까지 교육합니다.실무에 바로 활용할 수 있는 운영 역량을 제공합니다.",
+            "feature_text": "",
+            "link_label": "서비스 자세히 보기 →",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "shopify_store_development",
+        "digital_marketing",
+        "service_QqNdAT",
+        "us_corporation_3pl",
+        "amazon",
+        "shopify_education"
+      ],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "eyebrow": "WHAT WE DO",
+        "heading": "FROM STORE TO GLOBAL.",
+        "description": "브랜드 구축부터 글로벌 판매와 운영까지, 비앤온은 커머스의 전 과정을 연결합니다."
+      }
+    },
+    "bnon_process_cB4aMH": {
+      "type": "bnon-process",
+      "blocks": {
+        "step_aRQ9f3": {
+          "type": "step",
+          "settings": {
+            "title": "상담 및 방향 설정",
+            "description": "브랜드의 목표와 필요한 기능, 프로젝트 범위를 함께 확인합니다.",
+            "feature_text": "프로젝트 브리프 · 목표 설정 · 범위 협의",
+            "confirm_text": "",
+            "image": "shopify://shop_images/process_img01.webp"
+          }
+        },
+        "step_epbLa4": {
+          "type": "step",
+          "settings": {
+            "title": "전략 및 구조 설계",
+            "description": "사용자 흐름과 콘텐츠를 정리하고 스토어의 전체 구조를 설계합니다.",
+            "feature_text": "사이트맵 · 사용자 흐름 · 콘텐츠 구조",
+            "confirm_text": "",
+            "image": "shopify://shop_images/process_img02.webp"
+          }
+        },
+        "step_Er9KAr": {
+          "type": "step",
+          "settings": {
+            "title": "UX/UI 디자인",
+            "description": "브랜드 아이덴티티를 반영해 주요 화면과 사용자 경험을 디자인합니다",
+            "feature_text": "디자인 방향 · 주요 화면 · 반응형 UI",
+            "confirm_text": "CONFIRM 01 — 디자인 방향 확인",
+            "image": "shopify://shop_images/process_img03.webp"
+          }
+        },
+        "step_wfMJEn": {
+          "type": "step",
+          "settings": {
+            "title": "Shopify 구축",
+            "description": "확정된 디자인을 기반으로 반응형 화면과 필요한 기능을 구현합니다.",
+            "feature_text": "테마 개발 · 기능 구현 · 반응형 적용",
+            "confirm_text": "CONFIRM 02 — 기능 및 최종 검수",
+            "image": "shopify://shop_images/process_img04.webp"
+          }
+        },
+        "step_yJBqTM": {
+          "type": "step",
+          "settings": {
+            "title": "스토어 오픈 및 운영 지원",
+            "description": "결제와 배송 환경을 점검하고 안정적인 오픈과 운영을 지원합니다.",
+            "feature_text": "최종 점검 · 스토어 오픈 · 운영 지원",
+            "confirm_text": "",
+            "image": "shopify://shop_images/process_img05.webp"
+          }
+        }
+      },
+      "block_order": [
+        "step_aRQ9f3",
+        "step_epbLa4",
+        "step_Er9KAr",
+        "step_wfMJEn",
+        "step_yJBqTM"
+      ],
+      "name": "B&ON PROCESS",
+      "settings": {
+        "heading": "PROCESS",
+        "description": "함께 확인하며 완성하는 B&ON의 프로젝트 진행 과정",
+        "enable_autoplay": true,
+        "autoplay_interval": 5
       }
     }
   },
   "order": [
     "bnon_hero",
-    "image_banner",
-    "featured_collection"
+    "bnon_main_portfolio",
+    "bnon_what_we_do",
+    "bnon_process_cB4aMH"
   ]
 }
