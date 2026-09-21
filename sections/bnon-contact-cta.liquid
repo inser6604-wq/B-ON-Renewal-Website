@@ -1,0 +1,71 @@
+<script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign clip_id = 'bnon-contact-universe-clip-' | append: section.id
+  assign primary_link = section.settings.primary_button_link | default: '/pages/contact'
+  assign secondary_link = section.settings.secondary_button_link | default: '/pages/contact'
+-%}
+
+<section class="bnon-section bnon-contact" aria-labelledby="bnon-contact-heading-{{ section.id }}">
+  <div class="bnon-container bnon-contact__container">
+    <h2 class="bnon-contact__heading" id="bnon-contact-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+    <div class="bnon-contact__layout">
+      <div class="bnon-contact__content">
+        <div class="bnon-contact__copy">
+          <h3 class="bnon-contact__title">{{ section.settings.title | escape }}</h3>
+          {%- if section.settings.description != blank -%}<p class="bnon-contact__description">{{ section.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+          {%- if section.settings.service_note != blank -%}<p class="bnon-contact__note">{{ section.settings.service_note | escape }}</p>{%- endif -%}
+        </div>
+        <div class="bnon-contact__actions">
+          <a class="bnon-contact__button bnon-contact__button--primary" href="{{ primary_link | escape }}">{{ section.settings.primary_button_label | escape }}</a>
+          <a class="bnon-contact__button bnon-contact__button--secondary" href="{{ secondary_link | escape }}">{{ section.settings.secondary_button_label | escape }}</a>
+        </div>
+      </div>
+
+      <div class="bnon-contact__visual">
+        <bnon-hero-universe class="bnon-contact__universe">
+          <div class="bnon-contact__art" aria-hidden="true">
+            <svg class="bnon-contact__svg" viewBox="-220 -220 440 440" focusable="false" aria-hidden="true">
+              <defs><clipPath id="{{ clip_id }}"><circle cx="0" cy="0" r="184" /></clipPath></defs>
+              <circle class="bnon-contact__sphere" cx="0" cy="0" r="184" />
+              <g clip-path="url(#{{ clip_id }})">
+                <path class="bnon-contact__ring" data-bnon-ring-a d="M -164 -73 A 180 70 24 1 0 164 73 A 180 70 24 1 0 -164 -73 Z" />
+                <path class="bnon-contact__ring" data-bnon-ring-b d="M -77 41 A 87 180 -28 1 0 77 -41 A 87 180 -28 1 0 -77 41 Z" />
+                <circle class="bnon-contact__planet" data-bnon-planet-a cx="142" cy="87" r="4" />
+                <circle class="bnon-contact__planet" data-bnon-planet-b cx="-83" cy="31" r="3" />
+              </g>
+            </svg>
+          </div>
+          <button class="bnon-contact__motion" type="button" data-bnon-motion-toggle hidden><span data-bnon-motion-label>애니메이션 일시정지</span></button>
+        </bnon-hero-universe>
+        <p class="bnon-contact__bubble bnon-contact__bubble--one">{{ section.settings.bubble_1_text | escape }}</p>
+        <p class="bnon-contact__bubble bnon-contact__bubble--two">{{ section.settings.bubble_2_text | escape }}</p>
+        <p class="bnon-contact__bubble bnon-contact__bubble--three">{{ section.settings.bubble_3_text | escape }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Contact CTA",
+  "tag": "div",
+  "class": "bnon-contact-cta-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "제목", "default": "CONTACT US" },
+    { "type": "text", "id": "title", "label": "안내 제목", "default": "새로운 프로젝트를 준비하고 계신가요?" },
+    { "type": "textarea", "id": "description", "label": "설명", "default": "브랜드의 시작부터 글로벌 확장까지,\n프로젝트에 대한 간단한 정보를 남겨주시면 확인 후 빠르게 연락드리겠습니다." },
+    { "type": "text", "id": "service_note", "label": "상담 안내", "default": "연중무휴 / 24시간 상담" },
+    { "type": "text", "id": "primary_button_label", "label": "주요 버튼 문구", "default": "프로젝트 문의하기" },
+    { "type": "url", "id": "primary_button_link", "label": "주요 버튼 링크" },
+    { "type": "text", "id": "secondary_button_label", "label": "보조 버튼 문구", "default": "실시간 문의" },
+    { "type": "url", "id": "secondary_button_link", "label": "보조 버튼 링크" },
+    { "type": "text", "id": "bubble_1_text", "label": "말풍선 1", "default": "어떤 프로젝트를 준비하고 계신가요?" },
+    { "type": "text", "id": "bubble_2_text", "label": "말풍선 2", "default": "글로벌 Shopify 스토어가 필요해요." },
+    { "type": "text", "id": "bubble_3_text", "label": "말풍선 3", "default": "비앤온이 함께하겠습니다." }
+  ],
+  "presets": [{ "name": "B&ON Contact CTA" }]
+}
+{% endschema %}

@@ -27,7 +27,7 @@
   }
 {%- endstyle -%}
 
-<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+<footer class="footer dawn-footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   {%- liquid
     assign has_social_icons = true
     if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
@@ -321,6 +321,69 @@
   </div>
 </footer>
 
+{%- liquid
+  assign bnon_footer_menu = section.settings.bnon_shopify_menu
+  if bnon_footer_menu == blank
+    for block in section.blocks
+      if block.type == 'link_list' and block.settings.menu != blank
+        assign bnon_footer_menu = block.settings.menu
+        break
+      endif
+    endfor
+  endif
+  if bnon_footer_menu == blank
+    assign bnon_footer_menu = linklists.footer
+  endif
+-%}
+
+<footer class="bnon-section bnon-footer" aria-label="{{ shop.name | escape }} footer">
+  <div class="bnon-footer__container">
+    <p class="bnon-footer__brand">{{ section.settings.bnon_logo_text | escape }}</p>
+
+    <nav class="bnon-footer__column bnon-footer__column--menu" aria-label="Shopify navigation">
+      <h2 class="bnon-footer__title">SHOPIFY</h2>
+      {%- assign bnon_footer_menu_labels = 'PORTFOLIO|쇼피파이 계정생성 가이드|강의 커리큘럼|About Shopify (BLOG)' | split: '|' -%}
+      <ul class="bnon-footer__links" role="list">
+        {%- for label in bnon_footer_menu_labels -%}
+          {%- assign matched_link = blank -%}
+          {%- if bnon_footer_menu != blank -%}
+            {%- for link in bnon_footer_menu.links -%}
+              {%- if link.title == label -%}
+                {%- assign matched_link = link -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+          <li>{% if matched_link != blank %}<a href="{{ matched_link.url }}">{{ label }}</a>{% else %}<span>{{ label }}</span>{% endif %}</li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="bnon-footer__column bnon-footer__column--contact">
+      <h2 class="bnon-footer__title">CONTACT</h2>
+      <div class="bnon-footer__contact">
+        {%- if section.settings.bnon_contact_label != blank -%}<p>{{ section.settings.bnon_contact_label | escape }}</p>{%- endif -%}
+        {%- if section.settings.bnon_contact_email != blank -%}<p><a href="mailto:{{ section.settings.bnon_contact_email | escape }}">{{ section.settings.bnon_contact_email | escape }}</a></p>{%- endif -%}
+        {%- if section.settings.bnon_contact_phone != blank -%}<p>{{ section.settings.bnon_contact_phone | escape }}</p>{%- endif -%}
+        {%- if section.settings.bnon_contact_hours != blank -%}<p>{{ section.settings.bnon_contact_hours | escape | newline_to_br }}</p>{%- endif -%}
+      </div>
+    </div>
+
+    <nav class="bnon-footer__column bnon-footer__column--policy" aria-label="Policy navigation">
+      <h2 class="bnon-footer__title">POLICY</h2>
+      {%- if section.settings.show_policy -%}
+        <ul class="bnon-footer__links" role="list">
+          {%- for policy in shop.policies -%}
+            {%- if policy != blank -%}
+              <li><a href="{{ policy.url }}">{% case policy.title %}{% when '개인정보처리방침', 'Privacy Policy' %}Privacy Policy{% when '서비스 약관', 'Terms of Service' %}Terms of Service{% else %}{{ policy.title | escape }}{% endcase %}</a></li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </nav>
+  </div>
+</footer>
+
 {% schema %}
 {
   "name": "t:sections.footer.name",
@@ -429,6 +492,46 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "B&ON Footer"
+    },
+    {
+      "type": "text",
+      "id": "bnon_logo_text",
+      "label": "로고 텍스트",
+      "default": "B&ON UNIVERSE"
+    },
+    {
+      "type": "link_list",
+      "id": "bnon_shopify_menu",
+      "label": "SHOPIFY 메뉴",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "bnon_contact_label",
+      "label": "CONTACT 안내 제목",
+      "default": "Shopify 문의"
+    },
+    {
+      "type": "text",
+      "id": "bnon_contact_email",
+      "label": "CONTACT 이메일",
+      "default": "contact@bnonu.com"
+    },
+    {
+      "type": "text",
+      "id": "bnon_contact_phone",
+      "label": "CONTACT 전화번호",
+      "default": "+82 10 2352 0212 / +82 10 6396 5756"
+    },
+    {
+      "type": "textarea",
+      "id": "bnon_contact_hours",
+      "label": "CONTACT 상담 안내",
+      "default": "연중무휴 / 24시간 상담 /\n온라인미팅 / 대면미팅"
     },
     {
       "type": "header",

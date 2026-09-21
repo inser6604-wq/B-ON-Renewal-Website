@@ -589,6 +589,23 @@
         "subheading": "자주 묻는 질문들",
         "description": "쇼피파이 구축, 글로벌 확장, 운영 방식에 대해\n가장 자주 묻는 질문을 정리했습니다."
       }
+    },
+    "bnon_contact_cta_j9UnD6": {
+      "type": "bnon-contact-cta",
+      "name": "B&ON Contact CTA",
+      "settings": {
+        "heading": "CONTACT US",
+        "title": "새로운 프로젝트를 준비하고 계신가요?",
+        "description": "브랜드의 시작부터 글로벌 확장까지,\n프로젝트에 대한 간단한 정보를 남겨주시면 확인 후 빠르게 연락드리겠습니다.",
+        "service_note": "연중무휴 / 24시간 상담",
+        "primary_button_label": "프로젝트 문의하기",
+        "primary_button_link": "",
+        "secondary_button_label": "실시간 문의",
+        "secondary_button_link": "",
+        "bubble_1_text": "어떤 프로젝트를 준비하고 계신가요?",
+        "bubble_2_text": "글로벌 Shopify 스토어가 필요해요.",
+        "bubble_3_text": "비앤온이 함께하겠습니다."
+      }
     }
   },
   "order": [
@@ -597,6 +614,7 @@
     "bnon_what_we_do",
     "bnon_process_cB4aMH",
     "bnon_our_universe_pfnmUh",
-    "bnon_faq_aWhtwX"
+    "bnon_faq_aWhtwX",
+    "bnon_contact_cta_j9UnD6"
   ]
 }
