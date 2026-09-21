@@ -1,0 +1,32 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "bnon_portfolio_gallery": {
+      "type": "bnon-portfolio-gallery",
+      "blocks": {
+        "project_01": { "type": "project", "settings": { "project_name": "PROJECT 01", "category": "" } },
+        "project_02": { "type": "project", "settings": { "project_name": "PROJECT 02", "category": "" } },
+        "project_03": { "type": "project", "settings": { "project_name": "PROJECT 03", "category": "" } },
+        "project_04": { "type": "project", "settings": { "project_name": "PROJECT 04", "category": "" } },
+        "project_05": { "type": "project", "settings": { "project_name": "PROJECT 05", "category": "" } },
+        "project_06": { "type": "project", "settings": { "project_name": "PROJECT 06", "category": "" } },
+        "project_07": { "type": "project", "settings": { "project_name": "PROJECT 07", "category": "" } }
+      },
+      "block_order": ["project_01", "project_02", "project_03", "project_04", "project_05", "project_06", "project_07"],
+      "settings": {
+        "heading": "PORTFOLIO",
+        "description": "다양한 브랜드와 함께 완성한\n글로벌 커머스 프로젝트를 만나보세요",
+        "eyebrow": "Brands We’ve Built With."
+      }
+    }
+  },
+  "order": ["bnon_portfolio_gallery"]
+}

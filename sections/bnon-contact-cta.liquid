@@ -8,17 +8,19 @@
 
 <section class="bnon-section bnon-contact" aria-labelledby="bnon-contact-heading-{{ section.id }}">
   <div class="bnon-container bnon-contact__container">
-    <h2 class="bnon-contact__heading" id="bnon-contact-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
     <div class="bnon-contact__layout">
-      <div class="bnon-contact__content">
-        <div class="bnon-contact__copy">
-          <h3 class="bnon-contact__title">{{ section.settings.title | escape }}</h3>
-          {%- if section.settings.description != blank -%}<p class="bnon-contact__description">{{ section.settings.description | escape | newline_to_br }}</p>{%- endif -%}
-          {%- if section.settings.service_note != blank -%}<p class="bnon-contact__note">{{ section.settings.service_note | escape }}</p>{%- endif -%}
-        </div>
-        <div class="bnon-contact__actions">
-          <a class="bnon-contact__button bnon-contact__button--primary" href="{{ primary_link | escape }}">{{ section.settings.primary_button_label | escape }}</a>
-          <a class="bnon-contact__button bnon-contact__button--secondary" href="{{ secondary_link | escape }}">{{ section.settings.secondary_button_label | escape }}</a>
+      <div class="bnon-contact__text-group">
+        <h2 class="bnon-contact__heading" id="bnon-contact-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+        <div class="bnon-contact__content">
+          <div class="bnon-contact__copy">
+            <h3 class="bnon-contact__title">{{ section.settings.title | escape }}</h3>
+            {%- if section.settings.description != blank -%}<p class="bnon-contact__description">{{ section.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+            {%- if section.settings.service_note != blank -%}<p class="bnon-contact__note">{{ section.settings.service_note | escape }}</p>{%- endif -%}
+          </div>
+          <div class="bnon-contact__actions">
+            <a class="bnon-contact__button bnon-contact__button--primary" href="{{ primary_link | escape }}">{{ section.settings.primary_button_label | escape }}</a>
+            <a class="bnon-contact__button bnon-contact__button--secondary" href="{{ secondary_link | escape }}">{{ section.settings.secondary_button_label | escape }}</a>
+          </div>
         </div>
       </div>
 

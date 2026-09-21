@@ -1,0 +1,61 @@
+<section class="bnon-section bnon-portfolio-gallery" aria-labelledby="bnon-portfolio-gallery-heading-{{ section.id }}">
+  <div class="bnon-container bnon-portfolio-gallery__intro">
+    <h1 class="bnon-portfolio-gallery__heading" id="bnon-portfolio-gallery-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
+    {%- if section.settings.description != blank -%}<p class="bnon-portfolio-gallery__description">{{ section.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+    {%- if section.settings.eyebrow != blank -%}<p class="bnon-portfolio-gallery__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+  </div>
+
+  <div class="bnon-portfolio-gallery__stage" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리">
+    {%- for block in section.blocks limit: 7 -%}
+      <article class="bnon-portfolio-gallery__card" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'bnon-portfolio-gallery__image', widths: '320, 480, 640, 900, 1200', sizes: '(min-width: 1024px) 25vw, 80vw', alt: block.settings.image.alt, loading: 'lazy' }}
+        {%- else -%}
+          <div class="bnon-portfolio-gallery__placeholder" aria-hidden="true"></div>
+        {%- endif -%}
+      </article>
+    {%- endfor -%}
+  </div>
+
+  <div class="bnon-portfolio-gallery__next-boundary" aria-hidden="true"></div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Portfolio Gallery",
+  "tag": "div",
+  "class": "bnon-portfolio-gallery-section",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 7,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "제목", "default": "PORTFOLIO" },
+    { "type": "textarea", "id": "description", "label": "설명", "default": "다양한 브랜드와 함께 완성한\n글로벌 커머스 프로젝트를 만나보세요" },
+    { "type": "text", "id": "eyebrow", "label": "보조 문구", "default": "Brands We’ve Built With." }
+  ],
+  "blocks": [
+    {
+      "type": "project",
+      "name": "Portfolio 프로젝트",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "갤러리 이미지" },
+        { "type": "text", "id": "project_name", "label": "프로젝트명", "default": "PROJECT" },
+        { "type": "text", "id": "category", "label": "카테고리" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON Portfolio Gallery",
+      "blocks": [
+        { "type": "project", "settings": { "project_name": "PROJECT 01" } },
+        { "type": "project", "settings": { "project_name": "PROJECT 02" } },
+        { "type": "project", "settings": { "project_name": "PROJECT 03" } },
+        { "type": "project", "settings": { "project_name": "PROJECT 04" } },
+        { "type": "project", "settings": { "project_name": "PROJECT 05" } },
+        { "type": "project", "settings": { "project_name": "PROJECT 06" } },
+        { "type": "project", "settings": { "project_name": "PROJECT 07" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
