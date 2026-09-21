@@ -445,3 +445,151 @@ if (!customElements.get('bnon-faq')) {
 
   customElements.define('bnon-faq', BnonFaq);
 }
+
+if (!customElements.get('bnon-review')) {
+  class BnonReview extends HTMLElement {
+    connectedCallback() {
+      if (this.controller) return;
+
+      this.viewport = this.querySelector('[data-bnon-review-viewport]');
+      this.cards = Array.from(this.querySelectorAll('[data-bnon-review-card]'));
+      this.current = this.querySelector('[data-bnon-review-current]');
+      this.total = this.querySelector('[data-bnon-review-total]');
+      this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
+      if (!this.viewport || !this.cards.length || !this.current || !this.total) return;
+
+      this.controller = new AbortController();
+      const options = { signal: this.controller.signal };
+      this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.enableAutoplay = this.dataset.enableAutoplay === 'true' && !this.reduced.matches;
+      this.autoplaySpeed = Number.parseInt(this.dataset.autoplaySpeed, 10) || 5000;
+      this.isVisible = true;
+      this.total.textContent = String(this.cards.length).padStart(2, '0');
+      this.viewport.addEventListener('scroll', () => this.updateCurrent(), options);
+      this.viewport.addEventListener('pointerdown', (event) => this.onPointerDown(event), options);
+      this.viewport.addEventListener('pointermove', (event) => this.onPointerMove(event), options);
+      this.viewport.addEventListener('pointerup', () => this.onPointerUp(), options);
+      this.viewport.addEventListener('pointercancel', () => this.onPointerUp(), options);
+      this.viewport.addEventListener('keydown', (event) => this.onKeydown(event), options);
+      document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
+      document.addEventListener('visibilitychange', () => this.syncAutoplay(), options);
+      window.addEventListener('resize', () => this.onResize(), options);
+      this.observer = new IntersectionObserver((entries) => {
+        this.isVisible = entries[0]?.isIntersecting || false;
+        this.syncAutoplay();
+      }, { threshold: 0.2 });
+      this.observer.observe(this);
+      this.updateCurrent();
+      this.syncAutoplay();
+    }
+
+    disconnectedCallback() {
+      if (this.frame) cancelAnimationFrame(this.frame);
+      window.clearTimeout(this.autoplayTimer);
+      this.observer?.disconnect();
+      this.observer = null;
+      this.controller?.abort();
+      this.controller = null;
+    }
+
+    onPointerDown(event) {
+      this.userInteracting = true;
+      if (event.pointerType === 'touch') return;
+      this.dragStart = event.clientX;
+      this.dragScroll = this.viewport.scrollLeft;
+      this.dragging = true;
+      this.viewport.classList.add('is-dragging');
+      this.viewport.setPointerCapture?.(event.pointerId);
+    }
+
+    onPointerMove(event) {
+      if (!this.dragging) return;
+      this.viewport.scrollLeft = this.dragScroll - (event.clientX - this.dragStart);
+    }
+
+    onPointerUp() {
+      if (this.dragging) {
+        this.dragging = false;
+        this.viewport.classList.remove('is-dragging');
+      }
+      if (this.userInteracting) {
+        this.scrollToGroup(this.currentGroup());
+        this.userInteracting = false;
+        this.restartAutoplay();
+      }
+    }
+
+    onKeydown(event) {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+      event.preventDefault();
+      const group = this.currentGroup();
+      if (event.key === 'ArrowLeft') this.scrollToGroup(Math.max(0, group - 1));
+      if (event.key === 'ArrowRight') this.scrollToGroup(Math.min(this.groupCount() - 1, group + 1));
+      if (event.key === 'Home') this.scrollToGroup(0);
+      if (event.key === 'End') this.scrollToGroup(this.groupCount() - 1);
+      this.restartAutoplay();
+    }
+
+    onBlockSelect(event) {
+      if (this.sectionId && event.detail.sectionId !== this.sectionId) return;
+      const index = this.cards.findIndex((card) => card.dataset.bnonReviewId === event.detail.blockId);
+      if (index >= 0) {
+        this.scrollToGroup(Math.floor(index / this.cardsPerView()));
+        this.restartAutoplay();
+      }
+    }
+
+    cardsPerView() {
+      if (window.matchMedia('(min-width: 1024px)').matches) return 3;
+      if (window.matchMedia('(min-width: 768px)').matches) return 2;
+      return 1;
+    }
+
+    groupCount() {
+      return Math.ceil(this.cards.length / this.cardsPerView());
+    }
+
+    currentGroup() {
+      const firstGroupCard = this.cards[this.cardsPerView()] || this.cards[0];
+      const pageWidth = firstGroupCard.offsetLeft || this.viewport.clientWidth || 1;
+      return Math.max(0, Math.min(this.groupCount() - 1, Math.round(this.viewport.scrollLeft / pageWidth)));
+    }
+
+    updateCurrent() {
+      if (this.frame) return;
+      this.frame = requestAnimationFrame(() => {
+        this.frame = null;
+        const lastVisible = Math.min(this.cards.length, (this.currentGroup() + 1) * this.cardsPerView());
+        this.current.textContent = String(lastVisible).padStart(2, '0');
+      });
+    }
+
+    scrollToGroup(group, behavior = 'smooth') {
+      const card = this.cards[group * this.cardsPerView()];
+      if (!card) return;
+      this.viewport.scrollTo({ left: card.offsetLeft, behavior });
+    }
+
+    onResize() {
+      this.scrollToGroup(this.currentGroup(), 'auto');
+      this.updateCurrent();
+    }
+
+    restartAutoplay() {
+      window.clearTimeout(this.autoplayTimer);
+      this.syncAutoplay();
+    }
+
+    syncAutoplay() {
+      window.clearTimeout(this.autoplayTimer);
+      if (!this.enableAutoplay || !this.isVisible || document.hidden) return;
+      this.autoplayTimer = window.setTimeout(() => {
+        const nextGroup = this.currentGroup() >= this.groupCount() - 1 ? 0 : this.currentGroup() + 1;
+        this.scrollToGroup(nextGroup);
+        this.syncAutoplay();
+      }, this.autoplaySpeed);
+    }
+  }
+
+  customElements.define('bnon-review', BnonReview);
+}

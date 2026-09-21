@@ -1,0 +1,49 @@
+<section class="bnon-section bnon-footer-v2" aria-label="{{ shop.name | escape }} footer">
+  <div class="bnon-footer-v2__container">
+    <div class="bnon-footer-v2__top">
+      <div class="bnon-footer-v2__identity">
+        {%- if section.settings.logo_image != blank -%}
+          {{ section.settings.logo_image | image_url: width: 394 | image_tag: class: 'bnon-footer-v2__logo-image', widths: '197, 394', alt: section.settings.logo_image.alt }}
+        {%- endif -%}
+        {%- if section.settings.tagline != blank -%}<p class="bnon-footer-v2__tagline">{{ section.settings.tagline | escape }}</p>{%- endif -%}
+      </div>
+
+      <div class="bnon-footer-v2__info-grid">
+        <div class="bnon-footer-v2__info"><p class="bnon-footer-v2__info-title">CONTACT</p>{% if section.settings.contact_link != blank %}<a href="{{ section.settings.contact_link }}">{{ section.settings.contact_label | escape }}</a>{% else %}<p>{{ section.settings.contact_label | escape }}</p>{% endif %}</div>
+        <div class="bnon-footer-v2__info"><p class="bnon-footer-v2__info-title">PROJECT</p>{% if section.settings.project_link != blank %}<a href="{{ section.settings.project_link }}">{{ section.settings.project_label | escape }}</a>{% else %}<p>{{ section.settings.project_label | escape }}</p>{% endif %}</div>
+        <div class="bnon-footer-v2__info"><p class="bnon-footer-v2__info-title">SHOPIFY</p>{% if section.settings.shopify_link != blank %}<a href="{{ section.settings.shopify_link }}">{{ section.settings.shopify_label | escape }}</a>{% else %}<p>{{ section.settings.shopify_label | escape }}</p>{% endif %}</div>
+      </div>
+    </div>
+
+    <div class="bnon-footer-v2__bottom">
+      {%- if shop.policies.size > 0 -%}
+        <nav aria-label="Policy navigation"><ul class="bnon-footer-v2__policies" role="list">{%- for policy in shop.policies -%}{%- if policy != blank -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endif -%}{%- endfor -%}</ul></nav>
+      {%- endif -%}
+      <p class="bnon-footer-v2__copyright">{{ section.settings.copyright | escape }}</p>
+    </div>
+  </div>
+  <p class="bnon-footer-v2__giant" aria-hidden="true"><span>{{ section.settings.giant_prefix | escape }}</span> <strong>{{ section.settings.giant_accent | escape }}</strong></p>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Footer",
+  "tag": "div",
+  "class": "bnon-footer-v2-section",
+  "enabled_on": { "groups": ["footer"] },
+  "settings": [
+    { "type": "image_picker", "id": "logo_image", "label": "로고 이미지" },
+    { "type": "text", "id": "tagline", "label": "태그라인", "default": "Building global commerce with Shopify." },
+    { "type": "text", "id": "contact_label", "label": "CONTACT 문구" },
+    { "type": "url", "id": "contact_link", "label": "CONTACT 링크" },
+    { "type": "text", "id": "project_label", "label": "PROJECT 문구" },
+    { "type": "url", "id": "project_link", "label": "PROJECT 링크" },
+    { "type": "text", "id": "shopify_label", "label": "SHOPIFY 문구" },
+    { "type": "url", "id": "shopify_link", "label": "SHOPIFY 링크" },
+    { "type": "text", "id": "copyright", "label": "Copyright", "default": "© 2026 B&ON UNIVERSE. All Rights Reserved." },
+    { "type": "text", "id": "giant_prefix", "label": "대형 텍스트 앞부분", "default": "B&ON" },
+    { "type": "text", "id": "giant_accent", "label": "대형 강조 텍스트", "default": "UNIVERSE" }
+  ],
+  "presets": [{ "name": "B&ON Footer" }]
+}
+{% endschema %}

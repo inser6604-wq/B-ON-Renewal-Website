@@ -11,10 +11,34 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "bnon_footer_JNbA9g": {
+      "type": "bnon-footer",
+      "name": "B&ON Footer",
+      "settings": {
+        "logo_image": "shopify://shop_images/imgi_42_secondary_logo.png",
+        "tagline": "Building global commerce with Shopify.",
+        "contact_label": "",
+        "contact_link": "",
+        "project_label": "",
+        "project_link": "",
+        "shopify_label": "",
+        "shopify_link": "",
+        "copyright": "© 2026 B&ON UNIVERSE. All Rights Reserved.",
+        "giant_prefix": "B&ON",
+        "giant_accent": "UNIVERSE"
+      }
+    },
     "footer": {
       "type": "footer",
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
+        "bnon_logo_text": "B&ON UNIVERSE",
+        "bnon_shopify_menu": "footer",
+        "bnon_contact_label": "Shopify 문의",
+        "bnon_contact_email": "contact@bnonu.com",
+        "bnon_contact_phone": "+82 10 2352 0212 / +82 10 6396 5756",
+        "bnon_contact_hours": "연중무휴 / 24시간 상담 /\n온라인미팅 / 대면미팅",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
         "enable_follow_on_shop": true,
@@ -30,6 +54,7 @@
     }
   },
   "order": [
+    "bnon_footer_JNbA9g",
     "footer"
   ]
 }

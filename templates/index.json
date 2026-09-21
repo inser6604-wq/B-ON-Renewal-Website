@@ -151,7 +151,7 @@
           "settings": {
             "title_en": "DIGITAL MARKETING",
             "title_ko": "디지털 마케팅",
-            "description": "브랜드와 고객이 만나는 접점을 설계하고  데이터를 기반으로 최적의 마케팅 전략을 구축합니다.  광고 운영부터 성과 분석까지, \n지속 가능한 브랜드 성장을 지원합니다.",
+            "description": "브랜드와 고객이 만나는 접점을 설계하고\n 데이터를 기반으로 최적의 마케팅 전략을 구축합니다.\n 광고 운영부터 성과 분석까지, \n지속 가능한 브랜드 성장을 지원합니다.",
             "feature_text": "퍼포먼스 마케팅 · 데이터 분석 · 광고 운영",
             "link_label": "서비스 자세히 보기 →",
             "link": ""
@@ -521,6 +521,86 @@
         "stat_2_description": "다양한 파트너와 이어온 신뢰 기반의 협업"
       }
     },
+    "bnon_review_client_stories": {
+      "type": "bnon-review",
+      "blocks": {
+        "review_cllime": {
+          "type": "review",
+          "settings": {
+            "review_text": "",
+            "brand_name": "CLLIME",
+            "service": "BEAUTY • SKINCARE",
+            "link_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "review_hozi": {
+          "type": "review",
+          "settings": {
+            "review_text": "",
+            "brand_name": "HOZI",
+            "service": "PET • LIFESTYLE",
+            "link_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "review_inmi_seoul": {
+          "type": "review",
+          "settings": {
+            "review_text": "",
+            "brand_name": "INMI SEOUL",
+            "service": "BEAUTY • SKINCARE",
+            "link_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "review_monclos": {
+          "type": "review",
+          "settings": {
+            "review_text": "",
+            "brand_name": "MONCLOS",
+            "service": "BEAUTY • SKINCARE",
+            "link_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "review_entalpy": {
+          "type": "review",
+          "settings": {
+            "review_text": "",
+            "brand_name": "ENTALPY",
+            "service": "PERFUME • FRAGRANCE",
+            "link_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        },
+        "review_ollocdam": {
+          "type": "review",
+          "settings": {
+            "review_text": "",
+            "brand_name": "OLLOCDAM",
+            "service": "WELLNESS • NUTRITION",
+            "link_label": "VIEW PROJECT",
+            "project_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "review_cllime",
+        "review_hozi",
+        "review_inmi_seoul",
+        "review_monclos",
+        "review_entalpy",
+        "review_ollocdam"
+      ],
+      "name": "B&ON Client Stories",
+      "settings": {
+        "heading": "CLIENT STORIES",
+        "subheading": "함께한 브랜드가 전하는 B&ON의 이야기",
+        "enable_autoplay": true,
+        "autoplay_speed": 5
+      }
+    },
     "bnon_faq_aWhtwX": {
       "type": "bnon-faq",
       "blocks": {
@@ -614,6 +694,7 @@
     "bnon_what_we_do",
     "bnon_process_cB4aMH",
     "bnon_our_universe_pfnmUh",
+    "bnon_review_client_stories",
     "bnon_faq_aWhtwX",
     "bnon_contact_cta_j9UnD6"
   ]

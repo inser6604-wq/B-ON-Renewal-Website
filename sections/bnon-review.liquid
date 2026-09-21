@@ -1,0 +1,88 @@
+<script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
+
+<bnon-review
+  data-bnon-review
+  data-enable-autoplay="{{ section.settings.enable_autoplay }}"
+  data-autoplay-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+>
+  <section class="bnon-section bnon-review" aria-labelledby="bnon-review-heading-{{ section.id }}">
+    <div class="bnon-container bnon-review__container">
+      <header class="bnon-review__header">
+        <div class="bnon-review__intro">
+          <h2 class="bnon-review__heading" id="bnon-review-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+          {%- if section.settings.subheading != blank -%}<p class="bnon-review__subheading">{{ section.settings.subheading | escape }}</p>{%- endif -%}
+        </div>
+        <p class="bnon-review__count" aria-live="polite"><span data-bnon-review-current>01</span> / <span data-bnon-review-total>{{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span></p>
+      </header>
+
+      <div class="bnon-review__viewport" data-bnon-review-viewport tabindex="0" aria-label="Client stories carousel">
+        <div class="bnon-review__track" data-bnon-review-track>
+          {%- for block in section.blocks -%}
+            <article class="bnon-review__card" data-bnon-review-card data-bnon-review-id="{{ block.id }}" {{ block.shopify_attributes }}>
+              <div class="bnon-review__image-wrap">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 900 | image_tag: class: 'bnon-review__image', widths: '320, 480, 640, 900', sizes: '(min-width: 1024px) 362px, (min-width: 768px) 42vw, 82vw', alt: block.settings.image.alt }}
+                {%- else -%}
+                  <div class="bnon-review__image-placeholder" aria-hidden="true"></div>
+                {%- endif -%}
+              </div>
+              <div class="bnon-review__content">
+                {%- if block.settings.review_text != blank -%}<p class="bnon-review__text">{{ block.settings.review_text | escape }}</p>{%- endif -%}
+                {%- if block.settings.brand_name != blank -%}<h3 class="bnon-review__brand">{{ block.settings.brand_name | escape }}</h3>{%- endif -%}
+                {%- if block.settings.service != blank -%}<p class="bnon-review__service">{{ block.settings.service | escape }}</p>{%- endif -%}
+              </div>
+              {%- if block.settings.project_link != blank -%}
+                <a class="bnon-review__link" href="{{ block.settings.project_link }}"><span>{{ block.settings.link_label | escape }}</span><span aria-hidden="true">→</span></a>
+              {%- else -%}
+                <span class="bnon-review__link is-disabled"><span>{{ block.settings.link_label | escape }}</span><span aria-hidden="true">→</span></span>
+              {%- endif -%}
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</bnon-review>
+
+{% schema %}
+{
+  "name": "B&ON Client Stories",
+  "tag": "div",
+  "class": "bnon-review-section",
+  "enabled_on": { "templates": ["index"] },
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "제목", "default": "CLIENT STORIES" },
+    { "type": "text", "id": "subheading", "label": "소제목", "default": "함께한 브랜드가 전하는 B&ON의 이야기" },
+    { "type": "checkbox", "id": "enable_autoplay", "label": "자동 슬라이드 사용", "default": true },
+    { "type": "range", "id": "autoplay_speed", "label": "자동 슬라이드 간격", "min": 3, "max": 10, "step": 1, "unit": "초", "default": 5 }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "1:1 이미지" },
+        { "type": "textarea", "id": "review_text", "label": "리뷰" },
+        { "type": "text", "id": "brand_name", "label": "브랜드명" },
+        { "type": "text", "id": "service", "label": "서비스/카테고리" },
+        { "type": "text", "id": "link_label", "label": "링크 문구", "default": "VIEW PROJECT" },
+        { "type": "url", "id": "project_link", "label": "프로젝트 링크" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON Client Stories",
+      "blocks": [
+        { "type": "review", "settings": { "brand_name": "CLLIME", "service": "BEAUTY • SKINCARE" } },
+        { "type": "review", "settings": { "brand_name": "HOZI", "service": "PET • LIFESTYLE" } },
+        { "type": "review", "settings": { "brand_name": "INMI SEOUL", "service": "BEAUTY • SKINCARE" } },
+        { "type": "review", "settings": { "brand_name": "MONCLOS", "service": "BEAUTY • SKINCARE" } },
+        { "type": "review", "settings": { "brand_name": "ENTALPY", "service": "PERFUME • FRAGRANCE" } },
+        { "type": "review", "settings": { "brand_name": "OLLOCDAM", "service": "WELLNESS • NUTRITION" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

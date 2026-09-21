@@ -1221,3 +1221,109 @@ bnon-what-we-do { display: block; }
   .bnon-footer__links,
   .bnon-footer__contact { gap: 22px; font-size: 17px; }
 }
+
+/* B&ON Footer v2 */
+.bnon-footer-v2 { position: relative; min-height: 0; padding: 57px 24px 0; overflow: hidden; color: #FFFFFF; background: #0A0A0A; }
+.bnon-footer-v2__container { position: relative; z-index: 1; width: 100%; max-width: 1284px; margin-inline: auto; }
+.bnon-footer-v2__top { display: grid; gap: 49px; max-width: 720px; }
+.bnon-footer-v2__identity { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 39px; }
+.bnon-footer-v2__logo-image { display: block; width: 197px; max-height: 42px; object-fit: contain; object-position: left center; }
+.bnon-footer-v2__logo-text { margin: 0; font-family: var(--bnon-font-latin); font-size: 22px; font-weight: var(--bnon-weight-extrabold); line-height: 24px; letter-spacing: -.04em; }
+.bnon-footer-v2__tagline { margin: 0; font-family: var(--bnon-font-korean); font-size: 24px; font-weight: var(--bnon-weight-regular); line-height: 1.2; letter-spacing: -.04em; }
+.bnon-footer-v2__info-grid { display: grid; grid-template-columns: repeat(3, max-content); gap: 86px; align-items: start; }
+.bnon-footer-v2__info { display: grid; gap: 14px; min-width: 0; }
+.bnon-footer-v2__info :is(p, a) { margin: 0; color: #FFFFFF; font-family: var(--bnon-font-korean); font-size: 16px; font-weight: var(--bnon-weight-regular); line-height: 1.2; letter-spacing: -.04em; text-decoration: none; }
+.bnon-footer-v2__info-title { font-size: 24px !important; font-weight: var(--bnon-weight-bold) !important; }
+.bnon-footer-v2__info a:hover { color: var(--bnon-color-mint); }
+.bnon-footer-v2__info a:focus-visible,
+.bnon-footer-v2__policies a:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 4px; }
+.bnon-footer-v2__bottom { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-top: 110px; color: #FFFFFF; font-family: var(--bnon-font-korean); font-size: 14px; font-weight: var(--bnon-weight-regular); line-height: 1; letter-spacing: -.04em; }
+.bnon-footer-v2__policies { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.bnon-footer-v2__policies li + li::before { content: '·'; margin-right: 8px; }
+.bnon-footer-v2__policies a { color: inherit; text-decoration: none; }
+.bnon-footer-v2__copyright { margin: 0; }
+.bnon-footer-v2__giant { position: relative; z-index: 0; width: min(1284px, 100%); max-width: none; margin: 12px auto 0; color: #FFFFFF; font-family: 'Bebas Neue', var(--bnon-font-latin); font-size: clamp(44px, calc(20.5vw - 9.84px), 300px); font-weight: var(--bnon-weight-regular); line-height: .82; letter-spacing: -.03em; white-space: nowrap; text-align: center; pointer-events: none; }
+.bnon-footer-v2__giant strong { color: var(--bnon-color-mint); font: inherit; }
+
+@media screen and (max-width: 1023px) {
+  .bnon-footer-v2 { min-height: 0; padding-top: 48px; }
+  .bnon-footer-v2__top { max-width: none; }
+  .bnon-footer-v2__info-grid { gap: 32px; }
+  .bnon-footer-v2__tagline { font-size: 21px; }
+  .bnon-footer-v2__bottom { margin-top: 78px; }
+}
+
+@media screen and (max-width: 767px) {
+  .bnon-footer-v2 { min-height: 0; padding: 40px 20px 0; }
+  .bnon-footer-v2__top { gap: 38px; }
+  .bnon-footer-v2__identity { display: grid; gap: 16px; }
+  .bnon-footer-v2__tagline { font-size: 18px; }
+  .bnon-footer-v2__info-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 20px; }
+  .bnon-footer-v2__info-title { font-size: 19px !important; }
+  .bnon-footer-v2__info :is(p, a) { font-size: 14px; overflow-wrap: anywhere; }
+  .bnon-footer-v2__bottom { display: grid; gap: 14px; margin-top: 58px; font-size: 12px; line-height: 1.2; }
+  .bnon-footer-v2__giant { bottom: -2px; font-size: clamp(42px, 14vw, 106px); letter-spacing: -.105em; }
+}
+
+/* B&ON Client Stories */
+.bnon-review { padding-block: 81px 96px; overflow: hidden; color: var(--bnon-color-black); background: var(--bnon-color-white); }
+.bnon-review .bnon-review__container { max-width: 1384px; padding-inline: 36px; }
+.bnon-review__header { display: flex; justify-content: space-between; gap: 24px; align-items: start; }
+.bnon-review__intro { display: grid; gap: 20px; }
+.bnon-review__heading,
+.bnon-review__subheading,
+.bnon-review__count,
+.bnon-review__text,
+.bnon-review__brand,
+.bnon-review__service { margin: 0; }
+.bnon-review__heading { font-family: var(--bnon-font-latin); font-size: 50px; font-weight: var(--bnon-weight-extrabold); line-height: 1; letter-spacing: -.04em; }
+.bnon-review__subheading { padding-inline: 5px; font-family: var(--bnon-font-korean); font-size: 24px; font-weight: var(--bnon-weight-extrabold); line-height: 1; letter-spacing: -.04em; }
+.bnon-review__count { padding-top: 14px; color: var(--bnon-color-blue); font-family: var(--bnon-font-korean); font-size: 22px; font-weight: var(--bnon-weight-bold); line-height: 1.6; letter-spacing: -.04em; white-space: nowrap; }
+.bnon-review__viewport { margin-top: 60px; overflow-x: auto; overflow-y: hidden; cursor: grab; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.bnon-review__viewport::-webkit-scrollbar { display: none; }
+.bnon-review__viewport:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 4px; }
+.bnon-review__viewport.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.bnon-review__track { display: grid; grid-auto-columns: calc((100% - 158px) / 3); grid-auto-flow: column; gap: 79px; padding-bottom: 8px; }
+.bnon-review__card { display: grid; grid-template-rows: auto 1fr auto; gap: 45px; min-width: 0; scroll-snap-align: start; }
+.bnon-review__image-wrap { aspect-ratio: 1; overflow: hidden; border-radius: 10px; background: #8A8A8A; }
+.bnon-review__image,
+.bnon-review__image-placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
+.bnon-review__image-placeholder { background: #8A8A8A; }
+.bnon-review__content { display: grid; align-content: start; gap: 16px; }
+.bnon-review__text { font-family: var(--bnon-font-korean); font-size: 15px; font-weight: var(--bnon-weight-semibold); line-height: 1.6; letter-spacing: -.04em; }
+.bnon-review__brand { font-family: var(--bnon-font-latin); font-size: 30px; font-weight: var(--bnon-weight-semibold); line-height: 1; letter-spacing: -.04em; }
+.bnon-review__service { color: #909090; font-family: var(--bnon-font-latin); font-size: 17px; font-weight: var(--bnon-weight-medium); line-height: 1.1; letter-spacing: -.04em; }
+.bnon-review__link { display: flex; justify-content: space-between; align-items: center; min-height: 38px; padding: 7px 0 7px 7px; border-bottom: 1px solid #151515; color: var(--bnon-color-black); font-family: var(--bnon-font-korean); font-size: 13px; font-weight: var(--bnon-weight-extrabold); line-height: 1.1; letter-spacing: -.04em; text-decoration: none; }
+.bnon-review__link > span:last-child { color: var(--bnon-color-mint); font-family: var(--bnon-font-latin); font-size: 17px; font-weight: var(--bnon-weight-extrabold); }
+.bnon-review__link:hover { color: var(--bnon-color-blue); }
+.bnon-review__link:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 4px; }
+.bnon-review__link.is-disabled { opacity: .65; }
+
+@media screen and (max-width: 1023px) {
+  .bnon-review { padding-block: 72px 80px; }
+  .bnon-review .bnon-review__container { padding-inline: 24px; }
+  .bnon-review__heading { font-size: 44px; }
+  .bnon-review__subheading { font-size: 21px; }
+  .bnon-review__track { grid-auto-columns: calc((100% - 40px) / 2); gap: 40px; }
+}
+
+@media screen and (max-width: 767px) {
+  .bnon-review { padding-block: 52px 64px; }
+  .bnon-review .bnon-review__container { padding-inline: 20px; }
+  .bnon-review__header { gap: 12px; }
+  .bnon-review__intro { gap: 14px; }
+  .bnon-review__heading { font-size: 38px; }
+  .bnon-review__subheading { padding: 0; font-size: 18px; line-height: 1.25; }
+  .bnon-review__count { padding-top: 4px; font-size: 16px; }
+  .bnon-review__viewport { margin-top: 42px; }
+  .bnon-review__track { grid-auto-columns: 100%; gap: 20px; }
+  .bnon-review__card { gap: 28px; }
+  .bnon-review__content { gap: 12px; }
+  .bnon-review__text { font-size: 14px; }
+  .bnon-review__brand { font-size: 26px; }
+  .bnon-review__service { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bnon-review__viewport { scroll-behavior: auto; }
+}
