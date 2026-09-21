@@ -13,7 +13,12 @@
   "sections": {
     "bnon_header": {
       "type": "bnon-header",
-      "settings": {}
+      "settings": {
+        "logo_text": "B&ON UNIVERSE",
+        "menu": "",
+        "contact_label": "프로젝트 문의",
+        "contact_link": ""
+      }
     }
   },
   "order": [

@@ -1,0 +1,86 @@
+<script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
+
+<bnon-faq data-bnon-faq>
+  <section class="bnon-section bnon-faq" aria-labelledby="bnon-faq-heading-{{ section.id }}">
+    <div class="bnon-container bnon-faq__container">
+      <div class="bnon-faq__layout">
+        <header class="bnon-faq__intro">
+          <h2 class="bnon-faq__heading" id="bnon-faq-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+          <p class="bnon-faq__subheading">{{ section.settings.subheading | escape }}</p>
+          {%- if section.settings.description != blank -%}
+            <div class="bnon-faq__description">{{ section.settings.description | escape | newline_to_br }}</div>
+          {%- endif -%}
+          <span class="bnon-faq__decorative-question" aria-hidden="true">?</span>
+        </header>
+
+        <div class="bnon-faq__accordion">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign trigger_id = 'bnon-faq-trigger-' | append: section.id | append: '-' | append: block.id
+              assign panel_id = 'bnon-faq-panel-' | append: section.id | append: '-' | append: block.id
+            -%}
+            <article class="bnon-faq__item{% if forloop.first %} is-open{% endif %}" data-bnon-faq-item {{ block.shopify_attributes }}>
+              <button
+                class="bnon-faq__trigger"
+                type="button"
+                id="{{ trigger_id }}"
+                aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-controls="{{ panel_id }}"
+                data-bnon-faq-trigger
+                data-bnon-faq-id="{{ block.id }}"
+              >
+                <span class="bnon-faq__question">{{ block.settings.question | escape }}</span>
+                <span class="bnon-faq__arrow" aria-hidden="true"><svg viewBox="0 0 35 35" focusable="false"><path d="M9 13.5 17.5 22 26 13.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg></span>
+              </button>
+              <div class="bnon-faq__panel-wrap">
+                <div class="bnon-faq__panel" id="{{ panel_id }}" role="region" aria-labelledby="{{ trigger_id }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" data-bnon-faq-panel>
+                  <div class="bnon-faq__answer">{{ block.settings.answer | escape | newline_to_br }}</div>
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+</bnon-faq>
+
+{% schema %}
+{
+  "name": "B&ON FAQ",
+  "tag": "div",
+  "class": "bnon-faq-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["index"] },
+  "max_blocks": 10,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "제목", "default": "FAQ" },
+    { "type": "text", "id": "subheading", "label": "소제목", "default": "자주 묻는 질문들" },
+    { "type": "textarea", "id": "description", "label": "설명", "default": "쇼피파이 구축, 글로벌 확장, 운영 방식에 대해\n가장 자주 묻는 질문을 정리했습니다." }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        { "type": "text", "id": "question", "label": "질문" },
+        { "type": "textarea", "id": "answer", "label": "답변" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON FAQ",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "프로젝트는 어떻게 시작하나요?", "answer": "온·오프라인 미팅으로 브랜드 진단부터 시작합니다.\n브랜드 현황, 목표, 시장을 함께 점검한 뒤 맞춤형 제안 방향을 안내해드립니다." } },
+        { "type": "faq", "settings": { "question": "쇼피파이 구축 기간은 얼마나 걸리나요?" } },
+        { "type": "faq", "settings": { "question": "기존 국내 자사몰을 쇼피파이로 이전할 수 있나요?" } },
+        { "type": "faq", "settings": { "question": "고객 결제 및 정산 처리과정은 어떻게 진행되나요?" } },
+        { "type": "faq", "settings": { "question": "쇼피파이 구축 후에 브랜드 내에서 직접 운영·관리가 가능한가요?" } },
+        { "type": "faq", "settings": { "question": "구축 후 운영까지 맡길 수 있나요?" } },
+        { "type": "faq", "settings": { "question": "아마존 입점이나 글로벌 마케팅도 같이 가능한가요?" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

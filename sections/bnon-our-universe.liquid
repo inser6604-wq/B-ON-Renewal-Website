@@ -1,0 +1,106 @@
+{%- liquid
+  assign visible_count = 0
+  for block in section.blocks
+    if block.settings.published
+      assign visible_count = visible_count | plus: 1
+    endif
+  endfor
+-%}
+
+<bnon-our-universe
+  data-bnon-our-universe
+  data-enable-rotation="{{ section.settings.enable_rotation }}"
+  data-pause-on-hover="{{ section.settings.pause_on_hover }}"
+  style="--bnon-universe-rotation-duration: {{ section.settings.rotation_duration }}s;"
+>
+  <section class="bnon-section bnon-our-universe" aria-labelledby="bnon-our-universe-heading-{{ section.id }}">
+    <div class="bnon-container bnon-our-universe__container">
+      <header class="bnon-our-universe__intro">
+        <h2 class="bnon-our-universe__heading" id="bnon-our-universe-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+        {%- if section.settings.description != blank -%}<p class="bnon-our-universe__description">{{ section.settings.description | escape }}</p>{%- endif -%}
+      </header>
+
+      {%- if visible_count > 0 -%}
+        <div class="bnon-our-universe__viewport" aria-label="브랜드 Universe">
+          <div class="bnon-our-universe__orbit" aria-hidden="true">
+            {%- assign visible_index = 0 -%}
+            {%- for block in section.blocks -%}
+              {%- if block.settings.published -%}
+                {%- assign angle = visible_index | times: 360 | divided_by: visible_count -%}
+                {%- assign tilt_delay = visible_index | times: section.settings.rotation_duration | times: 1000 | divided_by: visible_count | times: -1 -%}
+                <div class="bnon-our-universe__item" style="--bnon-universe-angle: {{ angle }}deg; --bnon-universe-tilt-delay: {{ tilt_delay }}ms;" {{ block.shopify_attributes }}>
+                  <div class="bnon-our-universe__item-positioner">
+                    <div class="bnon-our-universe__card">
+                      {%- if block.settings.image != blank -%}
+                        {{ block.settings.image | image_url: width: 400 | image_tag: class: 'bnon-our-universe__image', widths: '160, 240, 320, 400', sizes: '(min-width: 1024px) 122px, 92px', alt: block.settings.alt }}
+                      {%- else -%}
+                        <div class="bnon-our-universe__placeholder"></div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+                {%- assign visible_index = visible_index | plus: 1 -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      <div class="bnon-our-universe__stats" aria-label="성과">
+        <article class="bnon-our-universe__stat">
+          <p class="bnon-our-universe__stat-value">{{ section.settings.stat_1_value | escape }}</p>
+          <h3 class="bnon-our-universe__stat-title">{{ section.settings.stat_1_title | escape }}</h3>
+          <p class="bnon-our-universe__stat-description">{{ section.settings.stat_1_description | escape }}</p>
+        </article>
+        <article class="bnon-our-universe__stat">
+          <p class="bnon-our-universe__stat-value">{{ section.settings.stat_2_value | escape }}</p>
+          <h3 class="bnon-our-universe__stat-title">{{ section.settings.stat_2_title | escape }}</h3>
+          <p class="bnon-our-universe__stat-description">{{ section.settings.stat_2_description | escape }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</bnon-our-universe>
+
+{% schema %}
+{
+  "name": "B&ON Our Universe",
+  "tag": "div",
+  "class": "bnon-our-universe-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["index"] },
+  "max_blocks": 30,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "제목", "default": "OUR UNIVERSE" },
+    { "type": "textarea", "id": "description", "label": "설명", "default": "다양한 산업의 브랜드와 함께 글로벌 커머스 경험을 만들었습니다." },
+    { "type": "checkbox", "id": "enable_rotation", "label": "자동 회전 사용", "default": true },
+    { "type": "range", "id": "rotation_duration", "label": "회전 시간", "min": 12, "max": 60, "step": 1, "unit": "초", "default": 30 },
+    { "type": "checkbox", "id": "pause_on_hover", "label": "호버 시 일시정지", "default": true },
+    { "type": "text", "id": "stat_1_value", "label": "성과 1 수치", "default": "240+" },
+    { "type": "text", "id": "stat_1_title", "label": "성과 1 제목", "default": "COMPLETED PROJECTS" },
+    { "type": "textarea", "id": "stat_1_description", "label": "성과 1 설명", "default": "다양한 브랜드와 함께 만든 글로벌 커머스 경험" },
+    { "type": "text", "id": "stat_2_value", "label": "성과 2 수치", "default": "30+" },
+    { "type": "text", "id": "stat_2_title", "label": "성과 2 제목", "default": "PARTNERS" },
+    { "type": "textarea", "id": "stat_2_description", "label": "성과 2 설명", "default": "다양한 파트너와 이어온 신뢰 기반의 협업" }
+  ],
+  "blocks": [
+    {
+      "type": "universe_item",
+      "name": "Universe Item",
+      "settings": [
+        { "type": "checkbox", "id": "published", "label": "공개", "default": true },
+        { "type": "image_picker", "id": "image", "label": "완성 카드 이미지" },
+        { "type": "text", "id": "alt", "label": "대체 텍스트" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON Our Universe",
+      "blocks": [
+        { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }, { "type": "universe_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

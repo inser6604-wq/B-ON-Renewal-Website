@@ -274,12 +274,329 @@
         "enable_autoplay": true,
         "autoplay_interval": 5
       }
+    },
+    "bnon_our_universe_pfnmUh": {
+      "type": "bnon-our-universe",
+      "blocks": {
+        "universe_item_PefMHq": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_07_2x_3746786d-4b46-40cc-adab-0f08bdd7a67a.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_BLRFtM": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_06_2x_86086dfc-ece4-462e-89cb-dc8146285671.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_L9zhpB": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_01_2x_c100f405-e0eb-46a5-8ff6-c7955117940a.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_zfDc8A": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_16_2x_363bf87f-f9ec-4792-a4b1-582006580018.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_8FUbQY": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_17_2x_d41ee6e1-b531-4bbe-9145-8804a6790da9.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_D8VYzw": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_14_2x_e27f0391-e40b-43ab-98ab-5ba4059d9b53.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_Yw3KU8": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_14_2x_e27f0391-e40b-43ab-98ab-5ba4059d9b53.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_gjxPDG": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_25_2x_3124a02c-75e3-48c6-a0ba-d6d3322c1876.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_NPbPQ3": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_10_2x_5aaaf497-701d-443a-8e55-726f354a154a.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_LiJLcH": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_15_2x_e08b427d-97d1-4415-a87b-8e2bf536b4cb.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_JBf3e9": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_12_2x_8adb9aad-86a7-4101-8344-45607c0731d4.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_TGg6Ct": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_22_2x_12ad28d8-2182-4b38-bdd6-83cfb28c0fb0.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_H4XTkq": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_13_2x_ffe6ca4d-547e-4c69-9825-7bb4305b24ce.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_g9PLD8": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_04_2x_5b14cc5e-f227-4835-bd98-d83a8f843e8e.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_JyE7Wh": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_08_2x_e4aefa9f-e2fb-4842-974d-5f4d3c2b48a2.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_qzRk94": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_09_2x_5db99a0a-a75f-4c9a-a45c-92e5997e1e67.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_g4i9xr": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_23_2x_8ae8ca3a-b658-493b-9a5d-b84d4debb97a.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_DiRnaX": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_24_2x_d685cee9-9469-4342-b2c3-69cdc9f609c3.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_qKeDj4": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_19_2x_472ef834-03be-46a5-9b5b-e6de98d44625.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_jjcG3t": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_24_2x_d685cee9-9469-4342-b2c3-69cdc9f609c3.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_kiqnKz": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_18_2x_c11825d5-3bd9-4535-bee7-0ecdc3bd211d.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_JwTzEY": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_05_2x_d251fc0c-5f36-4cb3-9b9c-a46eedf8a183.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_8Yadha": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_03_2x_0f2f8890-2cc1-413d-8bf6-3ae4c422642b.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_XWa8Rk": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_02_2x_2dc5ed8e-c3fb-4ad1-8967-b2ed2ec38a30.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_eExfYF": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_04_2x_5b14cc5e-f227-4835-bd98-d83a8f843e8e.webp",
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "universe_item_PefMHq",
+        "universe_item_BLRFtM",
+        "universe_item_L9zhpB",
+        "universe_item_zfDc8A",
+        "universe_item_8FUbQY",
+        "universe_item_D8VYzw",
+        "universe_item_Yw3KU8",
+        "universe_item_gjxPDG",
+        "universe_item_NPbPQ3",
+        "universe_item_LiJLcH",
+        "universe_item_JBf3e9",
+        "universe_item_TGg6Ct",
+        "universe_item_H4XTkq",
+        "universe_item_g9PLD8",
+        "universe_item_JyE7Wh",
+        "universe_item_qzRk94",
+        "universe_item_g4i9xr",
+        "universe_item_DiRnaX",
+        "universe_item_qKeDj4",
+        "universe_item_jjcG3t",
+        "universe_item_kiqnKz",
+        "universe_item_JwTzEY",
+        "universe_item_8Yadha",
+        "universe_item_XWa8Rk",
+        "universe_item_eExfYF"
+      ],
+      "name": "B&ON Our Universe",
+      "settings": {
+        "heading": "OUR UNIVERSE",
+        "description": "다양한 산업의 브랜드와 함께 글로벌 커머스 경험을 만들었습니다.",
+        "enable_rotation": true,
+        "rotation_duration": 30,
+        "pause_on_hover": true,
+        "stat_1_value": "240+",
+        "stat_1_title": "COMPLETED PROJECTS",
+        "stat_1_description": "다양한 브랜드와 함께 만든 글로벌 커머스 경험",
+        "stat_2_value": "30+",
+        "stat_2_title": "PARTNERS",
+        "stat_2_description": "다양한 파트너와 이어온 신뢰 기반의 협업"
+      }
+    },
+    "bnon_faq_aWhtwX": {
+      "type": "bnon-faq",
+      "blocks": {
+        "faq_N3QmGy": {
+          "type": "faq",
+          "settings": {
+            "question": "프로젝트는 어떻게 시작하나요?",
+            "answer": "온·오프라인 미팅으로 브랜드 진단부터 시작합니다.\n브랜드 현황, 목표, 시장을 함께 점검한 뒤 맞춤형 제안 방향을 안내해드립니다."
+          }
+        },
+        "faq_xjxJgw": {
+          "type": "faq",
+          "settings": {
+            "question": "쇼피파이 구축 기간은 얼마나 걸리나요?",
+            "answer": "브랜드 규모와 기능 범위에 따라 다르지만, 기본 구축은 보통 2~3주 안에서 진행됩니다. \n다국어, 앱 연동, 커스텀 기능 및 디자인이 많을 경우 일정이 늘어날 수 있습니다."
+          }
+        },
+        "faq_eCfegX": {
+          "type": "faq",
+          "settings": {
+            "question": "기존 국내 자사몰을 쇼피파이로 이전할 수 있나요?",
+            "answer": "가능합니다. 상품, 컬렉션, 페이지, 기본 SEO 구조를 검토한 뒤 이전 범위를 정리합니다.\n기존 플랫폼의 데이터 구조에 따라 이전 방식은 달라질 수 있습니다."
+          }
+        },
+        "faq_w39cdd": {
+          "type": "faq",
+          "settings": {
+            "question": "고객 결제 및 정산 처리과정은 어떻게 진행되나요?",
+            "answer": "브랜드에 따라 맞춤형 PG사 안내를 도와드립니다. 브랜드 상황에 따라\n쇼피파이 페이먼츠까지 도와드리며, 계약 후 정산 구조까지 안내해드립니다."
+          }
+        },
+        "faq_c7iJBG": {
+          "type": "faq",
+          "settings": {
+            "question": "쇼피파이 구축 후에 브랜드 내에서 직접 운영·관리가 가능한가요?",
+            "answer": "브랜드에서 직접 운영·관리가 가능하도록 쇼피파이 관리자 교육을 진행하고 있습니다.\n쇼피파이의 A to Z를 배울 수 있습니다."
+          }
+        },
+        "faq_gAGYXY": {
+          "type": "faq",
+          "settings": {
+            "question": "구축 후 운영까지 맡길 수 있나요?",
+            "answer": "가능합니다. 런칭 이후 앱 관리, 콘텐츠 업데이트, 프로모션 페이지, 전환율 개선, 데이터 기반 수정까지 운영 파트너십 형태로 이어갈 수 있습니다."
+          }
+        },
+        "faq_JxnCi3": {
+          "type": "faq",
+          "settings": {
+            "question": "아마존 입점이나 글로벌 마케팅도 같이 가능한가요?",
+            "answer": "가능합니다. 쇼피파이 자사몰 구축만이 아니라 아마존 FBA, 글로벌 시장 진입, 콘텐츠 마케팅까지 브랜드 상황에 맞춰 단계별로 설계할 수 있습니다."
+          }
+        }
+      },
+      "block_order": [
+        "faq_N3QmGy",
+        "faq_xjxJgw",
+        "faq_eCfegX",
+        "faq_w39cdd",
+        "faq_c7iJBG",
+        "faq_gAGYXY",
+        "faq_JxnCi3"
+      ],
+      "name": "B&ON FAQ",
+      "settings": {
+        "heading": "FAQ",
+        "subheading": "자주 묻는 질문들",
+        "description": "쇼피파이 구축, 글로벌 확장, 운영 방식에 대해\n가장 자주 묻는 질문을 정리했습니다."
+      }
     }
   },
   "order": [
     "bnon_hero",
     "bnon_main_portfolio",
     "bnon_what_we_do",
-    "bnon_process_cB4aMH"
+    "bnon_process_cB4aMH",
+    "bnon_our_universe_pfnmUh",
+    "bnon_faq_aWhtwX"
   ]
 }

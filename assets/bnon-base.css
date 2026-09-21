@@ -249,6 +249,79 @@ bnon-process { display: block; }
   .bnon-process__step-button > span:first-child { transition-duration: 0.01ms; }
 }
 
+/* B&ON Our Universe */
+bnon-our-universe { display: block; }
+.bnon-our-universe { padding-block: 76px 90px; border-top: 1px solid rgba(255, 255, 255, .35); color: var(--bnon-color-white); background: var(--bnon-color-black); }
+.bnon-our-universe__intro { display: grid; gap: 30px; max-width: 590px; }
+.bnon-our-universe__heading,
+.bnon-our-universe__description,
+.bnon-our-universe__stat-value,
+.bnon-our-universe__stat-title,
+.bnon-our-universe__stat-description { margin: 0; }
+.bnon-our-universe__heading { color: #FFFFFF; font-family: var(--bnon-font-latin); font-size: 60px; font-weight: var(--bnon-weight-extrabold); line-height: 1.1; letter-spacing: -0.04em; }
+.bnon-our-universe__description { font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-medium); line-height: 1.2; letter-spacing: -0.04em; }
+.bnon-our-universe__viewport { position: relative; height: 430px; margin-top: 30px; overflow: visible; clip-path: inset(-64px 0 0); -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%); }
+.bnon-our-universe__orbit { --bnon-universe-initial-rotation: -90deg; --bnon-universe-radius: 950px; position: absolute; top: 350px; left: 50%; width: 1328px; height: 1328px; transform: translateX(-50%) rotate(var(--bnon-universe-initial-rotation)); transform-origin: 50% 50%; }
+bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__orbit { animation: bnon-our-universe-orbit var(--bnon-universe-rotation-duration) linear infinite; }
+.bnon-our-universe__item { position: absolute; inset: 0; transform: rotate(var(--bnon-universe-angle)); transform-origin: 50% 50%; }
+.bnon-our-universe__item-positioner { position: absolute; top: 50%; left: 50%; width: 122px; height: 122px; margin: -61px; transform: translateX(var(--bnon-universe-radius)); }
+.bnon-our-universe__card { --bnon-universe-tilt: 20deg; width: 122px; height: 122px; border-radius: 16px; overflow: hidden; transform: rotate(calc(-1 * var(--bnon-universe-angle))) rotate(calc(-1 * var(--bnon-universe-initial-rotation))); }
+bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__card { animation: bnon-our-universe-counter-orbit var(--bnon-universe-rotation-duration) linear infinite, bnon-our-universe-tilt var(--bnon-universe-rotation-duration) linear infinite; animation-delay: 0s, var(--bnon-universe-tilt-delay); }
+.bnon-our-universe__image,
+.bnon-our-universe__placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
+.bnon-our-universe__placeholder { background: #262626; }
+.bnon-our-universe__stats { display: flex; justify-content: center; gap: 108px; margin-top: 18px; }
+.bnon-our-universe__stat { position: relative; display: grid; justify-items: center; gap: 8px; width: min(355px, 40%); text-align: center; }
+.bnon-our-universe__stat-value { color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: clamp(58px, 5.81vw, 84px); font-weight: var(--bnon-weight-extrabold); line-height: 1.2; letter-spacing: -0.04em; }
+.bnon-our-universe__stat-title { color: #FFFFFF; font-family: var(--bnon-font-korean); font-size: 21px; font-weight: var(--bnon-weight-extrabold); line-height: 1.6; letter-spacing: -0.04em; }
+.bnon-our-universe__stat-description { font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-medium); line-height: 1.6; letter-spacing: -0.04em; }
+@keyframes bnon-our-universe-orbit { from { transform: translateX(-50%) rotate(var(--bnon-universe-initial-rotation)); } to { transform: translateX(-50%) rotate(calc(var(--bnon-universe-initial-rotation) + 360deg)); } }
+@keyframes bnon-our-universe-counter-orbit { from { transform: rotate(calc(-1 * var(--bnon-universe-angle))) rotate(calc(-1 * var(--bnon-universe-initial-rotation))); } to { transform: rotate(calc(-1 * var(--bnon-universe-angle))) rotate(calc(-1 * var(--bnon-universe-initial-rotation))) rotate(-360deg); } }
+@keyframes bnon-our-universe-tilt { 0%, 100% { rotate: 0deg; } 25% { rotate: var(--bnon-universe-tilt); } 50% { rotate: 0deg; } 75% { rotate: calc(-1 * var(--bnon-universe-tilt)); } }
+@media (hover: hover) and (pointer: fine) {
+  bnon-our-universe[data-pause-on-hover='true'] .bnon-our-universe__viewport:hover .bnon-our-universe__orbit,
+  bnon-our-universe[data-pause-on-hover='true'] .bnon-our-universe__viewport:hover .bnon-our-universe__card { animation-play-state: paused; }
+}
+@media screen and (max-width: 1023px) {
+  .bnon-our-universe { padding-block: 64px 76px; }
+  .bnon-our-universe__heading { font-size: 52px; }
+  .bnon-our-universe__viewport { height: 370px; }
+  .bnon-our-universe__orbit { --bnon-universe-radius: 529px; top: 50px; width: 940px; height: 940px; }
+  .bnon-our-universe__item-positioner, .bnon-our-universe__card { width: 106px; height: 106px; }
+  .bnon-our-universe__item-positioner { margin: -53px; }
+  .bnon-our-universe__card { border-radius: 14px; }
+  .bnon-our-universe__stats { gap: 64px; }
+  .bnon-our-universe__stat-title { font-size: 18px; }
+  .bnon-our-universe__stat-description { font-size: 17px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-our-universe { padding-block: 52px 64px; }
+  .bnon-our-universe__intro { gap: 18px; }
+  .bnon-our-universe__heading { font-size: clamp(42px, 12vw, 56px); }
+  .bnon-our-universe__description { font-size: 18px; }
+  .bnon-our-universe__viewport { height: 315px; margin-top: 22px; }
+  .bnon-our-universe__orbit { --bnon-universe-radius: 431px; top: 40px; width: 760px; height: 760px; }
+  .bnon-our-universe__item-positioner, .bnon-our-universe__card { width: 88px; height: 88px; }
+  .bnon-our-universe__item-positioner { margin: -44px; }
+  .bnon-our-universe__card { border-radius: 12px; }
+  .bnon-our-universe__stats { display: grid; grid-template-columns: 1fr; gap: 38px; margin-top: 22px; }
+  .bnon-our-universe__stat { width: 100%; }
+  .bnon-our-universe__stat-value { font-size: 58px; }
+  .bnon-our-universe__stat-title { font-size: 18px; }
+  .bnon-our-universe__stat-description { font-size: 16px; }
+}
+@media screen and (max-width: 480px) {
+  .bnon-our-universe__viewport { height: 260px; }
+  .bnon-our-universe__orbit { --bnon-universe-radius: 375px; top: 49px; width: 660px; height: 660px; }
+  .bnon-our-universe__item-positioner, .bnon-our-universe__card { width: 76px; height: 76px; }
+  .bnon-our-universe__item-positioner { margin: -38px; }
+  .bnon-our-universe__description { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__orbit,
+  bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__card { animation: none; }
+}
+
 /* Future motion must consume these tokens and provide a static state.
  * Continuous animation will also need its own explicit stop/disable behavior.
  */
@@ -973,4 +1046,68 @@ bnon-what-we-do { display: block; }
   .bnon-what-we-do__eyebrow { font-size: 26px; }
   .bnon-what-we-do__heading { font-size: 40px; }
   .bnon-what-we-do__trigger { font-size: 18px; }
+}
+
+/* B&ON FAQ */
+.bnon-faq { padding-block: 105px; background: var(--bnon-color-white); }
+.bnon-faq__container { max-width: 1152px; }
+.bnon-faq__layout { display: grid; grid-template-columns: 377fr 727fr; }
+.bnon-faq__intro { position: relative; min-height: 0; padding: 43px 40px; overflow: hidden; border: 1px solid #D8D8D8; border-radius: 10px 0 0 10px; background: #F7F7F7; }
+.bnon-faq__heading,
+.bnon-faq__subheading,
+.bnon-faq__description { margin: 0; color: var(--bnon-color-black); }
+.bnon-faq__heading { font-family: var(--bnon-font-latin); font-size: 60px; font-weight: var(--bnon-weight-extrabold); line-height: 1.2; letter-spacing: -0.04em; }
+.bnon-faq__subheading { margin-top: 20px; font-family: var(--bnon-font-korean); font-size: 40px; font-weight: var(--bnon-weight-medium); line-height: 1.2; letter-spacing: -0.04em; }
+.bnon-faq__description { margin-top: 20px; font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-medium); line-height: 1.6; letter-spacing: -0.04em; }
+.bnon-faq__description strong { font-weight: var(--bnon-weight-bold); }
+.bnon-faq__decorative-question { position: absolute; top: 321px; left: 81px; color: rgba(49, 84, 238, .08); font-family: var(--bnon-font-latin); font-size: 200px; font-weight: var(--bnon-weight-semibold); line-height: 1.1; letter-spacing: -.04em; transform: rotate(15deg); pointer-events: none; }
+.bnon-faq__accordion { display: grid; align-content: start; gap: 0; }
+.bnon-faq__item { border-right: 1px solid #D8D8D8; border-left: 1px solid #D8D8D8; background: var(--bnon-color-white); }
+.bnon-faq__item + .bnon-faq__item { border-top: 1px solid #D8D8D8; }
+.bnon-faq__item:first-child { border-top: 1px solid #D8D8D8; border-radius: 0 10px 0 0; overflow: hidden; }
+.bnon-faq__item:last-child { border-bottom: 1px solid #D8D8D8; border-radius: 0 0 10px 0; overflow: hidden; }
+.bnon-faq__trigger { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 80px; padding: 20px; border: 0; background: var(--bnon-color-white); color: var(--bnon-color-black); font: inherit; text-align: left; cursor: pointer; transition: background-color var(--bnon-duration-ui-fast) ease, color var(--bnon-duration-ui-fast) ease; }
+.bnon-faq__question { min-width: 0; font-family: var(--bnon-font-korean); font-size: 24px; font-weight: var(--bnon-weight-semibold); line-height: 1.2; letter-spacing: -.04em; }
+.bnon-faq__arrow { flex: 0 0 35px; width: 35px; height: 35px; margin-left: 20px; transition: transform var(--bnon-duration-ui-fast) ease; }
+.bnon-faq__arrow svg { display: block; width: 100%; height: 100%; }
+.bnon-faq__item.is-open .bnon-faq__trigger { background: var(--bnon-color-blue); color: var(--bnon-color-white); }
+.bnon-faq__item.is-open .bnon-faq__arrow { transform: rotate(180deg); }
+.bnon-faq__panel-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--bnon-duration-ui-slow) ease; }
+.bnon-faq__item.is-open .bnon-faq__panel-wrap { grid-template-rows: 1fr; }
+.bnon-faq__panel { min-height: 0; overflow: hidden; background: var(--bnon-color-white); }
+.bnon-faq__answer { padding: 20px 30px; color: var(--bnon-color-black); font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-regular); line-height: 1.4; letter-spacing: -.04em; }
+.bnon-faq__trigger:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--bnon-color-mint); outline-offset: -2px; }
+
+@media screen and (max-width: 1023px) {
+  .bnon-faq { padding-block: 72px; }
+  .bnon-faq__layout { grid-template-columns: minmax(280px, .9fr) minmax(0, 1.5fr); }
+  .bnon-faq__intro { min-height: 0; padding: 36px 30px; }
+  .bnon-faq__heading { font-size: 52px; }
+  .bnon-faq__subheading { font-size: 32px; }
+  .bnon-faq__description { font-size: 18px; }
+  .bnon-faq__decorative-question { top: 290px; left: 58px; font-size: 174px; }
+  .bnon-faq__question { font-size: 20px; }
+  .bnon-faq__answer { font-size: 18px; }
+}
+
+@media screen and (max-width: 767px) {
+  .bnon-faq { padding-block: 52px; }
+  .bnon-faq__layout { grid-template-columns: 1fr; }
+  .bnon-faq__intro { min-height: 300px; padding: 32px 24px; border-radius: 10px 10px 0 0; }
+  .bnon-faq__heading { font-size: 48px; }
+  .bnon-faq__subheading { margin-top: 14px; font-size: clamp(28px, 7vw, 36px); }
+  .bnon-faq__description { margin-top: 14px; font-size: 17px; }
+  .bnon-faq__decorative-question { top: 96px; right: 28px; left: auto; font-size: 150px; }
+  .bnon-faq__item:first-child { border-top: 0; border-radius: 0; }
+  .bnon-faq__item:last-child { border-radius: 0 0 10px 10px; }
+  .bnon-faq__trigger { min-height: 72px; padding: 18px 20px; }
+  .bnon-faq__question { font-size: 18px; }
+  .bnon-faq__arrow { flex-basis: 28px; width: 28px; height: 28px; margin-left: 14px; }
+  .bnon-faq__answer { padding: 18px 20px; font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bnon-faq__trigger,
+  .bnon-faq__arrow,
+  .bnon-faq__panel-wrap { transition-duration: .01ms; }
 }

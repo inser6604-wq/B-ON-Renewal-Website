@@ -403,3 +403,45 @@ if (!customElements.get('bnon-process')) {
 
   customElements.define('bnon-process', BnonProcess);
 }
+
+if (!customElements.get('bnon-faq')) {
+  class BnonFaq extends HTMLElement {
+    connectedCallback() {
+      if (this.controller) return;
+
+      this.triggers = Array.from(this.querySelectorAll('[data-bnon-faq-trigger]'));
+      this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
+      if (!this.triggers.length) return;
+
+      this.controller = new AbortController();
+      const options = { signal: this.controller.signal };
+      this.triggers.forEach((trigger) => trigger.addEventListener('click', () => this.activate(trigger), options));
+      document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
+    }
+
+    disconnectedCallback() {
+      this.controller?.abort();
+      this.controller = null;
+    }
+
+    onBlockSelect(event) {
+      if (this.sectionId && event.detail.sectionId !== this.sectionId) return;
+      const trigger = this.triggers.find((item) => item.dataset.bnonFaqId === event.detail.blockId);
+      if (trigger) this.activate(trigger);
+    }
+
+    activate(trigger) {
+      if (trigger.getAttribute('aria-expanded') === 'true') return;
+
+      this.triggers.forEach((item) => {
+        const open = item === trigger;
+        item.setAttribute('aria-expanded', String(open));
+        const faqItem = item.closest('[data-bnon-faq-item]');
+        faqItem?.classList.toggle('is-open', open);
+        faqItem?.querySelector('[data-bnon-faq-panel]')?.setAttribute('aria-hidden', String(!open));
+      });
+    }
+  }
+
+  customElements.define('bnon-faq', BnonFaq);
+}
