@@ -1,4 +1,4 @@
-<section class="bnon-section bnon-portfolio-gallery" aria-labelledby="bnon-portfolio-gallery-heading-{{ section.id }}">
+<section id="bnon-portfolio-gallery-{{ section.id }}" class="bnon-section bnon-portfolio-gallery" aria-labelledby="bnon-portfolio-gallery-heading-{{ section.id }}">
   <div class="bnon-container bnon-portfolio-gallery__intro">
     <h1 class="bnon-portfolio-gallery__heading" id="bnon-portfolio-gallery-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
     {%- if section.settings.description != blank -%}<p class="bnon-portfolio-gallery__description">{{ section.settings.description | escape | newline_to_br }}</p>{%- endif -%}
@@ -8,7 +8,11 @@
   <div class="bnon-portfolio-gallery__reveal">
   <div class="bnon-portfolio-gallery__stage" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리">
     {%- for block in section.blocks limit: 7 -%}
-      <article class="bnon-portfolio-gallery__card bnon-portfolio-gallery__item" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {{ block.shopify_attributes }}>
+      {%- liquid
+        assign desktop_mockup = block.settings.mockup_desktop_image | default: block.settings.mockup_image
+        assign phone_mockup = block.settings.mockup_phone_image | default: block.settings.mockup_image
+      -%}
+      <article class="bnon-portfolio-gallery__card bnon-portfolio-gallery__item" tabindex="0" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {% if desktop_mockup != blank or phone_mockup != blank %}role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-{{ section.id }}" data-mockup-trigger data-mockup-title="{{ block.settings.project_name | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}" {% if desktop_mockup != blank %}data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %} {% if phone_mockup != blank %}data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %} {% endif %} {{ block.shopify_attributes }}>
         <div class="bnon-portfolio-gallery__media">
         {%- if block.settings.image != blank -%}
           {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'bnon-portfolio-gallery__image', widths: '320, 480, 640, 900, 1200', sizes: '(min-width: 1024px) 25vw, 80vw', alt: block.settings.image.alt, loading: 'lazy' }}
@@ -26,6 +30,10 @@
 
   <div class="bnon-portfolio-gallery__next-boundary" aria-hidden="true"></div>
 </section>
+
+{%- assign mockup_modal_id = 'bnon-portfolio-mockup-' | append: section.id -%}
+{%- assign mockup_scope_id = 'bnon-portfolio-gallery-' | append: section.id -%}
+{% render 'bnon-portfolio-mockup-modal', modal_id: mockup_modal_id, scope_id: mockup_scope_id %}
 
 {% stylesheet %}
   .bnon-portfolio-gallery {
@@ -93,9 +101,41 @@
     transform-style: flat;
     transform-origin: 50% 50%;
     backface-visibility: hidden;
+    opacity: 1;
+    transition: opacity 350ms ease, transform 350ms ease;
     transform: translate(-50%, -50%)
       translateX(var(--gallery-x)) translateZ(var(--gallery-z))
-      rotateY(var(--gallery-yaw));
+      rotateY(var(--gallery-yaw)) scale(var(--gallery-active-scale, 1));
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:focus-visible {
+    opacity: 1;
+    outline: 2px solid var(--bnon-color-mint);
+    outline-offset: 4px;
+  }
+
+  .bnon-portfolio-gallery__stage:has(> .bnon-portfolio-gallery__card:focus-visible) > .bnon-portfolio-gallery__card:not(:focus-visible) {
+    opacity: 0.5;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .bnon-portfolio-gallery__stage:not(:has(> .bnon-portfolio-gallery__card:focus-visible)):has(> .bnon-portfolio-gallery__card:hover) > .bnon-portfolio-gallery__card:not(:hover) {
+      opacity: 0.5;
+    }
+  }
+
+  /* Keep the resting 3D geometry; scale in each card's own plane only.
+     Touch/mobile devices retain focus feedback without enlargement. */
+  @media screen and (min-width: 768px) and (hover: hover) and (pointer: fine) {
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__card:is(:hover, :focus-visible) {
+      --gallery-active-scale: 1.025;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(n) {
+      transition: none;
+    }
   }
 
   .bnon-portfolio-gallery__media {
@@ -250,6 +290,10 @@
       "name": "Portfolio 프로젝트",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "갤러리 이미지" },
+        { "type": "image_picker", "id": "mockup_image", "label": "스크롤 목업 이미지 (기존 공용 fallback)" },
+        { "type": "image_picker", "id": "mockup_desktop_image", "label": "데스크톱 목업 이미지" },
+        { "type": "image_picker", "id": "mockup_phone_image", "label": "모바일 목업 이미지" },
+        { "type": "url", "id": "live_site_url", "label": "라이브 사이트 URL" },
         { "type": "text", "id": "project_name", "label": "브랜드명", "default": "PROJECT" },
         { "type": "text", "id": "category", "label": "카테고리" }
       ]

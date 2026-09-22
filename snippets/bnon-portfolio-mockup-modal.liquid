@@ -1,0 +1,28 @@
+{% comment %}Reusable modal; callers supply a unique modal_id and trigger scope_id.{% endcomment %}
+{{ 'bnon-portfolio-mockup-modal.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-portfolio-mockup-modal.js' | asset_url }}" defer="defer"></script>
+<bnon-mockup-modal data-scope-id="{{ scope_id }}">
+  <dialog id="{{ modal_id }}" class="bnon-mockup-modal" role="dialog" aria-modal="true" aria-label="프로젝트 목업">
+    <button class="bnon-mockup-modal__close" type="button" aria-label="목업 닫기" autofocus>
+      <img src="{{ 'bnon-portfolio-modal-close.svg' | asset_url }}" width="97" height="97" alt="">
+    </button>
+    <div class="bnon-mockup-modal__content">
+      <p class="bnon-mockup-modal__hint">SCROLL TO EXPLORE ↓</p>
+      <div class="bnon-mockup-modal__devices">
+        <div class="bnon-mockup-modal__device bnon-mockup-modal__device--desktop">
+          <div class="bnon-mockup-modal__viewport" tabindex="0" role="region" aria-label="데스크톱 목업 세로 스크롤">
+            <img class="bnon-mockup-modal__image" data-mockup-device="desktop" alt="" width="1" height="1">
+          </div>
+          <img class="bnon-mockup-modal__frame" src="{{ 'scroll-mockup-desktop.png' | asset_url }}" width="1228" height="659" alt="" draggable="false">
+        </div>
+        <div class="bnon-mockup-modal__device bnon-mockup-modal__device--phone">
+          <div class="bnon-mockup-modal__viewport" tabindex="0" role="region" aria-label="폰 목업 세로 스크롤">
+            <img class="bnon-mockup-modal__image" data-mockup-device="phone" alt="" width="1" height="1">
+          </div>
+          <img class="bnon-mockup-modal__frame" src="{{ 'scroll-mockup-phone.png' | asset_url }}" width="299" height="569" alt="" draggable="false">
+        </div>
+        <a class="bnon-mockup-modal__live-site" target="_blank" rel="noopener noreferrer" hidden>VIEW LIVE SITE   →</a>
+      </div>
+    </div>
+  </dialog>
+</bnon-mockup-modal>

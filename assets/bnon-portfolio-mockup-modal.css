@@ -1,0 +1,126 @@
+/* Figma 206:2166 / 206:2334: 1440px canvas, 989.978 x 501.799
+   screen, 19.355px radius, 97px close control, 71.5px top / 81px right.
+   Backdrop darkened from Figma's 70% to the requested 85% black. */
+.bnon-mockup-modal {
+  --mockup-unit: min(1vw, 14.4px);
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  color: #fff;
+}
+.bnon-mockup-modal::backdrop { position: fixed; inset: 0; background: rgb(0 0 0 / 85%); }
+.bnon-mockup-modal[open] { display: grid; place-items: center; }
+.bnon-mockup-modal__close {
+  position: absolute;
+  top: calc(4.96528 * var(--mockup-unit));
+  right: calc(5.625 * var(--mockup-unit));
+  width: clamp(44px, 6.73611vw, 97px);
+  height: clamp(44px, 6.73611vw, 97px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.bnon-mockup-modal__close img {
+  display: block;
+  width: min(70%, 4.19006dvh);
+  height: auto;
+  aspect-ratio: 1;
+  margin: auto;
+}
+.bnon-mockup-modal__content {
+  display: grid;
+  justify-items: center;
+  gap: calc(5.55556 * var(--mockup-unit));
+  width: min(1227.974px, 85.27597vw, 111.80577dvh);
+  pointer-events: none;
+}
+.bnon-mockup-modal__hint {
+  margin: 0;
+  font-family: 'Archivo', sans-serif;
+  /* Scale Figma's 40px type against its 1440 x 2315 canvas, not width alone. */
+  font-size: min(2.77778vw, 1.72786dvh, 40px);
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: .05em;
+  text-align: center;
+  /* Enlarge the lettering without changing its line box or device placement. */
+  transform: scale(1.15);
+  transform-origin: center;
+  pointer-events: none;
+  opacity: 0;
+}
+.bnon-mockup-modal[open] .bnon-mockup-modal__hint {
+  animation: bnon-mockup-hint-dismiss 5s ease-in-out 1 both;
+}
+@keyframes bnon-mockup-hint-dismiss {
+  0%, 18%, 42%, 66% { opacity: 1; }
+  30%, 54% { opacity: .35; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bnon-mockup-modal[open] .bnon-mockup-modal__hint { animation: none; opacity: 0; }
+}
+.bnon-mockup-modal__devices { position: relative; width: 100%; aspect-ratio: 1228 / 659; transform: translateY(-4dvh); }
+.bnon-mockup-modal__device { position: absolute; pointer-events: auto; }
+.bnon-mockup-modal__device--desktop { inset: 0; z-index: 0; }
+/* Figma phone screen: x=118.998+746.12+56.988, y=33.692+61.31+38.886.
+   Align the local PNG's aperture to that screen at width 234.655px. */
+.bnon-mockup-modal__device--phone { left: 72.98286%; top: 15.77121%; width: 24.31279%; aspect-ratio: 299 / 569; z-index: 1; }
+.bnon-mockup-modal__frame { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; pointer-events: none; }
+.bnon-mockup-modal__viewport {
+  position: absolute;
+  z-index: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  pointer-events: auto;
+}
+.bnon-mockup-modal__viewport::-webkit-scrollbar { display: none; }
+/* Measured alpha apertures, in each PNG's own coordinate system. */
+.bnon-mockup-modal__device--desktop .bnon-mockup-modal__viewport {
+  left: 9.60912%; top: 5.15933%; width: 80.94463%; height: 75.72079%;
+  border-radius: 2.01207% / 4.00802%;
+}
+.bnon-mockup-modal__device--phone .bnon-mockup-modal__viewport {
+  background: #fff;
+  left: 8.69565%; top: 5.27241%; width: 78.59532%; height: 88.57645%;
+  border-radius: 15.10638% / 7.04365%;
+}
+.bnon-mockup-modal__image { display: block; width: 100%; height: auto; max-width: 100%; }
+.bnon-mockup-modal__image[hidden] { display: none; }
+/* Figma CTA top: (1500.07 - 762) / 658.074; outside the device layout. */
+.bnon-mockup-modal__live-site {
+  position: absolute;
+  top: 112.15608%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: calc(0.694444 * var(--mockup-unit)) calc(0.347222 * var(--mockup-unit));
+  border-bottom: calc(0.208333 * var(--mockup-unit)) solid #28dbc4;
+  color: #fff;
+  font-family: 'Archivo', sans-serif;
+  font-size: min(2.77778vw, 1.72786dvh, 40px);
+  font-weight: 600;
+  letter-spacing: -.04em;
+  line-height: normal;
+  white-space: pre;
+  text-decoration: none;
+  pointer-events: auto;
+  z-index: 2;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.bnon-mockup-modal__live-site:not([hidden]) { display: block; visibility: visible; opacity: 1; }
+.bnon-mockup-modal__live-site:is(:hover, :focus-visible) { color: #28dbc4; border-bottom-color: #fff; }
+.bnon-mockup-modal__live-site[hidden] { display: none; }
+.bnon-mockup-modal :is(button, a, [tabindex]):focus-visible { outline: 2px solid #28dbc4; outline-offset: -2px; }
