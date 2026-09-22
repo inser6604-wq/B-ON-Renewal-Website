@@ -91,7 +91,9 @@
       if (motion.matches) return;
       const run = {
         events: new AbortController(),
-        states: []
+        states: [],
+        started: false,
+        targetEndTime: null
       };
       this.autoScrollRun = run;
       const active = () => this.autoScrollRun === run && this.dialog.open && !motion.matches;
@@ -102,54 +104,72 @@
 
       this.viewports.forEach((viewport, index) => {
         const image = this.images[index];
-        const state = { viewport, frame: null, stopped: false, loaded: false };
+        const state = { viewport, frame: null, paused: false, loaded: image.hidden };
         run.states.push(state);
-        const interrupt = () => {
-          state.stopped = true;
+        const pause = () => {
+          state.paused = true;
           cancelAnimationFrame(state.frame);
           state.frame = null;
         };
-        // Never cancel native input: manual control wins for this device until reopen.
-        for (const type of ['wheel', 'touchstart', 'pointerdown']) {
-          viewport.addEventListener(type, interrupt, { ...options, passive: true });
-        }
-        viewport.addEventListener('keydown', (event) => {
-          if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) interrupt();
-        }, options);
+        const resume = () => {
+          if (!state.paused || !active()) return;
+          state.paused = false;
+          this.startDeviceScroll(run, state, performance.now());
+        };
+        viewport.addEventListener('mouseenter', pause, options);
+        viewport.addEventListener('mouseleave', resume, options);
         const loaded = async () => {
           if (image.hidden || !image.naturalWidth) return;
           try { await image.decode(); } catch { return; }
           if (!active()) return;
           state.loaded = true;
-          this.startDeviceScroll(run, state);
+          this.startAutoScrollRun(run);
         };
         image.addEventListener('load', loaded, options);
         if (image.complete) loaded();
       });
-
-
+      this.startAutoScrollRun(run);
     }
 
-    startDeviceScroll(run, state) {
-      if (this.autoScrollRun !== run || state.stopped || !state.loaded || state.frame !== null) return;
+    startAutoScrollRun(run) {
+      if (this.autoScrollRun !== run || run.started || run.states.some((state) => !state.loaded)) return;
+      run.states.forEach((state) => {
+        state.maxScroll = Math.max(0, state.viewport.scrollHeight - state.viewport.clientHeight);
+      });
+      const longestDistance = Math.max(0, ...run.states.map((state) => state.maxScroll));
+      const startTime = performance.now();
+      // The longest screenshot moves at the established natural baseline;
+      // every device shares its resulting duration and target end time.
+      const totalDuration = longestDistance > 0 ? longestDistance / 240 * 1000 : 0;
+      run.started = true;
+      run.targetEndTime = startTime + totalDuration;
+      run.states.forEach((state) => this.startDeviceScroll(run, state, startTime));
+    }
+
+    startDeviceScroll(run, state, currentTime) {
+      if (this.autoScrollRun !== run || state.paused || !state.loaded || state.frame !== null) return;
       const viewport = state.viewport;
-      let position = viewport.scrollTop;
-      let previousTime = null;
+      state.maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+      const startTop = Math.min(viewport.scrollTop, state.maxScroll);
+      const remainingDistance = state.maxScroll - startTop;
+      if (remainingDistance <= 0) return;
+      const originalRemainingTime = run.targetEndTime - currentTime;
+      // If the shared deadline passed while paused, continue smoothly at the
+      // baseline speed instead of jumping to the end.
+      const duration = originalRemainingTime > 0
+        ? originalRemainingTime
+        : remainingDistance / 120 * 1000;
+      const segmentEndTime = currentTime + duration;
       const tick = (time) => {
         state.frame = null;
-        if (this.autoScrollRun !== run || !this.dialog.open || state.stopped) return;
-        // Recalculate the real endpoint as responsive sizes/content heights change.
-        const maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
-        if (position >= maxScroll) {
-          viewport.scrollTop = maxScroll;
-          return;
+        if (this.autoScrollRun !== run || !this.dialog.open || state.paused) return;
+        const progress = Math.min(1, Math.max(0, (time - currentTime) / duration));
+        viewport.scrollTop = startTop + remainingDistance * progress;
+        if (time < segmentEndTime && viewport.scrollTop < state.maxScroll) {
+          state.frame = requestAnimationFrame(tick);
+        } else {
+          viewport.scrollTop = state.maxScroll;
         }
-        const elapsed = previousTime === null ? 0 : Math.min(time - previousTime, 50);
-        previousTime = time;
-        // Fractional accumulator keeps the speed independent of refresh rate/rounding.
-        position = Math.min(maxScroll, position + 120 * elapsed / 1000);
-        viewport.scrollTop = position;
-        if (position < maxScroll) state.frame = requestAnimationFrame(tick);
       };
       state.frame = requestAnimationFrame(tick);
     }
