@@ -5,20 +5,232 @@
     {%- if section.settings.eyebrow != blank -%}<p class="bnon-portfolio-gallery__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
   </div>
 
+  <div class="bnon-portfolio-gallery__reveal">
   <div class="bnon-portfolio-gallery__stage" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리">
     {%- for block in section.blocks limit: 7 -%}
-      <article class="bnon-portfolio-gallery__card" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {{ block.shopify_attributes }}>
+      <article class="bnon-portfolio-gallery__card bnon-portfolio-gallery__item" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {{ block.shopify_attributes }}>
+        <div class="bnon-portfolio-gallery__media">
         {%- if block.settings.image != blank -%}
           {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'bnon-portfolio-gallery__image', widths: '320, 480, 640, 900, 1200', sizes: '(min-width: 1024px) 25vw, 80vw', alt: block.settings.image.alt, loading: 'lazy' }}
         {%- else -%}
           <div class="bnon-portfolio-gallery__placeholder" aria-hidden="true"></div>
         {%- endif -%}
+        </div>
+        {%- if block.settings.project_name != blank -%}
+          <bnon-portfolio-brand class="bnon-portfolio-gallery__brand"><span>{{ block.settings.project_name | escape }}</span></bnon-portfolio-brand>
+        {%- endif -%}
       </article>
     {%- endfor -%}
+  </div>
   </div>
 
   <div class="bnon-portfolio-gallery__next-boundary" aria-hidden="true"></div>
 </section>
+
+{% stylesheet %}
+  .bnon-portfolio-gallery {
+    --gallery-header-height: var(--bnon-header-height-reference, 120px);
+    --gallery-intro-gap: clamp(20px, 2vw, 32px);
+  }
+
+  /* Move the intro and gallery as one group. The scaled gallery silhouette
+     starts 3.99vw into the stage and is 36.92vw tall: 15.07vw exposes its
+     upper 30% at the fold, without changing the camera or any card plane.
+     Natural content height takes precedence on short viewports. */
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__intro {
+    box-sizing: border-box;
+    min-height: calc(100svh - var(--gallery-header-height) - 15.07vw - var(--gallery-intro-gap) - 24px);
+    padding-top: calc(clamp(96px, 12svh, 144px) - 24px);
+    align-content: end;
+  }
+
+  /* Keep a compact group gap and an independent hook for future reveal. */
+  .bnon-portfolio-gallery__reveal {
+    position: relative;
+    top: -120px;
+    margin-top: var(--gallery-intro-gap);
+    padding-bottom: 7vw;
+  }
+
+  @media screen and (max-width: 1023px) {
+    .bnon-portfolio-gallery { --gallery-header-height: 88px; }
+  }
+
+  @media screen and (max-width: 480px) {
+    .bnon-portfolio-gallery { --gallery-header-height: 80px; }
+  }
+
+  /* Reference 169:4623 is a flattened image. These planes reconstruct its
+     seven complete cards from their projected left/right edges, excluding
+     the partial cards beyond the reference viewport. At a 922px viewport,
+     the central plane is 122px tall and the camera distance is 400px.
+     Outer planes advance toward the camera; their outside edges are nearer.
+     Widths and yaw are solved from those edge positions and heights, rather
+     than enlarging rectangles into a U-shaped arrangement. */
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__stage {
+    display: block;
+    width: 100%;
+    height: 39.0456vw;
+    margin-top: 0;
+    padding: 0;
+    perspective: 43.3839vw;
+    perspective-origin: 50% 50%;
+    transform-style: preserve-3d;
+    transform: scale(1.15);
+    transform-origin: 50% 0;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(n) {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: var(--gallery-width) !important;
+    height: 13.2321vw !important;
+    aspect-ratio: auto;
+    margin: 0;
+    overflow: visible;
+    background: transparent;
+    border-radius: 1.3015vw;
+    transform-style: flat;
+    transform-origin: 50% 50%;
+    backface-visibility: hidden;
+    transform: translate(-50%, -50%)
+      translateX(var(--gallery-x)) translateZ(var(--gallery-z))
+      rotateY(var(--gallery-yaw));
+  }
+
+  .bnon-portfolio-gallery__media {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    background: #0b0b0b;
+  }
+
+  /* Keep the image's original plane height/origin: the label extends below
+     it, sharing the same projection without shifting any card geometry. */
+  .bnon-portfolio-gallery__brand {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    margin: 0.9vw 0 0;
+    color: #000;
+    font-family: var(--bnon-font-latin);
+    font-size: clamp(8px, 1.1vw, 18px);
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .bnon-portfolio-gallery__brand > span {
+    display: inline-block;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(1) {
+    --gallery-x: -18.8836vw;
+    --gallery-z: 20.8719vw;
+    --gallery-width: 9.3296vw;
+    --gallery-yaw: 83.078deg;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(2) {
+    --gallery-x: -16.1377vw;
+    --gallery-z: 10.7500vw;
+    --gallery-width: 9.3576vw;
+    --gallery-yaw: 55.772deg;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(3) {
+    --gallery-x: -9.3955vw;
+    --gallery-z: 2.6914vw;
+    --gallery-width: 9.4823vw;
+    --gallery-yaw: 29.556deg;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(4) {
+    --gallery-x: -0.1085vw;
+    --gallery-z: 0vw;
+    --gallery-width: 9.3275vw;
+    --gallery-yaw: 0deg;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(5) {
+    --gallery-x: 9.3476vw;
+    --gallery-z: 2.6914vw;
+    --gallery-width: 9.3990vw;
+    --gallery-yaw: -29.844deg;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(6) {
+    --gallery-x: 16.0349vw;
+    --gallery-z: 10.6715vw;
+    --gallery-width: 9.2149vw;
+    --gallery-yaw: -55.341deg;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(7) {
+    --gallery-x: 18.7791vw;
+    --gallery-z: 20.7495vw;
+    --gallery-width: 9.1131vw;
+    --gallery-yaw: -81.656deg;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  if (!customElements.get('bnon-portfolio-brand')) {
+    customElements.define('bnon-portfolio-brand', class extends HTMLElement {
+      connectedCallback() {
+        this.scheduleFit = () => {
+          cancelAnimationFrame(this.fitFrame);
+          this.fitFrame = requestAnimationFrame(() => this.fit());
+        };
+        this.sizeObserver = new ResizeObserver(this.scheduleFit);
+        this.sizeObserver.observe(this.parentElement);
+        this.textObserver = new MutationObserver(this.scheduleFit);
+        this.textObserver.observe(this, { childList: true, characterData: true, subtree: true });
+        document.fonts.addEventListener('loadingdone', this.scheduleFit);
+        document.fonts.ready.then(() => {
+          if (this.isConnected) this.scheduleFit();
+        });
+        this.scheduleFit();
+      }
+
+      fit() {
+        const text = this.querySelector('span');
+        if (!text) return;
+
+        // Restore the responsive default before every measurement, so shorter
+        // names and wider cards regain their original size. Layout widths are
+        // measured before perspective, never from transformed bounding boxes.
+        this.style.removeProperty('font-size');
+        const style = getComputedStyle(this);
+        const width = parseFloat(style.width);
+        const defaultSize = parseFloat(style.fontSize);
+        const textWidth = () => parseFloat(getComputedStyle(text).width);
+        if (!width || textWidth() <= width) return;
+
+        let low = 0;
+        let high = defaultSize;
+        for (let step = 0; step < 12; step += 1) {
+          const size = (low + high) / 2;
+          this.style.fontSize = `${size}px`;
+          if (textWidth() <= width) low = size;
+          else high = size;
+        }
+        this.style.fontSize = `${low}px`;
+      }
+
+      disconnectedCallback() {
+        cancelAnimationFrame(this.fitFrame);
+        this.sizeObserver.disconnect();
+        this.textObserver.disconnect();
+        document.fonts.removeEventListener('loadingdone', this.scheduleFit);
+      }
+    });
+  }
+{% endjavascript %}
 
 {% schema %}
 {
@@ -38,7 +250,7 @@
       "name": "Portfolio 프로젝트",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "갤러리 이미지" },
-        { "type": "text", "id": "project_name", "label": "프로젝트명", "default": "PROJECT" },
+        { "type": "text", "id": "project_name", "label": "브랜드명", "default": "PROJECT" },
         { "type": "text", "id": "category", "label": "카테고리" }
       ]
     }

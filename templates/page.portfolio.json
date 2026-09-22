@@ -26,7 +26,210 @@
         "description": "다양한 브랜드와 함께 완성한\n글로벌 커머스 프로젝트를 만나보세요",
         "eyebrow": "Brands We’ve Built With."
       }
+    },
+    "bnon_portfolio_projects": {
+      "type": "bnon-portfolio-projects",
+      "blocks": {
+        "project_01": {
+          "type": "project",
+          "settings": {
+            "project_title": "HOZI",
+            "card_size": "large"
+          }
+        },
+        "project_02": {
+          "type": "project",
+          "settings": {
+            "project_title": "ÉCRITETPARFUM",
+            "card_size": "medium"
+          }
+        },
+        "project_03": {
+          "type": "project",
+          "settings": {
+            "project_title": "MONCLOS",
+            "card_size": "medium"
+          }
+        },
+        "project_04": {
+          "type": "project",
+          "settings": {
+            "project_title": "CCLIME",
+            "card_size": "large"
+          }
+        },
+        "project_05": {
+          "type": "project",
+          "settings": {
+            "project_title": "OLLOCDAM",
+            "card_size": "large"
+          }
+        },
+        "project_06": {
+          "type": "project",
+          "settings": {
+            "project_title": "AUBRE",
+            "card_size": "small"
+          }
+        },
+        "project_07": {
+          "type": "project",
+          "settings": {
+            "project_title": "amont",
+            "card_size": "small"
+          }
+        },
+        "project_08": {
+          "type": "project",
+          "settings": {
+            "project_title": "Producer K",
+            "card_size": "small"
+          }
+        },
+        "project_09": {
+          "type": "project",
+          "settings": {
+            "project_title": "NU BARE",
+            "card_size": "large"
+          }
+        },
+        "project_10": {
+          "type": "project",
+          "settings": {
+            "project_title": "ALPHAI",
+            "card_size": "medium"
+          }
+        },
+        "project_11": {
+          "type": "project",
+          "settings": {
+            "project_title": "ANTVERSE",
+            "card_size": "medium"
+          }
+        },
+        "project_12": {
+          "type": "project",
+          "settings": {
+            "project_title": "Korea Teacup Puppies",
+            "card_size": "large"
+          }
+        },
+        "project_13": {
+          "type": "project",
+          "settings": {
+            "project_title": "homestolife",
+            "card_size": "large"
+          }
+        },
+        "project_14": {
+          "type": "project",
+          "settings": {
+            "project_title": "Soaked House",
+            "card_size": "small"
+          }
+        },
+        "project_15": {
+          "type": "project",
+          "settings": {
+            "project_title": "DAILISH",
+            "card_size": "small"
+          }
+        },
+        "project_16": {
+          "type": "project",
+          "settings": {
+            "project_title": "KOSMONEXT",
+            "card_size": "small"
+          }
+        },
+        "project_17": {
+          "type": "project",
+          "settings": {
+            "project_title": "PROJECT 17",
+            "card_size": "large"
+          }
+        },
+        "project_18": {
+          "type": "project",
+          "settings": {
+            "project_title": "PROJECT 18",
+            "card_size": "medium"
+          }
+        },
+        "project_19": {
+          "type": "project",
+          "settings": {
+            "project_title": "PROJECT 19",
+            "card_size": "medium"
+          }
+        },
+        "project_20": {
+          "type": "project",
+          "settings": {
+            "project_title": "PROJECT 20",
+            "card_size": "large"
+          }
+        },
+        "project_21": {
+          "type": "project",
+          "settings": {
+            "project_title": "PROJECT 21",
+            "card_size": "large"
+          }
+        },
+        "project_22": {
+          "type": "project",
+          "settings": {
+            "project_title": "PROJECT 22",
+            "card_size": "small"
+          }
+        },
+        "project_23": {
+          "type": "project",
+          "settings": {
+            "project_title": "PROJECT 23",
+            "card_size": "small"
+          }
+        },
+        "project_24": {
+          "type": "project",
+          "settings": {
+            "project_title": "PROJECT 24",
+            "card_size": "small"
+          }
+        }
+      },
+      "block_order": [
+        "project_01",
+        "project_02",
+        "project_03",
+        "project_04",
+        "project_05",
+        "project_06",
+        "project_07",
+        "project_08",
+        "project_09",
+        "project_10",
+        "project_11",
+        "project_12",
+        "project_13",
+        "project_14",
+        "project_15",
+        "project_16",
+        "project_17",
+        "project_18",
+        "project_19",
+        "project_20",
+        "project_21",
+        "project_22",
+        "project_23",
+        "project_24"
+      ],
+      "settings": {
+        "heading": "ALL PROJECT",
+        "description": "브랜드마다 다른 정체성과 목표를 이해하고,\n디자인과 기술로 완성한 프로젝트를 소개합니다."
+      }
     }
   },
-  "order": ["bnon_portfolio_gallery"]
+  "order": ["bnon_portfolio_gallery", "bnon_portfolio_projects"]
 }
