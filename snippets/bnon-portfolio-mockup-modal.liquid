@@ -1,7 +1,7 @@
-{% comment %}Reusable modal; callers supply a unique modal_id and trigger scope_id.{% endcomment %}
+{% comment %}One shared modal accepts triggers whose aria-controls matches modal_id.{% endcomment %}
 {{ 'bnon-portfolio-mockup-modal.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'bnon-portfolio-mockup-modal.js' | asset_url }}" defer="defer"></script>
-<bnon-mockup-modal data-scope-id="{{ scope_id }}">
+<bnon-mockup-modal>
   <dialog id="{{ modal_id }}" class="bnon-mockup-modal" role="dialog" aria-modal="true" aria-label="프로젝트 목업">
     <button class="bnon-mockup-modal__close" type="button" aria-label="목업 닫기" autofocus>
       <img src="{{ 'bnon-portfolio-modal-close.svg' | asset_url }}" width="97" height="97" alt="">

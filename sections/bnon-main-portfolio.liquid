@@ -66,6 +66,12 @@
               assign visible_index = visible_index | plus: 1
               assign tab_id = 'bnon-main-portfolio-tab-' | append: section.id | append: '-' | append: block.id
               assign panel_id = 'bnon-main-portfolio-panel-' | append: section.id | append: '-' | append: block.id
+              assign desktop_mockup = block.settings.mockup_desktop_image
+              assign phone_mockup = block.settings.mockup_phone_image
+              assign has_scroll_mockup = false
+              if desktop_mockup != blank or phone_mockup != blank
+                assign has_scroll_mockup = true
+              endif
             -%}
             <article
               class="bnon-main-portfolio__panel{% if visible_index == 1 %} is-active{% endif %}"
@@ -99,8 +105,8 @@
                 </div>
 
                 <div class="bnon-main-portfolio__links">
-                  {%- if block.settings.project_link != blank -%}
-                    <a class="bnon-main-portfolio__link bnon-main-portfolio__project-link" href="{{ block.settings.project_link | escape }}" data-bnon-project-link data-bnon-project-id="{{ block.id }}">
+                  {%- if block.settings.project_link != blank or has_scroll_mockup -%}
+                    <a class="bnon-main-portfolio__link bnon-main-portfolio__project-link"{% if block.settings.project_link != blank %} href="{{ block.settings.project_link | escape }}"{% else %} role="button" tabindex="0"{% endif %} data-bnon-project-link data-bnon-project-id="{{ block.id }}"{% if has_scroll_mockup %} aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-mockup-title="{{ block.settings.project_name | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}"{% if desktop_mockup != blank %} data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %}{% if phone_mockup != blank %} data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %}{% endif %}>
                       <span>{{ block.settings.view_project_label | escape }}</span><span aria-hidden="true">→</span>
                     </a>
                   {%- else -%}
@@ -126,6 +132,7 @@
       </div>
     </section>
   </bnon-main-portfolio>
+  {% render 'bnon-portfolio-mockup-modal', modal_id: 'bnon-portfolio-mockup-modal' %}
 {%- endif -%}
 
 {% schema %}
@@ -156,7 +163,10 @@
         { "type": "image_picker", "id": "background_image", "label": "배경 이미지" },
         { "type": "image_picker", "id": "mockup_image", "label": "목업 이미지" },
         { "type": "text", "id": "view_project_label", "label": "프로젝트 링크 문구", "default": "VIEW PROJECT" },
-        { "type": "url", "id": "project_link", "label": "프로젝트 링크" }
+        { "type": "url", "id": "project_link", "label": "프로젝트 링크" },
+        { "type": "image_picker", "id": "mockup_desktop_image", "label": "Desktop Mockup Scroll Image" },
+        { "type": "image_picker", "id": "mockup_phone_image", "label": "Phone Mockup Scroll Image" },
+        { "type": "url", "id": "live_site_url", "label": "Live Site URL" }
       ]
     }
   ],

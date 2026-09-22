@@ -1,0 +1,78 @@
+.bnon-contact-page { --contact-black: #0a0a0a; --contact-blue: #3154ee; --contact-mint: #28dbc4; color: var(--contact-black); background: #fff; }
+.bnon-contact-page *, .bnon-contact-page *::before, .bnon-contact-page *::after { box-sizing: border-box; }
+.bnon-contact-page__inner { display: grid; grid-template-columns: 439px minmax(0, 795px); gap: 64px; width: min(1284px, calc(100% - 156px)); margin-inline: auto; padding-block: 146px 130px; }
+.bnon-contact-page__intro { min-width: 0; border-right: 1px solid #c8c8c8; }
+.bnon-contact-page__intro-copy { max-width: 438px; }
+.bnon-contact-page__heading, .bnon-contact-page__title, .bnon-contact-page__description p, .bnon-contact-page__details p { margin: 0; }
+.bnon-contact-page__heading { font-family: 'Archivo', sans-serif; font-size: 68px; font-weight: 800; line-height: 98px; letter-spacing: -.04em; }
+.bnon-contact-page__title { margin-top: 18px; font-family: 'Pretendard', sans-serif; font-size: 39px; font-weight: 500; line-height: 1.44; letter-spacing: -.05em; }
+.bnon-contact-page__description { max-width: 438px; margin-top: 10px; font: 500 16px/1.62 'Pretendard', sans-serif; letter-spacing: -.04em; color: #555; }
+.bnon-contact-page__details { display: grid; gap: 24px; margin-top: 40px; font: 500 16px/1.4 'Pretendard', sans-serif; letter-spacing: -.04em; }
+.bnon-contact-page__details > div { display: grid; gap: 6px; }
+.bnon-contact-page__details .bnon-contact-page__detail-label { font-family: 'Archivo', sans-serif; font-size: 14px; letter-spacing: .2em; color: #666; }
+.bnon-contact-page__details a { width: fit-content; color: inherit; text-underline-offset: 4px; }
+.bnon-contact-page__inquiry-link { display: inline-flex; align-items: center; justify-content: center; min-width: 140px; min-height: 46px; margin-top: 44px; padding: 10px 28px; border-radius: 999px; color: #fff; background: var(--contact-blue); font: 600 16px/1.5 'Pretendard', sans-serif; text-decoration: none; }
+.bnon-contact-page__form-column { min-width: 0; }
+.bnon-contact-form { display: grid; }
+.bnon-contact-form fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.bnon-contact-form legend { width: 100%; padding: 0; font: 700 20px/34px 'Pretendard', sans-serif; letter-spacing: -.04em; }
+.bnon-contact-form__fields { display: grid; grid-template-columns: repeat(2, 342px); row-gap: 36px; margin-top: 36px; }
+.bnon-contact-field { position: relative; display: grid; align-content: start; width: 342px; min-height: 85px; padding-right: 32px; }
+.bnon-contact-field label { font: 600 18px/28px 'Pretendard', sans-serif; letter-spacing: -.04em; }
+.bnon-contact-field input, .bnon-contact-field textarea { width: 100%; min-width: 0; margin: 8px 0 0; padding: 8px 0 7px; border: 0; border-bottom: 1px solid var(--contact-black); border-radius: 0; outline: 0; color: var(--contact-black); background: transparent; font: 400 18px/28px 'Pretendard', sans-serif; letter-spacing: -.04em; box-shadow: none; }
+.bnon-contact-field input::placeholder, .bnon-contact-field textarea::placeholder { color: #8c8c8c; opacity: 1; }
+.bnon-contact-field input:focus, .bnon-contact-field textarea:focus { border-bottom-width: 2px; border-bottom-color: var(--contact-blue); }
+.bnon-contact-field--select { margin-top: 0; min-height: 108px; }
+.bnon-contact-field select { width: 310px; height: 60px; margin-top: 20px; padding: 0 44px 0 15px; border: 1px solid var(--contact-black); border-radius: 10px; color: #858585; background: #fff; font: 400 18px/28px 'Pretendard', sans-serif; letter-spacing: -.04em; }
+.bnon-contact-field select:focus-visible { outline: 2px solid var(--contact-blue); outline-offset: 3px; }
+.bnon-contact-form__services { margin-top: 79px !important; }
+.bnon-contact-form__services > p { margin: 2px 0 0; color: #555; font: 500 16px/25px 'Pretendard', sans-serif; letter-spacing: -.04em; }
+.bnon-contact-form__service-list { display: flex; flex-wrap: wrap; gap: 24px 12px; margin-top: 31px; }
+.bnon-contact-form__service { position: relative; }
+.bnon-contact-form__service input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
+.bnon-contact-form__service label { display: inline-flex; min-height: 61px; align-items: center; justify-content: center; padding: 12px 24px; border: 1px solid var(--contact-black); border-radius: 999px; color: var(--contact-black); background: #fff; font: 600 18px/1.35 'Pretendard', sans-serif; letter-spacing: -.04em; cursor: pointer; transition: color .2s ease, background-color .2s ease, border-color .2s ease; }
+.bnon-contact-form__service input:checked + label { border-color: var(--contact-blue); color: #fff; background: var(--contact-blue); }
+.bnon-contact-form__service input:focus-visible + label { outline: 3px solid var(--contact-mint); outline-offset: 3px; }
+.bnon-contact-field--message { width: 100%; min-height: 84px; margin-top: 74px; padding: 0; }
+.bnon-contact-field--message textarea { height: 49px; min-height: 49px; resize: vertical; }
+.bnon-contact-form__privacy { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 44px; }
+.bnon-contact-form__privacy input { order: 2; width: 25px; height: 25px; margin: 0; border: 1px solid #bbb; border-radius: 0; accent-color: var(--contact-blue); }
+.bnon-contact-form__privacy label { order: 1; font: 600 18px/28px 'Pretendard', sans-serif; letter-spacing: -.04em; cursor: pointer; }
+.bnon-contact-form__privacy .bnon-contact-field__error { order: 3; flex-basis: 100%; }
+.bnon-contact-form__privacy input:focus-visible { outline: 3px solid var(--contact-mint); outline-offset: 3px; }
+.bnon-contact-field__error { display: none; margin-top: 5px; color: #b42318; font: 500 13px/1.4 'Pretendard', sans-serif; }
+.bnon-contact-field__error:not(:empty) { display: block; }
+.bnon-contact-form__submit { width: 100%; min-height: 64px; margin-top: 45px; border: 0; border-radius: 10px; color: #fff; background: var(--contact-blue); font: 500 18px/28px 'Pretendard', sans-serif; letter-spacing: -.04em; cursor: pointer; transition: opacity .2s ease, background-color .2s ease; }
+.bnon-contact-form__submit:disabled { color: var(--contact-black); background: #ddd; cursor: not-allowed; }
+.bnon-contact-form__submit:focus-visible, .bnon-contact-page__inquiry-link:focus-visible { outline: 3px solid var(--contact-mint); outline-offset: 3px; }
+.bnon-contact-form__status { margin-bottom: 32px; padding: 16px 18px; border: 1px solid currentColor; border-radius: 8px; font: 500 16px/1.5 'Pretendard', sans-serif; }
+.bnon-contact-form__status--success { color: #176c59; background: #effbf8; }
+.bnon-contact-form__status--error { color: #b42318; background: #fff4f2; }
+.bnon-contact-form__status ul { margin-bottom: 0; }
+
+@media screen and (max-width: 1199px) {
+  .bnon-contact-page__inner { grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr); gap: 48px; width: calc(100% - 64px); padding-block: 100px; }
+  .bnon-contact-page__heading { font-size: clamp(52px, 6vw, 68px); }
+  .bnon-contact-page__title { font-size: clamp(30px, 3.6vw, 39px); }
+  .bnon-contact-form__fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bnon-contact-field { width: 100%; }
+  .bnon-contact-field select { width: 100%; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-contact-page__inner { display: block; width: calc(100% - 40px); padding-block: 64px 80px; }
+  .bnon-contact-page__intro { padding-bottom: 56px; border-right: 0; border-bottom: 1px solid #c8c8c8; }
+  .bnon-contact-page__heading { font-size: clamp(46px, 14vw, 60px); line-height: 1.1; }
+  .bnon-contact-page__title { margin-top: 28px; font-size: clamp(29px, 8vw, 36px); line-height: 1.35; }
+  .bnon-contact-page__description { margin-top: 20px; }
+  .bnon-contact-page__form-column { padding-top: 56px; }
+  .bnon-contact-form__fields { grid-template-columns: 1fr; gap: 30px; }
+  .bnon-contact-field { padding-right: 0; }
+  .bnon-contact-form__services { margin-top: 56px !important; }
+  .bnon-contact-form__service-list { gap: 10px 8px; margin-top: 24px; }
+  .bnon-contact-form__service label { min-height: 48px; padding: 10px 16px; font-size: 15px; }
+  .bnon-contact-field--message { margin-top: 56px; }
+  .bnon-contact-field--message textarea { height: 96px; }
+  .bnon-contact-form__privacy { align-items: flex-start; }
+  .bnon-contact-form__privacy label { flex: 1; font-size: 16px; }
+  .bnon-contact-form__privacy input { flex: 0 0 25px; }
+}

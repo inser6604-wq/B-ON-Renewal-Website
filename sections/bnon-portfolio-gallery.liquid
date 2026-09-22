@@ -12,7 +12,7 @@
         assign desktop_mockup = block.settings.mockup_desktop_image | default: block.settings.mockup_image
         assign phone_mockup = block.settings.mockup_phone_image | default: block.settings.mockup_image
       -%}
-      <article class="bnon-portfolio-gallery__card bnon-portfolio-gallery__item" tabindex="0" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {% if desktop_mockup != blank or phone_mockup != blank %}role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-{{ section.id }}" data-mockup-trigger data-mockup-title="{{ block.settings.project_name | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}" {% if desktop_mockup != blank %}data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %} {% if phone_mockup != blank %}data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %} {% endif %} {{ block.shopify_attributes }}>
+      <article class="bnon-portfolio-gallery__card bnon-portfolio-gallery__item" tabindex="0" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {% if desktop_mockup != blank or phone_mockup != blank %}role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-mockup-title="{{ block.settings.project_name | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}" {% if desktop_mockup != blank %}data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %} {% if phone_mockup != blank %}data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %} {% endif %} {{ block.shopify_attributes }}>
         <div class="bnon-portfolio-gallery__media">
         {%- if block.settings.image != blank -%}
           {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'bnon-portfolio-gallery__image', widths: '320, 480, 640, 900, 1200', sizes: '(min-width: 1024px) 25vw, 80vw', alt: block.settings.image.alt, loading: 'lazy' }}
@@ -31,9 +31,7 @@
   <div class="bnon-portfolio-gallery__next-boundary" aria-hidden="true"></div>
 </section>
 
-{%- assign mockup_modal_id = 'bnon-portfolio-mockup-' | append: section.id -%}
-{%- assign mockup_scope_id = 'bnon-portfolio-gallery-' | append: section.id -%}
-{% render 'bnon-portfolio-mockup-modal', modal_id: mockup_modal_id, scope_id: mockup_scope_id %}
+{% render 'bnon-portfolio-mockup-modal', modal_id: 'bnon-portfolio-mockup-modal' %}
 
 {% stylesheet %}
   .bnon-portfolio-gallery {

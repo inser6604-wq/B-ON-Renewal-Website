@@ -3,8 +3,7 @@
   customElements.define('bnon-mockup-modal', class extends HTMLElement {
     connectedCallback() {
       this.dialog = this.querySelector('dialog');
-      this.scope = document.getElementById(this.dataset.scopeId);
-      if (!this.dialog || !this.scope) return;
+      if (!this.dialog) return;
       this.viewports = [...this.querySelectorAll('.bnon-mockup-modal__viewport')];
       this.images = [...this.querySelectorAll('.bnon-mockup-modal__image')];
       this.closeButton = this.querySelector('button');
@@ -13,13 +12,16 @@
       const options = { signal: this.events.signal };
       const activate = (event) => {
         const trigger = event.target.closest('[data-mockup-trigger]');
-        if (!trigger || !this.scope.contains(trigger)) return;
+        if (!trigger || trigger.getAttribute('aria-controls') !== this.dialog.id) return;
         if (event.type === 'keydown' && !['Enter', ' '].includes(event.key)) return;
         event.preventDefault();
         this.open(trigger);
       };
-      this.scope.addEventListener('click', activate, options);
-      this.scope.addEventListener('keydown', activate, options);
+      document.addEventListener('click', activate, options);
+      document.addEventListener('keydown', activate, options);
+      document.addEventListener('pointerdown', (event) => {
+        if (event.target.closest('[data-bnon-review-modal-trigger]')) event.stopPropagation();
+      }, { ...options, capture: true });
       this.closeButton.addEventListener('click', () => this.dialog.close(), options);
       this.dialog.addEventListener('cancel', (event) => {
         event.preventDefault();

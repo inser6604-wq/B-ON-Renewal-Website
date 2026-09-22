@@ -18,6 +18,14 @@
       <div class="bnon-review__viewport" data-bnon-review-viewport tabindex="0" aria-label="Client stories carousel">
         <div class="bnon-review__track" data-bnon-review-track>
           {%- for block in section.blocks -%}
+            {%- liquid
+              assign desktop_mockup = block.settings.mockup_desktop_image
+              assign phone_mockup = block.settings.mockup_phone_image
+              assign has_scroll_mockup = false
+              if desktop_mockup != blank or phone_mockup != blank
+                assign has_scroll_mockup = true
+              endif
+            -%}
             <article class="bnon-review__card" data-bnon-review-card data-bnon-review-id="{{ block.id }}" {{ block.shopify_attributes }}>
               <div class="bnon-review__image-wrap">
                 {%- if block.settings.image != blank -%}
@@ -31,8 +39,8 @@
                 {%- if block.settings.brand_name != blank -%}<h3 class="bnon-review__brand">{{ block.settings.brand_name | escape }}</h3>{%- endif -%}
                 {%- if block.settings.service != blank -%}<p class="bnon-review__service">{{ block.settings.service | escape }}</p>{%- endif -%}
               </div>
-              {%- if block.settings.project_link != blank -%}
-                <a class="bnon-review__link" href="{{ block.settings.project_link }}"><span>{{ block.settings.link_label | escape }}</span><span aria-hidden="true">→</span></a>
+              {%- if block.settings.project_link != blank or has_scroll_mockup -%}
+                <a class="bnon-review__link"{% if block.settings.project_link != blank %} href="{{ block.settings.project_link }}"{% else %} role="button" tabindex="0"{% endif %}{% if has_scroll_mockup %} aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-bnon-review-modal-trigger data-mockup-title="{{ block.settings.brand_name | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}"{% if desktop_mockup != blank %} data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %}{% if phone_mockup != blank %} data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %}{% endif %}><span>{{ block.settings.link_label | escape }}</span><span aria-hidden="true">→</span></a>
               {%- else -%}
                 <span class="bnon-review__link is-disabled"><span>{{ block.settings.link_label | escape }}</span><span aria-hidden="true">→</span></span>
               {%- endif -%}
@@ -67,7 +75,10 @@
         { "type": "text", "id": "brand_name", "label": "브랜드명" },
         { "type": "text", "id": "service", "label": "서비스/카테고리" },
         { "type": "text", "id": "link_label", "label": "링크 문구", "default": "VIEW PROJECT" },
-        { "type": "url", "id": "project_link", "label": "프로젝트 링크" }
+        { "type": "url", "id": "project_link", "label": "프로젝트 링크" },
+        { "type": "image_picker", "id": "mockup_desktop_image", "label": "Desktop Mockup Scroll Image" },
+        { "type": "image_picker", "id": "mockup_phone_image", "label": "Phone Mockup Scroll Image" },
+        { "type": "url", "id": "live_site_url", "label": "Live Site URL" }
       ]
     }
   ],

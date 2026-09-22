@@ -34,15 +34,21 @@
         endif
         assign project_title = block.settings.project_title | default: 'PROJECT'
         assign image_alt = block.settings.project_image.alt | default: project_title
+        assign desktop_mockup = block.settings.mockup_desktop_image
+        assign phone_mockup = block.settings.mockup_phone_image
+        assign has_mockup = false
+        if desktop_mockup != blank or phone_mockup != blank
+          assign has_mockup = true
+        endif
       -%}
       {%- if row_remaining == row_count -%}
         <div class="bnon-portfolio-projects__row bnon-portfolio-projects__row--{{ row_kind }}">
       {%- endif -%}
       <article class="bnon-portfolio-projects__card bnon-portfolio-projects__card--{{ card_size }}" aria-label="{{ project_title | escape }}" {{ block.shopify_attributes }}>
         {%- if block.settings.project_link != blank -%}
-          <a class="bnon-portfolio-projects__surface" href="{{ block.settings.project_link | escape }}" aria-label="{{ project_title | escape }}">
+          <a class="bnon-portfolio-projects__surface" href="{{ block.settings.project_link | escape }}" aria-label="{{ project_title | escape }}"{% if has_mockup %} role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-mockup-title="{{ project_title | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}"{% if desktop_mockup != blank %} data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %}{% if phone_mockup != blank %} data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %}{% endif %}>
         {%- else -%}
-          <div class="bnon-portfolio-projects__surface">
+          <div class="bnon-portfolio-projects__surface"{% if has_mockup %} tabindex="0" role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" aria-label="{{ project_title | escape }}" data-mockup-trigger data-mockup-title="{{ project_title | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}"{% if desktop_mockup != blank %} data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %}{% if phone_mockup != blank %} data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %}{% endif %}>
         {%- endif -%}
           {%- if block.settings.project_image != blank -%}
             {{ block.settings.project_image | image_url: width: 2600 | image_tag: class: 'bnon-portfolio-projects__image', widths: '410, 520, 736, 1040, 1472, 1920, 2600', sizes: '(max-width: 767px) 100vw, (max-width: 1440px) 90vw, 1286px', alt: image_alt, loading: 'lazy' }}
@@ -164,6 +170,21 @@
           "type": "url",
           "id": "project_link",
           "label": "프로젝트 링크"
+        },
+        {
+          "type": "image_picker",
+          "id": "mockup_desktop_image",
+          "label": "Desktop Mockup Scroll Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mockup_phone_image",
+          "label": "Phone Mockup Scroll Image"
+        },
+        {
+          "type": "url",
+          "id": "live_site_url",
+          "label": "Live Site URL"
         },
         {
           "type": "select",
