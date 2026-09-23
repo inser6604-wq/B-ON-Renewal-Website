@@ -436,6 +436,8 @@
             "logo_scale": 100,
             "project_title": "kosmonext",
             "project_link": "https://kosmonext.com/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-kosmonext.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-kosmonext01.webp",
             "live_site_url": "https://kosmonext.com/",
             "card_size": "small"
           }

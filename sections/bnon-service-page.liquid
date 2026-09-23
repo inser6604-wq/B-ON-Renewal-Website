@@ -1,6 +1,7 @@
 {{ 'bnon-service-page.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-service-page.js' | asset_url }}" defer="defer"></script>
 
-<section class="bnon-section bnon-service-page" aria-labelledby="BnonServiceHeading-{{ section.id }}">
+<section class="bnon-section bnon-service-page" data-bnon-service-stack aria-labelledby="BnonServiceHeading-{{ section.id }}">
   <div class="bnon-service-page__inner">
     <h1 class="bnon-service-page__heading" id="BnonServiceHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
 

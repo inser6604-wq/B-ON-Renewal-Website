@@ -36,12 +36,12 @@
             "scope_2": "UX/UI DESIGN",
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen01.webp",
-            "mockup_image": "shopify://shop_images/MONCLOS-mockup.webp",
+            "mockup_image": "shopify://shop_images/MONCLOS-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
             "mockup_desktop_image": "shopify://shop_images/Rectangle_98.png",
             "mockup_phone_image": "shopify://shop_images/Rectangle_100.png",
-            "live_site_url": ""
+            "live_site_url": "https://monclosglobal.com/"
           }
         },
         "entalpy": {
@@ -54,7 +54,7 @@
             "scope_2": "UX/UI DESIGN",
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen02.webp",
-            "mockup_image": "shopify://shop_images/Entalpy-mockup.webp",
+            "mockup_image": "shopify://shop_images/Entalpy-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
             "mockup_desktop_image": "shopify://shop_images/Rectangle_98_db8adb18-2370-41d8-923b-aae358821ff8.png",
@@ -72,12 +72,12 @@
             "scope_2": "UX/UI DESIGN",
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen03.webp",
-            "mockup_image": "shopify://shop_images/ollocdam-mockup.webp",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ollocdam.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-ollocdam01.webp",
+            "mockup_image": "shopify://shop_images/ollocdam-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "live_site_url": "https://ollocdam.us/?pb=0"
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ollocdam.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-ollocdam01.webp",
+            "live_site_url": "https://ollocdam.us/"
           }
         },
         "cclime": {
@@ -90,7 +90,7 @@
             "scope_2": "UX/UI DESIGN",
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen04.webp",
-            "mockup_image": "shopify://shop_images/CCLIME-mockup.webp",
+            "mockup_image": "shopify://shop_images/CCLIME-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi.webp",
@@ -108,12 +108,12 @@
             "scope_2": "UX/UI DESIGN",
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen05.webp",
-            "mockup_image": "shopify://shop_images/hozi-mockup.webp",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01.webp",
+            "mockup_image": "shopify://shop_images/hozi-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "live_site_url": "https://hozi.uk/"
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01.webp",
+            "live_site_url": "https://hozi.uk"
           }
         },
         "inmi_seoul": {
@@ -126,11 +126,11 @@
             "scope_2": "UX/UI DESIGN",
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen06.webp",
-            "mockup_image": "shopify://shop_images/inmi-mockup.webp",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
+            "mockup_image": "shopify://shop_images/inmi-mockup01_ba3137ff-691b-4d84-bda5-45843ad7aff0.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
             "live_site_url": "https://www.inmiseoul.com"
           }
         }
@@ -553,7 +553,7 @@
             "project_link": "",
             "mockup_desktop_image": "shopify://shop_images/Rectangle_98.png",
             "mockup_phone_image": "shopify://shop_images/Rectangle_100.png",
-            "live_site_url": ""
+            "live_site_url": "https://monclosglobal.com/"
           }
         },
         "review_entalpy": {
@@ -581,7 +581,7 @@
             "project_link": "",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ollocdam.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-ollocdam01.webp",
-            "live_site_url": "https://ollocdam.us/?pb=0"
+            "live_site_url": "https://ollocdam.us/"
           }
         },
         "review_cllime": {
