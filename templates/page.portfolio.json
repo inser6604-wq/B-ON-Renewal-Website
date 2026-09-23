@@ -226,8 +226,10 @@
             "project_image": "shopify://shop_images/all-project09.webp",
             "project_logo": "shopify://shop_images/ISLA_2x_c9d2c797-fae2-42e4-a038-96840252915f.webp",
             "logo_scale": 100,
-            "project_title": "NU BARE",
+            "project_title": "ISLA",
             "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-isla.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-isla01.webp",
             "live_site_url": "",
             "card_size": "large"
           }
@@ -238,9 +240,11 @@
             "project_image": "shopify://shop_images/all-project10.webp",
             "project_logo": "shopify://shop_images/INMIseoul_2x_f0d52ea0-c617-454f-9e85-ac8d094b40d3.webp",
             "logo_scale": 100,
-            "project_title": "ALPHAI",
-            "project_link": "https://alphai.store",
-            "live_site_url": "",
+            "project_title": "INMI",
+            "project_link": "https://inmiseoul.com/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
+            "live_site_url": "https://inmiseoul.com/",
             "card_size": "medium"
           }
         },
@@ -251,8 +255,10 @@
             "project_logo": "shopify://shop_images/layerstone_2x_57523c67-4865-490e-afb1-2a255a403af7.webp",
             "logo_scale": 100,
             "project_title": "ANTVERSE",
-            "project_link": "",
-            "live_site_url": "",
+            "project_link": "https://layerlab.io/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-layer.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-layer01.webp",
+            "live_site_url": "https://layerlab.io/",
             "card_size": "medium"
           }
         },
@@ -263,8 +269,10 @@
             "project_logo": "shopify://shop_images/PLEATSMOOD_2x_fe9206a1-6e5d-4589-8b9e-53aeec018f4c.webp",
             "logo_scale": 100,
             "project_title": "Korea Teacup Puppies",
-            "project_link": "",
-            "live_site_url": "",
+            "project_link": "https://pleatsmoodglobal.com/",
+            "mockup_desktop_image": "shopify://shop_images/pleatsmoood-desktop.png",
+            "mockup_phone_image": "shopify://shop_images/pleatsmoood-mobile.png",
+            "live_site_url": "https://pleatsmoodglobal.com/",
             "card_size": "large"
           }
         },
@@ -275,8 +283,10 @@
             "project_logo": "shopify://shop_images/ENTALPY_2x_c5b7b5da-8420-4ea0-8739-0eb646df7502.webp",
             "logo_scale": 100,
             "project_title": "homestolife",
-            "project_link": "",
-            "live_site_url": "",
+            "project_link": "https://entalpy.kr/",
+            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_db8adb18-2370-41d8-923b-aae358821ff8.png",
+            "mockup_phone_image": "shopify://shop_images/Rectangle_100_74b5fa18-8416-49c5-ade3-ca58683b013f.png",
+            "live_site_url": "https://entalpy.kr/",
             "card_size": "large"
           }
         },
@@ -286,9 +296,11 @@
             "project_image": "shopify://shop_images/all-project14.webp",
             "project_logo": "shopify://shop_images/oddlysatisfine_2x_2462caf1-daad-4f35-bfaa-7faca9484338.webp",
             "logo_scale": 100,
-            "project_title": "Soaked House",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "Oddlysatisfine",
+            "project_link": "https://oddlysatisfine-xkjhb82t.myshopify.com/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-oddly.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-oddly01_e642e09a-8162-4a55-b6a7-15dcf7ea8227.webp",
+            "live_site_url": "https://oddlysatisfine-xkjhb82t.myshopify.com/",
             "card_size": "small"
           }
         },
@@ -298,11 +310,11 @@
             "project_image": "shopify://shop_images/all-project15.webp",
             "project_logo": "shopify://shop_images/VisonX_2x_6def8824-40b8-4c81-ba20-223c836c1a2b.webp",
             "logo_scale": 100,
-            "project_title": "DAILISH",
-            "project_link": "https://dailish.ae/",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-dailsh.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-dailsh01.webp",
-            "live_site_url": "https://dailish.ae/",
+            "project_title": "Vision X",
+            "project_link": "https://visionx.virnect.com/ko-kr",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-vision_d56dd9b2-b9aa-4015-82a7-382066b424df.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-vision01_80020d91-5514-4c61-9dc7-7609b96e0ea0.webp",
+            "live_site_url": "https://visionx.virnect.com/ko-kr",
             "card_size": "small"
           }
         },
@@ -312,9 +324,11 @@
             "project_image": "shopify://shop_images/all-project16.webp",
             "project_logo": "shopify://shop_images/Kparc_2x_d0cb5e63-ff5a-4363-a477-3824bca41752.webp",
             "logo_scale": 100,
-            "project_title": "KOSMONEXT",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "kparc",
+            "project_link": "https://kparc.shop/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-kparc.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-kparc01.webp",
+            "live_site_url": "https://kparc.shop/",
             "card_size": "small"
           }
         },
@@ -324,9 +338,11 @@
             "project_image": "shopify://shop_images/all-project17.webp",
             "project_logo": "shopify://shop_images/NUBARE_2x_646297ea-6d57-4a61-bf37-3042fab46507.webp",
             "logo_scale": 100,
-            "project_title": "PROJECT 17",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "NUBARE",
+            "project_link": "https://nubarebeauty.com/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-nubare_7923f17d-bb4c-4ea9-a61e-bf150672c0c3.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-nubare01_82818690-f86b-48bf-9ec8-5b7383267e21.webp",
+            "live_site_url": "https://nubarebeauty.com/",
             "card_size": "large"
           }
         },
@@ -336,9 +352,11 @@
             "project_image": "shopify://shop_images/all-project18.webp",
             "project_logo": "shopify://shop_images/ALPHAI_2x_539be825-f6a2-4c12-9f7b-65ab23ee34ac.webp",
             "logo_scale": 100,
-            "project_title": "PROJECT 18",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "ALPHAi",
+            "project_link": "https://alphai.store/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-alphai.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-alphai01.webp",
+            "live_site_url": "https://alphai.store/",
             "card_size": "medium"
           }
         },
@@ -348,9 +366,11 @@
             "project_image": "shopify://shop_images/all-project19.webp",
             "project_logo": "shopify://shop_images/ANIVERSE_2x_03ebe6a4-cc3a-408e-8380-33f93213cdca.webp",
             "logo_scale": 100,
-            "project_title": "PROJECT 19",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "aniverse",
+            "project_link": "https://aniverse.co.nz/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-anniverse.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-anniverse01.webp",
+            "live_site_url": "https://aniverse.co.nz/",
             "card_size": "medium"
           }
         },
@@ -360,9 +380,11 @@
             "project_image": "shopify://shop_images/all-project20.webp",
             "project_logo": "shopify://shop_images/koreateacup_2x_799e0df6-a504-4327-a5d5-05b139cd8a6d.webp",
             "logo_scale": 100,
-            "project_title": "PROJECT 20",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "Korea teacup Puppies",
+            "project_link": "https://koreateacuppuppies.com/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-teacup.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-teacup01.webp",
+            "live_site_url": "https://koreateacuppuppies.com/",
             "card_size": "large"
           }
         },
@@ -372,9 +394,11 @@
             "project_image": "shopify://shop_images/all-project21.webp",
             "project_logo": "shopify://shop_images/homestolife_2x_1a24c4c0-0a74-459e-9458-3ca078114cca.webp",
             "logo_scale": 100,
-            "project_title": "PROJECT 21",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "homestolife",
+            "project_link": "https://homestolife.sg/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-homestolife.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-homestolife01.webp",
+            "live_site_url": "https://homestolife.sg/",
             "card_size": "large"
           }
         },
@@ -384,9 +408,9 @@
             "project_image": "shopify://shop_images/all-project22.webp",
             "project_logo": "shopify://shop_images/Soaked_House.webp",
             "logo_scale": 100,
-            "project_title": "PROJECT 22",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "Soaked House",
+            "project_link": "https://soakedhouse.com/",
+            "live_site_url": "https://soakedhouse.com/",
             "card_size": "small"
           }
         },
@@ -396,9 +420,11 @@
             "project_image": "shopify://shop_images/all-project23.webp",
             "project_logo": "shopify://shop_images/dalish_2x_5ce4ebe3-6a74-469a-b730-a2c7abf11bea.webp",
             "logo_scale": 100,
-            "project_title": "PROJECT 23",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "DALISH",
+            "project_link": "https://dailish.ae/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-dailsh.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-dailsh01.webp",
+            "live_site_url": "https://dailish.ae/",
             "card_size": "small"
           }
         },
@@ -408,9 +434,9 @@
             "project_image": "shopify://shop_images/all-project24.webp",
             "project_logo": "shopify://shop_images/kosmonext_2x_957f2bf8-cd78-482c-95ef-775f7ebe47c7.webp",
             "logo_scale": 100,
-            "project_title": "PROJECT 24",
-            "project_link": "",
-            "live_site_url": "",
+            "project_title": "kosmonext",
+            "project_link": "https://kosmonext.com/",
+            "live_site_url": "https://kosmonext.com/",
             "card_size": "small"
           }
         }

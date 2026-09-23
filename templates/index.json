@@ -73,9 +73,11 @@
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen03.webp",
             "mockup_image": "shopify://shop_images/ollocdam-mockup.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ollocdam.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-ollocdam01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "live_site_url": ""
+            "live_site_url": "https://ollocdam.us/?pb=0"
           }
         },
         "cclime": {
@@ -107,9 +109,11 @@
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen05.webp",
             "mockup_image": "shopify://shop_images/hozi-mockup.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "live_site_url": ""
+            "live_site_url": "https://hozi.uk/"
           }
         },
         "inmi_seoul": {
@@ -123,6 +127,8 @@
             "scope_3": "SHOPIFY DEVELOPMENT",
             "background_image": "shopify://shop_images/main-fullscreen06.webp",
             "mockup_image": "shopify://shop_images/inmi-mockup.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
             "live_site_url": "https://www.inmiseoul.com"
@@ -573,7 +579,9 @@
             "service": "WELLNESS • NUTRITION",
             "link_label": "VIEW PROJECT",
             "project_link": "",
-            "live_site_url": ""
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ollocdam.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-ollocdam01.webp",
+            "live_site_url": "https://ollocdam.us/?pb=0"
           }
         },
         "review_cllime": {
@@ -599,7 +607,9 @@
             "service": "PET • LIFESTYLE",
             "link_label": "VIEW PROJECT",
             "project_link": "",
-            "live_site_url": ""
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01.webp",
+            "live_site_url": "https://hozi.uk/"
           }
         },
         "review_inmi_seoul": {
@@ -611,6 +621,8 @@
             "service": "BEAUTY • SKINCARE",
             "link_label": "VIEW PROJECT",
             "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
             "live_site_url": "https://www.inmiseoul.com"
           }
         }
