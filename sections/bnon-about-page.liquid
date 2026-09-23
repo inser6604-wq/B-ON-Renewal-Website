@@ -1,0 +1,92 @@
+{{ 'bnon-about-page.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign clip_id = 'bnon-about-universe-clip-' | append: section.id
+-%}
+
+<section class="bnon-section bnon-about" aria-labelledby="BnonAboutHeading-{{ section.id }}">
+  <div class="bnon-about__inner">
+    <div class="bnon-about__content">
+      <div class="bnon-about__copy">
+        <div class="bnon-about__hero-copy">
+          <p class="bnon-about__eyebrow">ABOUT B&amp;ON UNIVERSE</p>
+          <h1 class="bnon-about__heading" id="BnonAboutHeading-{{ section.id }}">
+            브랜드의 시작에서 글로벌 비즈니스까지<span aria-hidden="true">.</span>
+          </h1>
+        </div>
+
+        <p class="bnon-about__services">
+          <span>BRAND STRATEGY</span><span aria-hidden="true">·</span><span>UX/UI</span><span aria-hidden="true">·</span><span>SHOPIFY</span><span aria-hidden="true">·</span><span>GLOBAL COMMERCE</span>
+        </p>
+
+        <p class="bnon-about__description">
+          브랜드의 시작부터 글로벌 확장까지,<br>
+          B&amp;ON Universe는 디자인과 커머스를 연결합니다.
+        </p>
+      </div>
+
+      {%- if section.settings.profile_url != blank -%}
+        <a class="bnon-about__profile" href="{{ section.settings.profile_url }}" download>
+          <span class="bnon-about__profile-copy">
+            <strong>COMPANY PROFILE</strong>
+            <span>회사소개서 다운로드 <span aria-hidden="true">·</span> PDF</span>
+          </span>
+          <span class="bnon-about__profile-arrow" aria-hidden="true">↗</span>
+        </a>
+      {%- else -%}
+        <span class="bnon-about__profile bnon-about__profile--disabled" aria-disabled="true">
+          <span class="bnon-about__profile-copy">
+            <strong>COMPANY PROFILE</strong>
+            <span>회사소개서 다운로드 <span aria-hidden="true">·</span> PDF</span>
+          </span>
+          <span class="bnon-about__profile-arrow" aria-hidden="true">↗</span>
+        </span>
+      {%- endif -%}
+    </div>
+
+    <div class="bnon-about__universe-viewport" aria-hidden="true">
+      <bnon-hero-universe class="bnon-hero__universe bnon-about__universe">
+        <div class="bnon-hero__art">
+          <svg class="bnon-hero__svg" viewBox="-220 -220 440 440" focusable="false" aria-hidden="true">
+            <defs>
+              <clipPath id="{{ clip_id }}"><circle cx="0" cy="0" r="184" /></clipPath>
+            </defs>
+            <circle class="bnon-hero__sphere" cx="0" cy="0" r="184" />
+            <g clip-path="url(#{{ clip_id }})">
+              <path class="bnon-hero__ring" data-bnon-ring-a d="M -164 -73 A 180 70 24 1 0 164 73 A 180 70 24 1 0 -164 -73 Z" />
+              <path class="bnon-hero__ring" data-bnon-ring-b d="M -77 41 A 87 180 -28 1 0 77 -41 A 87 180 -28 1 0 -77 41 Z" />
+              <circle class="bnon-hero__planet" data-bnon-planet-a cx="142" cy="87" r="4" />
+              <circle class="bnon-hero__planet" data-bnon-planet-b cx="-83" cy="31" r="3" />
+            </g>
+          </svg>
+        </div>
+        <button class="bnon-hero__motion" type="button" data-bnon-motion-toggle hidden tabindex="-1">
+          <span data-bnon-motion-label>애니메이션 일시정지</span>
+        </button>
+      </bnon-hero-universe>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON About page",
+  "tag": "section",
+  "class": "bnon-about-page-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    {
+      "type": "url",
+      "id": "profile_url",
+      "label": "회사소개서 PDF 링크"
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON About page"
+    }
+  ]
+}
+{% endschema %}
