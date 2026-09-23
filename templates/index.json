@@ -38,7 +38,8 @@
             "background_image": "shopify://shop_images/main-fullscreen01.webp",
             "mockup_image": "shopify://shop_images/MONCLOS-mockup.webp",
             "view_project_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "live_site_url": ""
           }
         },
         "entalpy": {
@@ -54,8 +55,6 @@
             "mockup_image": "shopify://shop_images/Entalpy-mockup.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-entalpy.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-entalpy01.webp",
             "live_site_url": "https://entalpykr.myshopify.com"
           }
         },
@@ -71,7 +70,8 @@
             "background_image": "shopify://shop_images/main-fullscreen03.webp",
             "mockup_image": "shopify://shop_images/ollocdam-mockup.webp",
             "view_project_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "live_site_url": ""
           }
         },
         "cclime": {
@@ -104,7 +104,8 @@
             "background_image": "shopify://shop_images/main-fullscreen05.webp",
             "mockup_image": "shopify://shop_images/hozi-mockup.webp",
             "view_project_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "live_site_url": ""
           }
         },
         "inmi_seoul": {
@@ -120,8 +121,6 @@
             "mockup_image": "shopify://shop_images/inmi-mockup.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
             "live_site_url": "https://www.inmiseoul.com"
           }
         }
@@ -287,63 +286,14 @@
     "bnon_our_universe_pfnmUh": {
       "type": "bnon-our-universe",
       "blocks": {
-        "universe_item_PefMHq": {
+        "universe_item_dCpbbW": {
           "type": "universe_item",
           "settings": {
             "published": true,
-            "image": "shopify://shop_images/orbit_07_2x_3746786d-4b46-40cc-adab-0f08bdd7a67a.webp",
             "alt": ""
           }
         },
-        "universe_item_BLRFtM": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_06_2x_86086dfc-ece4-462e-89cb-dc8146285671.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_L9zhpB": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_01_2x_c100f405-e0eb-46a5-8ff6-c7955117940a.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_zfDc8A": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_16_2x_363bf87f-f9ec-4792-a4b1-582006580018.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_8FUbQY": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_17_2x_d41ee6e1-b531-4bbe-9145-8804a6790da9.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_D8VYzw": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_14_2x_e27f0391-e40b-43ab-98ab-5ba4059d9b53.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_Yw3KU8": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_14_2x_e27f0391-e40b-43ab-98ab-5ba4059d9b53.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_gjxPDG": {
+        "universe_item_g7L9py": {
           "type": "universe_item",
           "settings": {
             "published": true,
@@ -351,71 +301,15 @@
             "alt": ""
           }
         },
-        "universe_item_NPbPQ3": {
+        "universe_item_aJT3Up": {
           "type": "universe_item",
           "settings": {
             "published": true,
-            "image": "shopify://shop_images/orbit_10_2x_5aaaf497-701d-443a-8e55-726f354a154a.webp",
+            "image": "shopify://shop_images/orbit_24_2x_d685cee9-9469-4342-b2c3-69cdc9f609c3.webp",
             "alt": ""
           }
         },
-        "universe_item_LiJLcH": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_15_2x_e08b427d-97d1-4415-a87b-8e2bf536b4cb.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_JBf3e9": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_12_2x_8adb9aad-86a7-4101-8344-45607c0731d4.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_TGg6Ct": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_22_2x_12ad28d8-2182-4b38-bdd6-83cfb28c0fb0.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_H4XTkq": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_13_2x_ffe6ca4d-547e-4c69-9825-7bb4305b24ce.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_g9PLD8": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_04_2x_5b14cc5e-f227-4835-bd98-d83a8f843e8e.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_JyE7Wh": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_08_2x_e4aefa9f-e2fb-4842-974d-5f4d3c2b48a2.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_qzRk94": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_09_2x_5db99a0a-a75f-4c9a-a45c-92e5997e1e67.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_g4i9xr": {
+        "universe_item_nwRanb": {
           "type": "universe_item",
           "settings": {
             "published": true,
@@ -423,15 +317,23 @@
             "alt": ""
           }
         },
-        "universe_item_DiRnaX": {
+        "universe_item_Czxd8V": {
           "type": "universe_item",
           "settings": {
             "published": true,
-            "image": "shopify://shop_images/orbit_24_2x_d685cee9-9469-4342-b2c3-69cdc9f609c3.webp",
+            "image": "shopify://shop_images/orbit_22_2x_12ad28d8-2182-4b38-bdd6-83cfb28c0fb0.webp",
             "alt": ""
           }
         },
-        "universe_item_qKeDj4": {
+        "universe_item_4zRUK7": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_21.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_xr3XFj": {
           "type": "universe_item",
           "settings": {
             "published": true,
@@ -439,15 +341,7 @@
             "alt": ""
           }
         },
-        "universe_item_jjcG3t": {
-          "type": "universe_item",
-          "settings": {
-            "published": true,
-            "image": "shopify://shop_images/orbit_24_2x_d685cee9-9469-4342-b2c3-69cdc9f609c3.webp",
-            "alt": ""
-          }
-        },
-        "universe_item_kiqnKz": {
+        "universe_item_BzV77y": {
           "type": "universe_item",
           "settings": {
             "published": true,
@@ -455,7 +349,104 @@
             "alt": ""
           }
         },
-        "universe_item_JwTzEY": {
+        "universe_item_78tpV7": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_17_2x_d41ee6e1-b531-4bbe-9145-8804a6790da9.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_dRVRaQ": {
+          "type": "universe_item",
+          "disabled": true,
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_16_2x_363bf87f-f9ec-4792-a4b1-582006580018.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_RpFdP9": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_15_2x_e08b427d-97d1-4415-a87b-8e2bf536b4cb.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_Pxz3eU": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_14_2x_e27f0391-e40b-43ab-98ab-5ba4059d9b53.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_EWJwzQ": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_13_2x_ffe6ca4d-547e-4c69-9825-7bb4305b24ce.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_NnGB9N": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_12_2x_8adb9aad-86a7-4101-8344-45607c0731d4.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_VbLJ8w": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_11_2x_b2551a8b-88cb-4bc9-b291-083055c8d7be.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_m9pWe9": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_10_2x_5aaaf497-701d-443a-8e55-726f354a154a.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_jfmBfH": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_09_2x_5db99a0a-a75f-4c9a-a45c-92e5997e1e67.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_qmxWaj": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_08_2x_e4aefa9f-e2fb-4842-974d-5f4d3c2b48a2.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_EtECFw": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_07_2x_3746786d-4b46-40cc-adab-0f08bdd7a67a.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_JPN9Rn": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_06_2x_86086dfc-ece4-462e-89cb-dc8146285671.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_WdkKFT": {
           "type": "universe_item",
           "settings": {
             "published": true,
@@ -463,7 +454,15 @@
             "alt": ""
           }
         },
-        "universe_item_8Yadha": {
+        "universe_item_rQwzNV": {
+          "type": "universe_item",
+          "settings": {
+            "published": true,
+            "image": "shopify://shop_images/orbit_04_2x_5b14cc5e-f227-4835-bd98-d83a8f843e8e.webp",
+            "alt": ""
+          }
+        },
+        "universe_item_yz87Na": {
           "type": "universe_item",
           "settings": {
             "published": true,
@@ -471,7 +470,7 @@
             "alt": ""
           }
         },
-        "universe_item_XWa8Rk": {
+        "universe_item_CLWDhq": {
           "type": "universe_item",
           "settings": {
             "published": true,
@@ -479,41 +478,41 @@
             "alt": ""
           }
         },
-        "universe_item_eExfYF": {
+        "universe_item_D7Hgf8": {
           "type": "universe_item",
           "settings": {
             "published": true,
-            "image": "shopify://shop_images/orbit_04_2x_5b14cc5e-f227-4835-bd98-d83a8f843e8e.webp",
+            "image": "shopify://shop_images/orbit_01_2x_c100f405-e0eb-46a5-8ff6-c7955117940a.webp",
             "alt": ""
           }
         }
       },
       "block_order": [
-        "universe_item_PefMHq",
-        "universe_item_BLRFtM",
-        "universe_item_L9zhpB",
-        "universe_item_zfDc8A",
-        "universe_item_8FUbQY",
-        "universe_item_D8VYzw",
-        "universe_item_Yw3KU8",
-        "universe_item_gjxPDG",
-        "universe_item_NPbPQ3",
-        "universe_item_LiJLcH",
-        "universe_item_JBf3e9",
-        "universe_item_TGg6Ct",
-        "universe_item_H4XTkq",
-        "universe_item_g9PLD8",
-        "universe_item_JyE7Wh",
-        "universe_item_qzRk94",
-        "universe_item_g4i9xr",
-        "universe_item_DiRnaX",
-        "universe_item_qKeDj4",
-        "universe_item_jjcG3t",
-        "universe_item_kiqnKz",
-        "universe_item_JwTzEY",
-        "universe_item_8Yadha",
-        "universe_item_XWa8Rk",
-        "universe_item_eExfYF"
+        "universe_item_dCpbbW",
+        "universe_item_g7L9py",
+        "universe_item_aJT3Up",
+        "universe_item_nwRanb",
+        "universe_item_Czxd8V",
+        "universe_item_4zRUK7",
+        "universe_item_xr3XFj",
+        "universe_item_BzV77y",
+        "universe_item_78tpV7",
+        "universe_item_dRVRaQ",
+        "universe_item_RpFdP9",
+        "universe_item_Pxz3eU",
+        "universe_item_EWJwzQ",
+        "universe_item_NnGB9N",
+        "universe_item_VbLJ8w",
+        "universe_item_m9pWe9",
+        "universe_item_jfmBfH",
+        "universe_item_qmxWaj",
+        "universe_item_EtECFw",
+        "universe_item_JPN9Rn",
+        "universe_item_WdkKFT",
+        "universe_item_rQwzNV",
+        "universe_item_yz87Na",
+        "universe_item_CLWDhq",
+        "universe_item_D7Hgf8"
       ],
       "name": "B&ON Our Universe",
       "settings": {
@@ -533,11 +532,47 @@
     "bnon_review_client_stories": {
       "type": "bnon-review",
       "blocks": {
-        "review_cllime": {
+        "review_monclos": {
           "type": "review",
           "settings": {
             "image": "shopify://shop_images/Review-img01.webp",
-            "review_text": "",
+            "review_text": "“브랜드가 가진 분위기를 잘 이해해주시고, 저희가 미처 생각하지 못했던 부분까지 먼저 제안해주셔서 좋았습니다. 디자인뿐만 아니라 실제 운영까지 고려해주셔서 만족스러운 결과물이 나왔어요.”",
+            "brand_name": "MONCLOS",
+            "service": "BEAUTY • SKINCARE",
+            "link_label": "VIEW PROJECT",
+            "project_link": "",
+            "live_site_url": ""
+          }
+        },
+        "review_entalpy": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Review-img02.webp",
+            "review_text": "“처음에는 원하는 방향을 명확하게 설명하기 어려웠는데, 내용을 빠르게 정리해서 디자인으로 보여주셨어요. 피드백 반영도 빨랐고 프로젝트를 진행하는 동안 소통이 편했습니다.”",
+            "brand_name": "ENTALPY",
+            "service": "PERFUME • FRAGRANCE",
+            "link_label": "VIEW PROJECT",
+            "project_link": "",
+            "live_site_url": "https://entalpykr.myshopify.com"
+          }
+        },
+        "review_ollocdam": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Review-img03.webp",
+            "review_text": "“오픈 이후에도 직접 관리할 수 있도록 세세하게 안내해주신 점이 특히 좋았어요. 수정이나 업데이트가 필요한 부분도 어렵지 않게 운영할 수 있어서 실제 사용하면서 더 만족하고 있습니다.”",
+            "brand_name": "OLLOCDAM",
+            "service": "WELLNESS • NUTRITION",
+            "link_label": "VIEW PROJECT",
+            "project_link": "",
+            "live_site_url": ""
+          }
+        },
+        "review_cllime": {
+          "type": "review",
+          "settings": {
+            "image": "shopify://shop_images/Review-img04.webp",
+            "review_text": "“해외 고객을 대상으로 하는 사이트라 고민이 많았는데, Shopify 구축부터 사용자 흐름까지 세심하게 신경 써주셨습니다. 브랜드 이미지도 살리면서 사용하기 편한 사이트로 완성되어 만족합니다.”",
             "brand_name": "CLLIME",
             "service": "BEAUTY • SKINCARE",
             "link_label": "VIEW PROJECT",
@@ -550,72 +585,35 @@
         "review_hozi": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Review-img02.webp",
-            "review_text": "",
+            "image": "shopify://shop_images/Review-img05.webp",
+            "review_text": "“여러 요소가 들어가는 프로젝트라 복잡해질까 걱정했는데 전체 구조를 깔끔하게 정리해주셨어요. 필요한 정보가 한눈에 들어오면서도 브랜드가 전문적으로 보이는 결과물이 완성되어 만족스러웠습니다.”",
             "brand_name": "HOZI",
             "service": "PET • LIFESTYLE",
             "link_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "live_site_url": ""
           }
         },
         "review_inmi_seoul": {
           "type": "review",
           "settings": {
-            "image": "shopify://shop_images/Review-img03.webp",
-            "review_text": "",
+            "image": "shopify://shop_images/Review-img06_91d9ef49-69cd-4441-afd9-3b88051a3aac.webp",
+            "review_text": "“처음부터 정해진 답을 제시하기보다 브랜드에 필요한 게 무엇인지 함께 고민해주셨어요. 여러 의견을 주고받는 과정에서 방향이 점점 선명해졌고, 결과물에도 저희 브랜드의 개성이 자연스럽게 담겼습니다.”",
             "brand_name": "INMI SEOUL",
             "service": "BEAUTY • SKINCARE",
             "link_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
             "live_site_url": "https://www.inmiseoul.com"
-          }
-        },
-        "review_monclos": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Review-img04.webp",
-            "review_text": "",
-            "brand_name": "MONCLOS",
-            "service": "BEAUTY • SKINCARE",
-            "link_label": "VIEW PROJECT",
-            "project_link": ""
-          }
-        },
-        "review_entalpy": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Review-img05.webp",
-            "review_text": "",
-            "brand_name": "ENTALPY",
-            "service": "PERFUME • FRAGRANCE",
-            "link_label": "VIEW PROJECT",
-            "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-entalpy.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-entalpy01.webp",
-            "live_site_url": "https://entalpykr.myshopify.com"
-          }
-        },
-        "review_ollocdam": {
-          "type": "review",
-          "settings": {
-            "image": "shopify://shop_images/Review-img06.webp",
-            "review_text": "",
-            "brand_name": "OLLOCDAM",
-            "service": "WELLNESS • NUTRITION",
-            "link_label": "VIEW PROJECT",
-            "project_link": ""
           }
         }
       },
       "block_order": [
-        "review_cllime",
-        "review_hozi",
-        "review_inmi_seoul",
         "review_monclos",
         "review_entalpy",
-        "review_ollocdam"
+        "review_ollocdam",
+        "review_cllime",
+        "review_hozi",
+        "review_inmi_seoul"
       ],
       "name": "B&ON Client Stories",
       "settings": {
