@@ -94,6 +94,7 @@
       const run = {
         events: new AbortController(),
         states: [],
+        starting: false,
         started: false,
         targetEndTime: null
       };
@@ -133,8 +134,14 @@
       this.startAutoScrollRun(run);
     }
 
-    startAutoScrollRun(run) {
-      if (this.autoScrollRun !== run || run.started || run.states.some((state) => !state.loaded)) return;
+    async startAutoScrollRun(run) {
+      if (this.autoScrollRun !== run || run.started || run.starting || run.states.some((state) => !state.loaded)) return;
+      run.starting = true;
+      // Image decode can finish before the responsive device viewport has
+      // committed its final dimensions. Let two layout frames settle so both
+      // devices calculate their scroll range from the same visual state.
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      if (this.autoScrollRun !== run || !this.dialog.open) return;
       run.states.forEach((state) => {
         state.maxScroll = Math.max(0, state.viewport.scrollHeight - state.viewport.clientHeight);
       });
@@ -142,8 +149,9 @@
       const startTime = performance.now();
       // The longest screenshot moves at the established natural baseline;
       // every device shares its resulting duration and target end time.
-      const totalDuration = longestDistance > 0 ? longestDistance / 240 * 1000 : 0;
+      const totalDuration = longestDistance > 0 ? longestDistance / 420 * 1000 : 0;
       run.started = true;
+      run.starting = false;
       run.targetEndTime = startTime + totalDuration;
       run.states.forEach((state) => this.startDeviceScroll(run, state, startTime));
     }
@@ -166,11 +174,15 @@
         state.frame = null;
         if (this.autoScrollRun !== run || !this.dialog.open || state.paused) return;
         const progress = Math.min(1, Math.max(0, (time - currentTime) / duration));
-        viewport.scrollTop = startTop + remainingDistance * progress;
+        // Re-read the real endpoint while animating. Responsive image layout
+        // and late intrinsic-size updates must not leave one device short.
+        state.maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
+        const currentRemainingDistance = Math.max(0, state.maxScroll - startTop);
+        viewport.scrollTop = startTop + currentRemainingDistance * progress;
         if (time < segmentEndTime && viewport.scrollTop < state.maxScroll) {
           state.frame = requestAnimationFrame(tick);
         } else {
-          viewport.scrollTop = state.maxScroll;
+          viewport.scrollTop = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
         }
       };
       state.frame = requestAnimationFrame(tick);
