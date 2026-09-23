@@ -12,13 +12,13 @@
     "bnon_portfolio_gallery": {
       "type": "bnon-portfolio-gallery",
       "blocks": {
-        "project_01": { "type": "project", "settings": { "project_name": "PROJECT 01", "category": "" } },
-        "project_02": { "type": "project", "settings": { "project_name": "PROJECT 02", "category": "" } },
-        "project_03": { "type": "project", "settings": { "project_name": "PROJECT 03", "category": "" } },
-        "project_04": { "type": "project", "settings": { "project_name": "PROJECT 04", "category": "" } },
-        "project_05": { "type": "project", "settings": { "project_name": "PROJECT 05", "category": "" } },
-        "project_06": { "type": "project", "settings": { "project_name": "PROJECT 06", "category": "" } },
-        "project_07": { "type": "project", "settings": { "project_name": "PROJECT 07", "category": "" } }
+        "project_01": { "type": "project", "settings": { "image": "shopify://shop_images/Portfolio-page01.webp", "project_name": "PLEATSMOOD", "category": "FASHION", "mockup_desktop_image": "shopify://shop_images/scroll-mockup-pleatsmood.webp", "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01.webp" } },
+        "project_02": { "type": "project", "settings": { "image": "shopify://shop_images/Portfolio-page02.webp", "project_name": "DAILISH", "category": "BEAUTY", "mockup_desktop_image": "shopify://shop_images/scroll-mockup-dailsh.webp", "mockup_phone_image": "shopify://shop_images/scroll-mockup-dailsh01.webp", "live_site_url": "https://dailish.ae/" } },
+        "project_03": { "type": "project", "settings": { "image": "shopify://shop_images/Portfolio-page03.webp", "project_name": "HOMESTOLIFE", "category": "LIFESTYLE" } },
+        "project_04": { "type": "project", "settings": { "image": "shopify://shop_images/Portfolio-page04.webp", "project_name": "ODDLY SATISFINE", "category": "FASHION", "mockup_desktop_image": "shopify://shop_images/scroll-mockup-oddly.webp", "mockup_phone_image": "shopify://shop_images/scroll-mockup-oddly01.webp" } },
+        "project_05": { "type": "project", "settings": { "image": "shopify://shop_images/Portfolio-page05.webp", "project_name": "ECRITETPARFUM", "category": "PERFUME", "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ecrit.webp", "mockup_phone_image": "shopify://shop_images/scroll-mockup-ecrit01.webp", "live_site_url": "https://ecritetparfum.com" } },
+        "project_06": { "type": "project", "settings": { "image": "shopify://shop_images/Portfolio-page06.webp", "project_name": "ISLA", "category": "FASHION", "mockup_desktop_image": "shopify://shop_images/scroll-mockup-isla.webp", "mockup_phone_image": "shopify://shop_images/scroll-mockup-isla01.webp", "live_site_url": "https://www.islarunes.com" } },
+        "project_07": { "type": "project", "settings": { "image": "shopify://shop_images/Portfolio-page07.webp", "project_name": "VISION X", "category": "TECH", "mockup_desktop_image": "shopify://shop_images/scroll-mockup-vision.webp", "mockup_phone_image": "shopify://shop_images/scroll-mockup-vision01.webp", "live_site_url": "https://visionx.virnect.com/" } }
       },
       "block_order": ["project_01", "project_02", "project_03", "project_04", "project_05", "project_06", "project_07"],
       "settings": {
@@ -33,20 +33,34 @@
         "project_01": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project01.webp",
+            "project_logo": "shopify://shop_images/HOZI_Vectorized__2x.webp",
+            "logo_scale": 100,
             "project_title": "HOZI",
+            "project_link": "https://hozi.uk/",
             "card_size": "large"
           }
         },
         "project_02": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project02.webp",
+            "project_logo": "shopify://shop_images/ECRITETPARFUM_2x.webp",
+            "logo_scale": 100,
             "project_title": "ÉCRITETPARFUM",
+            "project_link": "https://ecritetparfum.com",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ecrit.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-ecrit01.webp",
+            "live_site_url": "https://ecritetparfum.com",
             "card_size": "medium"
           }
         },
         "project_03": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project03.webp",
+            "project_logo": "shopify://shop_images/MONCLOS_2x.webp",
+            "logo_scale": 100,
             "project_title": "MONCLOS",
             "card_size": "medium"
           }
@@ -54,13 +68,23 @@
         "project_04": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project04.webp",
+            "project_logo": "shopify://shop_images/cclime_2x.webp",
+            "logo_scale": 100,
             "project_title": "CCLIME",
+            "project_link": "https://cclimebeauty.com/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01.webp",
+            "live_site_url": "https://cclimebeauty.com/",
             "card_size": "large"
           }
         },
         "project_05": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project05.webp",
+            "project_logo": "shopify://shop_images/OLLOCDAM_2x.webp",
+            "logo_scale": 100,
             "project_title": "OLLOCDAM",
             "card_size": "large"
           }
@@ -68,6 +92,9 @@
         "project_06": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project06.webp",
+            "project_logo": "shopify://shop_images/logo_white_1_2x.webp",
+            "logo_scale": 100,
             "project_title": "AUBRE",
             "card_size": "small"
           }
@@ -75,13 +102,23 @@
         "project_07": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project07.webp",
+            "project_logo": "shopify://shop_images/amont_2x.webp",
+            "logo_scale": 100,
             "project_title": "amont",
+            "project_link": "https://amont-paris.com",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-amont.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-amont01.webp",
+            "live_site_url": "https://amont-paris.com",
             "card_size": "small"
           }
         },
         "project_08": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project08.webp",
+            "project_logo": "shopify://shop_images/Producer_K_3_1_2x.webp",
+            "logo_scale": 100,
             "project_title": "Producer K",
             "card_size": "small"
           }
@@ -89,20 +126,32 @@
         "project_09": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project09.webp",
+            "project_logo": "shopify://shop_images/NUBARE_2x.webp",
+            "logo_scale": 100,
             "project_title": "NU BARE",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-nubare.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-nubare01.webp",
             "card_size": "large"
           }
         },
         "project_10": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project10.webp",
+            "project_logo": "shopify://shop_images/ALPHAI_2x.webp",
+            "logo_scale": 100,
             "project_title": "ALPHAI",
+            "project_link": "https://alphai.store",
             "card_size": "medium"
           }
         },
         "project_11": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project11.webp",
+            "project_logo": "shopify://shop_images/ANIVERSE_2x.webp",
+            "logo_scale": 100,
             "project_title": "ANTVERSE",
             "card_size": "medium"
           }
@@ -110,6 +159,9 @@
         "project_12": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project12.webp",
+            "project_logo": "shopify://shop_images/koreateacup_2x.webp",
+            "logo_scale": 100,
             "project_title": "Korea Teacup Puppies",
             "card_size": "large"
           }
@@ -117,6 +169,9 @@
         "project_13": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project13.webp",
+            "project_logo": "shopify://shop_images/homestolife_2x.webp",
+            "logo_scale": 100,
             "project_title": "homestolife",
             "card_size": "large"
           }
@@ -124,6 +179,9 @@
         "project_14": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project14.webp",
+            "project_logo": "shopify://shop_images/Soaked_House.webp",
+            "logo_scale": 100,
             "project_title": "Soaked House",
             "card_size": "small"
           }
@@ -131,13 +189,23 @@
         "project_15": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project15.webp",
+            "project_logo": "shopify://shop_images/dalish_2x.webp",
+            "logo_scale": 100,
             "project_title": "DAILISH",
+            "project_link": "https://dailish.ae/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-dailsh.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-dailsh01.webp",
+            "live_site_url": "https://dailish.ae/",
             "card_size": "small"
           }
         },
         "project_16": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project16.webp",
+            "project_logo": "shopify://shop_images/kosmonext_2x.webp",
+            "logo_scale": 100,
             "project_title": "KOSMONEXT",
             "card_size": "small"
           }
@@ -145,6 +213,7 @@
         "project_17": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project17.webp",
             "project_title": "PROJECT 17",
             "card_size": "large"
           }
@@ -152,6 +221,7 @@
         "project_18": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project18.webp",
             "project_title": "PROJECT 18",
             "card_size": "medium"
           }
@@ -159,6 +229,7 @@
         "project_19": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project19.webp",
             "project_title": "PROJECT 19",
             "card_size": "medium"
           }
@@ -166,6 +237,7 @@
         "project_20": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project20.webp",
             "project_title": "PROJECT 20",
             "card_size": "large"
           }
@@ -173,6 +245,7 @@
         "project_21": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project21.webp",
             "project_title": "PROJECT 21",
             "card_size": "large"
           }
@@ -180,6 +253,7 @@
         "project_22": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project22.webp",
             "project_title": "PROJECT 22",
             "card_size": "small"
           }
@@ -187,6 +261,7 @@
         "project_23": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project23.webp",
             "project_title": "PROJECT 23",
             "card_size": "small"
           }
@@ -194,6 +269,7 @@
         "project_24": {
           "type": "project",
           "settings": {
+            "project_image": "shopify://shop_images/all-project24.webp",
             "project_title": "PROJECT 24",
             "card_size": "small"
           }

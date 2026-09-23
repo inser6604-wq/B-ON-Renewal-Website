@@ -53,7 +53,10 @@
             "background_image": "shopify://shop_images/main-fullscreen02.webp",
             "mockup_image": "shopify://shop_images/Entalpy-mockup.webp",
             "view_project_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-entalpy.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-entalpy01.webp",
+            "live_site_url": "https://entalpykr.myshopify.com"
           }
         },
         "ollocdam": {
@@ -83,7 +86,10 @@
             "background_image": "shopify://shop_images/main-fullscreen04.webp",
             "mockup_image": "shopify://shop_images/CCLIME-mockup.webp",
             "view_project_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01.webp",
+            "live_site_url": "https://cclimebeauty.com/"
           }
         },
         "hozi": {
@@ -113,7 +119,10 @@
             "background_image": "shopify://shop_images/main-fullscreen06.webp",
             "mockup_image": "shopify://shop_images/inmi-mockup.webp",
             "view_project_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
+            "live_site_url": "https://www.inmiseoul.com"
           }
         }
       },
@@ -527,16 +536,21 @@
         "review_cllime": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/Review-img01.webp",
             "review_text": "",
             "brand_name": "CLLIME",
             "service": "BEAUTY • SKINCARE",
             "link_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01.webp",
+            "live_site_url": "https://cclimebeauty.com/"
           }
         },
         "review_hozi": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/Review-img02.webp",
             "review_text": "",
             "brand_name": "HOZI",
             "service": "PET • LIFESTYLE",
@@ -547,16 +561,21 @@
         "review_inmi_seoul": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/Review-img03.webp",
             "review_text": "",
             "brand_name": "INMI SEOUL",
             "service": "BEAUTY • SKINCARE",
             "link_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-inmi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-inmi01.webp",
+            "live_site_url": "https://www.inmiseoul.com"
           }
         },
         "review_monclos": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/Review-img04.webp",
             "review_text": "",
             "brand_name": "MONCLOS",
             "service": "BEAUTY • SKINCARE",
@@ -567,16 +586,21 @@
         "review_entalpy": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/Review-img05.webp",
             "review_text": "",
             "brand_name": "ENTALPY",
             "service": "PERFUME • FRAGRANCE",
             "link_label": "VIEW PROJECT",
-            "project_link": ""
+            "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-entalpy.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-entalpy01.webp",
+            "live_site_url": "https://entalpykr.myshopify.com"
           }
         },
         "review_ollocdam": {
           "type": "review",
           "settings": {
+            "image": "shopify://shop_images/Review-img06.webp",
             "review_text": "",
             "brand_name": "OLLOCDAM",
             "service": "WELLNESS • NUTRITION",
