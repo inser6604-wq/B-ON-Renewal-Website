@@ -1185,7 +1185,7 @@ bnon-what-we-do { display: block; }
   }
 
   body:has(#MainContent[data-template='index']) .bnon-header__inner {
-    grid-template-columns: minmax(0, 1fr) auto 44px;
+    grid-template-columns: minmax(0, 1fr) auto 40px;
     min-height: 72px;
     column-gap: 6px;
   }
@@ -1202,9 +1202,15 @@ bnon-what-we-do { display: block; }
   }
 
   body:has(#MainContent[data-template='index']) .bnon-header__contact {
+    width: auto;
+    max-width: 112px;
     min-height: 40px;
     padding-inline: 10px;
     font-size: 12px;
+  }
+
+  body:has(#MainContent[data-template='index']) .bnon-header__mobile-menu summary {
+    width: 40px;
   }
 
   #MainContent[data-template='index'] > .shopify-section,
@@ -1256,7 +1262,7 @@ bnon-what-we-do { display: block; }
 
   .bnon-hero__portfolio { font-size: 20px; }
 
-  .bnon-main-portfolio__stage { min-height: 770px; }
+  .bnon-main-portfolio__stage { min-height: 930px; }
   .bnon-main-portfolio__masthead { padding-top: 32px; }
   .bnon-main-portfolio__heading { min-width: 0; font-size: 32px; }
   .bnon-main-portfolio__count { font-size: 15px; }
@@ -1272,13 +1278,13 @@ bnon-what-we-do { display: block; }
   }
   .bnon-main-portfolio__background-image { object-position: center top; }
   .bnon-main-portfolio__mockup {
-    top: 184px;
+    top: 190px;
     right: 20px;
-    width: min(42vw, 158px);
+    width: min(38vw, 148px);
     max-width: calc(100% - 40px);
   }
   .bnon-main-portfolio__project-content {
-    top: 405px;
+    top: 555px;
     left: 20px;
     width: calc(100% - 40px);
   }
@@ -1346,6 +1352,7 @@ bnon-what-we-do { display: block; }
   .bnon-process__navigation {
     width: 100%;
     margin-top: 36px;
+    overflow-x: auto;
     overscroll-behavior-inline: contain;
     scrollbar-width: none;
   }
@@ -1359,11 +1366,11 @@ bnon-what-we-do { display: block; }
   .bnon-our-universe__heading { font-size: 42px; }
   .bnon-our-universe__description { line-height: 1.45; }
   .bnon-our-universe__viewport {
-    height: 260px;
+    height: 190px;
     overflow: hidden;
     clip-path: none;
   }
-  .bnon-our-universe__stats { gap: 34px; margin-top: 28px; }
+  .bnon-our-universe__stats { gap: 34px; margin-top: 24px; }
   .bnon-our-universe__stat { gap: 6px; }
   .bnon-our-universe__stat-value { font-size: 52px; line-height: 1.08; }
   .bnon-our-universe__stat-title { font-size: 17px; line-height: 1.4; }
@@ -1375,7 +1382,7 @@ bnon-what-we-do { display: block; }
     isolation: isolate;
   }
   .bnon-review__header { align-items: start; }
-  .bnon-review__heading { font-size: clamp(32px, 9vw, 38px); }
+  .bnon-review__heading { font-size: clamp(30px, 8.2vw, 34px); white-space: nowrap; }
   .bnon-review__subheading { font-size: 16px; line-height: 1.4; }
   .bnon-review__count { flex: 0 0 auto; font-size: 14px; }
   .bnon-review__viewport { margin-top: 34px; }
