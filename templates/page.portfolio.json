@@ -18,7 +18,7 @@
             "image": "shopify://shop_images/Portfolio-page01.webp",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-pleatsmood.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01.webp",
-            "live_site_url": "",
+            "live_site_url": "https://pleatsmoodglobal.com/?pb=0",
             "project_name": "PLEATSMOOD",
             "category": "FASHION"
           }
@@ -38,7 +38,9 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page03.webp",
-            "live_site_url": "",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-homestolife.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-homestolife01.webp",
+            "live_site_url": "https://homestolife.sg/",
             "project_name": "HOMESTOLIFE",
             "category": "LIFESTYLE"
           }
@@ -47,8 +49,10 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page04.webp",
-            "live_site_url": "",
-            "project_name": "ODDLY SATISFINE",
+            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_2x_77b038e0-4f93-4975-be7d-eae8012ebc74.webp",
+            "mockup_phone_image": "shopify://shop_images/Rectangle_100_2x_5a1f69dd-4188-426f-bfb5-07515238432d.webp",
+            "live_site_url": "https://aubrewear.com/?pb=0",
+            "project_name": "AUBRE",
             "category": "FASHION"
           }
         },
@@ -56,6 +60,8 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page05.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ecrit.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-ecrit01.webp",
             "live_site_url": "https://ecritetparfum.com",
             "project_name": "ECRITETPARFUM",
             "category": "PERFUME"
@@ -65,6 +71,8 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page06.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-isla.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-isla01.webp",
             "live_site_url": "https://www.islarunes.com",
             "project_name": "ISLA",
             "category": "FASHION"
@@ -74,6 +82,8 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page07.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-vision.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-vision01.webp",
             "live_site_url": "https://visionx.virnect.com/",
             "project_name": "VISION X",
             "category": "TECH"
@@ -106,6 +116,8 @@
             "logo_scale": 100,
             "project_title": "HOZI",
             "project_link": "https://hozi.uk/",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01_cc2951fe-f478-4cb1-b55e-6596bdbf5288.webp",
             "live_site_url": "",
             "card_size": "large"
           }

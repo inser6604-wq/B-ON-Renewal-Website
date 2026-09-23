@@ -39,6 +39,8 @@
             "mockup_image": "shopify://shop_images/MONCLOS-mockup.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/Rectangle_98.png",
+            "mockup_phone_image": "shopify://shop_images/Rectangle_100.png",
             "live_site_url": ""
           }
         },
@@ -55,6 +57,8 @@
             "mockup_image": "shopify://shop_images/Entalpy-mockup.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_db8adb18-2370-41d8-923b-aae358821ff8.png",
+            "mockup_phone_image": "shopify://shop_images/Rectangle_100_74b5fa18-8416-49c5-ade3-ca58683b013f.png",
             "live_site_url": "https://entalpykr.myshopify.com"
           }
         },
@@ -541,6 +545,8 @@
             "service": "BEAUTY • SKINCARE",
             "link_label": "VIEW PROJECT",
             "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/Rectangle_98.png",
+            "mockup_phone_image": "shopify://shop_images/Rectangle_100.png",
             "live_site_url": ""
           }
         },
@@ -553,6 +559,8 @@
             "service": "PERFUME • FRAGRANCE",
             "link_label": "VIEW PROJECT",
             "project_link": "",
+            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_db8adb18-2370-41d8-923b-aae358821ff8.png",
+            "mockup_phone_image": "shopify://shop_images/Rectangle_100_74b5fa18-8416-49c5-ade3-ca58683b013f.png",
             "live_site_url": "https://entalpykr.myshopify.com"
           }
         },
