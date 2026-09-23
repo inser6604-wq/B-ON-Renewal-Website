@@ -1,0 +1,38 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "contact_page": {
+      "type": "bnon-contact-page",
+      "disabled": true,
+      "settings": {
+        "heading": "CONTACT",
+        "title": "브랜드의 다음 단계를\n함께 설계합니다",
+        "description": "<p>B&ON Universe는 브랜드의 가능성을 글로벌 시장으로 확장하는 파트너입니다. 프로젝트에 대한 정보와 문의를 남겨주시면, 빠른 시일 내에 답변드리겠습니다.</p>",
+        "email": "contact@bnonu.com",
+        "phone": "+82 10 2352 0212 / +82 10 6396 5756",
+        "availability": "연중무휴 / 24시간 상담 / 온라인미팅 / 대면미팅",
+        "inquiry_label": "온라인문의",
+        "inquiry_link": "#contact-form"
+      }
+    },
+    "bnon_about_page_4JYXcT": {
+      "type": "bnon-about-page",
+      "name": "B&ON About page",
+      "settings": {
+        "profile_url": ""
+      }
+    }
+  },
+  "order": [
+    "contact_page",
+    "bnon_about_page_4JYXcT"
+  ]
+}
