@@ -1306,6 +1306,9 @@ bnon-what-we-do { display: block; }
   .bnon-main-portfolio__panel--hozi .bnon-main-portfolio__background-image {
     object-position: center center;
   }
+  .bnon-main-portfolio__panel--cclime .bnon-main-portfolio__background-image {
+    object-position: 40% center;
+  }
   .bnon-main-portfolio__mockup {
     top: 23svh;
     right: 20px;
