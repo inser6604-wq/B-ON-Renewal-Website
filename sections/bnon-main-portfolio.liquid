@@ -74,7 +74,7 @@
               endif
             -%}
             <article
-              class="bnon-main-portfolio__panel{% if visible_index == 1 %} is-active{% endif %}"
+              class="bnon-main-portfolio__panel bnon-main-portfolio__panel--{{ block.settings.project_name | handleize }}{% if visible_index == 1 %} is-active{% endif %}"
               id="{{ panel_id }}"
               role="tabpanel"
               tabindex="0"
