@@ -17,12 +17,24 @@
       <ul class="bnon-header__menu" role="list">
         {%- if section.settings.menu != blank -%}
           {%- for link in section.settings.menu.links -%}
-            <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+            {%- liquid
+              assign bnon_link_url = link.url
+              if link.object.handle == 'about' or bnon_link_url contains '/pages/about'
+                unless bnon_link_url contains '?view='
+                  assign bnon_link_url = bnon_link_url | append: '?view=about'
+                endunless
+              elsif link.object.handle == 'service' or bnon_link_url contains '/pages/service'
+                unless bnon_link_url contains '?view='
+                  assign bnon_link_url = bnon_link_url | append: '?view=service'
+                endunless
+              endif
+            -%}
+            <li><a href="{{ bnon_link_url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
           {%- endfor -%}
         {%- else -%}
           <li><a href="/pages/portfolio">PORTFOLIO</a></li>
-          <li><a href="/pages/about">ABOUT</a></li>
-          <li><a href="/pages/service">SERVICE</a></li>
+          <li><a href="/pages/about?view=about">ABOUT</a></li>
+          <li><a href="/pages/service?view=service">SERVICE</a></li>
           <li><a href="/pages/contact">CONTACT</a></li>
         {%- endif -%}
       </ul>
@@ -36,12 +48,24 @@
         <ul role="list">
           {%- if section.settings.menu != blank -%}
             {%- for link in section.settings.menu.links -%}
-              <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+              {%- liquid
+                assign bnon_link_url = link.url
+                if link.object.handle == 'about' or bnon_link_url contains '/pages/about'
+                  unless bnon_link_url contains '?view='
+                    assign bnon_link_url = bnon_link_url | append: '?view=about'
+                  endunless
+                elsif link.object.handle == 'service' or bnon_link_url contains '/pages/service'
+                  unless bnon_link_url contains '?view='
+                    assign bnon_link_url = bnon_link_url | append: '?view=service'
+                  endunless
+                endif
+              -%}
+              <li><a href="{{ bnon_link_url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
             {%- endfor -%}
           {%- else -%}
             <li><a href="/pages/portfolio">PORTFOLIO</a></li>
-            <li><a href="/pages/about">ABOUT</a></li>
-            <li><a href="/pages/service">SERVICE</a></li>
+            <li><a href="/pages/about?view=about">ABOUT</a></li>
+            <li><a href="/pages/service?view=service">SERVICE</a></li>
             <li><a href="/pages/contact">CONTACT</a></li>
           {%- endif -%}
         </ul>
