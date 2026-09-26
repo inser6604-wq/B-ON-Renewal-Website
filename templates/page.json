@@ -11,86 +11,13 @@
   "sections": {
     "main": {
       "type": "main-page",
-      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
-    },
-    "bnon_service_page_Ara6qF": {
-      "type": "bnon-service-page",
-      "blocks": {
-        "service_TmPLdr": {
-          "type": "service",
-          "settings": {
-            "number": "01",
-            "title": "SHOPIFY STORE DEVELOPMENT",
-            "category": "STRATEGY · UX/UI · DEVELOPMENT",
-            "description": "<p>브랜드의 정체성과 비즈니스 목표를 바탕으로 <strong>사용자 경험을 설계</strong>하고, <strong>Shopify 기반의 안정적이고 확장 가능한 스토어</strong>를 구축합니다. 디자인과 개발은 물론 <strong>결제·배송·다국어·다통화 환경</strong>까지 세밀하게 연결하여, 브랜드가 글로벌 시장에서도 지속적으로 판매하고 성장할 수 있는 커머스 환경을 완성합니다.</p>",
-            "link": "",
-            "link_label": "VIEW SERVICE"
-          }
-        },
-        "service_C7EtCU": {
-          "type": "service",
-          "settings": {
-            "number": "02",
-            "title": "DIGITAL MARKETING",
-            "category": "",
-            "description": "",
-            "link": "",
-            "link_label": "VIEW SERVICE"
-          }
-        },
-        "service_LaWnay": {
-          "type": "service",
-          "settings": {
-            "number": "03",
-            "title": "US CORPORATION & 3PL",
-            "category": "",
-            "description": "",
-            "link": "",
-            "link_label": "VIEW SERVICE"
-          }
-        },
-        "service_HtCqx9": {
-          "type": "service",
-          "settings": {
-            "number": "04",
-            "title": "AMAZON",
-            "category": "",
-            "description": "",
-            "link": "",
-            "link_label": "VIEW SERVICE"
-          }
-        },
-        "service_y4geVL": {
-          "type": "service",
-          "settings": {
-            "number": "05",
-            "title": "SHOPIFY EDUCATION",
-            "category": "",
-            "description": "",
-            "link": "",
-            "link_label": "VIEW SERVICE"
-          }
-        }
-      },
-      "block_order": [
-        "service_TmPLdr",
-        "service_C7EtCU",
-        "service_LaWnay",
-        "service_HtCqx9",
-        "service_y4geVL"
-      ],
-      "name": "B&ON Service page",
-      "settings": {
-        "heading": "SERVICE"
-      }
     }
   },
   "order": [
-    "main",
-    "bnon_service_page_Ara6qF"
+    "main"
   ]
 }
