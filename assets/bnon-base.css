@@ -1281,7 +1281,7 @@ bnon-what-we-do { display: block; }
   .bnon-main-portfolio__container { height: 100%; min-height: 0; }
   .bnon-main-portfolio__masthead {
     row-gap: clamp(6px, 1.2svh, 10px);
-    padding-top: clamp(18px, 3svh, 28px);
+    padding-top: clamp(24px, 4svh, 34px);
   }
   .bnon-main-portfolio__heading { min-width: 0; font-size: clamp(30px, 4.5svh, 34px); }
   .bnon-main-portfolio__count { margin-top: 2px; font-size: 15px; }
@@ -1296,7 +1296,7 @@ bnon-what-we-do { display: block; }
     position: absolute;
     z-index: 0;
     inset: 38% 0 0;
-    background: linear-gradient(to bottom, transparent, rgba(10, 10, 10, .82) 28%, #0A0A0A 70%);
+    background: linear-gradient(to bottom, transparent, rgba(10, 10, 10, .57) 28%, rgba(10, 10, 10, .7) 70%);
     content: '';
     pointer-events: none;
   }
@@ -1309,6 +1309,9 @@ bnon-what-we-do { display: block; }
   .bnon-main-portfolio__panel--cclime .bnon-main-portfolio__background-image {
     object-position: 40% center;
   }
+  .bnon-main-portfolio__panel--inmi-seoul .bnon-main-portfolio__background-image {
+    object-position: 40% center;
+  }
   .bnon-main-portfolio__mockup {
     top: 23svh;
     right: 20px;
@@ -1316,7 +1319,7 @@ bnon-what-we-do { display: block; }
     max-width: calc(100% - 40px);
   }
   .bnon-main-portfolio__project-content {
-    top: 63svh;
+    top: 64svh;
     left: 20px;
     width: calc(100% - 40px);
   }
