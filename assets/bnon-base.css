@@ -1300,15 +1300,15 @@ bnon-what-we-do { display: block; }
     content: '';
     pointer-events: none;
   }
-  .bnon-main-portfolio__background-image { object-position: center center; }
+  .bnon-main-portfolio__background-image { object-position: left center; }
   .bnon-main-portfolio__mockup {
-    top: 20svh;
+    top: 23svh;
     right: 20px;
     width: min(31vw, 14svh, 118px);
     max-width: calc(100% - 40px);
   }
   .bnon-main-portfolio__project-content {
-    top: 61svh;
+    top: 63svh;
     left: 20px;
     width: calc(100% - 40px);
   }
