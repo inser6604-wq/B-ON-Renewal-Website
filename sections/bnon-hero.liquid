@@ -5,6 +5,8 @@
   assign keywords = section.settings.keyword_line | split: '·'
   assign clip_id = 'bnon-hero-clip-' | append: section.id
   assign portfolio_link = section.settings.portfolio_link | default: '/pages/portfolio'
+  assign portfolio_label = section.settings.portfolio_label
+  assign portfolio_label_text = portfolio_label | remove: '↓' | strip
   assign contact_link = section.settings.contact_link | default: '/pages/contact'
 -%}
 
@@ -51,7 +53,10 @@
         {%- endfor -%}
       </p>
       <div class="bnon-hero__actions">
-        <a class="bnon-hero__portfolio" href="{{ portfolio_link | escape }}">{{ section.settings.portfolio_label | escape }}</a>
+        <a class="bnon-hero__portfolio" href="{{ portfolio_link | escape }}">
+          <span>{{ portfolio_label_text | escape }}</span>
+          {%- if portfolio_label contains '↓' -%}<span class="bnon-hero__portfolio-arrow">↓</span>{%- endif -%}
+        </a>
         <a class="bnon-hero__contact" href="{{ contact_link | escape }}">{{ section.settings.contact_label | escape }}</a>
       </div>
     </div>

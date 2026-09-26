@@ -467,6 +467,16 @@ bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__card { animat
   font-size: clamp(20px, calc(16px + 0.7vw), 26px);
   color: var(--bnon-color-black);
 }
+.bnon-hero__portfolio-arrow {
+  display: inline-block;
+  margin-left: .18em;
+  animation: bnon-hero-scroll-cue 1.8s ease-in-out infinite;
+  will-change: transform;
+}
+@keyframes bnon-hero-scroll-cue {
+  0%, 30%, 75%, 100% { transform: translateY(0); }
+  52% { transform: translateY(4px); }
+}
 .bnon-hero__portfolio:hover { text-decoration: underline; text-underline-offset: 5px; }
 .bnon-hero__contact {
   display: inline-flex;
@@ -821,6 +831,7 @@ bnon-main-portfolio { display: block; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .bnon-hero__portfolio-arrow { animation: none; }
   .bnon-main-portfolio__tab[data-bnon-next-hint]::after { animation: none; }
 }
 
