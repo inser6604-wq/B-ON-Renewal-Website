@@ -1202,10 +1202,11 @@ bnon-what-we-do { display: block; }
   }
 
   body:has(#MainContent[data-template='index']) .bnon-header__contact {
-    width: auto;
-    max-width: 112px;
-    min-height: 40px;
-    padding-inline: 10px;
+    width: 110px;
+    max-width: 110px;
+    min-height: 36px;
+    padding: 4px 12px;
+    border-radius: 18px;
     font-size: 12px;
   }
 
@@ -1239,7 +1240,7 @@ bnon-what-we-do { display: block; }
   .bnon-hero__universe {
     justify-self: end;
     width: min(52vw, 190px);
-    margin-top: 20px;
+    margin-top: 12px;
   }
 
   .bnon-hero__description {

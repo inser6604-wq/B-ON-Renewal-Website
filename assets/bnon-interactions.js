@@ -18,6 +18,7 @@ if (!customElements.get('bnon-hero-universe')) {
       const options = { signal: this.controller.signal };
       this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.small = window.matchMedia('(max-width: 480px)');
+      this.animateOnSmall = this.classList.contains('bnon-hero__universe');
       this.frame = null;
       this.time = 0;
       this.lastTime = null;
@@ -57,7 +58,7 @@ if (!customElements.get('bnon-hero-universe')) {
 
     canAnimate() {
       return this.isConnected && this.visible && !document.hidden && !this.paused &&
-        !this.reduced.matches && !this.small.matches && !this.failed;
+        !this.reduced.matches && (this.animateOnSmall || !this.small.matches) && !this.failed;
     }
 
     stop() {
@@ -67,7 +68,7 @@ if (!customElements.get('bnon-hero-universe')) {
     }
 
     sync() {
-      const staticMode = this.reduced.matches || this.small.matches;
+      const staticMode = this.reduced.matches || (!this.animateOnSmall && this.small.matches);
       this.toggle.hidden = staticMode || this.failed;
       this.label.textContent = this.paused ? '애니메이션 재생' : '애니메이션 일시정지';
       if (staticMode) {
