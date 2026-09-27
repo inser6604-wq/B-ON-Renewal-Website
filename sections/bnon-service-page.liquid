@@ -57,6 +57,7 @@
         this.section = section;
         this.cards = Array.from(section.querySelectorAll('.bnon-service-card'));
         this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        this.mobile = window.matchMedia('(max-width: 480px)');
         this.current = this.cards.map(() => 0);
         this.target = this.cards.map(() => 0);
         this.frame = null;
@@ -64,10 +65,48 @@
         this.requestUpdate = this.requestUpdate.bind(this);
         this.animate = this.animate.bind(this);
         this.handleMotionChange = this.handleMotionChange.bind(this);
+        this.handleModeChange = this.handleModeChange.bind(this);
         window.addEventListener('scroll', this.requestUpdate, { passive: true });
         window.addEventListener('resize', this.requestUpdate, { passive: true });
         this.reducedMotion.addEventListener('change', this.handleMotionChange);
-        this.requestUpdate();
+        this.mobile.addEventListener('change', this.handleModeChange);
+        this.handleModeChange();
+      }
+
+      enableMobileReveal() {
+        if (this.frame !== null) window.cancelAnimationFrame(this.frame);
+        this.frame = null;
+        this.cards.forEach((card) => {
+          card.style.removeProperty('--bnon-service-dim');
+          card.style.removeProperty('--bnon-service-scale');
+          card.style.removeProperty('--bnon-service-lift');
+        });
+        this.section.classList.add('is-mobile-reveal-ready');
+        if (this.reducedMotion.matches) {
+          this.cards.forEach((card) => card.classList.add('is-mobile-visible'));
+          return;
+        }
+        this.revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-mobile-visible');
+            this.revealObserver.unobserve(entry.target);
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        this.cards.forEach((card) => this.revealObserver.observe(card));
+      }
+
+      disableMobileReveal() {
+        this.revealObserver?.disconnect();
+        this.revealObserver = null;
+        this.section.classList.remove('is-mobile-reveal-ready');
+        this.cards.forEach((card) => card.classList.remove('is-mobile-visible'));
+      }
+
+      handleModeChange() {
+        this.disableMobileReveal();
+        if (this.mobile.matches) this.enableMobileReveal();
+        else this.requestUpdate();
       }
 
       calculateTargets() {
@@ -94,7 +133,7 @@
 
       animate() {
         this.frame = null;
-        if (this.destroyed) return;
+        if (this.destroyed || this.mobile.matches) return;
         this.calculateTargets();
         let needsAnotherFrame = false;
 
@@ -117,11 +156,13 @@
       }
 
       requestUpdate() {
+        if (this.mobile.matches) return;
         if (this.frame === null) this.frame = window.requestAnimationFrame(this.animate);
       }
 
       handleMotionChange() {
-        this.requestUpdate();
+        if (this.mobile.matches) this.handleModeChange();
+        else this.requestUpdate();
       }
 
       destroy() {
@@ -129,6 +170,8 @@
         window.removeEventListener('scroll', this.requestUpdate);
         window.removeEventListener('resize', this.requestUpdate);
         this.reducedMotion.removeEventListener('change', this.handleMotionChange);
+        this.mobile.removeEventListener('change', this.handleModeChange);
+        this.disableMobileReveal();
         if (this.frame !== null) window.cancelAnimationFrame(this.frame);
       }
     }

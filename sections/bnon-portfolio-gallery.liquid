@@ -5,7 +5,7 @@
     {%- if section.settings.eyebrow != blank -%}<p class="bnon-portfolio-gallery__eyebrow">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
   </div>
 
-  <div class="bnon-portfolio-gallery__reveal">
+  <bnon-portfolio-mobile-slider class="bnon-portfolio-gallery__reveal">
   <div class="bnon-portfolio-gallery__stage" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리">
     {%- for block in section.blocks limit: 7 -%}
       {%- liquid
@@ -26,7 +26,7 @@
       </article>
     {%- endfor -%}
   </div>
-  </div>
+  </bnon-portfolio-mobile-slider>
 
   <div class="bnon-portfolio-gallery__next-boundary" aria-hidden="true"></div>
 </section>
@@ -38,6 +38,10 @@
     --gallery-header-height: var(--bnon-header-height-reference, 120px);
     --gallery-intro-gap: clamp(20px, 2vw, 32px);
   }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__heading { font-size: 64px; }
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__description { font-size: 21.6px; }
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__eyebrow { font-size: 15.36px; }
 
   /* Move the intro and gallery as one group. The scaled gallery silhouette
      starts 3.99vw into the stage and is 36.92vw tall: 15.07vw exposes its
@@ -53,6 +57,7 @@
   /* Keep a compact group gap and an independent hook for future reveal. */
   .bnon-portfolio-gallery__reveal {
     position: relative;
+    display: block;
     top: -120px;
     margin-top: var(--gallery-intro-gap);
     padding-bottom: 7vw;
@@ -60,10 +65,15 @@
 
   @media screen and (max-width: 1023px) {
     .bnon-portfolio-gallery { --gallery-header-height: 88px; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__heading { font-size: 51.2px; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__description { font-size: 18.5px; }
   }
 
   @media screen and (max-width: 480px) {
     .bnon-portfolio-gallery { --gallery-header-height: 80px; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__heading { font-size: 38.4px; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__description { font-size: 15.36px; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__eyebrow { font-size: 11.52px; }
   }
 
   /* Reference 169:4623 is a flattened image. These planes reconstruct its
@@ -214,6 +224,51 @@
     --gallery-width: 9.1131vw;
     --gallery-yaw: -81.656deg;
   }
+
+  @media screen and (max-width: 480px) {
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__intro {
+      min-height: 0;
+      padding-top: 50px;
+      align-content: start;
+    }
+
+    .bnon-portfolio-gallery__reveal {
+      top: 0;
+      margin-top: 32px;
+    }
+
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__stage {
+      height: 86vw;
+      perspective: 238.6115vw;
+      perspective-origin: 50% 50%;
+      transform: none;
+      touch-action: pan-y;
+      user-select: none;
+      cursor: grab;
+    }
+
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__stage.is-dragging {
+      cursor: grabbing;
+    }
+
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__stage.is-initializing .bnon-portfolio-gallery__card {
+      transition: none;
+    }
+
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__card.is-wrapping {
+      transition: none;
+    }
+
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(n) {
+      height: 72.7766vw !important;
+      border-radius: 7.1583vw;
+    }
+
+    .bnon-portfolio-gallery__brand {
+      margin-top: 4.95vw;
+      font-size: clamp(9px, 3.04vw, 13px);
+    }
+  }
 {% endstylesheet %}
 
 {% javascript %}
@@ -265,6 +320,156 @@
         this.sizeObserver.disconnect();
         this.textObserver.disconnect();
         document.fonts.removeEventListener('loadingdone', this.scheduleFit);
+      }
+    });
+  }
+
+  if (!customElements.get('bnon-portfolio-mobile-slider')) {
+    customElements.define('bnon-portfolio-mobile-slider', class extends HTMLElement {
+      connectedCallback() {
+        if (this.controller) return;
+
+        this.stage = this.querySelector('.bnon-portfolio-gallery__stage');
+        this.cards = Array.from(this.querySelectorAll('[data-bnon-portfolio-card]'));
+        if (!this.stage || this.cards.length < 2) return;
+
+        this.slots = [
+          { x: -103.8598, z: 114.7955, width: 51.3128, yaw: 83.078 },
+          { x: -88.7574, z: 59.1250, width: 51.4668, yaw: 55.772 },
+          { x: -51.6753, z: 14.8027, width: 52.1527, yaw: 29.556 },
+          { x: -0.5968, z: 0, width: 51.3013, yaw: 0 },
+          { x: 51.4118, z: 14.8027, width: 51.6945, yaw: -29.844 },
+          { x: 88.1919, z: 58.6933, width: 50.6820, yaw: -55.341 },
+          { x: 103.2851, z: 114.1223, width: 50.1221, yaw: -81.656 },
+        ];
+        this.mobile = window.matchMedia('(max-width: 480px)');
+        this.activeIndex = 0;
+        this.pointerId = null;
+        this.startX = 0;
+        this.startY = 0;
+        this.dragged = false;
+        this.suppressClickUntil = 0;
+        this.controller = new AbortController();
+        const options = { signal: this.controller.signal };
+
+        this.mobile.addEventListener('change', () => this.syncMode(), options);
+        this.stage.addEventListener('pointerdown', (event) => this.onPointerDown(event), options);
+        this.stage.addEventListener('pointermove', (event) => this.onPointerMove(event), options);
+        this.stage.addEventListener('pointerup', (event) => this.onPointerUp(event), options);
+        this.stage.addEventListener('pointercancel', () => this.cancelDrag(), options);
+        this.stage.addEventListener('click', (event) => {
+          const suppressClick = this.dragged && performance.now() < this.suppressClickUntil;
+          this.dragged = false;
+          if (!suppressClick) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        }, { capture: true, signal: this.controller.signal });
+        this.stage.addEventListener('keydown', (event) => {
+          if (!this.mobile.matches || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+          event.preventDefault();
+          this.move(event.key === 'ArrowRight' ? 1 : -1);
+        }, options);
+
+        this.syncMode();
+      }
+
+      disconnectedCallback() {
+        this.controller?.abort();
+        this.controller = null;
+      }
+
+      syncMode() {
+        if (this.mobile.matches) {
+          this.setActive(this.activeIndex, false);
+          return;
+        }
+
+        this.stage.classList.remove('is-dragging');
+        this.cards.forEach((card) => {
+          card.style.removeProperty('--gallery-x');
+          card.style.removeProperty('--gallery-z');
+          card.style.removeProperty('--gallery-width');
+          card.style.removeProperty('--gallery-yaw');
+          card.classList.remove('is-wrapping');
+          delete card.dataset.mobileSlot;
+          card.removeAttribute('aria-current');
+        });
+      }
+
+      setActive(index, animate = true) {
+        const count = this.cards.length;
+        this.activeIndex = (index + count) % count;
+        if (!animate) this.stage.classList.add('is-initializing');
+
+        this.cards.forEach((card, cardIndex) => {
+          let relative = cardIndex - this.activeIndex;
+          if (relative > Math.floor(count / 2)) relative -= count;
+          if (relative < -Math.floor(count / 2)) relative += count;
+          const previousSlot = Number(card.dataset.mobileSlot);
+          const wrapsAcrossGallery = animate
+            && Number.isFinite(previousSlot)
+            && Math.abs(relative - previousSlot) > 1;
+          const slot = this.slots[Math.max(0, Math.min(6, relative + 3))];
+          card.classList.toggle('is-wrapping', wrapsAcrossGallery);
+          card.dataset.mobileSlot = String(relative);
+          card.style.setProperty('--gallery-x', `${slot.x}vw`);
+          card.style.setProperty('--gallery-z', `${slot.z}vw`);
+          card.style.setProperty('--gallery-width', `${slot.width}vw`);
+          card.style.setProperty('--gallery-yaw', `${slot.yaw}deg`);
+          if (cardIndex === this.activeIndex) card.setAttribute('aria-current', 'true');
+          else card.removeAttribute('aria-current');
+
+          if (wrapsAcrossGallery) {
+            requestAnimationFrame(() => requestAnimationFrame(() => card.classList.remove('is-wrapping')));
+          }
+        });
+
+        if (!animate) requestAnimationFrame(() => this.stage.classList.remove('is-initializing'));
+      }
+
+      move(direction) {
+        this.setActive(this.activeIndex + direction);
+      }
+
+      onPointerDown(event) {
+        if (!this.mobile.matches || event.pointerType === 'mouse' && event.button !== 0) return;
+        this.pointerId = event.pointerId;
+        this.startX = event.clientX;
+        this.startY = event.clientY;
+        this.dragged = false;
+        this.stage.setPointerCapture?.(event.pointerId);
+      }
+
+      onPointerMove(event) {
+        if (event.pointerId !== this.pointerId) return;
+        const deltaX = event.clientX - this.startX;
+        const deltaY = event.clientY - this.startY;
+        if (Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
+          this.dragged = true;
+          this.stage.classList.add('is-dragging');
+          event.preventDefault();
+        }
+      }
+
+      onPointerUp(event) {
+        if (event.pointerId !== this.pointerId) return;
+        const deltaX = event.clientX - this.startX;
+        const deltaY = event.clientY - this.startY;
+        const wasSwipe = this.dragged || (Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY));
+        this.stage.releasePointerCapture?.(event.pointerId);
+        this.pointerId = null;
+        this.stage.classList.remove('is-dragging');
+        if (wasSwipe) {
+          this.dragged = true;
+          this.suppressClickUntil = performance.now() + 600;
+        }
+        if (wasSwipe && Math.abs(deltaX) >= 36) this.move(deltaX < 0 ? 1 : -1);
+      }
+
+      cancelDrag() {
+        if (this.dragged) this.suppressClickUntil = performance.now() + 600;
+        this.pointerId = null;
+        this.stage.classList.remove('is-dragging');
       }
     });
   }

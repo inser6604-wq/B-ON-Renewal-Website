@@ -279,10 +279,73 @@
   .bnon-service-card__link { margin-top: 28px; font-size: 16px; }
 }
 
+@media screen and (max-width: 480px) {
+  .bnon-service-page__inner { padding: 48px 16px 72px; }
+  .bnon-service-page__heading { font-size: clamp(38px, 11.2vw, 46px); }
+  .bnon-service-page__list {
+    display: grid;
+    gap: 24px;
+    margin-top: 40px;
+    padding-bottom: 0;
+  }
+  .bnon-service-card,
+  .bnon-service-card:nth-child(n) {
+    position: relative;
+    top: auto;
+    z-index: auto;
+    min-height: 0;
+    padding: 24px 18px 26px;
+    border-radius: 22px;
+    transform: none;
+    will-change: auto;
+  }
+  .bnon-service-card::after { display: none; }
+  .bnon-service-card__count { font-size: 19px; }
+  .bnon-service-card__title {
+    margin-top: 22px;
+    font-size: clamp(25px, 7.2vw, 30px);
+    line-height: 1.08;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .bnon-service-card__copy { padding-top: 18px; }
+  .bnon-service-card__category {
+    font-size: 13px;
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+  .bnon-service-card__description {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+  }
+  .bnon-service-card__description br { display: none; }
+  .bnon-service-card__media { margin-top: 22px; border-radius: 9px; }
+  .bnon-service-card__link { margin-top: 22px; font-size: 15px; }
+
+  .bnon-service-page.is-mobile-reveal-ready .bnon-service-card {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 520ms ease, transform 520ms cubic-bezier(.22, 1, .36, 1);
+  }
+  .bnon-service-page.is-mobile-reveal-ready .bnon-service-card.is-mobile-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bnon-service-card {
     --bnon-service-scale: 1 !important;
     --bnon-service-lift: 0px !important;
+  }
+  .bnon-service-page.is-mobile-reveal-ready .bnon-service-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
   .bnon-service-card__link { transition: none; }
 }

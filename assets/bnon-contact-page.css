@@ -7,6 +7,7 @@
 .bnon-contact-page__heading { font-family: 'Archivo', sans-serif; font-size: 68px; font-weight: 800; line-height: 98px; letter-spacing: -.04em; }
 .bnon-contact-page__title { margin-top: 18px; font-family: 'Pretendard', sans-serif; font-size: 39px; font-weight: 500; line-height: 1.44; letter-spacing: -.05em; }
 .bnon-contact-page__description { max-width: 438px; margin-top: 10px; font: 500 16px/1.62 'Pretendard', sans-serif; letter-spacing: -.04em; color: #555; }
+.bnon-contact-page__desktop-break { display: none; }
 .bnon-contact-page__details { display: grid; gap: 24px; margin-top: 40px; font: 500 16px/1.4 'Pretendard', sans-serif; letter-spacing: -.04em; }
 .bnon-contact-page__details > div { display: grid; gap: 6px; }
 .bnon-contact-page__details .bnon-contact-page__detail-label { font-family: 'Archivo', sans-serif; font-size: 14px; letter-spacing: .2em; color: #666; }
@@ -49,6 +50,17 @@
 .bnon-contact-form__status--success { color: #176c59; background: #effbf8; }
 .bnon-contact-form__status--error { color: #b42318; background: #fff4f2; }
 .bnon-contact-form__status ul { margin-bottom: 0; }
+
+@media screen and (min-width: 1200px) {
+  .bnon-contact-page__intro { padding-right: 52px; }
+  .bnon-contact-page__intro-copy { max-width: 386px; }
+  .bnon-contact-page__description {
+    max-width: 386px;
+    font-size: 15px;
+    color: #8a8a8a;
+  }
+  .bnon-contact-page__desktop-break { display: initial; }
+}
 
 @media screen and (max-width: 1199px) {
   .bnon-contact-page__inner { grid-template-columns: minmax(280px, .75fr) minmax(0, 1.25fr); gap: 48px; width: calc(100% - 64px); padding-block: 100px; }

@@ -9,7 +9,13 @@
       <div class="bnon-contact-page__intro-copy">
         <h1 id="BnonContactHeading-{{ section.id }}" class="bnon-contact-page__heading">{{ section.settings.heading | escape }}</h1>
         <h2 class="bnon-contact-page__title">{{ section.settings.title | escape | newline_to_br }}</h2>
-        <div class="bnon-contact-page__description">{{ section.settings.description }}</div>
+        {%- liquid
+          assign contact_description = section.settings.description
+          assign contact_description = contact_description | replace: '가능성을 글로벌', '가능성을<br class="bnon-contact-page__desktop-break">글로벌'
+          assign contact_description = contact_description | replace: '파트너입니다. 프로젝트', '파트너입니다.<br class="bnon-contact-page__desktop-break">프로젝트'
+          assign contact_description = contact_description | replace: '남겨주시면, 빠른', '남겨주시면,<br class="bnon-contact-page__desktop-break">빠른'
+        -%}
+        <div class="bnon-contact-page__description">{{ contact_description }}</div>
       </div>
 
       <div class="bnon-contact-page__details">

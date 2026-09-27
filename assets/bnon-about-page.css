@@ -169,11 +169,20 @@
   display: block;
   width: 100%;
   max-width: none;
-  color: #28dbc4;
-  opacity: .88;
+  color: #3154ee;
+  opacity: .64;
 }
 
 .bnon-about__universe .bnon-hero__motion { display: none !important; }
+
+@media screen and (min-width: 1200px) {
+  .bnon-about,
+  .bnon-about__inner {
+    min-height: calc(125svh - 120px);
+  }
+  .bnon-about__inner { padding-top: 120px; }
+  .bnon-about__universe-viewport { top: 45%; }
+}
 
 @media screen and (max-width: 1199px) {
   .bnon-about__inner { padding: 120px 6vw 72px; }
