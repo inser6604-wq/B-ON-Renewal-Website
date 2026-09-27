@@ -187,10 +187,11 @@ bnon-process { display: block; }
 .bnon-process__panel { position: absolute; inset: 0; display: grid; align-content: start; gap: 29px; opacity: 0; transition: opacity var(--bnon-motion-slow, 600ms) ease; }
 .bnon-process__panel.is-active { opacity: 1; }
 .bnon-process__panel.is-leaving { opacity: 0; }
-.bnon-process__step-title { display: inline-flex; justify-self: start; align-items: baseline; gap: 8px; padding: 10px; border: 1px solid var(--bnon-color-white); background: var(--bnon-color-blue); font-family: var(--bnon-font-korean); font-size: 24px; font-weight: var(--bnon-weight-medium); line-height: 1.2; letter-spacing: -0.04em; }
+.bnon-process__step-title { display: inline-flex; justify-self: start; align-items: baseline; gap: 8px; padding: 10px; border: 0; background: var(--bnon-color-blue); font-family: var(--bnon-font-korean); font-size: 24px; font-weight: var(--bnon-weight-medium); line-height: 1.2; letter-spacing: -0.04em; }
 .bnon-process__step-title span { font-size: 30px; }
 .bnon-process__step-description,
 .bnon-process__feature { max-width: 470px; font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-medium); line-height: 1.5; letter-spacing: -0.04em; }
+.bnon-process__mobile-break { display: none; }
 .bnon-process__feature { margin-top: -19px; color: #FFFFFF; }
 .bnon-process__confirm-text { font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-semibold); line-height: 1.2; letter-spacing: -0.04em; color: #FFFFFF; }
 .bnon-process__media { position: relative; aspect-ratio: 652 / 435; overflow: hidden; border-radius: 20px; background: #1a1a1a; }
@@ -882,6 +883,8 @@ bnon-what-we-do { display: block; }
 
 .bnon-what-we-do__description-medium { font-weight: 500; }
 .bnon-what-we-do__description-extrabold { font-weight: 800; }
+.bnon-what-we-do__mobile-break,
+.bnon-what-we-do__mobile-description { display: none; }
 
 .bnon-what-we-do__accordion { margin-top: 85px; }
 .bnon-what-we-do__item { background: var(--bnon-color-black); }
@@ -1057,6 +1060,9 @@ bnon-what-we-do { display: block; }
   .bnon-what-we-do__eyebrow { font-size: 26px; }
   .bnon-what-we-do__heading { font-size: 40px; }
   .bnon-what-we-do__trigger { font-size: 18px; }
+  .bnon-what-we-do__mobile-break { display: block; }
+  .bnon-what-we-do__desktop-description { display: none; }
+  .bnon-what-we-do__mobile-description { display: inline; }
 }
 
 /* B&ON FAQ */
@@ -1087,6 +1093,7 @@ bnon-what-we-do { display: block; }
 .bnon-faq__item.is-open .bnon-faq__panel-wrap { grid-template-rows: 1fr; }
 .bnon-faq__panel { min-height: 0; overflow: hidden; background: var(--bnon-color-white); }
 .bnon-faq__answer { padding: 20px 30px; color: var(--bnon-color-black); font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-regular); line-height: 1.4; letter-spacing: -.04em; }
+.bnon-faq__mobile-copy { display: none; }
 .bnon-faq__trigger:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--bnon-color-mint); outline-offset: -2px; }
 
 @media screen and (max-width: 1023px) {
@@ -1313,7 +1320,7 @@ bnon-what-we-do { display: block; }
     object-position: 40% center;
   }
   .bnon-main-portfolio__mockup {
-    top: calc(23svh + 20px);
+    top: calc(28svh + 20px);
     right: 20px;
     width: min(31vw, 14svh, 118px);
     max-width: calc(100% - 40px);
@@ -1395,14 +1402,45 @@ bnon-what-we-do { display: block; }
   .bnon-process__step-description,
   .bnon-process__feature,
   .bnon-process__confirm-text { font-size: 16px; line-height: 1.45; }
+  .bnon-process__mobile-break { display: block; }
+  .bnon-process__step-description + .bnon-process__feature { margin-top: -10px; }
   .bnon-process__navigation {
     width: 100%;
     margin-top: 36px;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-    scrollbar-width: none;
+    overflow: visible;
+    padding-bottom: 0;
   }
-  .bnon-process__navigation::-webkit-scrollbar { display: none; }
+  .bnon-process__progress { height: 2px; }
+  .bnon-process__progress span::after {
+    right: -5px;
+    width: 10px;
+    height: 10px;
+  }
+  .bnon-process__steps {
+    display: flex;
+    grid-template-columns: none;
+    width: 100%;
+    min-width: 0;
+  }
+  .bnon-process__step-anchor {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+  }
+  .bnon-process__step-button {
+    width: 100%;
+    gap: 3px;
+    padding: 12px 2px 0;
+    font-size: clamp(8px, 2.35vw, 10px);
+    line-height: 1.15;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+  .bnon-process__step-button.is-active {
+    color: var(--bnon-color-mint);
+    font-weight: var(--bnon-weight-extrabold);
+  }
+  .bnon-process__confirm { display: none; }
 
   .bnon-our-universe {
     position: relative;
@@ -1413,9 +1451,11 @@ bnon-what-we-do { display: block; }
   .bnon-our-universe__description { line-height: 1.45; }
   .bnon-our-universe__viewport {
     height: 190px;
+    margin-top: 36px;
     overflow: hidden;
     clip-path: none;
   }
+  .bnon-our-universe__orbit { top: 96px; }
   .bnon-our-universe__stats { gap: 34px; margin-top: 24px; }
   .bnon-our-universe__stat { gap: 6px; }
   .bnon-our-universe__stat-value { font-size: 52px; line-height: 1.08; }
@@ -1447,17 +1487,20 @@ bnon-what-we-do { display: block; }
   .bnon-faq__question { font-size: 16px; line-height: 1.35; }
   .bnon-faq__arrow { flex-basis: 25px; width: 25px; height: 25px; margin-left: 12px; }
   .bnon-faq__answer { padding: 16px 18px; font-size: 16px; line-height: 1.5; }
+  .bnon-faq__desktop-copy { display: none; }
+  .bnon-faq__mobile-copy { display: inline; }
 
   .bnon-contact { padding-block: 48px; }
-  .bnon-contact__heading { font-size: 42px; }
+  .bnon-contact__heading { font-size: 40px; }
   .bnon-contact__layout { gap: 36px; }
   .bnon-contact__text-group { gap: 24px; }
   .bnon-contact__content { gap: 28px; }
   .bnon-contact__copy { gap: 14px; }
-  .bnon-contact__title { font-size: clamp(28px, 8vw, 34px); line-height: 1.3; }
-  .bnon-contact__description { line-height: 1.5; }
+  .bnon-contact__title { font-size: clamp(24px, 6.8vw, 28px); line-height: 1.3; word-break: keep-all; overflow-wrap: break-word; }
+  .bnon-contact__description { font-size: 14px; line-height: 1.45; word-break: keep-all; overflow-wrap: break-word; }
+  .bnon-contact__note { font-size: 13px; }
   .bnon-contact__actions { display: grid; grid-template-columns: 1fr; gap: 12px; }
-  .bnon-contact__button { width: 100%; min-height: 54px; font-size: 17px; }
+  .bnon-contact__button { width: 100%; min-height: 46px; padding-block: 8px; font-size: 15px; }
   .bnon-contact__visual { width: 100%; height: min(78vw, 330px); }
   .bnon-contact__universe { width: min(76vw, 320px); height: min(76vw, 320px); }
   .bnon-contact__bubble { max-width: min(72vw, 270px); white-space: normal; line-height: 1.35; }
@@ -1550,7 +1593,14 @@ bnon-what-we-do { display: block; }
   .bnon-footer-v2__info-title { font-size: 19px !important; }
   .bnon-footer-v2__info :is(p, a) { font-size: 14px; overflow-wrap: anywhere; }
   .bnon-footer-v2__bottom { display: grid; gap: 14px; margin-top: 58px; font-size: 12px; line-height: 1.2; }
-  .bnon-footer-v2__giant { bottom: -2px; font-size: clamp(42px, 14vw, 106px); letter-spacing: -.105em; }
+  .bnon-footer-v2__giant {
+    bottom: auto;
+    width: calc(100% + 40px);
+    margin: 18px -20px 0;
+    font-size: clamp(72px, 20.5vw, 98px);
+    line-height: .88;
+    letter-spacing: -.03em;
+  }
 }
 
 /* B&ON Client Stories */
@@ -1610,6 +1660,13 @@ bnon-what-we-do { display: block; }
   .bnon-review__text { font-size: 14px; }
   .bnon-review__brand { font-size: 26px; }
   .bnon-review__service { font-size: 15px; }
+}
+
+@media screen and (max-width: 390px) {
+  .bnon-review__header { gap: 8px; }
+  .bnon-review__intro { min-width: 0; }
+  .bnon-review__heading { font-size: 30px; }
+  .bnon-review__count { padding-top: 2px; font-size: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

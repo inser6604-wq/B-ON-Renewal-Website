@@ -9,7 +9,7 @@
         {%- assign description_parts = section.settings.description | split: '비앤온은' -%}
         <p class="bnon-what-we-do__description">
           {%- if description_parts.size > 1 -%}
-            <span class="bnon-what-we-do__description-medium">{{ description_parts.first | append: '비앤온은' | escape }}</span><span class="bnon-what-we-do__description-extrabold">{{ description_parts[1] | escape }}</span>
+            <span class="bnon-what-we-do__description-medium">{{ description_parts.first | escape }}</span><br class="bnon-what-we-do__mobile-break"><span class="bnon-what-we-do__description-medium">비앤온은</span><span class="bnon-what-we-do__description-extrabold">{{ description_parts[1] | escape }}</span>
           {%- else -%}
             <span class="bnon-what-we-do__description-medium">{{ section.settings.description | escape }}</span>
           {%- endif -%}
@@ -42,7 +42,17 @@
                 <div class="bnon-what-we-do__panel" id="{{ panel_id }}" role="region" aria-labelledby="{{ trigger_id }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" data-bnon-service-panel>
                   <div class="bnon-what-we-do__detail">
                     {%- if block.settings.title_ko != blank -%}<h3 class="bnon-what-we-do__detail-title">{{ block.settings.title_ko | escape }}</h3>{%- endif -%}
-                    {%- if block.settings.description != blank -%}<div class="bnon-what-we-do__detail-description">{{ block.settings.description | escape | newline_to_br }}</div>{%- endif -%}
+                    {%- if block.settings.description != blank -%}
+                      <div class="bnon-what-we-do__detail-description">
+                        {%- if block.settings.title_en == 'DIGITAL MARKETING' -%}
+                          {%- assign mobile_description = block.settings.description | strip_newlines | escape | replace: '구축합니다.', '구축<br class="bnon-what-we-do__mobile-break">합니다.' | replace: '지속 가능한', '<br class="bnon-what-we-do__mobile-break">지속 가능한' -%}
+                          <span class="bnon-what-we-do__desktop-description">{{ block.settings.description | escape | newline_to_br }}</span>
+                          <span class="bnon-what-we-do__mobile-description">{{ mobile_description }}</span>
+                        {%- else -%}
+                          {{ block.settings.description | escape | newline_to_br }}
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
                     {%- if block.settings.feature_text != blank -%}<p class="bnon-what-we-do__feature">{{ block.settings.feature_text | escape }}</p>{%- endif -%}
                     {%- if block.settings.link != blank -%}
                       <a class="bnon-what-we-do__link" href="{{ block.settings.link | escape }}"{% unless forloop.first %} tabindex="-1"{% endunless %} data-bnon-service-link>{{ block.settings.link_label | escape }}</a>

@@ -27,7 +27,13 @@
                 {{ block.shopify_attributes }}
               >
                 <p class="bnon-process__step-title"><span aria-hidden="true">{{ step_number }}</span> {{ block.settings.title | escape }}</p>
-                {%- if block.settings.description != blank -%}<p class="bnon-process__step-description">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  {%- assign process_description = block.settings.description | escape | newline_to_br -%}
+                  {%- if forloop.first -%}
+                    {%- assign process_description = process_description | replace: ' 프로젝트 범위를', ' <br class="bnon-process__mobile-break">프로젝트 범위를' -%}
+                  {%- endif -%}
+                  <p class="bnon-process__step-description">{{ process_description }}</p>
+                {%- endif -%}
                 {%- if block.settings.feature_text != blank -%}<p class="bnon-process__feature">{{ block.settings.feature_text | escape }}</p>{%- endif -%}
                 {%- if block.settings.confirm_text != blank -%}<p class="bnon-process__confirm-text">{{ block.settings.confirm_text | escape }}</p>{%- endif -%}
               </article>

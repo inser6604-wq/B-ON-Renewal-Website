@@ -18,7 +18,7 @@ if (!customElements.get('bnon-hero-universe')) {
       const options = { signal: this.controller.signal };
       this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.small = window.matchMedia('(max-width: 480px)');
-      this.animateOnSmall = this.classList.contains('bnon-hero__universe');
+      this.animateOnSmall = this.matches('.bnon-hero__universe, .bnon-contact__universe');
       this.frame = null;
       this.time = 0;
       this.lastTime = null;

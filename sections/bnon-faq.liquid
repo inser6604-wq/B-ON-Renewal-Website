@@ -18,6 +18,25 @@
             {%- liquid
               assign trigger_id = 'bnon-faq-trigger-' | append: section.id | append: '-' | append: block.id
               assign panel_id = 'bnon-faq-panel-' | append: section.id | append: '-' | append: block.id
+              assign mobile_question = block.settings.question | escape
+              assign mobile_answer = block.settings.answer | escape | newline_to_br | replace: '<br />', ' '
+
+              case block.settings.question
+                when '프로젝트는 어떻게 시작하나요?'
+                  assign mobile_answer = mobile_answer | replace: '브랜드 진단부터 시작합니다.', '브랜드 진단부터<br>시작합니다.' | replace: '함께 점검한 뒤', '함께<br>점검한 뒤'
+                when '쇼피파이 구축 기간은 얼마나 걸리나요?'
+                  assign mobile_answer = mobile_answer | replace: '다르지만, 기본', '다르지만,<br>기본' | replace: '진행됩니다. ', '진행됩니다.<br>'
+                when '기존 국내 자사몰을 쇼피파이로 이전할 수 있나요?'
+                  assign mobile_question = mobile_question | replace: '쇼피파이로 이전할', '쇼피파이로<br>이전할'
+                when '쇼피파이 구축 후에 브랜드 내에서 직접 운영·관리가 가능한가요?'
+                  assign mobile_question = mobile_question | replace: '운영·관리가', '운영 관리가'
+                  assign mobile_answer = mobile_answer | replace: '가능하도록 쇼피파이', '가능하도록<br>쇼피파이' | replace: '있습니다. ', '있습니다.<br>'
+                when '구축 후 운영까지 맡길 수 있나요?'
+                  assign mobile_answer = mobile_answer | replace: '콘텐츠 업데이트, 프로모션', '콘텐츠 업데이트,<br>프로모션' | replace: '데이터 기반 수정까지', '데이터 기반 수정<br>까지'
+                when '아마존 입점이나 글로벌 마케팅도 같이 가능한가요?'
+                  assign mobile_question = mobile_question | replace: '마케팅도 같이', '마케팅도<br>같이'
+                  assign mobile_answer = mobile_answer | replace: '아니라 아마존', '아니라<br>아마존' | replace: '마케팅까지 브랜드', '마케팅까지<br>브랜드'
+              endcase
             -%}
             <article class="bnon-faq__item{% if forloop.first %} is-open{% endif %}" data-bnon-faq-item {{ block.shopify_attributes }}>
               <button
@@ -29,12 +48,12 @@
                 data-bnon-faq-trigger
                 data-bnon-faq-id="{{ block.id }}"
               >
-                <span class="bnon-faq__question">{{ block.settings.question | escape }}</span>
+                <span class="bnon-faq__question"><span class="bnon-faq__desktop-copy">{{ block.settings.question | escape }}</span><span class="bnon-faq__mobile-copy">{{ mobile_question }}</span></span>
                 <span class="bnon-faq__arrow" aria-hidden="true"><svg viewBox="0 0 35 35" focusable="false"><path d="M9 13.5 17.5 22 26 13.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg></span>
               </button>
               <div class="bnon-faq__panel-wrap">
                 <div class="bnon-faq__panel" id="{{ panel_id }}" role="region" aria-labelledby="{{ trigger_id }}" aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}" data-bnon-faq-panel>
-                  <div class="bnon-faq__answer">{{ block.settings.answer | escape | newline_to_br }}</div>
+                  <div class="bnon-faq__answer"><span class="bnon-faq__desktop-copy">{{ block.settings.answer | escape | newline_to_br }}</span><span class="bnon-faq__mobile-copy">{{ mobile_answer }}</span></div>
                 </div>
               </div>
             </article>
