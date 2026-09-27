@@ -1319,7 +1319,7 @@ bnon-what-we-do { display: block; }
     max-width: calc(100% - 40px);
   }
   .bnon-main-portfolio__project-content {
-    top: 64svh;
+    top: 70svh;
     left: 20px;
     width: calc(100% - 40px);
   }
