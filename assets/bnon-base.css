@@ -1313,7 +1313,7 @@ bnon-what-we-do { display: block; }
     object-position: 40% center;
   }
   .bnon-main-portfolio__mockup {
-    top: 23svh;
+    top: calc(23svh + 20px);
     right: 20px;
     width: min(31vw, 14svh, 118px);
     max-width: calc(100% - 40px);
