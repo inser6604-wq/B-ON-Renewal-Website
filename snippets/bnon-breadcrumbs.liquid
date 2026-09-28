@@ -1,0 +1,53 @@
+{{ 'bnon-breadcrumbs.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign breadcrumb_title = page_title
+  assign breadcrumb_parent_title = blank
+  assign breadcrumb_parent_url = blank
+
+  case request.page_type
+    when 'product'
+      assign breadcrumb_title = product.title
+      if collection != blank
+        assign breadcrumb_parent_title = collection.title
+        assign breadcrumb_parent_url = collection.url
+      endif
+    when 'collection'
+      assign breadcrumb_title = collection.title
+    when 'blog'
+      assign breadcrumb_title = blog.title
+    when 'article'
+      assign breadcrumb_title = article.title
+      assign breadcrumb_parent_title = blog.title
+      assign breadcrumb_parent_url = blog.url
+    when 'page'
+      assign breadcrumb_title = page.title
+      if page.handle == 'contact'
+        assign breadcrumb_title = 'CONTACT'
+      endif
+    when 'cart'
+      assign breadcrumb_title = 'CART'
+    when 'search'
+      assign breadcrumb_title = 'SEARCH'
+    when 'list-collections'
+      assign breadcrumb_title = 'COLLECTIONS'
+  endcase
+-%}
+
+<nav class="bnon-breadcrumbs" aria-label="Breadcrumb">
+  <ol class="bnon-breadcrumbs__list" role="list">
+    <li class="bnon-breadcrumbs__item">
+      <a class="bnon-breadcrumbs__link" href="{{ routes.root_url }}">HOME</a>
+    </li>
+    {%- if breadcrumb_parent_title != blank and breadcrumb_parent_url != blank -%}
+      <li class="bnon-breadcrumbs__item">
+        <span class="bnon-breadcrumbs__separator" aria-hidden="true">/</span>
+        <a class="bnon-breadcrumbs__link" href="{{ breadcrumb_parent_url }}">{{ breadcrumb_parent_title | escape }}</a>
+      </li>
+    {%- endif -%}
+    <li class="bnon-breadcrumbs__item" aria-current="page">
+      <span class="bnon-breadcrumbs__separator" aria-hidden="true">/</span>
+      <span class="bnon-breadcrumbs__current">{{ breadcrumb_title | escape }}</span>
+    </li>
+  </ol>
+</nav>
