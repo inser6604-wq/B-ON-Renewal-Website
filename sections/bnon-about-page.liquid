@@ -1,74 +1,82 @@
 {{ 'bnon-about-page.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
 
-{%- liquid
-  assign clip_id = 'bnon-about-universe-clip-' | append: section.id
--%}
-
 <section class="bnon-section bnon-about" aria-labelledby="BnonAboutHeading-{{ section.id }}">
   <div class="bnon-about__inner">
     <div class="bnon-about__content">
       <div class="bnon-about__copy">
         <div class="bnon-about__hero-copy">
-          <p class="bnon-about__eyebrow">ABOUT B&amp;ON UNIVERSE</p>
-          <h1 class="bnon-about__heading" id="BnonAboutHeading-{{ section.id }}">
-            <span class="bnon-about__heading-line">브랜드의 시작에서</span>
-            <span class="bnon-about__heading-line">글로벌 비즈니스까지<span class="bnon-about__heading-accent" aria-hidden="true">.</span></span>
+          <p class="bnon-about__eyebrow" data-bnon-about-enter>ABOUT <span>B&amp;ON UNIVERSE</span></p>
+          <h1 class="bnon-about__heading" id="BnonAboutHeading-{{ section.id }}" data-bnon-about-enter>
+            <span class="bnon-about__heading-line">FROM BRAND BEGINNINGS</span>
+            <span class="bnon-about__heading-line">TO GLOBAL BUSINESS<span class="bnon-about__heading-accent" aria-hidden="true">.</span></span>
           </h1>
         </div>
 
-        <p class="bnon-about__services">
+        <p class="bnon-about__services" data-bnon-about-enter>
           <span>BRAND STRATEGY</span><span aria-hidden="true">·</span><span>UX/UI</span><span class="bnon-about__mobile-break" aria-hidden="true"></span><span aria-hidden="true">·</span><span>SHOPIFY</span><span aria-hidden="true">·</span><span>GLOBAL COMMERCE</span>
         </p>
 
-        <p class="bnon-about__description">
+        <p class="bnon-about__description" data-bnon-about-enter>
           브랜드의 시작부터 글로벌 확장까지,<br>
           B&amp;ON Universe는 디자인과<span class="bnon-about__mobile-description-break"><br></span> 커머스를 연결합니다.
         </p>
       </div>
 
       {%- if section.settings.profile_url != blank -%}
-        <a class="bnon-about__profile" href="{{ section.settings.profile_url }}" download>
+        <a class="bnon-about__profile" href="{{ section.settings.profile_url }}" download data-bnon-about-enter>
           <span class="bnon-about__profile-copy">
             <strong>COMPANY PROFILE</strong>
             <span>회사소개서 다운로드 <span aria-hidden="true">·</span> PDF</span>
           </span>
-          <span class="bnon-about__profile-arrow" aria-hidden="true">↗</span>
+          <span class="bnon-about__profile-arrow" aria-hidden="true"><img src="{{ 'bnon-company-profile-arrow.svg' | asset_url }}" width="32" height="24" alt=""></span>
         </a>
       {%- else -%}
-        <span class="bnon-about__profile bnon-about__profile--disabled" aria-disabled="true">
+        <span class="bnon-about__profile bnon-about__profile--disabled" aria-disabled="true" data-bnon-about-enter>
           <span class="bnon-about__profile-copy">
             <strong>COMPANY PROFILE</strong>
             <span>회사소개서 다운로드 <span aria-hidden="true">·</span> PDF</span>
           </span>
-          <span class="bnon-about__profile-arrow" aria-hidden="true">↗</span>
+          <span class="bnon-about__profile-arrow" aria-hidden="true"><img src="{{ 'bnon-company-profile-arrow.svg' | asset_url }}" width="32" height="24" alt=""></span>
         </span>
       {%- endif -%}
     </div>
 
-    <div class="bnon-about__universe-viewport" aria-hidden="true">
-      <bnon-hero-universe class="bnon-hero__universe bnon-about__universe">
-        <div class="bnon-hero__art">
-          <svg class="bnon-hero__svg" viewBox="-220 -220 440 440" focusable="false" aria-hidden="true">
-            <defs>
-              <clipPath id="{{ clip_id }}"><circle cx="0" cy="0" r="184" /></clipPath>
-            </defs>
-            <circle class="bnon-hero__sphere" cx="0" cy="0" r="184" />
-            <g clip-path="url(#{{ clip_id }})">
-              <path class="bnon-hero__ring" data-bnon-ring-a d="M -164 -73 A 180 70 24 1 0 164 73 A 180 70 24 1 0 -164 -73 Z" />
-              <path class="bnon-hero__ring" data-bnon-ring-b d="M -77 41 A 87 180 -28 1 0 77 -41 A 87 180 -28 1 0 -77 41 Z" />
-              <circle class="bnon-hero__planet" data-bnon-planet-a cx="142" cy="87" r="4" />
-              <circle class="bnon-hero__planet" data-bnon-planet-b cx="-83" cy="31" r="3" />
-            </g>
-          </svg>
-        </div>
-        <button class="bnon-hero__motion" type="button" data-bnon-motion-toggle hidden tabindex="-1">
-          <span data-bnon-motion-label>애니메이션 일시정지</span>
-        </button>
-      </bnon-hero-universe>
-    </div>
   </div>
 </section>
+
+<script>
+  (() => {
+    const about = document.querySelector('.bnon-about');
+    const breadcrumbs = document.querySelector('[data-bnon-breadcrumbs]');
+    const breadcrumbList = breadcrumbs?.querySelector('.bnon-breadcrumbs__list');
+    const contact = document.querySelector('.bnon-header__actions .bnon-header__contact:not(.bnon-header__kakao)');
+    if (!about || !breadcrumbList || !contact) return;
+
+    const syncContentEdges = () => {
+      if (!contact.getClientRects().length) return;
+      const breadcrumbLeft = breadcrumbList.getBoundingClientRect().left;
+      const contactRight = contact.getBoundingClientRect().right;
+      about.style.setProperty('--bnon-about-content-start', `${Math.round(breadcrumbLeft)}px`);
+      about.style.setProperty('--bnon-about-content-end', `${Math.max(0, Math.round(window.innerWidth - contactRight))}px`);
+    };
+
+    requestAnimationFrame(syncContentEdges);
+    window.addEventListener('resize', syncContentEdges, { passive: true });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const entranceItems = about.querySelectorAll('[data-bnon-about-enter]');
+    if (!entranceItems.length || !('IntersectionObserver' in window)) return;
+
+    about.classList.add('is-entrance-ready');
+    const entranceObserver = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      about.classList.add('is-entered');
+      entranceObserver.disconnect();
+    }, { threshold: 0.2 });
+    entranceObserver.observe(about);
+  })();
+</script>
 
 {% schema %}
 {

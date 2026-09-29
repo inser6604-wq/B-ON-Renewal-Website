@@ -168,12 +168,27 @@
         const index = Number(match[1]) - 1;
         const card = this.cards[index];
         if (!card) return;
-        const stickyTop = parseFloat(window.getComputedStyle(card).top) || 0;
-        const targetTop = window.scrollY + card.getBoundingClientRect().top - stickyTop;
-        if (window.bnonLenis) window.bnonLenis.scrollTo(targetTop, { immediate: true, force: true });
-        else window.scrollTo({ top: targetTop, behavior: 'auto' });
-        this.playEntrance(index);
-        this.requestUpdate();
+        window.cancelAnimationFrame(this.hashFrame);
+        this.hashFrame = window.requestAnimationFrame(() => {
+          const stickyTop = parseFloat(window.getComputedStyle(card).top) || 0;
+          const list = card.parentElement;
+          const listDocumentTop = list.getBoundingClientRect().top + window.scrollY;
+          const rowGap = parseFloat(window.getComputedStyle(list).rowGap) || 0;
+          const cardsBefore = this.cards.slice(0, index);
+          const targetTop = Math.max(
+            0,
+            listDocumentTop
+              + cardsBefore.reduce((position, previousCard) => position + previousCard.offsetHeight + rowGap, 0)
+              - stickyTop
+          );
+
+          // Sticky cards report their current visual offset, not their original
+          // grid row. Build the target from the static list flow instead.
+          if (window.bnonLenis) window.bnonLenis.scrollTo(targetTop, { immediate: true, force: true });
+          else window.scrollTo({ top: targetTop, behavior: 'auto' });
+          this.playEntrance(index);
+          this.requestUpdate();
+        });
       }
 
       renderCard(card, progress) {
@@ -227,6 +242,7 @@
         window.removeEventListener('hashchange', this.handleHashChange);
         this.disableMobileReveal();
         this.entranceAnimations?.forEach((animation) => animation.cancel());
+        window.cancelAnimationFrame(this.hashFrame);
         if (this.frame !== null) window.cancelAnimationFrame(this.frame);
       }
     }

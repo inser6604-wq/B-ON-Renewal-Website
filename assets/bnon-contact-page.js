@@ -26,6 +26,18 @@ if (!customElements.get('bnon-contact-page')) {
       this.form.addEventListener('submit', this.handleSubmit);
       this.syncServices();
       this.validate();
+      this.setupEntrance();
+    }
+
+    setupEntrance() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+      this.classList.add('is-entrance-ready');
+      this.entranceObserver = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        this.classList.add('is-entered');
+        this.entranceObserver.disconnect();
+      }, { threshold: 0.2 });
+      this.entranceObserver.observe(this);
     }
 
     isValid() {
@@ -69,6 +81,10 @@ if (!customElements.get('bnon-contact-page')) {
         this.form.querySelector('[aria-invalid="true"]')?.focus();
         this.validate();
       }
+    }
+
+    disconnectedCallback() {
+      this.entranceObserver?.disconnect();
     }
   });
 }

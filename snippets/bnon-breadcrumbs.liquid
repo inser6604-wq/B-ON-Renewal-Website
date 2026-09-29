@@ -34,7 +34,7 @@
   endcase
 -%}
 
-<nav class="bnon-breadcrumbs" aria-label="Breadcrumb">
+<nav class="bnon-breadcrumbs" data-bnon-breadcrumbs aria-label="Breadcrumb">
   <ol class="bnon-breadcrumbs__list" role="list">
     <li class="bnon-breadcrumbs__item">
       <a class="bnon-breadcrumbs__link" href="{{ routes.root_url }}">HOME</a>
@@ -51,3 +51,18 @@
     </li>
   </ol>
 </nav>
+
+<script>
+  (() => {
+    const breadcrumbs = document.currentScript.previousElementSibling;
+    const brand = document.querySelector('.bnon-header__brand');
+    if (!breadcrumbs || !brand) return;
+
+    const syncToHeaderBrand = () => {
+      breadcrumbs.style.setProperty('--bnon-breadcrumbs-inline', `${Math.round(brand.getBoundingClientRect().left)}px`);
+    };
+
+    requestAnimationFrame(syncToHeaderBrand);
+    window.addEventListener('resize', syncToHeaderBrand, { passive: true });
+  })();
+</script>
