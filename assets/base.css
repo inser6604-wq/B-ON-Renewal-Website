@@ -533,8 +533,12 @@ h6:empty {
   margin-left: 1rem;
 }
 
-a:not([href]) {
+a:not([href]):not([role='button']) {
   cursor: not-allowed;
+}
+
+a[role='button'] {
+  cursor: pointer;
 }
 
 .circle-divider::after {

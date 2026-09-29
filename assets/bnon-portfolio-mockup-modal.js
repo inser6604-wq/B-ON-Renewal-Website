@@ -8,6 +8,8 @@
       this.images = [...this.querySelectorAll('.bnon-mockup-modal__image')];
       this.closeButton = this.querySelector('button');
       this.liveSite = this.querySelector('.bnon-mockup-modal__live-site');
+      this.preloads = new Map();
+      this.desktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)');
       this.events = new AbortController();
       const options = { signal: this.events.signal };
       const activate = (event) => {
@@ -19,6 +21,11 @@
       };
       document.addEventListener('click', activate, options);
       document.addEventListener('keydown', activate, options);
+      document.addEventListener('pointerover', (event) => {
+        if (!this.desktopPointer.matches) return;
+        this.preloadTrigger(event.target.closest('[data-mockup-trigger]'));
+      }, options);
+      document.addEventListener('focusin', (event) => this.preloadTrigger(event.target.closest('[data-mockup-trigger]')), options);
       this.closeButton.addEventListener('click', () => this.dialog.close(), options);
       this.dialog.addEventListener('cancel', (event) => {
         event.preventDefault();
@@ -47,6 +54,7 @@
 
     open(trigger) {
       if (this.dialog.open || !(trigger.dataset.mockupDesktopSrc || trigger.dataset.mockupPhoneSrc)) return;
+      this.stopAutoScroll();
       this.trigger = trigger;
       for (const image of this.images) {
         const device = image.dataset.mockupDevice;
@@ -56,6 +64,8 @@
         image.width = Number(trigger.dataset[`${prefix}Width`]) || 1;
         image.height = Number(trigger.dataset[`${prefix}Height`]) || 1;
         image.alt = `${trigger.dataset.mockupTitle || '프로젝트'} 목업`;
+        image.classList.remove('is-loaded');
+        image.parentElement.classList.toggle('is-loading', Boolean(src));
         if (src) image.src = src;
         else image.removeAttribute('src');
       }
@@ -84,6 +94,28 @@
       this.prepareAutoScroll();
     }
 
+    preloadTrigger(trigger) {
+      if (!trigger || trigger.getAttribute('aria-controls') !== this.dialog.id) return;
+      this.preloadImage(trigger.dataset.mockupDesktopSrc);
+    }
+
+    preloadImage(src) {
+      if (!src || this.preloads.has(src)) return this.preloads.get(src);
+      const image = new Image();
+      const ready = new Promise((resolve) => {
+        const finish = async () => {
+          try { await image.decode?.(); } catch { /* Browser cache/load still makes the image usable. */ }
+          resolve();
+        };
+        image.addEventListener('load', finish, { once: true });
+        image.addEventListener('error', () => resolve(), { once: true });
+      });
+      image.src = src;
+      if (image.complete) image.dispatchEvent(new Event('load'));
+      this.preloads.set(src, ready);
+      return ready;
+    }
+
     prepareAutoScroll() {
       this.stopAutoScroll();
       const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -92,7 +124,10 @@
         events: new AbortController(),
         states: [],
         started: false,
-        targetEndTime: null
+        frame: null,
+        resumeTimer: null,
+        paused: false,
+        progress: 0,
       };
       this.autoScrollRun = run;
       const active = () => this.autoScrollRun === run && this.dialog.open && !motion.matches;
@@ -103,81 +138,112 @@
 
       this.viewports.forEach((viewport, index) => {
         const image = this.images[index];
-        const state = { viewport, frame: null, paused: false, loaded: image.hidden };
+        const state = { viewport, loaded: image.hidden, autoWriteUntil: 0, maxScroll: 0 };
         run.states.push(state);
-        const pause = () => {
-          state.paused = true;
-          cancelAnimationFrame(state.frame);
-          state.frame = null;
+        const pauseForManualInput = () => {
+          if (!active()) return;
+          this.pauseAutoScroll(run);
+          window.clearTimeout(run.resumeTimer);
+          run.resumeTimer = window.setTimeout(() => this.resumeAutoScroll(run), 1250);
         };
-        const resume = () => {
-          if (!state.paused || !active()) return;
-          state.paused = false;
-          this.startDeviceScroll(run, state, performance.now());
-        };
-        viewport.addEventListener('mouseenter', pause, options);
-        viewport.addEventListener('mouseleave', resume, options);
+        viewport.addEventListener('wheel', pauseForManualInput, { passive: true, ...options });
+        viewport.addEventListener('pointerdown', pauseForManualInput, options);
+        viewport.addEventListener('touchstart', pauseForManualInput, { passive: true, ...options });
+        viewport.addEventListener('scroll', () => {
+          if (performance.now() < state.autoWriteUntil) return;
+          this.updateProgressFromViewport(run, state);
+          pauseForManualInput();
+        }, options);
         const loaded = async () => {
           if (image.hidden || !image.naturalWidth) return;
-          try { await image.decode(); } catch { return; }
+          try { await image.decode(); } catch { /* The loaded image can still be displayed. */ }
           if (!active()) return;
           state.loaded = true;
+          requestAnimationFrame(() => {
+            if (!active()) return;
+            image.classList.add('is-loaded');
+            viewport.classList.remove('is-loading');
+          });
           this.startAutoScrollRun(run);
         };
         image.addEventListener('load', loaded, options);
         if (image.complete) loaded();
       });
+      window.addEventListener('resize', () => this.recalculateAutoScroll(run), options);
       this.startAutoScrollRun(run);
     }
 
     startAutoScrollRun(run) {
       if (this.autoScrollRun !== run || run.started || run.states.some((state) => !state.loaded)) return;
+      this.recalculateAutoScroll(run);
+      run.progress = this.progressForState(run.states[0]);
+      this.applyProgress(run, run.progress);
+      run.started = true;
+      this.resumeAutoScroll(run);
+    }
+
+    progressForState(state) {
+      return state.maxScroll > 0 ? Math.max(0, Math.min(1, state.viewport.scrollTop / state.maxScroll)) : 0;
+    }
+
+    recalculateAutoScroll(run) {
+      if (this.autoScrollRun !== run) return;
       run.states.forEach((state) => {
         state.maxScroll = Math.max(0, state.viewport.scrollHeight - state.viewport.clientHeight);
       });
-      const longestDistance = Math.max(0, ...run.states.map((state) => state.maxScroll));
-      const startTime = performance.now();
-      // The longest screenshot moves at the established natural baseline;
-      // every device shares its resulting duration and target end time.
-      const totalDuration = longestDistance > 0 ? longestDistance / 240 * 1000 : 0;
-      run.started = true;
-      run.targetEndTime = startTime + totalDuration;
-      run.states.forEach((state) => this.startDeviceScroll(run, state, startTime));
+      this.applyProgress(run, run.progress);
     }
 
-    startDeviceScroll(run, state, currentTime) {
-      if (this.autoScrollRun !== run || state.paused || !state.loaded || state.frame !== null) return;
-      const viewport = state.viewport;
-      state.maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight);
-      const startTop = Math.min(viewport.scrollTop, state.maxScroll);
-      const remainingDistance = state.maxScroll - startTop;
-      if (remainingDistance <= 0) return;
-      const originalRemainingTime = run.targetEndTime - currentTime;
-      // If the shared deadline passed while paused, continue smoothly at the
-      // baseline speed instead of jumping to the end.
-      const duration = originalRemainingTime > 0
-        ? originalRemainingTime
-        : remainingDistance / 120 * 1000;
-      const segmentEndTime = currentTime + duration;
+    applyProgress(run, progress, sourceState) {
+      const clampedProgress = Math.max(0, Math.min(1, progress));
+      run.progress = clampedProgress;
+      run.states.forEach((state) => {
+        if (state === sourceState) return;
+        state.autoWriteUntil = performance.now() + 100;
+        state.viewport.scrollTop = state.maxScroll * clampedProgress;
+      });
+    }
+
+    updateProgressFromViewport(run, state) {
+      this.applyProgress(run, this.progressForState(state), state);
+    }
+
+    pauseAutoScroll(run) {
+      if (this.autoScrollRun !== run) return;
+      run.paused = true;
+      cancelAnimationFrame(run.frame);
+      run.frame = null;
+    }
+
+    resumeAutoScroll(run) {
+      if (this.autoScrollRun !== run || !this.dialog.open || !run.started) return;
+      run.paused = false;
+      cancelAnimationFrame(run.frame);
+      const longestRemainingDistance = Math.max(0, ...run.states.map((state) => state.maxScroll * (1 - run.progress)));
+      if (longestRemainingDistance <= 0) return;
+      const currentTime = performance.now();
+      const startProgress = run.progress;
+      const duration = longestRemainingDistance / 240 * 1000;
       const tick = (time) => {
-        state.frame = null;
-        if (this.autoScrollRun !== run || !this.dialog.open || state.paused) return;
+        run.frame = null;
+        if (this.autoScrollRun !== run || !this.dialog.open || run.paused) return;
         const progress = Math.min(1, Math.max(0, (time - currentTime) / duration));
-        viewport.scrollTop = startTop + remainingDistance * progress;
-        if (time < segmentEndTime && viewport.scrollTop < state.maxScroll) {
-          state.frame = requestAnimationFrame(tick);
+        this.applyProgress(run, startProgress + (1 - startProgress) * progress);
+        if (progress < 1) {
+          run.frame = requestAnimationFrame(tick);
         } else {
-          viewport.scrollTop = state.maxScroll;
+          this.applyProgress(run, 1);
         }
       };
-      state.frame = requestAnimationFrame(tick);
+      run.frame = requestAnimationFrame(tick);
     }
 
     stopAutoScroll() {
       const run = this.autoScrollRun;
       if (!run) return;
       this.autoScrollRun = null;
-      run.states.forEach((state) => cancelAnimationFrame(state.frame));
+      cancelAnimationFrame(run.frame);
+      window.clearTimeout(run.resumeTimer);
       run.events.abort();
     }
 

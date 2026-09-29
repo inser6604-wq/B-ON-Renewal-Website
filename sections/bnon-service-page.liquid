@@ -6,7 +6,7 @@
 
     <div class="bnon-service-page__list">
       {%- for block in section.blocks -%}
-        <article class="bnon-service-card" {{ block.shopify_attributes }}>
+        <article id="service-{{ forloop.index | prepend: '0' }}" class="bnon-service-card" data-bnon-service-card data-bnon-service-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
           <p class="bnon-service-card__count" aria-label="{{ block.settings.number | escape }} / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}">
             <span>{{ block.settings.number | escape }}</span><span aria-hidden="true"> / {{ section.blocks.size | prepend: '0' | slice: -2, 2 }}</span>
           </p>
@@ -60,17 +60,21 @@
         this.mobile = window.matchMedia('(max-width: 480px)');
         this.current = this.cards.map(() => 0);
         this.target = this.cards.map(() => 0);
+        this.enteredCards = new Set();
         this.frame = null;
         this.destroyed = false;
         this.requestUpdate = this.requestUpdate.bind(this);
         this.animate = this.animate.bind(this);
         this.handleMotionChange = this.handleMotionChange.bind(this);
         this.handleModeChange = this.handleModeChange.bind(this);
+        this.handleHashChange = this.handleHashChange.bind(this);
         window.addEventListener('scroll', this.requestUpdate, { passive: true });
         window.addEventListener('resize', this.requestUpdate, { passive: true });
+        window.addEventListener('hashchange', this.handleHashChange);
         this.reducedMotion.addEventListener('change', this.handleMotionChange);
         this.mobile.addEventListener('change', this.handleModeChange);
         this.handleModeChange();
+        requestAnimationFrame(() => this.handleHashChange());
       }
 
       enableMobileReveal() {
@@ -90,6 +94,7 @@
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add('is-mobile-visible');
+            this.playEntrance(this.cards.indexOf(entry.target));
             this.revealObserver.unobserve(entry.target);
           });
         }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
@@ -125,6 +130,52 @@
         });
       }
 
+      activeCardIndex() {
+        let active = 0;
+        this.target.forEach((progress, index) => {
+          if (progress > .12) active = Math.min(index + 1, this.cards.length - 1);
+        });
+        return active;
+      }
+
+      playEntrance(index) {
+        if (this.reducedMotion.matches || this.enteredCards.has(index)) return;
+        this.enteredCards.add(index);
+        const card = this.cards[index];
+        if (!card?.animate) return;
+        const enter = (selector, distance, delay, imageOnly = false) => {
+          const element = card.querySelector(selector);
+          if (!element) return;
+          this.entranceAnimations.push(element.animate(
+            imageOnly
+              ? [{ opacity: 0 }, { opacity: 1 }]
+              : [{ opacity: 0, transform: `translateY(${distance}px)` }, { opacity: 1, transform: 'none' }],
+            { duration: 700, delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }
+          ));
+        };
+        this.entranceAnimations ||= [];
+        enter('.bnon-service-card__title', 16, 60);
+        enter('.bnon-service-card__category', 12, 160);
+        enter('.bnon-service-card__description', 12, 260);
+        enter('.bnon-service-card__link', 10, 360);
+        enter('.bnon-service-card__media', 0, 260, true);
+        enter('.bnon-service-card__count', 0, 440, true);
+      }
+
+      handleHashChange() {
+        const match = window.location.hash.match(/^#service-(0[1-5])$/);
+        if (!match) return;
+        const index = Number(match[1]) - 1;
+        const card = this.cards[index];
+        if (!card) return;
+        const stickyTop = parseFloat(window.getComputedStyle(card).top) || 0;
+        const targetTop = window.scrollY + card.getBoundingClientRect().top - stickyTop;
+        if (window.bnonLenis) window.bnonLenis.scrollTo(targetTop, { immediate: true, force: true });
+        else window.scrollTo({ top: targetTop, behavior: 'auto' });
+        this.playEntrance(index);
+        this.requestUpdate();
+      }
+
       renderCard(card, progress) {
         card.style.setProperty('--bnon-service-dim', (progress * 0.36).toFixed(4));
         card.style.setProperty('--bnon-service-scale', (1 - progress * 0.025).toFixed(4));
@@ -152,6 +203,8 @@
           this.renderCard(card, this.current[index]);
         });
 
+        this.playEntrance(this.activeCardIndex());
+
         if (needsAnotherFrame) this.frame = window.requestAnimationFrame(this.animate);
       }
 
@@ -171,7 +224,9 @@
         window.removeEventListener('resize', this.requestUpdate);
         this.reducedMotion.removeEventListener('change', this.handleMotionChange);
         this.mobile.removeEventListener('change', this.handleModeChange);
+        window.removeEventListener('hashchange', this.handleHashChange);
         this.disableMobileReveal();
+        this.entranceAnimations?.forEach((animation) => animation.cancel());
         if (this.frame !== null) window.cancelAnimationFrame(this.frame);
       }
     }

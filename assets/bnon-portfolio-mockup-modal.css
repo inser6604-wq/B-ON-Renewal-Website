@@ -89,10 +89,16 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
+  touch-action: pan-y;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
   pointer-events: auto;
 }
 .bnon-mockup-modal__viewport::-webkit-scrollbar { display: none; }
+.bnon-mockup-modal__loader { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; background: #fff; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+.bnon-mockup-modal__viewport.is-loading .bnon-mockup-modal__loader { opacity: 1; }
+.bnon-mockup-modal__loader::after { width: 20px; height: 20px; border: 2px solid rgb(10 10 10 / 18%); border-top-color: #3154ee; border-radius: 50%; animation: bnon-mockup-loader-spin .7s linear infinite; content: ''; }
+@keyframes bnon-mockup-loader-spin { to { transform: rotate(360deg); } }
 /* Measured alpha apertures, in each PNG's own coordinate system. */
 .bnon-mockup-modal__device--desktop .bnon-mockup-modal__viewport {
   left: 9.60912%; top: 5.15933%; width: 80.94463%; height: 75.72079%;
@@ -103,7 +109,8 @@
   left: 8.69565%; top: 5.27241%; width: 78.59532%; height: 88.57645%;
   border-radius: 15.10638% / 7.04365%;
 }
-.bnon-mockup-modal__image { display: block; width: 100%; height: auto; max-width: 100%; }
+.bnon-mockup-modal__image { display: block; width: 100%; height: auto; max-width: 100%; opacity: 0; transition: opacity .25s ease; }
+.bnon-mockup-modal__image.is-loaded { opacity: 1; }
 .bnon-mockup-modal__image[hidden] { display: none; }
 /* Figma CTA top: (1500.07 - 762) / 658.074; outside the device layout. */
 .bnon-mockup-modal__live-site {

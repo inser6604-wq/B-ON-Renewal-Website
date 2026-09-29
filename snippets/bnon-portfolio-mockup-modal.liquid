@@ -10,13 +10,15 @@
       <p class="bnon-mockup-modal__hint">SCROLL TO EXPLORE ↓</p>
       <div class="bnon-mockup-modal__devices">
         <div class="bnon-mockup-modal__device bnon-mockup-modal__device--desktop">
-          <div class="bnon-mockup-modal__viewport" tabindex="0" role="region" aria-label="데스크톱 목업 세로 스크롤">
+          <div class="bnon-mockup-modal__viewport" data-lenis-prevent tabindex="0" role="region" aria-label="데스크톱 목업 세로 스크롤">
+            <span class="bnon-mockup-modal__loader" aria-hidden="true"></span>
             <img class="bnon-mockup-modal__image" data-mockup-device="desktop" alt="" width="1" height="1">
           </div>
           <img class="bnon-mockup-modal__frame" src="{{ 'scroll-mockup-desktop.png' | asset_url }}" width="1228" height="659" alt="" draggable="false">
         </div>
         <div class="bnon-mockup-modal__device bnon-mockup-modal__device--phone">
-          <div class="bnon-mockup-modal__viewport" tabindex="0" role="region" aria-label="폰 목업 세로 스크롤">
+          <div class="bnon-mockup-modal__viewport" data-lenis-prevent tabindex="0" role="region" aria-label="폰 목업 세로 스크롤">
+            <span class="bnon-mockup-modal__loader" aria-hidden="true"></span>
             <img class="bnon-mockup-modal__image" data-mockup-device="phone" alt="" width="1" height="1">
           </div>
           <img class="bnon-mockup-modal__frame" src="{{ 'scroll-mockup-phone.png' | asset_url }}" width="299" height="569" alt="" draggable="false">
