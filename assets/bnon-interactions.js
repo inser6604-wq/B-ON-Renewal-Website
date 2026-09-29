@@ -139,6 +139,52 @@ if (!customElements.get('bnon-hero-universe')) {
   customElements.define('bnon-hero-universe', BnonHeroUniverse);
 }
 
+if (!customElements.get('bnon-our-universe')) {
+  class BnonOurUniverse extends HTMLElement {
+    connectedCallback() {
+      if (this.controller) return;
+      this.cards = Array.from(this.querySelectorAll('[data-bnon-universe-card-tilt]'));
+      if (!this.cards.length) return;
+
+      this.controller = new AbortController();
+      this.desktopPointer = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
+      const options = { signal: this.controller.signal };
+      this.cards.forEach(card => {
+        card.addEventListener('pointerenter', event => this.tilt(card, event), options);
+        card.addEventListener('pointermove', event => this.tilt(card, event), options);
+        card.addEventListener('pointerleave', () => this.reset(card), options);
+      });
+      this.desktopPointer.addEventListener('change', () => {
+        if (!this.desktopPointer.matches) this.cards.forEach(card => this.reset(card));
+      }, options);
+    }
+
+    tilt(card, event) {
+      if (!this.desktopPointer.matches) return;
+      const bounds = card.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - .5;
+      const y = (event.clientY - bounds.top) / bounds.height - .5;
+      card.style.setProperty('--bnon-universe-cursor-tilt-x', `${(-y * 14).toFixed(2)}deg`);
+      card.style.setProperty('--bnon-universe-cursor-tilt-y', `${(x * 14).toFixed(2)}deg`);
+      card.style.transitionDuration = '.12s';
+    }
+
+    reset(card) {
+      card.style.removeProperty('--bnon-universe-cursor-tilt-x');
+      card.style.removeProperty('--bnon-universe-cursor-tilt-y');
+      card.style.removeProperty('transition-duration');
+    }
+
+    disconnectedCallback() {
+      this.cards?.forEach(card => this.reset(card));
+      this.controller?.abort();
+      this.controller = null;
+    }
+  }
+
+  customElements.define('bnon-our-universe', BnonOurUniverse);
+}
+
 if (!customElements.get('bnon-main-portfolio')) {
   class BnonMainPortfolio extends HTMLElement {
     connectedCallback() {
@@ -160,10 +206,30 @@ if (!customElements.get('bnon-main-portfolio')) {
       this.reduced.addEventListener('change', () => this.updateNextHint(), options);
       document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
       this.updateNextHint();
+      // Warm background images before switching to a previously hidden panel.
+      this.querySelectorAll('.bnon-main-portfolio__background-image').forEach(image => {
+        image.loading = 'eager';
+      });
+      if (!this.hasEntered) {
+        this.entryObserver = new IntersectionObserver(entries => {
+          if (!entries.some(entry => entry.isIntersecting)) return;
+          this.hasEntered = true;
+          this.entryObserver.disconnect();
+          if (!this.reduced.matches) {
+            this.entryAnimation = this.querySelector('.bnon-main-portfolio__stage')?.animate(
+              [{ opacity: 0 }, { opacity: 1 }], { duration: 500, easing: 'ease-out' }
+            );
+          }
+        }, { threshold: 0 });
+        this.entryObserver.observe(this);
+      }
     }
 
     disconnectedCallback() {
       this.transitionTimer && clearTimeout(this.transitionTimer);
+      this.entryObserver?.disconnect();
+      this.entryAnimation?.cancel();
+      this.counterAnimation?.cancel();
       this.controller?.abort();
       this.controller = null;
     }
@@ -193,7 +259,6 @@ if (!customElements.get('bnon-main-portfolio')) {
       const nextId = tab.dataset.bnonProjectId;
       const nextPanel = this.panels.find((panel) => panel.dataset.bnonProjectId === nextId);
       const activeTab = this.tabs.find((item) => item.getAttribute('aria-selected') === 'true');
-      const activePanel = this.panels.find((panel) => panel.classList.contains('is-active'));
       if (!nextPanel || tab === activeTab) return;
 
       this.transitionTimer && clearTimeout(this.transitionTimer);
@@ -203,14 +268,19 @@ if (!customElements.get('bnon-main-portfolio')) {
         item.tabIndex = selected ? 0 : -1;
       });
 
+      // Retarget in-flight fades from their current opacity; no queued activation frames.
+      // Leaving panels remain visible only for compositing, never keyboard/pointer input.
+      this.panels.forEach(panel => {
+        panel.inert = panel !== nextPanel;
+        if (panel !== nextPanel && !panel.hidden) {
+          panel.classList.remove('is-active');
+          panel.classList.add('is-leaving');
+        }
+      });
       nextPanel.hidden = false;
       nextPanel.classList.remove('is-leaving');
-      requestAnimationFrame(() => nextPanel.classList.add('is-active'));
-
-      if (activePanel) {
-        activePanel.classList.remove('is-active');
-        activePanel.classList.add('is-leaving');
-      }
+      void nextPanel.offsetWidth;
+      nextPanel.classList.add('is-active');
 
       this.transitionTimer = window.setTimeout(() => {
         this.panels.forEach((panel) => {
@@ -218,9 +288,15 @@ if (!customElements.get('bnon-main-portfolio')) {
           panel.hidden = true;
           panel.classList.remove('is-active', 'is-leaving');
         });
-      }, this.reduced.matches ? 0 : 700);
+      }, this.reduced.matches ? 0 : 650);
 
+      this.counterAnimation?.cancel();
       this.current.textContent = String(this.tabs.indexOf(tab) + 1).padStart(2, '0');
+      if (!this.reduced.matches) {
+        this.counterAnimation = this.current.animate(
+          [{ opacity: .25 }, { opacity: 1 }], { duration: 300, easing: 'ease-out' }
+        );
+      }
       this.updateNextHint();
     }
 
@@ -247,17 +323,64 @@ if (!customElements.get('bnon-what-we-do')) {
       this.triggers = Array.from(this.querySelectorAll('[data-bnon-service-trigger]'));
       this.panels = Array.from(this.querySelectorAll('[data-bnon-service-panel]'));
       this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
-      if (!this.items.length || !this.triggers.length) return;
 
       this.controller = new AbortController();
       const options = { signal: this.controller.signal };
+      this.setupEntrance(options);
+      if (!this.items.length || !this.triggers.length) return;
       this.triggers.forEach((trigger) => trigger.addEventListener('click', () => this.activate(trigger), options));
       document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
     }
 
     disconnectedCallback() {
+      this.entranceObserver?.disconnect();
+      this.entranceAnimations?.forEach(animation => animation.cancel());
       this.controller?.abort();
       this.controller = null;
+    }
+
+    setupEntrance(options) {
+      if (this.entrancePlayed) return;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const stopEntrance = () => {
+        if (!reduced.matches) return;
+        this.entrancePlayed = true;
+        this.entranceObserver?.disconnect();
+        this.entranceAnimations?.forEach(animation => animation.cancel());
+      };
+      // No hidden base styles: content stays accessible without animation support.
+      if (reduced.matches || !('IntersectionObserver' in window)) {
+        this.entrancePlayed = true;
+        return;
+      }
+      reduced.addEventListener('change', stopEntrance, options);
+      this.entranceObserver = new IntersectionObserver(entries => {
+        if (this.entrancePlayed || !entries.some(entry => entry.isIntersecting)) return;
+        this.entrancePlayed = true;
+        this.entranceObserver.disconnect();
+        if (reduced.matches) return;
+        this.entranceAnimations = [];
+        [
+          ['eyebrow', 15],
+          ['heading', 20],
+          ['description', 15],
+          ['accordion', 30],
+        ].forEach(([part, distance], index) => {
+          const element = this.querySelector(`.bnon-what-we-do__${part}`);
+          if (!element?.animate) return;
+          // Only the outer accordion container moves; its panels retain their own transitions.
+          this.entranceAnimations.push(element.animate([
+            { opacity: 0, transform: `translateY(${distance}px)` },
+            { opacity: 1, transform: 'none' },
+          ], {
+            duration: 750,
+            delay: index * 120,
+            easing: 'cubic-bezier(.22, 1, .36, 1)',
+            fill: 'backwards',
+          }));
+        });
+      }, { threshold: 0 });
+      this.entranceObserver.observe(this);
     }
 
     onBlockSelect(event) {
@@ -310,8 +433,12 @@ if (!customElements.get('bnon-process')) {
       document.addEventListener('visibilitychange', () => this.syncAutoplay(), options);
       document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
       this.reduced.addEventListener('change', () => this.syncAutoplay(), options);
+      this.reduced.addEventListener('change', () => {
+        if (this.reduced.matches) this.entranceAnimations?.forEach(animation => animation.cancel());
+      }, options);
       this.observer = new IntersectionObserver(([entry]) => {
         this.visible = entry.isIntersecting;
+        if (this.visible) this.playEntrance();
         this.syncAutoplay();
       }, { threshold: 0.2 });
       this.observer.observe(this);
@@ -321,11 +448,35 @@ if (!customElements.get('bnon-process')) {
 
     disconnectedCallback() {
       this.stopAutoplay();
+      this.entranceAnimations?.forEach(animation => animation.cancel());
       this.layerTimers?.forEach((timer) => clearTimeout(timer));
       this.layerTimers?.clear();
       this.observer?.disconnect();
       this.controller?.abort();
       this.controller = null;
+    }
+
+    playEntrance() {
+      if (this.entrancePlayed) return;
+      this.entrancePlayed = true;
+      if (this.reduced.matches) return;
+      this.entranceAnimations = [];
+      [
+        ['.bnon-process__intro', 'translateY(15px)', 0],
+        ['.bnon-process__panel.is-active > :not(.bnon-process__confirm-text)', 'translateY(15px)', 100],
+        ['.bnon-process__media', 'translateX(20px)', 200],
+        ['.bnon-process__panel.is-active .bnon-process__confirm-text, .bnon-process__steps', null, 300],
+      ].forEach(([selector, transform, delay]) => {
+        this.querySelectorAll(selector).forEach(element => {
+          if (!element.animate) return;
+          const frames = transform
+            ? [{ opacity: 0, transform }, { opacity: 1, transform: 'none' }]
+            : [{ opacity: 0 }, { opacity: 1 }];
+          this.entranceAnimations.push(element.animate(frames, {
+            duration: 600, delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards',
+          }));
+        });
+      });
     }
 
     onBlockSelect(event) {
@@ -375,11 +526,12 @@ if (!customElements.get('bnon-process')) {
       if (active) {
         layer.hidden = false;
         layer.classList.remove('is-leaving');
-        if (animate && !this.reduced.matches) requestAnimationFrame(() => layer.classList.add('is-active'));
-        else layer.classList.add('is-active');
+        // Commit the current opacity before retargeting; no stale activation frame can win.
+        if (animate && !this.reduced.matches) void layer.offsetWidth;
+        layer.classList.add('is-active');
         return;
       }
-      if (!layer.classList.contains('is-active')) return;
+      if (!layer.classList.contains('is-active') && !layer.classList.contains('is-leaving')) return;
       layer.classList.remove('is-active');
       if (!animate || this.reduced.matches) {
         layer.hidden = true;
@@ -390,7 +542,7 @@ if (!customElements.get('bnon-process')) {
         layer.hidden = true;
         layer.classList.remove('is-leaving');
         this.layerTimers.delete(layer);
-      }, 650);
+      }, 450);
       this.layerTimers.set(layer, timer);
     }
 

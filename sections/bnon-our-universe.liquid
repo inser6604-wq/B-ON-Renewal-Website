@@ -1,7 +1,7 @@
 {%- liquid
   assign visible_count = 0
   for block in section.blocks
-    if block.settings.published
+    if block.settings.published and block.settings.image != blank
       assign visible_count = visible_count | plus: 1
     endif
   endfor
@@ -25,17 +25,19 @@
           <div class="bnon-our-universe__orbit" aria-hidden="true">
             {%- assign visible_index = 0 -%}
             {%- for block in section.blocks -%}
-              {%- if block.settings.published -%}
+              {%- if block.settings.published and block.settings.image != blank -%}
                 {%- assign angle = visible_index | times: 360 | divided_by: visible_count -%}
                 {%- assign tilt_delay = visible_index | times: section.settings.rotation_duration | times: 1000 | divided_by: visible_count | times: -1 -%}
                 <div class="bnon-our-universe__item" style="--bnon-universe-angle: {{ angle }}deg; --bnon-universe-tilt-delay: {{ tilt_delay }}ms;" {{ block.shopify_attributes }}>
                   <div class="bnon-our-universe__item-positioner">
                     <div class="bnon-our-universe__card">
-                      {%- if block.settings.image != blank -%}
-                        {{ block.settings.image | image_url: width: 400 | image_tag: class: 'bnon-our-universe__image', widths: '160, 240, 320, 400', sizes: '(min-width: 1024px) 122px, 92px', alt: block.settings.alt }}
-                      {%- else -%}
-                        <div class="bnon-our-universe__placeholder"></div>
-                      {%- endif -%}
+                      <div class="bnon-our-universe__card-tilt" data-bnon-universe-card-tilt>
+                        {%- if block.settings.image != blank -%}
+                          {{ block.settings.image | image_url: width: 400 | image_tag: class: 'bnon-our-universe__image', widths: '160, 240, 320, 400', sizes: '(min-width: 1024px) 122px, 92px', alt: block.settings.alt }}
+                        {%- else -%}
+                          <div class="bnon-our-universe__placeholder"></div>
+                        {%- endif -%}
+                      </div>
                     </div>
                   </div>
                 </div>

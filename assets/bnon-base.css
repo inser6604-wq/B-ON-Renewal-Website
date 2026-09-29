@@ -266,8 +266,9 @@ bnon-our-universe { display: block; }
 bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__orbit { animation: bnon-our-universe-orbit var(--bnon-universe-rotation-duration) linear infinite; }
 .bnon-our-universe__item { position: absolute; inset: 0; transform: rotate(var(--bnon-universe-angle)); transform-origin: 50% 50%; }
 .bnon-our-universe__item-positioner { position: absolute; top: 50%; left: 50%; width: 122px; height: 122px; margin: -61px; transform: translateX(var(--bnon-universe-radius)); }
-.bnon-our-universe__card { --bnon-universe-tilt: 20deg; width: 122px; height: 122px; border-radius: 16px; overflow: hidden; transform: rotate(calc(-1 * var(--bnon-universe-angle))) rotate(calc(-1 * var(--bnon-universe-initial-rotation))); }
+.bnon-our-universe__card { --bnon-universe-tilt: 20deg; width: 122px; height: 122px; border-radius: 16px; overflow: hidden; perspective: 600px; transform: rotate(calc(-1 * var(--bnon-universe-angle))) rotate(calc(-1 * var(--bnon-universe-initial-rotation))); }
 bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__card { animation: bnon-our-universe-counter-orbit var(--bnon-universe-rotation-duration) linear infinite, bnon-our-universe-tilt var(--bnon-universe-rotation-duration) linear infinite; animation-delay: 0s, var(--bnon-universe-tilt-delay); }
+.bnon-our-universe__card-tilt { width: 100%; height: 100%; transform: rotateX(var(--bnon-universe-cursor-tilt-x, 0deg)) rotateY(var(--bnon-universe-cursor-tilt-y, 0deg)); transform-style: preserve-3d; transition: transform .3s cubic-bezier(.22, 1, .36, 1); will-change: transform; }
 .bnon-our-universe__image,
 .bnon-our-universe__placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
 .bnon-our-universe__placeholder { background: #262626; }
@@ -279,9 +280,8 @@ bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__card { animat
 @keyframes bnon-our-universe-orbit { from { transform: translateX(-50%) rotate(var(--bnon-universe-initial-rotation)); } to { transform: translateX(-50%) rotate(calc(var(--bnon-universe-initial-rotation) + 360deg)); } }
 @keyframes bnon-our-universe-counter-orbit { from { transform: rotate(calc(-1 * var(--bnon-universe-angle))) rotate(calc(-1 * var(--bnon-universe-initial-rotation))); } to { transform: rotate(calc(-1 * var(--bnon-universe-angle))) rotate(calc(-1 * var(--bnon-universe-initial-rotation))) rotate(-360deg); } }
 @keyframes bnon-our-universe-tilt { 0%, 100% { rotate: 0deg; } 25% { rotate: var(--bnon-universe-tilt); } 50% { rotate: 0deg; } 75% { rotate: calc(-1 * var(--bnon-universe-tilt)); } }
-@media (hover: hover) and (pointer: fine) {
-  bnon-our-universe[data-pause-on-hover='true'] .bnon-our-universe__viewport:hover .bnon-our-universe__orbit,
-  bnon-our-universe[data-pause-on-hover='true'] .bnon-our-universe__viewport:hover .bnon-our-universe__card { animation-play-state: paused; }
+@media screen and (min-width: 1024px) {
+  .bnon-our-universe__viewport { height: 516px; }
 }
 @media screen and (max-width: 1023px) {
   .bnon-our-universe { padding-block: 64px 76px; }
@@ -776,7 +776,8 @@ bnon-main-portfolio { display: block; }
 }
 
 .bnon-main-portfolio__all-link { border-bottom-color: var(--bnon-color-blue); }
-.bnon-main-portfolio__link:not(.is-disabled):hover { color: var(--bnon-color-mint); }
+.bnon-main-portfolio__project-link { transition: color .3s ease; }
+.bnon-main-portfolio__project-link:not(.is-disabled):hover { color: var(--bnon-color-mint); }
 .bnon-main-portfolio__link.is-disabled { opacity: 0.65; }
 
 .bnon-main-portfolio__mockup {
@@ -821,7 +822,7 @@ bnon-main-portfolio { display: block; }
   .bnon-main-portfolio__scopes { gap: 8px 14px; }
   .bnon-main-portfolio__links { grid-template-columns: minmax(0, 1fr); gap: 18px; margin-top: 44px; }
   .bnon-main-portfolio__link { min-height: 42px; font-size: 17px; }
-  .bnon-main-portfolio__mockup { top: 225px; right: var(--bnon-gutter); width: min(190px, 45vw); }
+  .bnon-main-portfolio__mockup { top: 225px; right: calc(var(--bnon-gutter) - 30px); width: min(190px, 45vw); }
 }
 
 @media screen and (max-width: 480px) {
@@ -1320,9 +1321,10 @@ bnon-what-we-do { display: block; }
   .bnon-main-portfolio__panel--inmi-seoul .bnon-main-portfolio__background-image {
     object-position: 40% center;
   }
-  .bnon-main-portfolio__mockup {
+  .bnon-main-portfolio .bnon-main-portfolio__mockup {
     top: calc(28svh + 20px);
-    right: 20px;
+    right: -20px;
+    left: auto;
     width: min(31vw, 14svh, 118px);
     max-width: calc(100% - 40px);
   }
@@ -1736,4 +1738,170 @@ bnon-what-we-do { display: block; }
   .bnon-portfolio-gallery__stage { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 40px 20px 56px; }
   .bnon-portfolio-gallery__card:first-child { grid-column: 1 / -1; aspect-ratio: 4 / 5; }
   .bnon-portfolio-gallery__next-boundary { height: 72px; border-radius: 50% 50% 0 0 / 44px 44px 0 0; }
+}
+
+/* Hero CTA hover only; preserve entrance animations and touch defaults. */
+@media (hover: hover) and (pointer: fine) {
+  .bnon-hero .bnon-hero__portfolio > span:first-child {
+    position: relative;
+  }
+  .bnon-hero .bnon-hero__portfolio > span:first-child::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 -5px;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    pointer-events: none;
+  }
+  .bnon-hero .bnon-hero__portfolio:hover {
+    text-decoration: none;
+  }
+  .bnon-hero .bnon-hero__portfolio:hover > span:first-child::after {
+    transform: scaleX(1);
+    animation: bnon-hero-cta-underline .35s ease-out;
+  }
+  .bnon-hero .bnon-hero__portfolio:hover .bnon-hero__portfolio-arrow {
+    animation: bnon-hero-cta-arrow .35s ease-in-out;
+  }
+  .bnon-hero .bnon-hero__contact {
+    position: relative;
+    transition: background-color .33s ease, border-color .33s ease, color .33s ease;
+  }
+  .bnon-hero .bnon-hero__contact::after {
+    /* Overlay the border so button dimensions and padding never change. */
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: border-color .33s ease;
+  }
+  .bnon-hero .bnon-hero__contact:hover {
+    background-color: transparent;
+    color: var(--bnon-color-blue);
+    text-decoration: none;
+  }
+  .bnon-hero .bnon-hero__contact:hover::after {
+    border-color: var(--bnon-color-blue);
+  }
+}
+@keyframes bnon-hero-cta-underline {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes bnon-hero-cta-arrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bnon-hero .bnon-hero__portfolio:hover > span:first-child::after,
+  .bnon-hero .bnon-hero__portfolio:hover .bnon-hero__portfolio-arrow {
+    animation: none;
+  }
+  .bnon-hero .bnon-hero__contact,
+  .bnon-hero .bnon-hero__contact::after {
+    transition: none;
+  }
+}
+
+/* Portfolio tab transitions: independent of the existing mint tab hint. */
+.bnon-main-portfolio__panel { transition: opacity .65s ease; }
+.bnon-main-portfolio__panel.is-leaving { pointer-events: none; }
+.bnon-main-portfolio__panel .bnon-main-portfolio__project-content,
+.bnon-main-portfolio__panel .bnon-main-portfolio__mockup {
+  transition: none;
+}
+.bnon-main-portfolio__panel:not(.is-active) .bnon-main-portfolio__project-content,
+.bnon-main-portfolio__panel:not(.is-active) .bnon-main-portfolio__mockup {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bnon-main-portfolio__panel.is-active .bnon-main-portfolio__project-name {
+    animation: bnon-portfolio-title-enter .55s ease-out backwards;
+  }
+  .bnon-main-portfolio__panel.is-active :is(.bnon-main-portfolio__category, .bnon-main-portfolio__scopes) {
+    animation: bnon-portfolio-content-fade .55s ease-out .08s backwards;
+  }
+  .bnon-main-portfolio__panel.is-active .bnon-main-portfolio__mockup {
+    animation: bnon-portfolio-mockup-enter .55s ease-out .16s backwards;
+  }
+  .bnon-main-portfolio__panel.is-active .bnon-main-portfolio__links {
+    animation: bnon-portfolio-content-fade .55s ease-out .24s backwards;
+  }
+}
+@keyframes bnon-portfolio-title-enter {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bnon-portfolio-mockup-enter {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bnon-portfolio-content-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bnon-main-portfolio__panel { transition: none; }
+}
+
+/* Process content only: leave progress width/dot timing and geometry untouched. */
+.bnon-process__panel,
+.bnon-process__image { transition: opacity .45s ease; }
+.bnon-process__image { transform: none; }
+.bnon-process__panel.is-leaving { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .bnon-process__panel,
+  .bnon-process__image { transition: none; }
+}
+
+/* Separate portfolio CTA hover treatments without changing the border footprint. */
+@media (hover: hover) and (pointer: fine) {
+  .bnon-main-portfolio__all-link {
+    position: relative;
+    --bnon-all-link-underline-size: 3px;
+  }
+  .bnon-main-portfolio__all-link::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: calc(-1 * var(--bnon-all-link-underline-size));
+    left: 0;
+    height: var(--bnon-all-link-underline-size);
+    background-color: var(--bnon-color-blue);
+    transform: scaleX(0);
+    transform-origin: left center;
+    pointer-events: none;
+  }
+  .bnon-main-portfolio__all-link:hover {
+    color: var(--bnon-color-white);
+    border-bottom-color: transparent;
+  }
+  .bnon-main-portfolio__all-link:hover::after {
+    transform: scaleX(1);
+    animation: bnon-portfolio-all-underline .35s ease-out;
+  }
+  .bnon-main-portfolio__all-link:hover > span:last-child {
+    animation: bnon-portfolio-all-arrow .35s ease-in-out;
+  }
+}
+@media (hover: hover) and (pointer: fine) and (max-width: 480px) {
+  .bnon-main-portfolio__all-link { --bnon-all-link-underline-size: 2px; }
+}
+@keyframes bnon-portfolio-all-underline {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes bnon-portfolio-all-arrow {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bnon-main-portfolio__project-link { transition: none; }
+  .bnon-main-portfolio__all-link:hover::after,
+  .bnon-main-portfolio__all-link:hover > span:last-child { animation: none; }
 }

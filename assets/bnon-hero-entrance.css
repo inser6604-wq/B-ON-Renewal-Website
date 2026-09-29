@@ -1,0 +1,41 @@
+/* Entrance only: no layout/breakpoint overrides and no Universe selectors.
+ * CSS runs without JS; reduced motion keeps all content immediately visible. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .bnon-hero .bnon-hero__line {
+    animation: bnon-hero-content-enter .7s cubic-bezier(.22, 1, .36, 1) var(--bnon-hero-line-delay, 0ms) backwards;
+  }
+  .bnon-hero .bnon-hero__accent {
+    display: inline-block;
+    animation: bnon-hero-dot-enter .35s cubic-bezier(.22, 1, .36, 1) .65s backwards;
+  }
+  .bnon-hero .bnon-hero__keywords {
+    animation: bnon-hero-content-enter .55s cubic-bezier(.22, 1, .36, 1) .8s backwards;
+  }
+  .bnon-hero .bnon-hero__description {
+    animation: bnon-hero-content-enter .55s cubic-bezier(.22, 1, .36, 1) .88s backwards;
+  }
+  .bnon-hero .bnon-hero__actions {
+    animation: bnon-hero-content-enter .55s cubic-bezier(.22, 1, .36, 1) .95s backwards;
+  }
+  .bnon-hero .bnon-hero__portfolio-arrow {
+    animation: bnon-hero-entrance-arrow 1.8s ease-in-out 1.5s infinite;
+  }
+}
+
+@keyframes bnon-hero-dot-enter {
+  from { opacity: 0; transform: scale(.7); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bnon-hero-content-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes bnon-hero-entrance-arrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bnon-hero .bnon-hero__portfolio-arrow { animation: none; }
+}

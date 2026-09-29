@@ -1,3 +1,4 @@
+{{ 'bnon-hero-entrance.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'bnon-interactions.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
@@ -15,7 +16,7 @@
     <div class="bnon-hero__layout">
       <h1 class="bnon-hero__heading" id="bnon-hero-heading-{{ section.id }}">
         {%- for line in heading_lines -%}
-          <span class="bnon-hero__line">{{ line | strip | escape }}{%- if forloop.last -%}<span class="bnon-hero__accent">{{ section.settings.accent_text | escape }}</span>{%- endif -%}</span>
+          <span class="bnon-hero__line" style="--bnon-hero-line-delay: {{ forloop.index0 | times: 90 }}ms;">{{ line | strip | escape }}{%- if forloop.last -%}<span class="bnon-hero__accent">{{ section.settings.accent_text | escape }}</span>{%- endif -%}</span>
         {%- endfor -%}
       </h1>
 

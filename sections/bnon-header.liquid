@@ -3,7 +3,15 @@
   assign contact_link = section.settings.contact_link | default: '/pages/contact'
 -%}
 
-<header class="bnon-section bnon-header">
+{{ 'bnon-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-header.js' | asset_url }}" defer="defer"></script>
+<bnon-header-controller>
+<header class="bnon-section bnon-header" style="
+  --header-cta-brand: {{ section.settings.cta_light | default: '#3154EE' }};
+  --header-cta-brand-contrast: {{ section.settings.cta_light_contrast | default: '#FFFFFF' }};
+  --header-kakao-active: {{ section.settings.cta_dark | default: '#FEE500' }};
+  --header-kakao-active-text: {{ section.settings.cta_dark_contrast | default: '#0A0A0A' }};
+">
   <div class="bnon-container bnon-header__inner">
     <a class="bnon-header__brand" href="{{ routes.root_url }}" aria-label="{{ logo_text | escape }} 홈">
       {%- if section.settings.logo_image != blank -%}
@@ -32,15 +40,18 @@
             <li><a href="{{ bnon_link_url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
           {%- endfor -%}
         {%- else -%}
-          <li><a href="/pages/portfolio">PORTFOLIO</a></li>
-          <li><a href="/pages/about?view=about">ABOUT</a></li>
-          <li><a href="/pages/service?view=service">SERVICE</a></li>
-          <li><a href="/pages/contact">CONTACT</a></li>
+          <li><a href="/pages/portfolio"{% if page.handle == "portfolio" %} aria-current="page"{% endif %}>PORTFOLIO</a></li>
+          <li><a href="/pages/about?view=about"{% if page.handle == "about" %} aria-current="page"{% endif %}>ABOUT</a></li>
+          <li><a href="/pages/service?view=service"{% if page.handle == "service" %} aria-current="page"{% endif %}>SERVICE</a></li>
+          <li><a href="/pages/contact"{% if page.handle == "contact" %} aria-current="page"{% endif %}>CONTACT</a></li>
         {%- endif -%}
       </ul>
     </nav>
 
-    <a class="bnon-header__contact" href="{{ contact_link | escape }}">{{ section.settings.contact_label | escape }}</a>
+    <div class="bnon-header__actions">
+      <a class="bnon-header__contact bnon-header__kakao" {% if section.settings.kakao_link != blank %}href="{{ section.settings.kakao_link | escape }}"{% else %}role="link" aria-disabled="true"{% endif %}>카카오톡</a>
+      <a class="bnon-header__contact" href="{{ contact_link | escape }}">{{ section.settings.contact_label | escape }}</a>
+    </div>
 
     <details class="bnon-header__mobile-menu">
       <summary aria-label="메뉴 열기"><span></span><span></span><span></span></summary>
@@ -63,16 +74,18 @@
               <li><a href="{{ bnon_link_url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
             {%- endfor -%}
           {%- else -%}
-            <li><a href="/pages/portfolio">PORTFOLIO</a></li>
-            <li><a href="/pages/about?view=about">ABOUT</a></li>
-            <li><a href="/pages/service?view=service">SERVICE</a></li>
-            <li><a href="/pages/contact">CONTACT</a></li>
+            <li><a href="/pages/portfolio"{% if page.handle == "portfolio" %} aria-current="page"{% endif %}>PORTFOLIO</a></li>
+            <li><a href="/pages/about?view=about"{% if page.handle == "about" %} aria-current="page"{% endif %}>ABOUT</a></li>
+            <li><a href="/pages/service?view=service"{% if page.handle == "service" %} aria-current="page"{% endif %}>SERVICE</a></li>
+            <li><a href="/pages/contact"{% if page.handle == "contact" %} aria-current="page"{% endif %}>CONTACT</a></li>
           {%- endif -%}
         </ul>
+        <a class="bnon-header__contact bnon-header__kakao" {% if section.settings.kakao_link != blank %}href="{{ section.settings.kakao_link | escape }}"{% else %}role="link" aria-disabled="true"{% endif %}>카카오톡</a>
       </nav>
     </details>
   </div>
 </header>
+</bnon-header-controller>
 
 {% schema %}
 {
@@ -80,6 +93,12 @@
   "tag": "div",
   "class": "bnon-header-section",
   "settings": [
+    { "type": "url", "id": "kakao_link", "label": "카카오톡 CTA 링크" },
+    { "type": "header", "content": "Header CTA Colors" },
+    { "type": "color", "id": "cta_light", "label": "Brand CTA Color", "default": "#3154EE" },
+    { "type": "color", "id": "cta_light_contrast", "label": "Brand CTA Contrast", "default": "#FFFFFF" },
+    { "type": "color", "id": "cta_dark", "label": "Kakao Active Color", "default": "#FEE500" },
+    { "type": "color", "id": "cta_dark_contrast", "label": "Kakao Active Text", "default": "#0A0A0A" },
     { "type": "image_picker", "id": "logo_image", "label": "로고 이미지" },
     { "type": "text", "id": "logo_text", "label": "텍스트 로고", "default": "B&ON UNIVERSE", "info": "로고 이미지가 없을 때 표시됩니다." },
     { "type": "link_list", "id": "menu", "label": "메뉴", "info": "PORTFOLIO, ABOUT, SERVICE, CONTACT 순서로 설정하세요." },
