@@ -6,7 +6,21 @@ bnon-header-controller[data-fixed] > .bnon-header {
   inset: 0 0 auto;
   z-index: 100;
 }
-.bnon-header { --header-ink: var(--bnon-color-black); }
+.bnon-header {
+  --header-ink: var(--bnon-color-black);
+  background-color: rgba(255, 255, 255, 1);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  transition:
+    background-color .4s ease,
+    backdrop-filter .4s ease;
+}
+
+.bnon-header[data-cta-active] {
+  background-color: rgba(255, 255, 255, .64);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
 .bnon-header :is(a, summary) { color: var(--header-ink); transition: font-weight .3s ease, letter-spacing .3s ease; }
 .bnon-header__actions { display: flex; justify-self: end; align-items: center; gap: 10px; }
 .bnon-header .bnon-header__contact {

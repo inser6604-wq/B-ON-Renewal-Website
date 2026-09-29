@@ -3,6 +3,11 @@
  * Dawn's root size and global styles remain unchanged. Descendant headings and
  * controls still need scoped component styles when those components are built.
  */
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 .bnon-section {
   --bnon-color-black: #0A0A0A;
   --bnon-color-white: #FFFFFF;
@@ -179,7 +184,7 @@ html.lenis:has(#MainContent[data-template='index']) body {
 bnon-process { display: block; }
 .bnon-process { overflow: hidden; padding-block: 86px 90px; background: var(--bnon-color-black); color: var(--bnon-color-white); }
 .bnon-process__container { display: grid; }
-.bnon-process__intro { display: grid; gap: 30px; }
+.bnon-process__intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 30px; }
 .bnon-process__heading,
 .bnon-process__description,
 .bnon-process__step-title,
@@ -187,7 +192,7 @@ bnon-process { display: block; }
 .bnon-process__feature,
 .bnon-process__confirm-text,
 .bnon-process__confirms p { margin: 0; }
-.bnon-process__heading { font-family: var(--bnon-font-latin); font-size: 60px; font-weight: var(--bnon-weight-extrabold); line-height: 1.1; letter-spacing: -0.04em; color: #FFFFFF; }
+.bnon-process__heading { grid-column: 1 / -1; font-family: var(--bnon-font-latin); font-size: 60px; font-weight: var(--bnon-weight-extrabold); line-height: 1.1; letter-spacing: -0.04em; color: #FFFFFF; }
 .bnon-process__description { font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-medium); line-height: 1.2; letter-spacing: -0.04em; }
 .bnon-process__stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 652px); gap: 64px; align-items: start; margin-top: 50px; }
 .bnon-process__content { position: relative; min-height: 300px; }
@@ -209,6 +214,18 @@ bnon-process { display: block; }
 .bnon-process__image-placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
 .bnon-process__image-placeholder { background: #252525; }
 .bnon-process__navigation { margin-top: 100px; }
+.bnon-process__arrows,
+.bnon-main-portfolio__arrows { display: flex; align-items: center; gap: 14px; }
+.bnon-process__arrows { align-self: end; justify-self: end; }
+.bnon-main-portfolio__arrows { transform: translateY(-7px); }
+.bnon-process__arrows button,
+.bnon-main-portfolio__arrows button { width: 40px; padding: 0; border: 0; color: var(--bnon-color-white); background: transparent; font-family: Arial, sans-serif; font-size: 40px; font-weight: 400; line-height: .75; cursor: pointer; transition: color .3s ease, opacity .3s ease; }
+.bnon-process__arrows button:not(:disabled):is(:hover, :focus-visible),
+.bnon-main-portfolio__arrows button:not(:disabled):is(:hover, :focus-visible) { color: var(--bnon-color-mint); }
+.bnon-process__arrows button:focus-visible,
+.bnon-main-portfolio__arrows button:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 4px; }
+.bnon-process__arrows button:disabled,
+.bnon-main-portfolio__arrows button:disabled { opacity: .3; cursor: default; }
 .bnon-process__progress { position: relative; height: 3px; background: rgba(255, 255, 255, 0.32); }
 .bnon-process__progress span { --bnon-process-progress: .2; position: absolute; inset: 0 auto 0 0; width: calc(var(--bnon-process-progress) * 100%); background: #28DBC4; transform-origin: left center; transition: width var(--bnon-motion-slow, 600ms) cubic-bezier(.22, 1, .36, 1); }
 .bnon-process__progress span::after { position: absolute; top: 50%; right: -8px; width: 16px; height: 16px; border-radius: 50%; background: #28DBC4; transform: translateY(-50%); content: ''; }
@@ -282,7 +299,7 @@ bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__card { animat
 .bnon-our-universe__image,
 .bnon-our-universe__placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
 .bnon-our-universe__placeholder { background: #262626; }
-.bnon-our-universe__stats { display: flex; justify-content: center; gap: 108px; margin-top: 18px; }
+.bnon-our-universe__stats { display: flex; justify-content: center; gap: 108px; margin-top: -70px; }
 .bnon-our-universe__stat { position: relative; display: grid; justify-items: center; gap: 8px; width: min(355px, 40%); text-align: center; }
 .bnon-our-universe__stat-value { min-width: 4ch; color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: clamp(58px, 5.81vw, 84px); font-weight: var(--bnon-weight-extrabold); font-variant-numeric: tabular-nums; line-height: 1.2; letter-spacing: -0.04em; text-align: center; }
 .bnon-our-universe__stat-title { color: #FFFFFF; font-family: var(--bnon-font-korean); font-size: 21px; font-weight: var(--bnon-weight-extrabold); line-height: 1.6; letter-spacing: -0.04em; }
@@ -576,6 +593,11 @@ bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__card { animat
 /* Main Portfolio */
 bnon-main-portfolio { display: block; }
 
+bnon-main-portfolio {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .bnon-main-portfolio {
   width: 100%;
   max-width: none;
@@ -616,10 +638,18 @@ bnon-main-portfolio { display: block; }
   color: var(--bnon-color-white);
 }
 
-.bnon-main-portfolio__count {
+.bnon-main-portfolio__meta {
   grid-area: count;
-  align-self: start;
-  margin: 8px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-self: end;
+  text-align: right;
+}
+
+.bnon-main-portfolio__count {
+  align-self: center;
+  margin: 0;
   font-family: var(--bnon-font-korean);
   font-size: 22px;
   font-weight: var(--bnon-weight-bold);
@@ -635,6 +665,10 @@ bnon-main-portfolio { display: block; }
   overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@media screen and (max-width: 1023px) {
+  .bnon-main-portfolio__arrows { display: none; }
 }
 
 .bnon-main-portfolio__tabs-wrap::-webkit-scrollbar { display: none; }
@@ -1630,10 +1664,10 @@ bnon-contact-entrance { display: block; }
 .bnon-review__heading { font-family: var(--bnon-font-latin); font-size: 50px; font-weight: var(--bnon-weight-extrabold); line-height: 1; letter-spacing: -.04em; }
 .bnon-review__subheading { padding-inline: 5px; font-family: var(--bnon-font-korean); font-size: 24px; font-weight: var(--bnon-weight-extrabold); line-height: 1; letter-spacing: -.04em; }
 .bnon-review__count { padding-top: 14px; color: var(--bnon-color-blue); font-family: var(--bnon-font-korean); font-size: 22px; font-weight: var(--bnon-weight-bold); line-height: 1.6; letter-spacing: -.04em; white-space: nowrap; }
-.bnon-review__viewport { margin-top: 60px; overflow-x: auto; overflow-y: hidden; cursor: grab; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.bnon-review__viewport { margin-top: 60px; overflow-x: auto; overflow-y: hidden; cursor: grab; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
 .bnon-review__viewport::-webkit-scrollbar { display: none; }
 .bnon-review__viewport:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 4px; }
-.bnon-review__viewport.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.bnon-review__viewport.is-dragging { cursor: grabbing; scroll-snap-type: none; -webkit-user-select: none; user-select: none; }
 .bnon-review__track { display: grid; grid-auto-columns: calc((100% - 158px) / 3); grid-auto-flow: column; gap: 79px; padding-bottom: 8px; }
 .bnon-review__card { display: grid; grid-template-rows: auto 1fr auto; gap: 45px; min-width: 0; scroll-snap-align: start; }
 .bnon-review__image-wrap { aspect-ratio: 1; overflow: hidden; border-radius: 10px; background: #8A8A8A; }
@@ -1644,11 +1678,11 @@ bnon-contact-entrance { display: block; }
 .bnon-review__text { font-family: var(--bnon-font-korean); font-size: 15px; font-weight: var(--bnon-weight-semibold); line-height: 1.6; letter-spacing: -.04em; }
 .bnon-review__brand { font-family: var(--bnon-font-latin); font-size: 30px; font-weight: var(--bnon-weight-semibold); line-height: 1; letter-spacing: -.04em; }
 .bnon-review__service { color: #909090; font-family: var(--bnon-font-latin); font-size: 17px; font-weight: var(--bnon-weight-medium); line-height: 1.1; letter-spacing: -.04em; }
-.bnon-review__link { display: flex; justify-content: space-between; align-items: center; min-height: 38px; padding: 7px 0 7px 7px; border-bottom: 1px solid #151515; color: var(--bnon-color-black); font-family: var(--bnon-font-korean); font-size: 13px; font-weight: var(--bnon-weight-extrabold); line-height: 1.1; letter-spacing: -.04em; text-decoration: none; }
+.bnon-review__link { display: flex; justify-content: space-between; align-items: center; min-height: 38px; padding: 7px 0 7px 7px; border-bottom: 1px solid #151515; color: var(--bnon-color-black); font-family: var(--bnon-font-korean); font-size: 13px; font-weight: var(--bnon-weight-extrabold); line-height: 1.1; letter-spacing: -.04em; text-decoration: none; cursor: pointer; -webkit-user-drag: none; user-drag: none; }
 .bnon-review__link > span:last-child { color: var(--bnon-color-mint); font-family: var(--bnon-font-latin); font-size: 17px; font-weight: var(--bnon-weight-extrabold); }
 .bnon-review__link:hover { color: var(--bnon-color-blue); }
 .bnon-review__link:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 4px; }
-.bnon-review__link.is-disabled { opacity: .65; }
+.bnon-review__link.is-disabled { opacity: .65; cursor: default; }
 
 @media screen and (max-width: 1023px) {
   .bnon-review { padding-block: 72px 80px; }

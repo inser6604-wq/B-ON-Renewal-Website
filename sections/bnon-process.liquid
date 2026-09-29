@@ -12,6 +12,10 @@
         {%- if section.settings.description != blank -%}
           <p class="bnon-process__description">{{ section.settings.description | escape }}</p>
         {%- endif -%}
+        <div class="bnon-process__arrows" aria-label="진행 단계 이동">
+          <button type="button" data-bnon-process-previous aria-label="이전 단계">‹</button>
+          <button type="button" data-bnon-process-next aria-label="다음 단계">›</button>
+        </div>
       </header>
 
       {%- if section.blocks.size > 0 -%}
@@ -40,7 +44,7 @@
             {%- endfor -%}
           </div>
 
-          <div class="bnon-process__media" aria-hidden="true">
+          <div class="bnon-process__media">
             {%- for block in section.blocks -%}
               <div class="bnon-process__image{% if forloop.first %} is-active{% endif %}" data-bnon-process-image data-bnon-process-id="{{ block.id }}"{% unless forloop.first %} hidden{% endunless %}>
                 {%- if block.settings.image != blank -%}

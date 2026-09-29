@@ -360,16 +360,101 @@ if (!customElements.get('bnon-main-portfolio')) {
       this.tabs = Array.from(this.querySelectorAll('[data-bnon-project-tab]'));
       this.panels = Array.from(this.querySelectorAll('[data-bnon-project-panel]'));
       this.current = this.querySelector('[data-bnon-project-current]');
+      this.previousButton = this.querySelector('[data-bnon-project-previous]');
+      this.nextButton = this.querySelector('[data-bnon-project-next]');
       this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
       if (!this.tabs.length || !this.panels.length || !this.current) return;
 
       this.controller = new AbortController();
-      const options = { signal: this.controller.signal };
+const options = { signal: this.controller.signal };
+
       this.tabs.forEach((tab) => {
         tab.addEventListener('click', () => this.activate(tab), options);
         tab.addEventListener('keydown', (event) => this.onKeydown(event, tab), options);
       });
+      this.previousButton?.addEventListener('click', () => this.moveProject(-1), options);
+      this.nextButton?.addEventListener('click', () => this.moveProject(1), options);
+
+// Portfolio swipe / drag
+let startX = 0;
+let startY = 0;
+let dragging = false;
+
+const startSwipe = (x, y) => {
+  startX = x;
+  startY = y;
+  dragging = true;
+};
+
+const endSwipe = (x, y) => {
+  if (!dragging) return;
+  dragging = false;
+
+  const deltaX = x - startX;
+  const deltaY = y - startY;
+
+  // 짧은 움직임 / 세로 움직임은 무시
+  if (Math.abs(deltaX) < 60 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+
+  const tabs = Array.from(this.tabs);
+
+  const activeIndex = tabs.findIndex(
+    (tab) => tab.getAttribute('aria-selected') === 'true'
+  );
+
+  if (activeIndex < 0) return;
+
+  const nextIndex =
+    deltaX < 0
+      ? Math.min(activeIndex + 1, tabs.length - 1)
+      : Math.max(activeIndex - 1, 0);
+
+  if (nextIndex !== activeIndex) {
+    this.activate(tabs[nextIndex]);
+  }
+};
+
+// Mobile / Tablet
+this.addEventListener(
+  'touchstart',
+  (event) => {
+    const touch = event.touches[0];
+    startSwipe(touch.clientX, touch.clientY);
+  },
+  { passive: true, signal: this.controller.signal }
+);
+
+this.addEventListener(
+  'touchend',
+  (event) => {
+    const touch = event.changedTouches[0];
+    endSwipe(touch.clientX, touch.clientY);
+  },
+  { passive: true, signal: this.controller.signal }
+);
+
+// Desktop
+this.addEventListener(
+  'pointerdown',
+  (event) => {
+    if (event.pointerType === 'touch') return;
+    if (event.target.closest('a, button, [role="tab"]')) return;
+
+    startSwipe(event.clientX, event.clientY);
+  },
+  options
+);
+
+this.addEventListener(
+  'pointerup',
+  (event) => {
+    if (event.pointerType === 'touch') return;
+
+    endSwipe(event.clientX, event.clientY);
+  },
+  options
+);
       this.reduced.addEventListener('change', () => this.updateNextHint(), options);
       document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
       this.updateNextHint();
@@ -467,11 +552,19 @@ if (!customElements.get('bnon-main-portfolio')) {
       this.updateNextHint();
     }
 
+    moveProject(direction) {
+      const activeIndex = this.tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
+      const nextTab = this.tabs[activeIndex + direction];
+      if (nextTab) this.activate(nextTab);
+    }
+
     updateNextHint() {
+      const activeIndex = this.tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
+      this.previousButton && (this.previousButton.disabled = activeIndex <= 0);
+      this.nextButton && (this.nextButton.disabled = activeIndex >= this.tabs.length - 1);
       this.tabs.forEach((tab) => tab.removeAttribute('data-bnon-next-hint'));
       if (this.dataset.enableNextHint !== 'true' || this.reduced.matches) return;
 
-      const activeIndex = this.tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
       const nextTab = this.tabs[activeIndex + 1];
       if (!nextTab) return;
       nextTab.setAttribute('data-bnon-next-hint', '');
@@ -586,6 +679,8 @@ if (!customElements.get('bnon-process')) {
       this.panels = Array.from(this.querySelectorAll('[data-bnon-process-panel]'));
       this.images = Array.from(this.querySelectorAll('[data-bnon-process-image]'));
       this.progress = this.querySelector('[data-bnon-process-progress]');
+      this.previousButton = this.querySelector('[data-bnon-process-previous]');
+      this.nextButton = this.querySelector('[data-bnon-process-next]');
       this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
       this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.currentIndex = 0;
@@ -597,6 +692,8 @@ if (!customElements.get('bnon-process')) {
       this.controller = new AbortController();
       const options = { signal: this.controller.signal };
       this.triggers.forEach((trigger) => trigger.addEventListener('click', () => this.activate(this.triggers.indexOf(trigger), true), options));
+      this.previousButton?.addEventListener('click', () => this.activate(this.currentIndex - 1, true), options);
+      this.nextButton?.addEventListener('click', () => this.activate(this.currentIndex + 1, true), options);
       document.addEventListener('visibilitychange', () => this.syncAutoplay(), options);
       document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
       this.reduced.addEventListener('change', () => this.syncAutoplay(), options);
@@ -613,6 +710,7 @@ if (!customElements.get('bnon-process')) {
       }, { threshold: bnonEntranceThreshold(this, .2) });
       this.entranceObserver.observe(this);
       this.updateProgress(false);
+      this.updateStepArrows();
       this.syncAutoplay();
     }
 
@@ -688,7 +786,13 @@ if (!customElements.get('bnon-process')) {
       this.panels.forEach((panel, panelIndex) => this.toggleLayer(panel, panelIndex === index, changed));
       this.images.forEach((image, imageIndex) => this.toggleLayer(image, imageIndex === index, changed));
       this.updateProgress(changed && index < previousIndex);
+      this.updateStepArrows();
       this.syncAutoplay();
+    }
+
+    updateStepArrows() {
+      this.previousButton && (this.previousButton.disabled = this.currentIndex <= 0);
+      this.nextButton && (this.nextButton.disabled = this.currentIndex >= this.triggers.length - 1);
     }
 
     toggleLayer(layer, active, animate) {
@@ -810,11 +914,13 @@ if (!customElements.get('bnon-review')) {
       this.autoplaySpeed = Number.parseInt(this.dataset.autoplaySpeed, 10) || 5000;
       this.isVisible = true;
       this.total.textContent = String(this.cards.length).padStart(2, '0');
+      this.addEventListener('dragstart', (event) => this.preventNativeDrag(event), { capture: true, ...options });
       this.viewport.addEventListener('scroll', () => this.updateCurrent(), options);
       this.viewport.addEventListener('pointerdown', (event) => this.onPointerDown(event), options);
       this.viewport.addEventListener('pointermove', (event) => this.onPointerMove(event), options);
-      this.viewport.addEventListener('pointerup', () => this.onPointerUp(), options);
-      this.viewport.addEventListener('pointercancel', () => this.onPointerUp(), options);
+      this.viewport.addEventListener('pointerup', (event) => this.onPointerUp(event), options);
+      this.viewport.addEventListener('pointercancel', (event) => this.onPointerCancel(event), options);
+      this.viewport.addEventListener('click', (event) => this.onClick(event), options);
       this.viewport.addEventListener('keydown', (event) => this.onKeydown(event), options);
       document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
       document.addEventListener('visibilitychange', () => this.syncAutoplay(), options);
@@ -862,31 +968,76 @@ if (!customElements.get('bnon-review')) {
       this.entranceObserver.observe(this);
     }
 
+    preventNativeDrag(event) {
+      if (event.target.closest?.('[data-bnon-review-card]')) event.preventDefault();
+    }
+
     onPointerDown(event) {
-      this.userInteracting = true;
-      if (event.pointerType === 'touch') return;
-      this.dragStart = event.clientX;
-      this.dragScroll = this.viewport.scrollLeft;
-      this.dragging = true;
-      this.viewport.classList.add('is-dragging');
-      this.viewport.setPointerCapture?.(event.pointerId);
+      if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+      this.drag = {
+        pointerId: event.pointerId,
+        startX: event.clientX,
+        startY: event.clientY,
+        direction: null,
+      };
     }
 
     onPointerMove(event) {
-      if (!this.dragging) return;
-      this.viewport.scrollLeft = this.dragScroll - (event.clientX - this.dragStart);
+      const drag = this.drag;
+      if (!drag || event.pointerId !== drag.pointerId || drag.direction === 'vertical') return;
+      const deltaX = event.clientX - drag.startX;
+      const deltaY = event.clientY - drag.startY;
+
+      if (!drag.direction) {
+        if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < 8) return;
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+          drag.direction = 'vertical';
+          return;
+        }
+        drag.direction = 'horizontal';
+        this.viewport.classList.add('is-dragging');
+        this.viewport.setPointerCapture?.(event.pointerId);
+      }
+
+      event.preventDefault();
     }
 
-    onPointerUp() {
-      if (this.dragging) {
-        this.dragging = false;
+    onPointerUp(event) {
+      const drag = this.drag;
+      if (!drag || (event?.pointerId !== undefined && event.pointerId !== drag.pointerId)) return;
+      this.drag = null;
+
+      if (drag.direction === 'horizontal') {
         this.viewport.classList.remove('is-dragging');
+        if (this.viewport.hasPointerCapture?.(drag.pointerId)) {
+          this.viewport.releasePointerCapture(drag.pointerId);
+        }
+        const deltaX = (event?.clientX || drag.startX) - drag.startX;
+        if (Math.abs(deltaX) >= 50) {
+          this.preventClick = true;
+          window.setTimeout(() => { this.preventClick = false; }, 0);
+          const direction = deltaX < 0 ? 1 : -1;
+          const nextGroup = Math.max(0, Math.min(this.groupCount() - 1, this.currentGroup() + direction));
+          this.scrollToGroup(nextGroup);
+          this.restartAutoplay();
+        }
       }
-      if (this.userInteracting) {
-        this.scrollToGroup(this.currentGroup());
-        this.userInteracting = false;
-        this.restartAutoplay();
+    }
+
+    onPointerCancel(event) {
+      if (!this.drag || event.pointerId !== this.drag.pointerId) return;
+      if (this.drag.direction === 'horizontal') this.viewport.classList.remove('is-dragging');
+      if (this.viewport.hasPointerCapture?.(this.drag.pointerId)) {
+        this.viewport.releasePointerCapture(this.drag.pointerId);
       }
+      this.drag = null;
+    }
+
+    onClick(event) {
+      if (!this.preventClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+      this.preventClick = false;
     }
 
     onKeydown(event) {

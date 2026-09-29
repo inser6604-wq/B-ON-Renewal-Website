@@ -19,9 +19,6 @@
       };
       document.addEventListener('click', activate, options);
       document.addEventListener('keydown', activate, options);
-      document.addEventListener('pointerdown', (event) => {
-        if (event.target.closest('[data-bnon-review-modal-trigger]')) event.stopPropagation();
-      }, { ...options, capture: true });
       this.closeButton.addEventListener('click', () => this.dialog.close(), options);
       this.dialog.addEventListener('cancel', (event) => {
         event.preventDefault();

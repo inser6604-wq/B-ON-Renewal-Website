@@ -52,9 +52,15 @@
             </div>
           </div>
 
-          <p class="bnon-main-portfolio__count" aria-live="polite">
-            <span data-bnon-project-current>01</span><span aria-hidden="true"> / </span><span data-bnon-project-total>{{ visible_count | prepend: '0' }}</span>
-          </p>
+          <div class="bnon-main-portfolio__meta">
+            <p class="bnon-main-portfolio__count" aria-live="polite">
+              <span data-bnon-project-current>01</span><span aria-hidden="true">/</span><span data-bnon-project-total>{{ visible_count | prepend: '0' }}</span>
+            </p>
+            <div class="bnon-main-portfolio__arrows" aria-label="프로젝트 이동">
+              <button type="button" data-bnon-project-previous aria-label="이전 프로젝트">‹</button>
+              <button type="button" data-bnon-project-next aria-label="다음 프로젝트">›</button>
+            </div>
+          </div>
         </div>
         </div>
 
