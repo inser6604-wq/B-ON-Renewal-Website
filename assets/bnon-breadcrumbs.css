@@ -1,6 +1,6 @@
 .bnon-breadcrumbs {
   position: relative;
-  z-index: 5;
+  z-index: 0;
   width: 100%;
   padding: 28px 7.7778vw 18px;
   color: #0a0a0a;

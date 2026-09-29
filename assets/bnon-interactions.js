@@ -2,6 +2,14 @@
  * Each custom element owns its frame, observer and listeners. Shopify section
  * replacement triggers disconnect/connect, so editor reloads cannot leak loops.
  */
+var bnonDesktopHomeEntrance = element => element.closest("#MainContent[data-template='index']")
+  && window.matchMedia('(min-width: 1024px)').matches;
+var bnonEntranceThreshold = (element, fallback) => bnonDesktopHomeEntrance(element) ? .3 : fallback;
+var bnonEntranceDuration = (element, duration) => bnonDesktopHomeEntrance(element)
+  ? Math.round(duration * 1.15)
+  : duration;
+var bnonEntranceStartOpacity = element => bnonDesktopHomeEntrance(element) ? .72 : 0;
+
 if (!customElements.get('bnon-hero-universe')) {
   class BnonHeroUniverse extends HTMLElement {
     connectedCallback() {
@@ -181,19 +189,19 @@ if (!customElements.get('bnon-our-universe')) {
           if (element?.animate) this.entranceAnimations.push(element.animate(frames, options));
         };
         animate(this.querySelector('.bnon-our-universe__heading'), [
-          { opacity: 0, transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: 600, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+          { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: bnonEntranceDuration(this, 600), easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
         animate(this.querySelector('.bnon-our-universe__description'), [
-          { opacity: 0, transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: 600, delay: 90, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
-        this.cards.forEach((card, index) => animate(card, [{ opacity: 0 }, { opacity: 1 }], {
-          duration: 500, delay: 180 + index * 35, easing: 'ease-out', fill: 'backwards',
+          { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: bnonEntranceDuration(this, 600), delay: 90, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        this.cards.forEach((card, index) => animate(card, [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }], {
+          duration: bnonEntranceDuration(this, 500), delay: 180 + index * 35, easing: 'ease-out', fill: 'backwards',
         }));
         this.statValues.forEach((value, index) => this.countUp(value, 250 + index * 80));
         this.statDetails.forEach((detail, index) => animate(detail, [
-          { opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: 500, delay: 350 + index * 60, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
-      }, { threshold: .15 });
+          { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: bnonEntranceDuration(this, 500), delay: 350 + index * 60, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+      }, { threshold: bnonEntranceThreshold(this, .15) });
       this.entranceObserver.observe(this);
     }
 
@@ -202,7 +210,7 @@ if (!customElements.get('bnon-our-universe')) {
       if (!count) return;
       const { target, suffix } = count;
       const start = performance.now() + delay;
-      const duration = 1350;
+      const duration = bnonEntranceDuration(this, 1350);
       const tick = now => {
         if (!this.isConnected || this.reduced.matches) return this.finishCount(element, target, suffix);
         const progress = Math.max(0, Math.min(1, (now - start) / duration));
@@ -312,9 +320,9 @@ if (!customElements.get('bnon-contact-entrance')) {
           const element = this.querySelector(selector);
           if (!element?.animate) return;
           this.animations.push(element.animate([
-            { opacity: 0, transform: `translateY(${distance}px)` },
+            { opacity: bnonEntranceStartOpacity(this), transform: `translateY(${distance}px)` },
             { opacity: 1, transform: 'none' },
-          ], { duration, delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+          ], { duration: bnonEntranceDuration(this, duration), delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
         };
         enter('.bnon-contact__heading', 0);
         enter('.bnon-contact__title', 90);
@@ -325,13 +333,13 @@ if (!customElements.get('bnon-contact-entrance')) {
         const universe = this.querySelector('.bnon-contact__universe');
         if (universe?.animate) {
           const restingOpacity = getComputedStyle(universe).opacity;
-          this.animations.push(universe.animate([{ opacity: 0 }, { opacity: restingOpacity }], {
-            duration: 600, delay: 390, easing: 'ease-out', fill: 'backwards',
+          this.animations.push(universe.animate([{ opacity: bnonEntranceStartOpacity(this) }, { opacity: restingOpacity }], {
+            duration: bnonEntranceDuration(this, 600), delay: 390, easing: 'ease-out', fill: 'backwards',
           }));
         }
         ['.bnon-contact__bubble--one', '.bnon-contact__bubble--two', '.bnon-contact__bubble--three']
           .forEach((selector, index) => enter(selector, 620 + index * 130, 20, 500));
-      }, { threshold: .15 });
+      }, { threshold: bnonEntranceThreshold(this, .15) });
       this.observer.observe(this);
     }
 
@@ -376,10 +384,10 @@ if (!customElements.get('bnon-main-portfolio')) {
           this.entryObserver.disconnect();
           if (!this.reduced.matches) {
             this.entryAnimation = this.querySelector('.bnon-main-portfolio__stage')?.animate(
-              [{ opacity: 0 }, { opacity: 1 }], { duration: 500, easing: 'ease-out' }
+              [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }], { duration: bnonEntranceDuration(this, 500), easing: 'ease-out' }
             );
           }
-        }, { threshold: 0 });
+        }, { threshold: bnonEntranceThreshold(this, 0) });
         this.entryObserver.observe(this);
       }
     }
@@ -529,16 +537,16 @@ if (!customElements.get('bnon-what-we-do')) {
           if (!element?.animate) return;
           // Only the outer accordion container moves; its panels retain their own transitions.
           this.entranceAnimations.push(element.animate([
-            { opacity: 0, transform: `translateY(${distance}px)` },
+            { opacity: bnonEntranceStartOpacity(this), transform: `translateY(${distance}px)` },
             { opacity: 1, transform: 'none' },
           ], {
-            duration: 750,
-            delay: index * 120,
+            duration: bnonEntranceDuration(this, 750),
+            delay: index * (bnonDesktopHomeEntrance(this) ? 135 : 120),
             easing: 'cubic-bezier(.22, 1, .36, 1)',
             fill: 'backwards',
           }));
         });
-      }, { threshold: 0 });
+      }, { threshold: bnonEntranceThreshold(this, 0) });
       this.entranceObserver.observe(this);
     }
 
@@ -597,10 +605,13 @@ if (!customElements.get('bnon-process')) {
       }, options);
       this.observer = new IntersectionObserver(([entry]) => {
         this.visible = entry.isIntersecting;
-        if (this.visible) this.playEntrance();
         this.syncAutoplay();
       }, { threshold: 0.2 });
       this.observer.observe(this);
+      this.entranceObserver = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) this.playEntrance();
+      }, { threshold: bnonEntranceThreshold(this, .2) });
+      this.entranceObserver.observe(this);
       this.updateProgress(false);
       this.syncAutoplay();
     }
@@ -611,6 +622,7 @@ if (!customElements.get('bnon-process')) {
       this.layerTimers?.forEach((timer) => clearTimeout(timer));
       this.layerTimers?.clear();
       this.observer?.disconnect();
+      this.entranceObserver?.disconnect();
       this.controller?.abort();
       this.controller = null;
     }
@@ -618,6 +630,7 @@ if (!customElements.get('bnon-process')) {
     playEntrance() {
       if (this.entrancePlayed) return;
       this.entrancePlayed = true;
+      this.entranceObserver?.disconnect();
       if (this.reduced.matches) return;
       this.entranceAnimations = [];
       [
@@ -629,10 +642,10 @@ if (!customElements.get('bnon-process')) {
         this.querySelectorAll(selector).forEach(element => {
           if (!element.animate) return;
           const frames = transform
-            ? [{ opacity: 0, transform }, { opacity: 1, transform: 'none' }]
-            : [{ opacity: 0 }, { opacity: 1 }];
+            ? [{ opacity: bnonEntranceStartOpacity(this), transform }, { opacity: 1, transform: 'none' }]
+            : [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }];
           this.entranceAnimations.push(element.animate(frames, {
-            duration: 600, delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards',
+            duration: bnonEntranceDuration(this, 600), delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards',
           }));
         });
       });
@@ -743,9 +756,9 @@ if (!customElements.get('bnon-faq')) {
           [this.querySelector('.bnon-faq__intro'), 'translateX(-15px)', 0],
           [this.querySelector('.bnon-faq__accordion'), 'translateX(15px)', 100],
         ].flatMap(([element, transform, delay]) => element?.animate ? [element.animate([
-          { opacity: 0, transform }, { opacity: 1, transform: 'none' },
-        ], { duration: 650, delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' })] : []);
-      }, { threshold: .15 });
+          { opacity: bnonEntranceStartOpacity(this), transform }, { opacity: 1, transform: 'none' },
+        ], { duration: bnonEntranceDuration(this, 650), delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' })] : []);
+      }, { threshold: bnonEntranceThreshold(this, .15) });
       this.entranceObserver.observe(this);
     }
 
@@ -837,15 +850,15 @@ if (!customElements.get('bnon-review')) {
           if (element?.animate) (this.entranceAnimations ||= []).push(element.animate(frames, options));
         };
         animate(this.querySelector('.bnon-review__intro'), [
-          { opacity: 0, transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: 600, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
-        animate(this.querySelector('.bnon-review__count'), [{ opacity: 0 }, { opacity: 1 }], {
-          duration: 500, delay: 80, easing: 'ease-out', fill: 'backwards',
+          { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: bnonEntranceDuration(this, 600), easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        animate(this.querySelector('.bnon-review__count'), [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }], {
+          duration: bnonEntranceDuration(this, 500), delay: bnonDesktopHomeEntrance(this) ? 100 : 80, easing: 'ease-out', fill: 'backwards',
         });
         this.cards.slice(0, 3).forEach((card, index) => animate(card, [
-          { opacity: 0, transform: 'translateY(20px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: 600, delay: 160 + index * 100, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
-      }, { threshold: .15 });
+          { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(20px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: bnonEntranceDuration(this, 600), delay: (bnonDesktopHomeEntrance(this) ? 200 : 160) + index * (bnonDesktopHomeEntrance(this) ? 110 : 100), easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+      }, { threshold: bnonEntranceThreshold(this, .15) });
       this.entranceObserver.observe(this);
     }
 

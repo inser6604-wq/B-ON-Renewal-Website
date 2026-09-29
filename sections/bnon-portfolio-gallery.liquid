@@ -1,3 +1,4 @@
+<bnon-portfolio-gallery-entrance>
 <section id="bnon-portfolio-gallery-{{ section.id }}" class="bnon-section bnon-portfolio-gallery" aria-labelledby="bnon-portfolio-gallery-heading-{{ section.id }}">
   <div class="bnon-container bnon-portfolio-gallery__intro">
     <h1 class="bnon-portfolio-gallery__heading" id="bnon-portfolio-gallery-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
@@ -6,23 +7,25 @@
   </div>
 
   <bnon-portfolio-mobile-slider class="bnon-portfolio-gallery__reveal">
-  <div class="bnon-portfolio-gallery__stage" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리">
+  <div class="bnon-portfolio-gallery__stage is-initializing" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리">
     {%- for block in section.blocks limit: 7 -%}
       {%- liquid
         assign desktop_mockup = block.settings.mockup_desktop_image | default: block.settings.mockup_image
         assign phone_mockup = block.settings.mockup_phone_image | default: block.settings.mockup_image
       -%}
       <article class="bnon-portfolio-gallery__card bnon-portfolio-gallery__item" tabindex="0" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {% if desktop_mockup != blank or phone_mockup != blank %}role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-mockup-title="{{ block.settings.project_name | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}" {% if desktop_mockup != blank %}data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %} {% if phone_mockup != blank %}data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %} {% endif %} {{ block.shopify_attributes }}>
-        <div class="bnon-portfolio-gallery__media">
-        {%- if block.settings.image != blank -%}
-          {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'bnon-portfolio-gallery__image', widths: '320, 480, 640, 900, 1200', sizes: '(min-width: 1024px) 25vw, 80vw', alt: block.settings.image.alt, loading: 'lazy' }}
-        {%- else -%}
-          <div class="bnon-portfolio-gallery__placeholder" aria-hidden="true"></div>
-        {%- endif -%}
+        <div class="bnon-portfolio-gallery__card-entrance">
+          <div class="bnon-portfolio-gallery__media">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'bnon-portfolio-gallery__image', widths: '320, 480, 640, 900, 1200', sizes: '(min-width: 1024px) 25vw, 80vw', alt: block.settings.image.alt, loading: 'lazy' }}
+          {%- else -%}
+            <div class="bnon-portfolio-gallery__placeholder" aria-hidden="true"></div>
+          {%- endif -%}
+          </div>
+          {%- if block.settings.project_name != blank -%}
+            <bnon-portfolio-brand class="bnon-portfolio-gallery__brand"><span>{{ block.settings.project_name | escape }}</span></bnon-portfolio-brand>
+          {%- endif -%}
         </div>
-        {%- if block.settings.project_name != blank -%}
-          <bnon-portfolio-brand class="bnon-portfolio-gallery__brand"><span>{{ block.settings.project_name | escape }}</span></bnon-portfolio-brand>
-        {%- endif -%}
       </article>
     {%- endfor -%}
   </div>
@@ -30,6 +33,7 @@
 
   <div class="bnon-portfolio-gallery__next-boundary" aria-hidden="true"></div>
 </section>
+</bnon-portfolio-gallery-entrance>
 
 {% render 'bnon-portfolio-mockup-modal', modal_id: 'bnon-portfolio-mockup-modal' %}
 
@@ -39,9 +43,13 @@
     --gallery-intro-gap: clamp(20px, 2vw, 32px);
   }
 
+  bnon-portfolio-gallery-entrance { display: block; }
+  .bnon-portfolio-gallery__card-entrance { position: relative; width: 100%; height: 100%; border-radius: inherit; transform-origin: center bottom; }
+
   .bnon-portfolio-gallery .bnon-portfolio-gallery__heading { font-size: 64px; }
   .bnon-portfolio-gallery .bnon-portfolio-gallery__description { font-size: 21.6px; }
   .bnon-portfolio-gallery .bnon-portfolio-gallery__eyebrow { font-size: 15.36px; }
+  .bnon-portfolio-gallery__card { cursor: pointer; }
 
   /* Move the intro and gallery as one group. The scaled gallery silhouette
      starts 3.99vw into the stage and is 36.92vw tall: 15.07vw exposes its
@@ -255,6 +263,10 @@
       transition: none;
     }
 
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__stage.is-initializing {
+      visibility: hidden;
+    }
+
     .bnon-portfolio-gallery .bnon-portfolio-gallery__card.is-wrapping {
       transition: none;
     }
@@ -272,6 +284,60 @@
 {% endstylesheet %}
 
 {% javascript %}
+  if (!customElements.get('bnon-portfolio-gallery-entrance')) {
+    customElements.define('bnon-portfolio-gallery-entrance', class extends HTMLElement {
+      connectedCallback() {
+        if (this.entranceObserver) return;
+        this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+        this.entranceObserver = new IntersectionObserver(entries => {
+          if (this.entrancePlayed || !entries.some(entry => entry.isIntersecting)) return;
+          this.entrancePlayed = true;
+          this.entranceObserver.disconnect();
+          if (this.reduced.matches) return;
+
+          this.entranceAnimations = [];
+          const animate = (element, frames, options) => {
+            if (element?.animate) this.entranceAnimations.push(element.animate(frames, options));
+          };
+          animate(this.querySelector('.bnon-portfolio-gallery__heading'), [
+            { opacity: 0, transform: 'translateY(25px)' }, { opacity: 1, transform: 'none' },
+          ], { duration: 700, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+          animate(this.querySelector('.bnon-portfolio-gallery__description'), [
+            { opacity: 0, transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
+          ], { duration: 600, delay: 100, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+          animate(this.querySelector('.bnon-portfolio-gallery__eyebrow'), [{ opacity: 0 }, { opacity: 1 }], {
+            duration: 500, delay: 200, easing: 'ease-out', fill: 'backwards',
+          });
+
+          const mobile = window.matchMedia('(max-width: 767px)').matches;
+          const mobileSlider = window.matchMedia('(max-width: 480px)').matches;
+          const cardFrames = [
+            { opacity: 0, transform: `translateY(${mobile ? 90 : 150}px) scale(${mobile ? .94 : .92})` },
+            { opacity: 1, transform: 'none' },
+          ];
+          const wrappers = Array.from(this.querySelectorAll('.bnon-portfolio-gallery__card-entrance'));
+          const center = Math.floor(wrappers.length / 2);
+          const order = wrappers.map((wrapper, index) => ({ wrapper, distance: Math.abs(index - center), index }))
+            .sort((a, b) => a.distance - b.distance || a.index - b.index);
+          if (!mobileSlider) {
+            order.forEach(({ wrapper }, index) => animate(wrapper, cardFrames, {
+              duration: mobile ? 800 : 980,
+              delay: 400 + index * (mobile ? 70 : 80),
+              easing: 'cubic-bezier(.16, 1, .3, 1)',
+              fill: 'backwards',
+            }));
+          }
+        }, { threshold: .15, rootMargin: '0px 0px -20% 0px' });
+        this.entranceObserver.observe(this.querySelector('.bnon-portfolio-gallery__stage') || this);
+      }
+
+      disconnectedCallback() {
+        this.entranceObserver?.disconnect();
+        this.entranceAnimations?.forEach(animation => animation.cancel());
+      }
+    });
+  }
+
   if (!customElements.get('bnon-portfolio-brand')) {
     customElements.define('bnon-portfolio-brand', class extends HTMLElement {
       connectedCallback() {

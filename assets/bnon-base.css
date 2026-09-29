@@ -64,6 +64,13 @@
   padding-inline: var(--bnon-gutter);
 }
 
+/* The home orbit intentionally extends beyond its viewport. Keep it from
+ * widening Lenis's root scrolling area while preserving the visible orbit. */
+html.lenis:has(#MainContent[data-template='index']),
+html.lenis:has(#MainContent[data-template='index']) body {
+  overflow-x: clip;
+}
+
 .bnon-header {
   background: var(--bnon-color-gray);
 }
@@ -787,7 +794,7 @@ bnon-main-portfolio { display: block; }
   position: absolute;
   z-index: 1;
   top: 247px;
-  left: calc(50% + 365px);
+  left: calc(50% + 385px);
   width: 306px;
   height: 728px;
   max-width: calc(40% - var(--bnon-gutter));
@@ -825,7 +832,7 @@ bnon-main-portfolio { display: block; }
   .bnon-main-portfolio__scopes { gap: 8px 14px; }
   .bnon-main-portfolio__links { grid-template-columns: minmax(0, 1fr); gap: 18px; margin-top: 44px; }
   .bnon-main-portfolio__link { min-height: 42px; font-size: 17px; }
-  .bnon-main-portfolio__mockup { top: 225px; right: calc(var(--bnon-gutter) - 30px); width: min(190px, 45vw); }
+  .bnon-main-portfolio__mockup { top: 225px; right: var(--bnon-gutter); width: min(190px, 45vw); }
 }
 
 @media screen and (max-width: 480px) {
@@ -1325,10 +1332,9 @@ bnon-contact-entrance { display: block; }
   .bnon-main-portfolio__panel--inmi-seoul .bnon-main-portfolio__background-image {
     object-position: 40% center;
   }
-  .bnon-main-portfolio .bnon-main-portfolio__mockup {
+  .bnon-main-portfolio__mockup {
     top: calc(28svh + 20px);
-    right: -20px;
-    left: auto;
+    right: 20px;
     width: min(31vw, 14svh, 118px);
     max-width: calc(100% - 40px);
   }

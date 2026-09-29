@@ -1,6 +1,6 @@
 /* Header-only overrides; retain the foundation's grid and breakpoint geometry. */
 bnon-header-controller { display: block; }
-bnon-header-controller[data-fixed] { height: var(--header-height); }
+bnon-header-controller[data-fixed] { position: relative; z-index: 100; isolation: isolate; height: var(--header-height); }
 bnon-header-controller[data-fixed] > .bnon-header {
   position: fixed;
   inset: 0 0 auto;

@@ -1,3 +1,4 @@
+<bnon-portfolio-projects-entrance>
 <section class="bnon-section bnon-portfolio-projects" aria-labelledby="portfolio-projects-heading-{{ section.id }}">
   <div class="bnon-portfolio-projects__intro">
     <h2 id="portfolio-projects-heading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
@@ -67,15 +68,17 @@
     {%- endfor -%}
   </div>
 </section>
+</bnon-portfolio-projects-entrance>
 
 {% stylesheet %}
+  bnon-portfolio-projects-entrance { display: block; }
   .bnon-portfolio-projects { padding: 100px 24px 120px; background: var(--bnon-color-white); }
   .bnon-portfolio-projects__intro { display: grid; gap: 20px; margin: 0 auto 100px; text-align: center; }
   .bnon-portfolio-projects__intro h2 { margin: 0; color: var(--bnon-color-black); font-family: var(--bnon-font-latin); font-size: 64px; font-weight: 800; line-height: 1.4; letter-spacing: -.04em; }
   .bnon-portfolio-projects__intro p { margin: 0; font-family: var(--bnon-font-korean); font-size: 19.2px; font-weight: 400; line-height: 1.4; letter-spacing: -.04em; }
   .bnon-portfolio-projects__gallery { display: grid; gap: 60px; max-width: 1286px; margin-inline: auto; }
   .bnon-portfolio-projects__row { display: flex; align-items: flex-end; gap: 25px; }
-  .bnon-portfolio-projects__card { position: relative; flex: none; min-width: 0; overflow: hidden; border-radius: 20px; background: var(--bnon-color-gray); }
+  .bnon-portfolio-projects__card { position: relative; flex: none; min-width: 0; overflow: hidden; border-radius: 20px; background: var(--bnon-color-gray); cursor: pointer; }
   .bnon-portfolio-projects__card--large { width: 100%; aspect-ratio: 1286 / 620; }
   .bnon-portfolio-projects__card--medium { width: calc((100% - 25px) * .414013); aspect-ratio: 520 / 400; }
   .bnon-portfolio-projects__row--pair .bnon-portfolio-projects__card--large { width: calc((100% - 25px) * .585987); aspect-ratio: 736 / 520; }
@@ -109,6 +112,61 @@
     .bnon-portfolio-projects__card--small { width: calc((100% - 24px) / 3); }
   }
 {% endstylesheet %}
+
+{% javascript %}
+  if (!customElements.get('bnon-portfolio-projects-entrance')) {
+    customElements.define('bnon-portfolio-projects-entrance', class extends HTMLElement {
+      connectedCallback() {
+        if (this.introObserver) return;
+        this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const intro = this.querySelector('.bnon-portfolio-projects__intro');
+        const cards = Array.from(this.querySelectorAll('.bnon-portfolio-projects__card'));
+        this.entranceAnimations = [];
+        const animate = (element, frames, options) => {
+          if (element?.animate) this.entranceAnimations.push(element.animate(frames, options));
+        };
+
+        this.introObserver = new IntersectionObserver(entries => {
+          if (!entries.some(entry => entry.isIntersecting)) return;
+          this.introObserver.disconnect();
+          if (this.reduced.matches) return;
+          animate(intro, [
+            { opacity: 0, transform: 'translateY(15px)' },
+            { opacity: 1, transform: 'none' },
+          ], { duration: 600, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        }, { threshold: .15 });
+        if (intro) this.introObserver.observe(intro);
+
+        this.cardsObserver = new IntersectionObserver(entries => {
+          const enteringCards = entries
+            .filter(entry => entry.isIntersecting)
+            .map(entry => entry.target)
+            .sort((a, b) => cards.indexOf(a) - cards.indexOf(b));
+          enteringCards.forEach((card, index) => {
+            this.cardsObserver.unobserve(card);
+            if (this.reduced.matches) return;
+            animate(card, [
+              { opacity: 0, transform: 'translateY(30px)' },
+              { opacity: 1, transform: 'none' },
+            ], {
+              duration: 680,
+              delay: enteringCards.length > 1 ? index * 60 : 0,
+              easing: 'cubic-bezier(.22, 1, .36, 1)',
+              fill: 'backwards',
+            });
+          });
+        }, { threshold: .12 });
+        cards.forEach(card => this.cardsObserver.observe(card));
+      }
+
+      disconnectedCallback() {
+        this.introObserver?.disconnect();
+        this.cardsObserver?.disconnect();
+        this.entranceAnimations?.forEach(animation => animation.cancel());
+      }
+    });
+  }
+{% endjavascript %}
 
 {% schema %}
 {
