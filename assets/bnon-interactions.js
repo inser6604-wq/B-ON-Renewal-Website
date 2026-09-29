@@ -144,29 +144,48 @@ if (!customElements.get('bnon-our-universe')) {
     connectedCallback() {
       if (this.controller) return;
       this.cards = Array.from(this.querySelectorAll('[data-bnon-universe-card-tilt]'));
-      if (!this.cards.length) return;
+      this.viewport = this.querySelector('.bnon-our-universe__viewport');
+      if (!this.cards.length || !this.viewport) return;
 
       this.controller = new AbortController();
       this.desktopPointer = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
       const options = { signal: this.controller.signal };
-      this.cards.forEach(card => {
-        card.addEventListener('pointerenter', event => this.tilt(card, event), options);
-        card.addEventListener('pointermove', event => this.tilt(card, event), options);
-        card.addEventListener('pointerleave', () => this.reset(card), options);
-      });
+      this.viewport.addEventListener('pointermove', event => this.trackPointer(event), options);
+      this.viewport.addEventListener('pointerleave', () => this.resetActive(), options);
       this.desktopPointer.addEventListener('change', () => {
-        if (!this.desktopPointer.matches) this.cards.forEach(card => this.reset(card));
+        if (!this.desktopPointer.matches) this.resetActive();
       }, options);
     }
 
-    tilt(card, event) {
+    trackPointer(event) {
       if (!this.desktopPointer.matches) return;
+      const card = event.target.closest?.('[data-bnon-universe-card-tilt]');
+      if (!card) return this.resetActive();
+      if (this.activeCard && this.activeCard !== card) this.reset(this.activeCard);
+      this.activeCard = card;
+      this.pointerPosition = { x: event.clientX, y: event.clientY };
+      if (this.tiltFrame) return;
+      this.tiltFrame = requestAnimationFrame(() => {
+        this.tiltFrame = null;
+        this.tilt(this.activeCard, this.pointerPosition);
+      });
+    }
+
+    tilt(card, point) {
+      if (!card || !point) return;
       const bounds = card.getBoundingClientRect();
-      const x = (event.clientX - bounds.left) / bounds.width - .5;
-      const y = (event.clientY - bounds.top) / bounds.height - .5;
+      const x = (point.x - bounds.left) / bounds.width - .5;
+      const y = (point.y - bounds.top) / bounds.height - .5;
       card.style.setProperty('--bnon-universe-cursor-tilt-x', `${(-y * 14).toFixed(2)}deg`);
       card.style.setProperty('--bnon-universe-cursor-tilt-y', `${(x * 14).toFixed(2)}deg`);
       card.style.transitionDuration = '.12s';
+    }
+
+    resetActive() {
+      if (!this.activeCard) return;
+      this.reset(this.activeCard);
+      this.activeCard = null;
+      this.pointerPosition = null;
     }
 
     reset(card) {
@@ -176,6 +195,7 @@ if (!customElements.get('bnon-our-universe')) {
     }
 
     disconnectedCallback() {
+      cancelAnimationFrame(this.tiltFrame);
       this.cards?.forEach(card => this.reset(card));
       this.controller?.abort();
       this.controller = null;
