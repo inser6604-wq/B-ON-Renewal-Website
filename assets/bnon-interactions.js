@@ -149,21 +149,93 @@ if (!customElements.get('bnon-our-universe')) {
 
       this.controller = new AbortController();
       this.desktopPointer = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
+      this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
       const options = { signal: this.controller.signal };
       this.viewport.addEventListener('pointermove', event => this.trackPointer(event), options);
       this.viewport.addEventListener('pointerleave', () => this.resetActive(), options);
       this.desktopPointer.addEventListener('change', () => {
         if (!this.desktopPointer.matches) this.resetActive();
       }, options);
+      this.reduced.addEventListener('change', () => {
+        if (this.reduced.matches) this.finishEntrance();
+      }, options);
+      this.setupEntrance();
+    }
+
+    setupEntrance() {
+      this.intro = this.querySelector('.bnon-our-universe__intro');
+      this.statValues = Array.from(this.querySelectorAll('.bnon-our-universe__stat-value'));
+      this.countTargets = new Map(this.statValues.map(value => {
+        const match = value.textContent.trim().match(/^(\d+)(.*)$/);
+        return [value, match ? { target: Number(match[1]), suffix: match[2] } : null];
+      }));
+      this.statDetails = Array.from(this.querySelectorAll('.bnon-our-universe__stat :is(.bnon-our-universe__stat-title, .bnon-our-universe__stat-description)'));
+      this.entranceObserver = new IntersectionObserver(entries => {
+        if (this.entrancePlayed || !entries.some(entry => entry.isIntersecting)) return;
+        this.entrancePlayed = true;
+        this.entranceObserver.disconnect();
+        if (this.reduced.matches) return this.finishEntrance();
+
+        this.entranceAnimations = [];
+        const animate = (element, frames, options) => {
+          if (element?.animate) this.entranceAnimations.push(element.animate(frames, options));
+        };
+        animate(this.querySelector('.bnon-our-universe__heading'), [
+          { opacity: 0, transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: 600, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        animate(this.querySelector('.bnon-our-universe__description'), [
+          { opacity: 0, transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: 600, delay: 90, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        this.cards.forEach((card, index) => animate(card, [{ opacity: 0 }, { opacity: 1 }], {
+          duration: 500, delay: 180 + index * 35, easing: 'ease-out', fill: 'backwards',
+        }));
+        this.statValues.forEach((value, index) => this.countUp(value, 250 + index * 80));
+        this.statDetails.forEach((detail, index) => animate(detail, [
+          { opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: 500, delay: 350 + index * 60, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+      }, { threshold: .15 });
+      this.entranceObserver.observe(this);
+    }
+
+    countUp(element, delay) {
+      const count = this.countTargets.get(element);
+      if (!count) return;
+      const { target, suffix } = count;
+      const start = performance.now() + delay;
+      const duration = 1350;
+      const tick = now => {
+        if (!this.isConnected || this.reduced.matches) return this.finishCount(element, target, suffix);
+        const progress = Math.max(0, Math.min(1, (now - start) / duration));
+        element.textContent = `${Math.round(target * (1 - (1 - progress) ** 3))}${suffix}`;
+        if (progress < 1) this.countFrames.push(requestAnimationFrame(tick));
+      };
+      element.textContent = `0${suffix}`;
+      this.countFrames ||= [];
+      this.countFrames.push(requestAnimationFrame(tick));
+    }
+
+    finishCount(element, target, suffix) {
+      element.textContent = `${target}${suffix}`;
+    }
+
+    finishEntrance() {
+      this.entranceObserver?.disconnect();
+      this.entranceAnimations?.forEach(animation => animation.cancel());
+      this.countFrames?.forEach(frame => cancelAnimationFrame(frame));
+      this.statValues?.forEach(value => {
+        const count = this.countTargets?.get(value);
+        if (count) this.finishCount(value, count.target, count.suffix);
+      });
     }
 
     trackPointer(event) {
       if (!this.desktopPointer.matches) return;
-      const card = event.target.closest?.('[data-bnon-universe-card-tilt]');
+      const point = { x: event.clientX, y: event.clientY };
+      const card = this.closestCard(point);
       if (!card) return this.resetActive();
       if (this.activeCard && this.activeCard !== card) this.reset(this.activeCard);
       this.activeCard = card;
-      this.pointerPosition = { x: event.clientX, y: event.clientY };
+      this.pointerPosition = point;
       if (this.tiltFrame) return;
       this.tiltFrame = requestAnimationFrame(() => {
         this.tiltFrame = null;
@@ -171,13 +243,31 @@ if (!customElements.get('bnon-our-universe')) {
       });
     }
 
+    closestCard(point) {
+      let closest = null;
+      let closestDistance = Infinity;
+      this.cards.forEach(card => {
+        const bounds = card.getBoundingClientRect();
+        const centerX = bounds.left + bounds.width / 2;
+        const centerY = bounds.top + bounds.height / 2;
+        const distance = Math.hypot(point.x - centerX, point.y - centerY);
+        // Starts about 80px beyond a desktop card edge, before direct hover.
+        const proximity = Math.max(100, Math.max(bounds.width, bounds.height) * 1.15);
+        if (distance < proximity && distance < closestDistance) {
+          closest = card;
+          closestDistance = distance;
+        }
+      });
+      return closest;
+    }
+
     tilt(card, point) {
       if (!card || !point) return;
       const bounds = card.getBoundingClientRect();
-      const x = (point.x - bounds.left) / bounds.width - .5;
-      const y = (point.y - bounds.top) / bounds.height - .5;
-      card.style.setProperty('--bnon-universe-cursor-tilt-x', `${(-y * 14).toFixed(2)}deg`);
-      card.style.setProperty('--bnon-universe-cursor-tilt-y', `${(x * 14).toFixed(2)}deg`);
+      const x = Math.max(-.5, Math.min(.5, (point.x - bounds.left) / bounds.width - .5));
+      const y = Math.max(-.5, Math.min(.5, (point.y - bounds.top) / bounds.height - .5));
+      card.style.setProperty('--bnon-universe-cursor-tilt-x', `${(y * 16).toFixed(2)}deg`);
+      card.style.setProperty('--bnon-universe-cursor-tilt-y', `${(-x * 16).toFixed(2)}deg`);
       card.style.transitionDuration = '.12s';
     }
 
@@ -196,6 +286,7 @@ if (!customElements.get('bnon-our-universe')) {
 
     disconnectedCallback() {
       cancelAnimationFrame(this.tiltFrame);
+      this.finishEntrance();
       this.cards?.forEach(card => this.reset(card));
       this.controller?.abort();
       this.controller = null;
@@ -203,6 +294,54 @@ if (!customElements.get('bnon-our-universe')) {
   }
 
   customElements.define('bnon-our-universe', BnonOurUniverse);
+}
+
+if (!customElements.get('bnon-contact-entrance')) {
+  class BnonContactEntrance extends HTMLElement {
+    connectedCallback() {
+      if (this.observer) return;
+      this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.observer = new IntersectionObserver(entries => {
+        if (this.played || !entries.some(entry => entry.isIntersecting)) return;
+        this.played = true;
+        this.observer.disconnect();
+        if (this.reduced.matches) return;
+
+        this.animations = [];
+        const enter = (selector, delay, distance = 15, duration = 600) => {
+          const element = this.querySelector(selector);
+          if (!element?.animate) return;
+          this.animations.push(element.animate([
+            { opacity: 0, transform: `translateY(${distance}px)` },
+            { opacity: 1, transform: 'none' },
+          ], { duration, delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+        };
+        enter('.bnon-contact__heading', 0);
+        enter('.bnon-contact__title', 90);
+        enter('.bnon-contact__description', 180);
+        enter('.bnon-contact__note', 180);
+        enter('.bnon-contact__actions', 280);
+
+        const universe = this.querySelector('.bnon-contact__universe');
+        if (universe?.animate) {
+          const restingOpacity = getComputedStyle(universe).opacity;
+          this.animations.push(universe.animate([{ opacity: 0 }, { opacity: restingOpacity }], {
+            duration: 600, delay: 390, easing: 'ease-out', fill: 'backwards',
+          }));
+        }
+        ['.bnon-contact__bubble--one', '.bnon-contact__bubble--two', '.bnon-contact__bubble--three']
+          .forEach((selector, index) => enter(selector, 620 + index * 130, 20, 500));
+      }, { threshold: .15 });
+      this.observer.observe(this);
+    }
+
+    disconnectedCallback() {
+      this.observer?.disconnect();
+      this.animations?.forEach(animation => animation.cancel());
+    }
+  }
+
+  customElements.define('bnon-contact-entrance', BnonContactEntrance);
 }
 
 if (!customElements.get('bnon-main-portfolio')) {
@@ -590,9 +729,29 @@ if (!customElements.get('bnon-faq')) {
       const options = { signal: this.controller.signal };
       this.triggers.forEach((trigger) => trigger.addEventListener('click', () => this.activate(trigger), options));
       document.addEventListener('shopify:block:select', (event) => this.onBlockSelect(event), options);
+      this.setupEntrance();
+    }
+
+    setupEntrance() {
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      this.entranceObserver = new IntersectionObserver(entries => {
+        if (this.entrancePlayed || !entries.some(entry => entry.isIntersecting)) return;
+        this.entrancePlayed = true;
+        this.entranceObserver.disconnect();
+        if (reduced.matches) return;
+        this.entranceAnimations = [
+          [this.querySelector('.bnon-faq__intro'), 'translateX(-15px)', 0],
+          [this.querySelector('.bnon-faq__accordion'), 'translateX(15px)', 100],
+        ].flatMap(([element, transform, delay]) => element?.animate ? [element.animate([
+          { opacity: 0, transform }, { opacity: 1, transform: 'none' },
+        ], { duration: 650, delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' })] : []);
+      }, { threshold: .15 });
+      this.entranceObserver.observe(this);
     }
 
     disconnectedCallback() {
+      this.entranceObserver?.disconnect();
+      this.entranceAnimations?.forEach(animation => animation.cancel());
       this.controller?.abort();
       this.controller = null;
     }
@@ -652,6 +811,7 @@ if (!customElements.get('bnon-review')) {
         this.syncAutoplay();
       }, { threshold: 0.2 });
       this.observer.observe(this);
+      this.setupEntrance();
       this.updateCurrent();
       this.syncAutoplay();
     }
@@ -660,9 +820,33 @@ if (!customElements.get('bnon-review')) {
       if (this.frame) cancelAnimationFrame(this.frame);
       window.clearTimeout(this.autoplayTimer);
       this.observer?.disconnect();
+      this.entranceObserver?.disconnect();
+      this.entranceAnimations?.forEach(animation => animation.cancel());
       this.observer = null;
       this.controller?.abort();
       this.controller = null;
+    }
+
+    setupEntrance() {
+      this.entranceObserver = new IntersectionObserver(entries => {
+        if (this.entrancePlayed || !entries.some(entry => entry.isIntersecting)) return;
+        this.entrancePlayed = true;
+        this.entranceObserver.disconnect();
+        if (this.reduced.matches) return;
+        const animate = (element, frames, options) => {
+          if (element?.animate) (this.entranceAnimations ||= []).push(element.animate(frames, options));
+        };
+        animate(this.querySelector('.bnon-review__intro'), [
+          { opacity: 0, transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: 600, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        animate(this.querySelector('.bnon-review__count'), [{ opacity: 0 }, { opacity: 1 }], {
+          duration: 500, delay: 80, easing: 'ease-out', fill: 'backwards',
+        });
+        this.cards.slice(0, 3).forEach((card, index) => animate(card, [
+          { opacity: 0, transform: 'translateY(20px)' }, { opacity: 1, transform: 'none' },
+        ], { duration: 600, delay: 160 + index * 100, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+      }, { threshold: .15 });
+      this.entranceObserver.observe(this);
     }
 
     onPointerDown(event) {

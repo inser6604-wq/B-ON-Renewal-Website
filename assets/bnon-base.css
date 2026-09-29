@@ -269,12 +269,15 @@ bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__orbit { anima
 .bnon-our-universe__card { --bnon-universe-tilt: 20deg; width: 122px; height: 122px; border-radius: 16px; overflow: hidden; perspective: 600px; transform: rotate(calc(-1 * var(--bnon-universe-angle))) rotate(calc(-1 * var(--bnon-universe-initial-rotation))); }
 bnon-our-universe[data-enable-rotation='true'] .bnon-our-universe__card { animation: bnon-our-universe-counter-orbit var(--bnon-universe-rotation-duration) linear infinite, bnon-our-universe-tilt var(--bnon-universe-rotation-duration) linear infinite; animation-delay: 0s, var(--bnon-universe-tilt-delay); }
 .bnon-our-universe__card-tilt { width: 100%; height: 100%; transform: rotateX(var(--bnon-universe-cursor-tilt-x, 0deg)) rotateY(var(--bnon-universe-cursor-tilt-y, 0deg)); transform-style: preserve-3d; transition: transform .3s cubic-bezier(.22, 1, .36, 1); will-change: transform; }
+@media screen and (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .bnon-our-universe__card-tilt { cursor: pointer; }
+}
 .bnon-our-universe__image,
 .bnon-our-universe__placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
 .bnon-our-universe__placeholder { background: #262626; }
 .bnon-our-universe__stats { display: flex; justify-content: center; gap: 108px; margin-top: 18px; }
 .bnon-our-universe__stat { position: relative; display: grid; justify-items: center; gap: 8px; width: min(355px, 40%); text-align: center; }
-.bnon-our-universe__stat-value { color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: clamp(58px, 5.81vw, 84px); font-weight: var(--bnon-weight-extrabold); line-height: 1.2; letter-spacing: -0.04em; }
+.bnon-our-universe__stat-value { min-width: 4ch; color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: clamp(58px, 5.81vw, 84px); font-weight: var(--bnon-weight-extrabold); font-variant-numeric: tabular-nums; line-height: 1.2; letter-spacing: -0.04em; text-align: center; }
 .bnon-our-universe__stat-title { color: #FFFFFF; font-family: var(--bnon-font-korean); font-size: 21px; font-weight: var(--bnon-weight-extrabold); line-height: 1.6; letter-spacing: -0.04em; }
 .bnon-our-universe__stat-description { font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-medium); line-height: 1.6; letter-spacing: -0.04em; }
 @keyframes bnon-our-universe-orbit { from { transform: translateX(-50%) rotate(var(--bnon-universe-initial-rotation)); } to { transform: translateX(-50%) rotate(calc(var(--bnon-universe-initial-rotation) + 360deg)); } }
@@ -1133,6 +1136,7 @@ bnon-what-we-do { display: block; }
 }
 
 /* B&ON Contact CTA */
+bnon-contact-entrance { display: block; }
 .bnon-contact { padding-block: 72px 52px; overflow: hidden; color: var(--bnon-color-white); background: var(--bnon-color-black); }
 .bnon-contact__heading,
 .bnon-contact__title,
