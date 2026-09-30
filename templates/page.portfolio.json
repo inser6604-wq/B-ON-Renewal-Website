@@ -17,7 +17,7 @@
           "settings": {
             "image": "shopify://shop_images/Portfolio-page01.webp",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-pleatsmood.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01_a93294ab-37d8-4abb-9a00-91f0055898c5.webp",
             "live_site_url": "https://pleatsmoodglobal.com/?pb=0",
             "project_name": "PLEATSMOOD",
             "category": "FASHION"
@@ -27,8 +27,8 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page02.webp",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-dailsh.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-dailsh01.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-dailsh_4362aa59-a4b9-412f-aea3-61da7c2e2ae0.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-dailsh01_8cac426e-e137-42c4-b0f8-a5e3c8f04515.webp",
             "live_site_url": "https://dailish.ae/",
             "project_name": "DAILISH",
             "category": "BEAUTY"
@@ -60,7 +60,7 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page05.webp",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ecrit.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ecrit_a5b77b7b-5b23-4d77-a8e0-6643dbd5690d.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-ecrit01.webp",
             "live_site_url": "https://ecritetparfum.com",
             "project_name": "ECRITETPARFUM",
@@ -82,8 +82,8 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page07.webp",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-vision.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-vision01.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-vision_1a1cf522-6efa-4bcb-b90f-fd573f6ebd99.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-vision01_a2d73ab8-ceb4-4248-a899-ebbe07a0c9f9.webp",
             "live_site_url": "https://visionx.virnect.com/",
             "project_name": "VISION X",
             "category": "TECH"
@@ -116,8 +116,8 @@
             "logo_scale": 100,
             "project_title": "HOZI",
             "project_link": "https://hozi.uk/",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01_cc2951fe-f478-4cb1-b55e-6596bdbf5288.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi_bb4a3d24-489c-4af5-9957-3a32254a633c.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01_7f0b527e-4263-4e5a-b3c6-f0b35feac902.webp",
             "live_site_url": "https://hozi.uk/",
             "card_size": "large"
           }
@@ -130,7 +130,7 @@
             "logo_scale": 100,
             "project_title": "ÉCRITETPARFUM",
             "project_link": "https://ecritetparfum.com",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ecrit.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-ecrit_73cf37c4-8a87-4cbf-b200-d92069ebd23d.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-ecrit01.webp",
             "live_site_url": "https://ecritetparfum.com",
             "card_size": "medium"
@@ -144,8 +144,8 @@
             "logo_scale": 100,
             "project_title": "MONCLOS",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/Rectangle_98.png",
-            "mockup_phone_image": "shopify://shop_images/Rectangle_100.png",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-monclos.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-monclos01.webp",
             "live_site_url": "",
             "card_size": "medium"
           }
@@ -158,8 +158,8 @@
             "logo_scale": 100,
             "project_title": "CCLIME",
             "project_link": "https://cclimebeauty.com/",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi_fb6f2330-48b6-4018-a6aa-8631ca36db83.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01_df7855d7-a72a-44d5-b2e4-2e6490b75fe5.webp",
             "live_site_url": "https://cclimebeauty.com/",
             "card_size": "large"
           }
@@ -271,7 +271,7 @@
             "project_title": "Korea Teacup Puppies",
             "project_link": "https://pleatsmoodglobal.com/",
             "mockup_desktop_image": "shopify://shop_images/pleatsmoood-desktop.png",
-            "mockup_phone_image": "shopify://shop_images/pleatsmoood-mobile.png",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01_724a850a-6d6d-41ca-a57e-daffdd1d9115.webp",
             "live_site_url": "https://pleatsmoodglobal.com/",
             "card_size": "large"
           }
@@ -284,8 +284,8 @@
             "logo_scale": 100,
             "project_title": "homestolife",
             "project_link": "https://entalpy.kr/",
-            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_db8adb18-2370-41d8-923b-aae358821ff8.png",
-            "mockup_phone_image": "shopify://shop_images/Rectangle_100_74b5fa18-8416-49c5-ade3-ca58683b013f.png",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-entalpy.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-entalpy01.webp",
             "live_site_url": "https://entalpy.kr/",
             "card_size": "large"
           }
@@ -326,8 +326,8 @@
             "logo_scale": 100,
             "project_title": "kparc",
             "project_link": "https://kparc.shop/",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-kparc.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-kparc01.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-kparc_c055dde1-5c6e-4c3d-a2db-562f6c2751a5.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-kparc01_7720cc62-d60b-4d77-b580-935285eddb9e.webp",
             "live_site_url": "https://kparc.shop/",
             "card_size": "small"
           }
@@ -422,8 +422,8 @@
             "logo_scale": 100,
             "project_title": "DALISH",
             "project_link": "https://dailish.ae/",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-dailsh.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-dailsh01.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-dailsh_4362aa59-a4b9-412f-aea3-61da7c2e2ae0.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-dailsh01_8cac426e-e137-42c4-b0f8-a5e3c8f04515.webp",
             "live_site_url": "https://dailish.ae/",
             "card_size": "small"
           }
