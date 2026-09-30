@@ -149,6 +149,15 @@
         viewport.addEventListener('wheel', pauseForManualInput, { passive: true, ...options });
         viewport.addEventListener('pointerdown', pauseForManualInput, options);
         viewport.addEventListener('touchstart', pauseForManualInput, { passive: true, ...options });
+        viewport.addEventListener('pointerenter', () => {
+          if (!this.desktopPointer.matches || !active()) return;
+          window.clearTimeout(run.resumeTimer);
+          this.pauseAutoScroll(run);
+        }, options);
+        viewport.addEventListener('pointerleave', () => {
+          if (!this.desktopPointer.matches || !active()) return;
+          this.resumeAutoScroll(run);
+        }, options);
         viewport.addEventListener('scroll', () => {
           if (performance.now() < state.autoWriteUntil) return;
           this.updateProgressFromViewport(run, state);

@@ -102,6 +102,9 @@
   pointer-events: auto;
 }
 .bnon-mockup-modal__viewport::-webkit-scrollbar { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .bnon-mockup-modal__viewport { cursor: pointer; }
+}
 .bnon-mockup-modal__loader { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; background: #fff; opacity: 0; pointer-events: none; transition: opacity .2s ease; }
 .bnon-mockup-modal__viewport.is-loading .bnon-mockup-modal__loader { opacity: 1; }
 .bnon-mockup-modal__loader::after { width: 20px; height: 20px; border: 2px solid rgb(10 10 10 / 18%); border-top-color: #3154ee; border-radius: 50%; animation: bnon-mockup-loader-spin .7s linear infinite; content: ''; }
