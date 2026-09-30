@@ -39,8 +39,8 @@
             "mockup_image": "shopify://shop_images/MONCLOS-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/Rectangle_98.png",
-            "mockup_phone_image": "shopify://shop_images/Rectangle_100.png",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-monclos.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-monclos01.webp",
             "live_site_url": "https://monclosglobal.com/"
           }
         },
@@ -57,8 +57,8 @@
             "mockup_image": "shopify://shop_images/Entalpy-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_db8adb18-2370-41d8-923b-aae358821ff8.png",
-            "mockup_phone_image": "shopify://shop_images/Rectangle_100_74b5fa18-8416-49c5-ade3-ca58683b013f.png",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-entalpy.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-entalpy01.webp",
             "live_site_url": "https://entalpykr.myshopify.com"
           }
         },
@@ -93,8 +93,8 @@
             "mockup_image": "shopify://shop_images/CCLIME-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi_fb6f2330-48b6-4018-a6aa-8631ca36db83.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01_df7855d7-a72a-44d5-b2e4-2e6490b75fe5.webp",
             "live_site_url": "https://cclimebeauty.com/"
           }
         },
@@ -111,8 +111,8 @@
             "mockup_image": "shopify://shop_images/hozi-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-hozi_bb4a3d24-489c-4af5-9957-3a32254a633c.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-hozi01_7f0b527e-4263-4e5a-b3c6-f0b35feac902.webp",
             "live_site_url": "https://hozi.uk"
           }
         },
