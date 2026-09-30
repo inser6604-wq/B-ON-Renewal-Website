@@ -4,11 +4,24 @@
  */
 var bnonDesktopHomeEntrance = element => element.closest("#MainContent[data-template='index']")
   && window.matchMedia('(min-width: 1024px)').matches;
-var bnonEntranceThreshold = (element, fallback) => bnonDesktopHomeEntrance(element) ? .3 : fallback;
+// Homepage sections used to begin at 72% opacity. Combined with an observer that
+// could fire as soon as one pixel entered the viewport, that made their entrance
+// look like the tail end of an animation. Keep this adjustment exclusive to the
+// desktop homepage (the hero does not use these helpers), but wait until a
+// meaningful portion is visible and always animate from a clear initial state.
+var bnonEntranceThreshold = (element, fallback) => bnonDesktopHomeEntrance(element)
+  ? Math.max(fallback, .15)
+  : fallback;
 var bnonEntranceDuration = (element, duration) => bnonDesktopHomeEntrance(element)
-  ? Math.round(duration * 1.15)
+  ? Math.round(duration * 1.68)
   : duration;
-var bnonEntranceStartOpacity = element => bnonDesktopHomeEntrance(element) ? .72 : 0;
+var bnonEntranceEasing = (element, fallback) => bnonDesktopHomeEntrance(element)
+  ? 'cubic-bezier(.22, .65, .25, 1)'
+  : fallback;
+// A small amount of initial visibility prevents a visible "off → on" flash
+// when the observer starts an animation as the section reaches the viewport.
+// It is still far enough from the finished state to make the motion readable.
+var bnonEntranceStartOpacity = element => bnonDesktopHomeEntrance(element) ? .35 : 0;
 
 if (!customElements.get('bnon-hero-universe')) {
   class BnonHeroUniverse extends HTMLElement {
@@ -30,6 +43,12 @@ if (!customElements.get('bnon-hero-universe')) {
       this.frame = null;
       this.time = 0;
       this.lastTime = null;
+      // SVG paths are generated point-by-point. Keep the hero's established
+      // cadence untouched; only the lower Contact SVG yields scroll headroom.
+      this.mainPage = Boolean(this.closest("#MainContent[data-template='index']"))
+        && this.matches('.bnon-contact__universe');
+      this.lastDrawTime = -Infinity;
+      this.drawInterval = this.mainPage ? 1000 / 45 : 0;
       this.paused = false;
       this.visible = false;
       this.failed = false;
@@ -39,7 +58,11 @@ if (!customElements.get('bnon-hero-universe')) {
         if (!this.canAnimate()) return;
         if (this.lastTime !== null) this.time += Math.min(now - this.lastTime, 100) / 1000;
         this.lastTime = now;
-        if (this.draw(this.time)) this.frame = requestAnimationFrame(this.tick);
+        if (!this.drawInterval || now - this.lastDrawTime >= this.drawInterval) {
+          if (!this.draw(this.time)) return;
+          this.lastDrawTime = now;
+        }
+        this.frame = requestAnimationFrame(this.tick);
       };
       this.toggle.addEventListener('click', () => {
         this.paused = !this.paused;
@@ -73,6 +96,7 @@ if (!customElements.get('bnon-hero-universe')) {
       if (this.frame !== null && this.frame !== undefined) cancelAnimationFrame(this.frame);
       this.frame = null;
       this.lastTime = null;
+      this.lastDrawTime = -Infinity;
     }
 
     sync() {
@@ -190,17 +214,17 @@ if (!customElements.get('bnon-our-universe')) {
         };
         animate(this.querySelector('.bnon-our-universe__heading'), [
           { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: bnonEntranceDuration(this, 600), easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        ], { duration: bnonEntranceDuration(this, 600), easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'), fill: 'backwards' });
         animate(this.querySelector('.bnon-our-universe__description'), [
           { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: bnonEntranceDuration(this, 600), delay: 90, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        ], { duration: bnonEntranceDuration(this, 600), delay: 90, easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'), fill: 'backwards' });
         this.cards.forEach((card, index) => animate(card, [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }], {
-          duration: bnonEntranceDuration(this, 500), delay: 180 + index * 35, easing: 'ease-out', fill: 'backwards',
+          duration: bnonEntranceDuration(this, 500), delay: 180 + index * 35, easing: bnonEntranceEasing(this, 'ease-out'), fill: 'backwards',
         }));
         this.statValues.forEach((value, index) => this.countUp(value, 250 + index * 80));
         this.statDetails.forEach((detail, index) => animate(detail, [
           { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: bnonEntranceDuration(this, 500), delay: 350 + index * 60, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+        ], { duration: bnonEntranceDuration(this, 500), delay: 350 + index * 60, easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'), fill: 'backwards' }));
       }, { threshold: bnonEntranceThreshold(this, .15) });
       this.entranceObserver.observe(this);
     }
@@ -211,10 +235,16 @@ if (!customElements.get('bnon-our-universe')) {
       const { target, suffix } = count;
       const start = performance.now() + delay;
       const duration = bnonEntranceDuration(this, 1350);
+      let lastPaint = -Infinity;
       const tick = now => {
         if (!this.isConnected || this.reduced.matches) return this.finishCount(element, target, suffix);
         const progress = Math.max(0, Math.min(1, (now - start) / duration));
-        element.textContent = `${Math.round(target * (1 - (1 - progress) ** 3))}${suffix}`;
+        // Text replacement can force style work; a 30fps counter remains
+        // visually smooth while keeping scroll frames available during entry.
+        if (now - lastPaint >= 1000 / 30 || progress === 1) {
+          element.textContent = `${Math.round(target * (1 - (1 - progress) ** 3))}${suffix}`;
+          lastPaint = now;
+        }
         if (progress < 1) this.countFrames.push(requestAnimationFrame(tick));
       };
       element.textContent = `0${suffix}`;
@@ -322,7 +352,7 @@ if (!customElements.get('bnon-contact-entrance')) {
           this.animations.push(element.animate([
             { opacity: bnonEntranceStartOpacity(this), transform: `translateY(${distance}px)` },
             { opacity: 1, transform: 'none' },
-          ], { duration: bnonEntranceDuration(this, duration), delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+          ], { duration: bnonEntranceDuration(this, duration), delay, easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'), fill: 'backwards' }));
         };
         enter('.bnon-contact__heading', 0);
         enter('.bnon-contact__title', 90);
@@ -334,7 +364,7 @@ if (!customElements.get('bnon-contact-entrance')) {
         if (universe?.animate) {
           const restingOpacity = getComputedStyle(universe).opacity;
           this.animations.push(universe.animate([{ opacity: bnonEntranceStartOpacity(this) }, { opacity: restingOpacity }], {
-            duration: bnonEntranceDuration(this, 600), delay: 390, easing: 'ease-out', fill: 'backwards',
+            duration: bnonEntranceDuration(this, 600), delay: 390, easing: bnonEntranceEasing(this, 'ease-out'), fill: 'backwards',
           }));
         }
         ['.bnon-contact__bubble--one', '.bnon-contact__bubble--two', '.bnon-contact__bubble--three']
@@ -469,7 +499,7 @@ this.addEventListener(
           this.entryObserver.disconnect();
           if (!this.reduced.matches) {
             this.entryAnimation = this.querySelector('.bnon-main-portfolio__stage')?.animate(
-              [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }], { duration: bnonEntranceDuration(this, 500), easing: 'ease-out' }
+              [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }], { duration: bnonEntranceDuration(this, 500), easing: bnonEntranceEasing(this, 'ease-out') }
             );
           }
         }, { threshold: bnonEntranceThreshold(this, 0) });
@@ -505,6 +535,20 @@ this.addEventListener(
       if (this.sectionId && event.detail.sectionId !== this.sectionId) return;
       const tab = this.tabs.find((item) => item.dataset.bnonProjectId === event.detail.blockId);
       if (tab) this.activate(tab);
+    }
+
+    syncActiveTabIntoView(tab) {
+      // Only phones use a scrollable tab row. Tablet keeps every tab visible,
+      // while desktop deliberately retains its existing layout.
+      if (!window.matchMedia('(max-width: 767px)').matches) return;
+      const viewport = this.querySelector('.bnon-main-portfolio__tabs-wrap');
+      if (!viewport) return;
+
+      const target = tab.offsetLeft + tab.offsetWidth / 2 - viewport.clientWidth / 2;
+      viewport.scrollTo({
+        left: target,
+        behavior: this.reduced.matches ? 'auto' : 'smooth',
+      });
     }
 
     activate(tab) {
@@ -549,6 +593,7 @@ this.addEventListener(
           [{ opacity: .25 }, { opacity: 1 }], { duration: 300, easing: 'ease-out' }
         );
       }
+      this.syncActiveTabIntoView(tab);
       this.updateNextHint();
     }
 
@@ -635,7 +680,7 @@ if (!customElements.get('bnon-what-we-do')) {
           ], {
             duration: bnonEntranceDuration(this, 750),
             delay: index * (bnonDesktopHomeEntrance(this) ? 135 : 120),
-            easing: 'cubic-bezier(.22, 1, .36, 1)',
+            easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'),
             fill: 'backwards',
           }));
         });
@@ -743,7 +788,7 @@ if (!customElements.get('bnon-process')) {
             ? [{ opacity: bnonEntranceStartOpacity(this), transform }, { opacity: 1, transform: 'none' }]
             : [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }];
           this.entranceAnimations.push(element.animate(frames, {
-            duration: bnonEntranceDuration(this, 600), delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards',
+            duration: bnonEntranceDuration(this, 600), delay, easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'), fill: 'backwards',
           }));
         });
       });
@@ -861,7 +906,7 @@ if (!customElements.get('bnon-faq')) {
           [this.querySelector('.bnon-faq__accordion'), 'translateX(15px)', 100],
         ].flatMap(([element, transform, delay]) => element?.animate ? [element.animate([
           { opacity: bnonEntranceStartOpacity(this), transform }, { opacity: 1, transform: 'none' },
-        ], { duration: bnonEntranceDuration(this, 650), delay, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' })] : []);
+        ], { duration: bnonEntranceDuration(this, 650), delay, easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'), fill: 'backwards' })] : []);
       }, { threshold: bnonEntranceThreshold(this, .15) });
       this.entranceObserver.observe(this);
     }
@@ -957,13 +1002,13 @@ if (!customElements.get('bnon-review')) {
         };
         animate(this.querySelector('.bnon-review__intro'), [
           { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(15px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: bnonEntranceDuration(this, 600), easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' });
+        ], { duration: bnonEntranceDuration(this, 600), easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'), fill: 'backwards' });
         animate(this.querySelector('.bnon-review__count'), [{ opacity: bnonEntranceStartOpacity(this) }, { opacity: 1 }], {
-          duration: bnonEntranceDuration(this, 500), delay: bnonDesktopHomeEntrance(this) ? 100 : 80, easing: 'ease-out', fill: 'backwards',
+          duration: bnonEntranceDuration(this, 500), delay: bnonDesktopHomeEntrance(this) ? 100 : 80, easing: bnonEntranceEasing(this, 'ease-out'), fill: 'backwards',
         });
         this.cards.slice(0, 3).forEach((card, index) => animate(card, [
           { opacity: bnonEntranceStartOpacity(this), transform: 'translateY(20px)' }, { opacity: 1, transform: 'none' },
-        ], { duration: bnonEntranceDuration(this, 600), delay: (bnonDesktopHomeEntrance(this) ? 200 : 160) + index * (bnonDesktopHomeEntrance(this) ? 110 : 100), easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'backwards' }));
+        ], { duration: bnonEntranceDuration(this, 600), delay: (bnonDesktopHomeEntrance(this) ? 200 : 160) + index * (bnonDesktopHomeEntrance(this) ? 110 : 100), easing: bnonEntranceEasing(this, 'cubic-bezier(.22, 1, .36, 1)'), fill: 'backwards' }));
       }, { threshold: bnonEntranceThreshold(this, .15) });
       this.entranceObserver.observe(this);
     }

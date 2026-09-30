@@ -9,6 +9,7 @@
 .bnon-contact-page__title { margin-top: 18px; font-family: 'Pretendard', sans-serif; font-size: 39px; font-weight: 500; line-height: 1.44; letter-spacing: -.05em; }
 .bnon-contact-page__description { max-width: 438px; margin-top: 10px; font: 500 16px/1.62 'Pretendard', sans-serif; letter-spacing: -.04em; color: #555; }
 .bnon-contact-page__desktop-break { display: none; }
+.bnon-contact-page__tablet-break { display: none; }
 .bnon-contact-page__details { display: grid; gap: 24px; margin-top: 40px; font: 500 16px/1.4 'Pretendard', sans-serif; letter-spacing: -.04em; }
 .bnon-contact-page__details > div { display: grid; gap: 6px; }
 .bnon-contact-page__details .bnon-contact-page__detail-label { font-family: 'Archivo', sans-serif; font-size: 14px; letter-spacing: .2em; color: #666; }
@@ -26,6 +27,7 @@
 .bnon-contact-field input:focus, .bnon-contact-field textarea:focus { border-bottom-width: 2px; border-bottom-color: var(--contact-blue); }
 .bnon-contact-field--select { margin-top: 0; min-height: 108px; }
 .bnon-contact-field select { width: 310px; height: 60px; margin-top: 20px; padding: 0 44px 0 15px; border: 1px solid var(--contact-black); border-radius: 10px; color: #858585; background: #fff; font: 400 18px/28px 'Pretendard', sans-serif; letter-spacing: -.04em; }
+.bnon-contact-duration-picker { display: none; }
 .bnon-contact-field select:focus-visible { outline: 2px solid var(--contact-blue); outline-offset: 3px; }
 .bnon-contact-form__services { margin-top: 79px !important; }
 .bnon-contact-form__services > p { margin: 2px 0 0; color: #555; font: 500 16px/25px 'Pretendard', sans-serif; letter-spacing: -.04em; }
@@ -52,17 +54,37 @@
 .bnon-contact-form__status--error { color: #b42318; background: #fff4f2; }
 .bnon-contact-form__status ul { margin-bottom: 0; }
 
-.bnon-contact-page.is-entrance-ready .bnon-contact-page__intro,
-.bnon-contact-page.is-entrance-ready .bnon-contact-page__form-column {
+.bnon-contact-page.is-entrance-ready :is(
+  .bnon-contact-page__intro-copy,
+  .bnon-contact-page__details,
+  .bnon-contact-page__inquiry-link,
+  .bnon-contact-form__status,
+  .bnon-contact-form__basic,
+  .bnon-contact-form__services,
+  .bnon-contact-field--message,
+  .bnon-contact-form__privacy,
+  .bnon-contact-form__submit
+) {
   opacity: 0;
+  transform: translateY(16px);
 }
 
-.bnon-contact-page.is-entrance-ready .bnon-contact-page__intro { transform: translateY(16px); }
-.bnon-contact-page.is-entrance-ready .bnon-contact-page__form-column { transform: translateY(18px); }
 .bnon-contact-page.is-entrance-ready .bnon-contact-page__intro::after { transform: scaleY(0); }
 
-.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-page__intro,
-.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-page__form-column {
+/* Native select option windows do not track transformed ancestors reliably. */
+.bnon-contact-page.is-entrance-ready .bnon-contact-form__basic { transform: none; }
+
+.bnon-contact-page.is-entrance-ready.is-entered :is(
+  .bnon-contact-page__intro-copy,
+  .bnon-contact-page__details,
+  .bnon-contact-page__inquiry-link,
+  .bnon-contact-form__status,
+  .bnon-contact-form__basic,
+  .bnon-contact-form__services,
+  .bnon-contact-field--message,
+  .bnon-contact-form__privacy,
+  .bnon-contact-form__submit
+) {
   animation: bnon-contact-page-enter 650ms cubic-bezier(.22, 1, .36, 1) forwards;
 }
 
@@ -70,10 +92,17 @@
   animation: bnon-contact-divider-reveal 650ms cubic-bezier(.22, 1, .36, 1) 100ms forwards;
 }
 
-.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-page__form-column { animation-delay: 200ms; }
+.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-page__details { animation-delay: 100ms; }
+.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-page__inquiry-link { animation-delay: 180ms; }
+.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-form__status,
+.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-form__basic { animation-delay: 260ms; }
+.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-form__services { animation-delay: 380ms; }
+.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-field--message { animation-delay: 500ms; }
+.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-form__privacy,
+.bnon-contact-page.is-entrance-ready.is-entered .bnon-contact-form__submit { animation-delay: 620ms; }
 
 @keyframes bnon-contact-page-enter {
-  to { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: none; }
 }
 
 @keyframes bnon-contact-divider-reveal {
@@ -99,6 +128,83 @@
   .bnon-contact-field { width: 100%; }
   .bnon-contact-field select { width: 100%; }
 }
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  /* One calm tablet form column, alongside a protected left reading column. */
+  .bnon-contact-page__inner {
+    grid-template-columns: minmax(280px, .85fr) minmax(0, 1.15fr);
+    gap: 32px;
+  }
+  .bnon-contact-page__intro { padding-right: 16px; }
+  .bnon-contact-page__heading { font-size: clamp(46px, 5.5vw, 60px); line-height: 1.1; white-space: nowrap; }
+  .bnon-contact-form__fields { grid-template-columns: 1fr; }
+  .bnon-contact-page__title {
+    margin-top: 22px;
+    font-size: clamp(28px, 3.2vw, 34px);
+    line-height: 1.38;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .bnon-contact-page__description {
+    margin-top: 14px;
+    line-height: 1.65;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  .bnon-contact-page__details { margin-top: 44px; line-height: 1.5; }
+  .bnon-contact-page__tablet-break { display: initial; }
+  .bnon-contact-field--select select[data-duration-native] { display: none; }
+  .bnon-contact-duration-picker { position: relative; display: block; margin-top: 20px; }
+  .bnon-contact-duration-picker__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    padding: 0 15px;
+    border: 1px solid var(--contact-black);
+    border-radius: 10px;
+    color: #858585;
+    background: #fff;
+    font: 400 18px/28px 'Pretendard', sans-serif;
+    letter-spacing: -.04em;
+    text-align: left;
+    cursor: pointer;
+  }
+  .bnon-contact-duration-picker__trigger:focus-visible { outline: 2px solid var(--contact-blue); outline-offset: 3px; }
+  .bnon-contact-duration-picker__menu {
+    position: relative;
+    margin-top: 6px;
+    overflow: hidden;
+    border: 1px solid var(--contact-black);
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 12%);
+  }
+  .bnon-contact-duration-picker__menu button {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 15px;
+    border: 0;
+    color: var(--contact-black);
+    background: #fff;
+    font: 400 16px/1.4 'Pretendard', sans-serif;
+    letter-spacing: -.04em;
+    text-align: left;
+    cursor: pointer;
+  }
+  .bnon-contact-duration-picker__menu button:hover,
+  .bnon-contact-duration-picker__menu button:focus-visible { color: #fff; background: var(--contact-blue); outline: 0; }
+  .bnon-contact-field--message { min-height: 92px; margin-top: 68px; }
+  .bnon-contact-field--message textarea {
+    height: 58px;
+    min-height: 58px;
+    padding: 7px 0 2px;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: none;
+  }
+}
 @media screen and (max-width: 767px) {
   .bnon-contact-page__inner { display: block; width: calc(100% - 40px); padding-block: 64px 80px; }
   .bnon-contact-page__intro { padding-bottom: 56px; }
@@ -115,7 +221,14 @@
   .bnon-contact-form__service-list { gap: 10px 8px; margin-top: 24px; }
   .bnon-contact-form__service label { min-height: 48px; padding: 10px 16px; font-size: 15px; }
   .bnon-contact-field--message { margin-top: 56px; }
-  .bnon-contact-field--message textarea { height: 96px; }
+  .bnon-contact-field--message textarea {
+    height: 58px;
+    min-height: 58px;
+    padding-block: 6px;
+    font-size: 15px;
+    line-height: 1.45;
+    resize: none;
+  }
   .bnon-contact-form__privacy { align-items: flex-start; }
   .bnon-contact-form__privacy label { flex: 1; font-size: 16px; }
   .bnon-contact-form__privacy input { flex: 0 0 25px; }

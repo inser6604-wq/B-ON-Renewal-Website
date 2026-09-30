@@ -11,8 +11,9 @@
         <h2 class="bnon-contact-page__title">{{ section.settings.title | escape | newline_to_br }}</h2>
         {%- liquid
           assign contact_description = section.settings.description
+          assign contact_description = contact_description | replace: '브랜드의 가능성을', '브랜드의<br class="bnon-contact-page__tablet-break">가능성을'
           assign contact_description = contact_description | replace: '가능성을 글로벌', '가능성을<br class="bnon-contact-page__desktop-break">글로벌'
-          assign contact_description = contact_description | replace: '파트너입니다. 프로젝트', '파트너입니다.<br class="bnon-contact-page__desktop-break">프로젝트'
+          assign contact_description = contact_description | replace: '파트너입니다. 프로젝트', '파트너입니다.<br class="bnon-contact-page__desktop-break bnon-contact-page__tablet-break">프로젝트'
           assign contact_description = contact_description | replace: '남겨주시면, 빠른', '남겨주시면,<br class="bnon-contact-page__desktop-break">빠른'
         -%}
         <div class="bnon-contact-page__description">{{ contact_description }}</div>
@@ -79,13 +80,22 @@
             </div>
             <div class="bnon-contact-field bnon-contact-field--select">
               <label for="{{ form_id }}-duration">작업 희망 기간</label>
-              <select id="{{ form_id }}-duration" name="contact[작업 희망 기간]">
+              <select id="{{ form_id }}-duration" name="contact[작업 희망 기간]" data-duration-native>
                 <option value="" selected>선택해주세요.</option>
                 <option value="2주 이내">2주 이내</option>
                 <option value="3–4주">3–4주</option>
                 <option value="5–8주">5–8주</option>
                 <option value="유연함 (상담 원함)">유연함 (상담 원함)</option>
               </select>
+              <div class="bnon-contact-duration-picker" data-duration-picker>
+                <button class="bnon-contact-duration-picker__trigger" type="button" aria-expanded="false" aria-controls="{{ form_id }}-duration-options"><span data-duration-label>선택해주세요.</span><span aria-hidden="true">⌄</span></button>
+                <div class="bnon-contact-duration-picker__menu" id="{{ form_id }}-duration-options" role="listbox" hidden>
+                  <button type="button" role="option" data-duration-option data-value="2주 이내">2주 이내</button>
+                  <button type="button" role="option" data-duration-option data-value="3–4주">3–4주</button>
+                  <button type="button" role="option" data-duration-option data-value="5–8주">5–8주</button>
+                  <button type="button" role="option" data-duration-option data-value="유연함 (상담 원함)">유연함 (상담 원함)</button>
+                </div>
+              </div>
             </div>
           </div>
         </fieldset>

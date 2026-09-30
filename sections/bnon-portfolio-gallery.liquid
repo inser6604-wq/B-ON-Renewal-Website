@@ -282,6 +282,36 @@
       font-size: clamp(9px, 3.04vw, 13px);
     }
   }
+
+  /* Tablet follows the phone gallery composition, with planes scaled for the
+     wider viewport instead of retaining the desktop panoramic gallery. */
+  @media screen and (min-width: 481px) and (max-width: 1023px) {
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__intro {
+      min-height: 0;
+      padding-top: 72px;
+      align-content: start;
+    }
+    .bnon-portfolio-gallery__reveal { top: 0; margin-top: 44px; padding-bottom: 56px; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__stage {
+      height: min(62vw, 560px);
+      perspective: 180vw;
+      perspective-origin: 50% 50%;
+      transform: none;
+      touch-action: pan-y;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: grab;
+    }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__stage.is-dragging { cursor: grabbing; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__stage.is-initializing .bnon-portfolio-gallery__card,
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__card.is-wrapping { transition: none; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__stage.is-initializing { visibility: hidden; }
+    .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(n) {
+      height: min(46vw, 430px) !important;
+      border-radius: min(4.5vw, 42px);
+    }
+    .bnon-portfolio-gallery__brand { margin-top: 18px; font-size: clamp(12px, 2vw, 18px); }
+  }
 {% endstylesheet %}
 
 {% javascript %}
@@ -310,8 +340,8 @@
             duration: 500, delay: 200, easing: 'ease-out', fill: 'backwards',
           });
 
-          const mobile = window.matchMedia('(max-width: 767px)').matches;
-          const mobileSlider = window.matchMedia('(max-width: 480px)').matches;
+          const mobile = window.matchMedia('(max-width: 1023px)').matches;
+          const mobileSlider = window.matchMedia('(max-width: 1023px)').matches;
           const cardFrames = [
             { opacity: 0, transform: `translateY(${mobile ? 90 : 150}px) scale(${mobile ? .94 : .92})` },
             { opacity: 1, transform: 'none' },
@@ -409,7 +439,7 @@
           { x: 88.1919, z: 58.6933, width: 50.6820, yaw: -55.341 },
           { x: 103.2851, z: 114.1223, width: 50.1221, yaw: -81.656 },
         ];
-        this.mobile = window.matchMedia('(max-width: 480px)');
+        this.mobile = window.matchMedia('(max-width: 1023px)');
         this.activeIndex = 0;
         this.pointerId = null;
         this.startX = 0;

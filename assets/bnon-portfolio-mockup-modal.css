@@ -75,6 +75,13 @@
     transform: translateY(-4dvh) scale(1.15);
   }
 }
+@media screen and (min-width: 481px) and (max-width: 1023px) {
+  /* The device group rises at this size; lift the hint by the same amount so
+     it remains clear of the desktop mockup frame. */
+  .bnon-mockup-modal__hint {
+    transform: translateY(-4dvh) scale(1.15);
+  }
+}
 .bnon-mockup-modal__devices { position: relative; width: 100%; aspect-ratio: 1228 / 659; transform: translateY(-4dvh); }
 .bnon-mockup-modal__device { position: absolute; pointer-events: auto; }
 .bnon-mockup-modal__device--desktop { inset: 0; z-index: 0; }

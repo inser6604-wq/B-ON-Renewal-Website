@@ -1,6 +1,7 @@
 {%- liquid
   assign logo_text = section.settings.logo_text | default: 'B&ON UNIVERSE'
   assign contact_link = section.settings.contact_link | default: '/pages/contact'
+  assign kakao_link = section.settings.kakao_link | default: contact_link
 -%}
 
 {{ 'bnon-header.css' | asset_url | stylesheet_tag }}
@@ -49,7 +50,7 @@
     </nav>
 
     <div class="bnon-header__actions">
-      <a class="bnon-header__contact bnon-header__kakao" {% if section.settings.kakao_link != blank %}href="{{ section.settings.kakao_link | escape }}"{% else %}role="link" aria-disabled="true"{% endif %}>카카오톡</a>
+      <a class="bnon-header__contact bnon-header__kakao" href="{{ kakao_link | escape }}">카카오톡</a>
       <a class="bnon-header__contact" href="{{ contact_link | escape }}">{{ section.settings.contact_label | escape }}</a>
     </div>
 
@@ -80,7 +81,7 @@
             <li><a href="/pages/contact"{% if page.handle == "contact" %} aria-current="page"{% endif %}>CONTACT</a></li>
           {%- endif -%}
         </ul>
-        <a class="bnon-header__contact bnon-header__kakao" {% if section.settings.kakao_link != blank %}href="{{ section.settings.kakao_link | escape }}"{% else %}role="link" aria-disabled="true"{% endif %}>카카오톡</a>
+        <a class="bnon-header__contact bnon-header__kakao" href="{{ kakao_link | escape }}">카카오톡</a>
       </nav>
     </details>
   </div>

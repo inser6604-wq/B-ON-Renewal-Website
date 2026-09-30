@@ -26,7 +26,40 @@ if (!customElements.get('bnon-contact-page')) {
       this.form.addEventListener('submit', this.handleSubmit);
       this.syncServices();
       this.validate();
+      this.setupDurationPicker();
       this.setupEntrance();
+    }
+
+    setupDurationPicker() {
+      const nativeSelect = this.form.querySelector('[data-duration-native]');
+      const picker = this.form.querySelector('[data-duration-picker]');
+      const trigger = picker?.querySelector('.bnon-contact-duration-picker__trigger');
+      const menu = picker?.querySelector('.bnon-contact-duration-picker__menu');
+      const label = picker?.querySelector('[data-duration-label]');
+      if (!nativeSelect || !picker || !trigger || !menu || !label) return;
+
+      const close = () => {
+        menu.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+      };
+      trigger.addEventListener('click', () => {
+        const opening = menu.hidden;
+        menu.hidden = !opening;
+        trigger.setAttribute('aria-expanded', String(opening));
+      });
+      picker.querySelectorAll('[data-duration-option]').forEach((option) => option.addEventListener('click', () => {
+        nativeSelect.value = option.dataset.value;
+        label.textContent = option.textContent;
+        nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        close();
+        trigger.focus();
+      }));
+      document.addEventListener('pointerdown', (event) => {
+        if (!picker.contains(event.target)) close();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') close();
+      });
     }
 
     setupEntrance() {
