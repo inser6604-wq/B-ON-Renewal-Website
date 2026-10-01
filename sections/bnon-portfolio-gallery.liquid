@@ -7,6 +7,10 @@
   </div>
 
   <bnon-portfolio-mobile-slider class="bnon-portfolio-gallery__reveal">
+  <nav class="bnon-portfolio-gallery__mobile-navigation" aria-label="Portfolio navigation">
+    <button class="bnon-portfolio-gallery__mobile-nav-button" type="button" data-bnon-portfolio-previous aria-label="이전 포트폴리오"><span aria-hidden="true">‹</span></button>
+    <button class="bnon-portfolio-gallery__mobile-nav-button" type="button" data-bnon-portfolio-next aria-label="다음 포트폴리오"><span aria-hidden="true">›</span></button>
+  </nav>
   <div class="bnon-portfolio-gallery__stage is-initializing" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리">
     {%- for block in section.blocks limit: 7 -%}
       {%- liquid
@@ -57,7 +61,7 @@
      Natural content height takes precedence on short viewports. */
   .bnon-portfolio-gallery .bnon-portfolio-gallery__intro {
     box-sizing: border-box;
-    min-height: calc(100svh - var(--gallery-header-height) - 15.07vw - var(--gallery-intro-gap) - 24px);
+    min-height: calc(85svh - var(--gallery-header-height) - 15.07vw - var(--gallery-intro-gap) - 24px);
     padding-top: calc(clamp(96px, 12svh, 144px) - 24px);
     align-content: end;
   }
@@ -70,7 +74,7 @@
     margin-top: var(--gallery-intro-gap);
     padding-bottom: 7vw;
   }
-
+  .bnon-portfolio-gallery__mobile-navigation { display: none; }
   @media screen and (max-width: 1023px) {
     .bnon-portfolio-gallery { --gallery-header-height: 88px; }
     .bnon-portfolio-gallery .bnon-portfolio-gallery__heading { font-size: 51.2px; }
@@ -242,8 +246,34 @@
 
     .bnon-portfolio-gallery__reveal {
       top: 0;
-      margin-top: 32px;
+      margin-top: 18px;
     }
+
+    .bnon-portfolio-gallery__mobile-navigation {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .bnon-portfolio-gallery__mobile-nav-button {
+      display: grid;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border: 0;
+      place-items: center;
+      color: #0A0A0A;
+      background: transparent;
+      font-family: var(--bnon-font-latin);
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 1;
+      cursor: pointer;
+      transition: opacity 180ms ease;
+    }
+    .bnon-portfolio-gallery__mobile-nav-button > span { display: block; margin-top: -3px; }
+    .bnon-portfolio-gallery__mobile-nav-button:disabled { cursor: default; opacity: .3; }
+    .bnon-portfolio-gallery__mobile-nav-button:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 3px; }
 
     .bnon-portfolio-gallery .bnon-portfolio-gallery__stage {
       height: 86vw;
@@ -428,6 +458,8 @@
 
         this.stage = this.querySelector('.bnon-portfolio-gallery__stage');
         this.cards = Array.from(this.querySelectorAll('[data-bnon-portfolio-card]'));
+        this.previousButton = this.querySelector('[data-bnon-portfolio-previous]');
+        this.nextButton = this.querySelector('[data-bnon-portfolio-next]');
         if (!this.stage || this.cards.length < 2) return;
 
         this.slots = [
@@ -440,6 +472,7 @@
           { x: 103.2851, z: 114.1223, width: 50.1221, yaw: -81.656 },
         ];
         this.mobile = window.matchMedia('(max-width: 1023px)');
+        this.navigation = window.matchMedia('(max-width: 480px)');
         this.activeIndex = 0;
         this.pointerId = null;
         this.startX = 0;
@@ -450,6 +483,7 @@
         const options = { signal: this.controller.signal };
 
         this.mobile.addEventListener('change', () => this.syncMode(), options);
+        this.navigation.addEventListener('change', () => this.syncNavigation(), options);
         this.stage.addEventListener('pointerdown', (event) => this.onPointerDown(event), options);
         this.stage.addEventListener('pointermove', (event) => this.onPointerMove(event), options);
         this.stage.addEventListener('pointerup', (event) => this.onPointerUp(event), options);
@@ -465,6 +499,14 @@
           if (!this.mobile.matches || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
           event.preventDefault();
           this.move(event.key === 'ArrowRight' ? 1 : -1);
+        }, options);
+        this.previousButton?.addEventListener('click', () => {
+          if (!this.navigation.matches || this.activeIndex <= 0) return;
+          this.move(-1);
+        }, options);
+        this.nextButton?.addEventListener('click', () => {
+          if (!this.navigation.matches || this.activeIndex >= this.cards.length - 1) return;
+          this.move(1);
         }, options);
 
         this.syncMode();
@@ -491,6 +533,7 @@
           delete card.dataset.mobileSlot;
           card.removeAttribute('aria-current');
         });
+        this.syncNavigation();
       }
 
       setActive(index, animate = true) {
@@ -522,6 +565,14 @@
         });
 
         if (!animate) requestAnimationFrame(() => this.stage.classList.remove('is-initializing'));
+        this.syncNavigation();
+      }
+
+      syncNavigation() {
+        if (!this.previousButton || !this.nextButton) return;
+        const visible = this.navigation.matches;
+        this.previousButton.disabled = !visible || this.activeIndex <= 0;
+        this.nextButton.disabled = !visible || this.activeIndex >= this.cards.length - 1;
       }
 
       move(direction) {

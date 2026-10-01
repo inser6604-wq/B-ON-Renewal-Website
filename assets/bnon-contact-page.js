@@ -7,7 +7,6 @@ if (!customElements.get('bnon-contact-page')) {
 
       this.nameField = this.form.querySelector('[data-required-field][autocomplete="name"]');
       this.emailField = this.form.querySelector('[data-required-field][type="email"]');
-      this.messageField = this.form.querySelector('textarea[data-required-field]');
       this.privacyField = this.form.querySelector('[data-privacy]');
       this.submitButton = this.form.querySelector('[data-contact-submit]');
       this.serviceFields = [...this.form.querySelectorAll('[data-service-option]')];
@@ -17,12 +16,16 @@ if (!customElements.get('bnon-contact-page')) {
       this.handleSubmit = this.handleSubmit.bind(this);
       this.syncServices = this.syncServices.bind(this);
 
-      [this.nameField, this.emailField, this.messageField, this.privacyField].forEach((field) => {
+      [this.nameField, this.emailField, this.servicesValue, this.privacyField].forEach((field) => {
         field?.addEventListener('input', this.validate);
         field?.addEventListener('change', this.validate);
         field?.addEventListener('blur', () => this.showFieldError(field));
       });
-      this.serviceFields.forEach((field) => field.addEventListener('change', this.syncServices));
+      this.serviceFields.forEach((field) => field.addEventListener('change', () => {
+        this.syncServices();
+        this.showFieldError(this.servicesValue);
+        this.validate();
+      }));
       this.form.addEventListener('submit', this.handleSubmit);
       this.syncServices();
       this.validate();
@@ -78,7 +81,7 @@ if (!customElements.get('bnon-contact-page')) {
         this.nameField?.value.trim() &&
         this.emailField?.value.trim() &&
         this.emailField.checkValidity() &&
-        this.messageField?.value.trim() &&
+        this.servicesValue?.value.trim() &&
         this.privacyField?.checked
       );
     }
@@ -92,6 +95,7 @@ if (!customElements.get('bnon-contact-page')) {
       if (!error) return;
       let message = '';
       if (field.type === 'checkbox' && !field.checked) message = '문의 접수를 위해 동의가 필요합니다.';
+      else if (field === this.servicesValue && !field.value.trim()) message = '필요한 서비스를 선택해 주세요.';
       else if (!field.value.trim()) message = '필수 입력 항목입니다.';
       else if (field.type === 'email' && !field.validity.valid) message = '올바른 이메일 주소를 입력해 주세요.';
       error.textContent = message;
@@ -108,10 +112,12 @@ if (!customElements.get('bnon-contact-page')) {
 
     handleSubmit(event) {
       this.syncServices();
-      [this.nameField, this.emailField, this.messageField, this.privacyField].forEach((field) => this.showFieldError(field));
+      [this.nameField, this.emailField, this.servicesValue, this.privacyField].forEach((field) => this.showFieldError(field));
       if (!this.isValid()) {
         event.preventDefault();
-        this.form.querySelector('[aria-invalid="true"]')?.focus();
+        const invalidField = this.form.querySelector('[aria-invalid="true"]');
+        if (invalidField === this.servicesValue) this.serviceFields[0]?.focus();
+        else invalidField?.focus();
         this.validate();
       }
     }

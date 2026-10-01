@@ -101,7 +101,7 @@
         </fieldset>
 
         <fieldset class="bnon-contact-form__services">
-          <legend>필요한 서비스</legend>
+          <legend>필요한 서비스 <span aria-hidden="true">*</span></legend>
           <p id="{{ form_id }}-services-help">문의하실 서비스를 선택해주세요. (복수 선택 가능)</p>
           <div class="bnon-contact-form__service-list" aria-describedby="{{ form_id }}-services-help">
             {%- assign services = '스토어 구축|쇼피파이 관리자 교육|제품 이미지 및 상세페이지 제작|마케팅 (메타, 구글, SEO)|아마존 입점|미국 법인 설립 & 은행계좌 개설|글로벌 3PL 물류|미국 틱톡샵 계정 생성' | split: '|' -%}
@@ -112,13 +112,13 @@
               </div>
             {%- endfor -%}
           </div>
-          <input type="hidden" name="contact[필요한 서비스]" value="" data-services-value>
+          <input id="{{ form_id }}-services" type="hidden" name="contact[필요한 서비스]" value="" data-services-value data-required-field aria-required="true">
+          <span class="bnon-contact-field__error" data-error-for="{{ form_id }}-services" aria-live="polite"></span>
         </fieldset>
 
         <div class="bnon-contact-field bnon-contact-field--message">
-          <label for="{{ form_id }}-body">문의사항 <span aria-hidden="true">*</span></label>
-          <textarea id="{{ form_id }}-body" name="contact[body]" rows="3" placeholder="브랜드 소개, 필요한 서비스, 희망 일정 등 프로젝트와 관련된 내용을 자유롭게 작성해 주세요." required aria-required="true" data-required-field>{{ form.body }}</textarea>
-          <span class="bnon-contact-field__error" data-error-for="{{ form_id }}-body" aria-live="polite"></span>
+          <label for="{{ form_id }}-body">문의사항</label>
+          <textarea id="{{ form_id }}-body" name="contact[body]" rows="3" placeholder="브랜드 소개, 필요한 서비스, 희망 일정 등 프로젝트와 관련된 내용을 자유롭게 작성해 주세요.">{{ form.body }}</textarea>
         </div>
 
         <div class="bnon-contact-form__privacy">

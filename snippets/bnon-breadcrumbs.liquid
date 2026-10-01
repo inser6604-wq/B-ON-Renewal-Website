@@ -59,6 +59,10 @@
     if (!breadcrumbs || !brand) return;
 
     const syncToHeaderBrand = () => {
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        breadcrumbs.style.removeProperty('--bnon-breadcrumbs-inline');
+        return;
+      }
       breadcrumbs.style.setProperty('--bnon-breadcrumbs-inline', `${Math.round(brand.getBoundingClientRect().left)}px`);
     };
 

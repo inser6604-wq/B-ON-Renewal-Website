@@ -200,6 +200,11 @@
 
 @media screen and (min-width: 1200px) {
   .bnon-about__hero-copy { gap: 62px; }
+  .bnon-about__heading { line-height: 1.18; }
+  .bnon-about__description {
+    justify-self: end;
+    text-align: right;
+  }
 }
 
 @media screen and (max-width: 1199px) {

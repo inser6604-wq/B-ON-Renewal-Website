@@ -724,6 +724,7 @@ if (!customElements.get('bnon-process')) {
       this.panels = Array.from(this.querySelectorAll('[data-bnon-process-panel]'));
       this.images = Array.from(this.querySelectorAll('[data-bnon-process-image]'));
       this.progress = this.querySelector('[data-bnon-process-progress]');
+      this.mobileBottomProgress = this.querySelector('[data-bnon-process-mobile-bottom-progress]');
       this.previousButton = this.querySelector('[data-bnon-process-previous]');
       this.nextButton = this.querySelector('[data-bnon-process-next]');
       this.sectionId = this.closest('.shopify-section')?.id?.replace('shopify-section-', '') || '';
@@ -754,7 +755,7 @@ if (!customElements.get('bnon-process')) {
         if (entry.isIntersecting) this.playEntrance();
       }, { threshold: bnonEntranceThreshold(this, .2) });
       this.entranceObserver.observe(this);
-      this.updateProgress(false);
+      this.updateProgress(true);
       this.updateStepArrows();
       this.syncAutoplay();
     }
@@ -868,10 +869,24 @@ if (!customElements.get('bnon-process')) {
     }
 
     updateProgress(skipTransition) {
-      const fraction = (this.currentIndex + 0.5) / this.triggers.length;
+      const isFinalStep = this.currentIndex === this.triggers.length - 1;
+      const fraction = isFinalStep ? 1 : (this.currentIndex + 0.5) / this.triggers.length;
+      const mobileTopProgress = [0.1875, 0.5625, 1, 1, 1][this.currentIndex] ?? 1;
+      const mobileBottomProgress = [0, 0, 0, 0.5, 1][this.currentIndex] ?? 1;
+      this.progress.dataset.step = String(this.currentIndex + 1);
+      this.progress.toggleAttribute('data-mobile-top-complete', this.currentIndex >= 2);
+      this.progress.classList.toggle('has-mobile-top-dot', this.currentIndex < 2);
       this.progress.classList.toggle('is-resetting', skipTransition);
       this.progress.style.setProperty('--bnon-process-progress', String(fraction));
-      if (skipTransition) requestAnimationFrame(() => this.progress.classList.remove('is-resetting'));
+      this.progress.style.setProperty('--bnon-process-mobile-top-progress', String(mobileTopProgress));
+      this.mobileBottomProgress?.toggleAttribute('data-active-track', this.currentIndex >= 3);
+      this.mobileBottomProgress?.toggleAttribute('data-complete', this.currentIndex === 4);
+      this.mobileBottomProgress?.classList.toggle('has-mobile-bottom-dot', this.currentIndex === 3);
+      this.mobileBottomProgress?.style.setProperty('--bnon-process-mobile-bottom-progress', `${mobileBottomProgress * 100}%`);
+      if (skipTransition) {
+        void this.progress.offsetWidth;
+        requestAnimationFrame(() => this.progress.classList.remove('is-resetting'));
+      }
     }
   }
 

@@ -7,7 +7,7 @@
 {{ 'bnon-header.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'bnon-header.js' | asset_url }}" defer="defer"></script>
 <bnon-header-controller>
-<header class="bnon-section bnon-header" style="
+<header class="bnon-section bnon-header bnon-header--mobile-{{ section.settings.mobile_layout | default: 'menu_left' }}" style="
   --header-cta-brand: {{ section.settings.cta_light | default: '#3154EE' }};
   --header-cta-brand-contrast: {{ section.settings.cta_light_contrast | default: '#FFFFFF' }};
   --header-kakao-active: {{ section.settings.cta_dark | default: '#FEE500' }};
@@ -15,11 +15,14 @@
 ">
   <div class="bnon-container bnon-header__inner">
     <a class="bnon-header__brand" href="{{ routes.root_url }}" aria-label="{{ logo_text | escape }} 홈">
-      {%- if section.settings.logo_image != blank -%}
-        {{ section.settings.logo_image | image_url: width: 440 | image_tag: class: 'bnon-header__logo-image', widths: '110, 220, 440', sizes: '(min-width: 1024px) 220px, 176px', alt: logo_text }}
-      {%- else -%}
-        <span>{{ logo_text | escape }}</span>
-      {%- endif -%}
+      <span class="bnon-header__mobile-wordmark" aria-hidden="true">B&amp;ON<br>UNIVERSE</span>
+      <span class="bnon-header__default-logo">
+        {%- if section.settings.logo_image != blank -%}
+          {{ section.settings.logo_image | image_url: width: 440 | image_tag: class: 'bnon-header__logo-image', widths: '110, 220, 440', sizes: '(min-width: 1024px) 220px, 176px', alt: logo_text }}
+        {%- else -%}
+          <span>{{ logo_text | escape }}</span>
+        {%- endif -%}
+      </span>
     </a>
 
     <nav class="bnon-header__nav" aria-label="주요 메뉴">
@@ -94,6 +97,10 @@
   "tag": "div",
   "class": "bnon-header-section",
   "settings": [
+    { "type": "select", "id": "mobile_layout", "label": "모바일 헤더 정렬", "default": "menu_left", "options": [
+      { "value": "menu_left", "label": "메뉴 좌측 · 로고 중앙 · CTA 우측" },
+      { "value": "default", "label": "기본 정렬" }
+    ] },
     { "type": "url", "id": "kakao_link", "label": "카카오톡 CTA 링크" },
     { "type": "header", "content": "Header CTA Colors" },
     { "type": "color", "id": "cta_light", "label": "Brand CTA Color", "default": "#3154EE" },

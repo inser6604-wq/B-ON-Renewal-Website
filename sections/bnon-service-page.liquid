@@ -56,6 +56,8 @@
       constructor(section) {
         this.section = section;
         this.cards = Array.from(section.querySelectorAll('.bnon-service-card'));
+        this.heading = section.querySelector('.bnon-service-page__heading');
+        this.desktop = window.matchMedia('(min-width: 1200px)');
         this.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
         this.mobile = window.matchMedia('(max-width: 480px)');
         this.current = this.cards.map(() => 0);
@@ -78,6 +80,7 @@
       }
 
       enableMobileReveal() {
+        this.heading?.classList.remove('is-stack-pinned');
         if (this.frame !== null) window.cancelAnimationFrame(this.frame);
         this.frame = null;
         this.cards.forEach((card) => {
@@ -128,6 +131,19 @@
           const transitionDistance = Math.max(transitionStart - nextStickyTop, 1);
           this.target[index] = clamp((transitionStart - nextTop) / transitionDistance, 0, 1);
         });
+      }
+
+      syncHeadingPin() {
+        if (!this.heading || !this.cards.length) return;
+
+        const sectionRect = this.section.getBoundingClientRect();
+        const lastCard = this.cards[this.cards.length - 1];
+        const lastStickyTop = parseFloat(window.getComputedStyle(lastCard).top) || 0;
+        const isPinned = this.desktop.matches
+          && sectionRect.top <= 80
+          && lastCard.getBoundingClientRect().top >= lastStickyTop - 1;
+
+        this.heading.classList.toggle('is-stack-pinned', isPinned);
       }
 
       activeCardIndex() {
@@ -201,6 +217,7 @@
         this.frame = null;
         if (this.destroyed || this.mobile.matches) return;
         this.calculateTargets();
+        this.syncHeadingPin();
         let needsAnotherFrame = false;
 
         this.cards.forEach((card, index) => {

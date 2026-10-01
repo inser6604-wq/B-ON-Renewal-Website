@@ -1,3 +1,7 @@
+{%- liquid
+  assign footer_contact_link = section.settings.contact_link | default: '/pages/contact'
+  assign footer_project_link = section.settings.project_link | default: '/pages/portfolio'
+-%}
 <section class="bnon-section bnon-footer-v2" aria-label="{{ shop.name | escape }} footer">
   <div class="bnon-footer-v2__container">
     <div class="bnon-footer-v2__top">
@@ -8,11 +12,12 @@
         {%- if section.settings.tagline != blank -%}<p class="bnon-footer-v2__tagline">{{ section.settings.tagline | escape }}</p>{%- endif -%}
       </div>
 
-      <div class="bnon-footer-v2__info-grid">
-        <div class="bnon-footer-v2__info"><p class="bnon-footer-v2__info-title">CONTACT</p>{% if section.settings.contact_link != blank %}<a href="{{ section.settings.contact_link }}">{{ section.settings.contact_label | escape }}</a>{% else %}<p>{{ section.settings.contact_label | escape }}</p>{% endif %}</div>
-        <div class="bnon-footer-v2__info"><p class="bnon-footer-v2__info-title">PROJECT</p>{% if section.settings.project_link != blank %}<a href="{{ section.settings.project_link }}">{{ section.settings.project_label | escape }}</a>{% else %}<p>{{ section.settings.project_label | escape }}</p>{% endif %}</div>
-        <div class="bnon-footer-v2__info"><p class="bnon-footer-v2__info-title">SHOPIFY</p>{% if section.settings.shopify_link != blank %}<a href="{{ section.settings.shopify_link }}">{{ section.settings.shopify_label | escape }}</a>{% else %}<p>{{ section.settings.shopify_label | escape }}</p>{% endif %}</div>
-      </div>
+      <nav class="bnon-footer-v2__info-grid" aria-label="Footer navigation">
+        <a href="{{ footer_contact_link }}">프로젝트 문의</a>
+        <a href="{{ footer_project_link }}">포트폴리오</a>
+        {%- if section.settings.shopify_link != blank -%}<a href="{{ section.settings.shopify_link }}">SHOPIFY</a>{%- else -%}<span>SHOPIFY</span>{%- endif -%}
+        <a href="#" download aria-label="회사소개서 다운로드">회사소개서 <span aria-hidden="true">↓</span></a>
+      </nav>
     </div>
 
     <div class="bnon-footer-v2__bottom">

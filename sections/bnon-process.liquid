@@ -34,7 +34,7 @@
                 {%- if block.settings.description != blank -%}
                   {%- assign process_description = block.settings.description | escape | newline_to_br -%}
                   {%- if forloop.first -%}
-                    {%- assign process_description = process_description | replace: ' 프로젝트 범위를', ' <br class="bnon-process__mobile-break">프로젝트 범위를' -%}
+                    {%- assign process_description = process_description | replace: ' 프로젝트 범위를', ' <br>프로젝트 범위를' -%}
                   {%- endif -%}
                   <p class="bnon-process__step-description">{{ process_description }}</p>
                 {%- endif -%}
@@ -58,13 +58,11 @@
         </div>
 
         <nav class="bnon-process__navigation" aria-label="프로젝트 진행 단계">
-          <div class="bnon-process__progress" aria-hidden="true"><span data-bnon-process-progress></span></div>
+          <div class="bnon-process__progress" aria-hidden="true"><span data-bnon-process-progress></span><span class="bnon-process__mobile-bottom-progress" data-bnon-process-mobile-bottom-progress><i class="bnon-process__mobile-bottom-dot"></i></span></div>
           <div class="bnon-process__steps">
             {%- for block in section.blocks -%}
               {%- assign step_number = forloop.index | prepend: '0' -%}
               <div class="bnon-process__step-anchor bnon-process__step-anchor--{{ forloop.index }}">
-                {%- if forloop.index == 3 and section.settings.confirm_01 != blank -%}<p class="bnon-process__confirm bnon-process__confirm--step-3">{{ section.settings.confirm_01 | escape }}</p>{%- endif -%}
-                {%- if forloop.index == 4 and section.settings.confirm_02 != blank -%}<p class="bnon-process__confirm bnon-process__confirm--step-4">{{ section.settings.confirm_02 | escape }}</p>{%- endif -%}
                 <button class="bnon-process__step-button{% if forloop.first %} is-active{% endif %}" type="button" data-bnon-process-trigger data-bnon-process-id="{{ block.id }}" aria-current="{% if forloop.first %}step{% else %}false{% endif %}">
                   <span aria-hidden="true">{{ step_number }}</span><span>{{ block.settings.title | escape }}</span>
                 </button>

@@ -225,6 +225,21 @@
   opacity: .55;
 }
 
+@media screen and (min-width: 1200px) {
+  .bnon-service-page__heading.is-stack-pinned {
+    position: fixed;
+    top: 160px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    z-index: 6;
+  }
+
+  .bnon-service-page__list {
+    --bnon-service-stack-top: 292px;
+  }
+}
+
 @media screen and (max-width: 1199px) {
   .bnon-service-page__inner { padding-top: 72px; }
   .bnon-service-page__list {
