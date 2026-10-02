@@ -94,7 +94,7 @@
             "mockup_image": "shopify://shop_images/CCLIME-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi_fb6f2330-48b6-4018-a6aa-8631ca36db83.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi_c96af992-e01d-4777-8ef2-139cab1e5a8f.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01_df7855d7-a72a-44d5-b2e4-2e6490b75fe5.webp",
             "live_site_url": "https://cclimebeauty.com/"
           }
@@ -553,8 +553,8 @@
             "service": "BEAUTY • SKINCARE",
             "link_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/Rectangle_98.png",
-            "mockup_phone_image": "shopify://shop_images/Rectangle_100.png",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-monclos.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-monclos01.webp",
             "live_site_url": "https://monclosglobal.com/"
           }
         },
@@ -567,8 +567,8 @@
             "service": "PERFUME • FRAGRANCE",
             "link_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_db8adb18-2370-41d8-923b-aae358821ff8.png",
-            "mockup_phone_image": "shopify://shop_images/Rectangle_100_74b5fa18-8416-49c5-ade3-ca58683b013f.png",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-entalpy.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-entalpy01.webp",
             "live_site_url": "https://entalpykr.myshopify.com"
           }
         },
@@ -591,11 +591,11 @@
           "settings": {
             "image": "shopify://shop_images/Review-img04.webp",
             "review_text": "“해외 고객을 대상으로 하는 사이트라 고민이 많았는데, Shopify 구축부터 사용자 흐름까지 세심하게 신경 써주셨습니다. 브랜드 이미지도 살리면서 사용하기 편한 사이트로 완성되어 만족합니다.”",
-            "brand_name": "CLLIME",
+            "brand_name": "CCLIME",
             "service": "BEAUTY • SKINCARE",
             "link_label": "VIEW PROJECT",
             "project_link": "",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-cllimi_c96af992-e01d-4777-8ef2-139cab1e5a8f.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-cllimi01.webp",
             "live_site_url": "https://cclimebeauty.com/"
           }

@@ -84,6 +84,7 @@
       this.viewports.forEach((viewport) => { viewport.scrollTop = 0; });
       this.closeButton.focus({ preventScroll: true });
       this.prepareAutoScroll();
+      this.queueSecondaryMockup();
     }
 
     activeMockupDevice() {
@@ -91,12 +92,14 @@
     }
 
     loadActiveMockup() {
-      const activeDevice = this.activeMockupDevice();
       for (const image of this.images) {
         const device = image.dataset.mockupDevice;
         const prefix = device === 'phone' ? 'mockupPhone' : 'mockupDesktop';
         const src = this.trigger.dataset[`${prefix}Src`];
-        const active = device === activeDevice && Boolean(src);
+        // Both screens are visible in the modal composition at every viewport.
+        // Keep both image elements on the normal display path; only their
+        // network priority differs through the browser's request scheduling.
+        const active = Boolean(src);
         image.hidden = !active;
         image.width = Number(this.trigger.dataset[`${prefix}Width`]) || 1;
         image.height = Number(this.trigger.dataset[`${prefix}Height`]) || 1;
@@ -109,6 +112,7 @@
       if (this.dialog.open) {
         this.viewports.forEach((viewport) => { viewport.scrollTop = 0; });
         this.prepareAutoScroll();
+        this.queueSecondaryMockup();
       }
     }
 
@@ -135,11 +139,12 @@
       return ready;
     }
 
-    deferPhoneMockup() {
-      if (this.activeMockupDevice() !== 'desktop') return;
-      const image = this.images.find((item) => item.dataset.mockupDevice === 'phone');
+    deferSecondaryMockup() {
+      const activeDevice = this.activeMockupDevice();
+      const image = this.images.find((item) => item.dataset.mockupDevice !== activeDevice);
       const viewport = image?.parentElement;
-      const src = this.trigger?.dataset.mockupPhoneSrc;
+      const prefix = image?.dataset.mockupDevice === 'phone' ? 'mockupPhone' : 'mockupDesktop';
+      const src = this.trigger?.dataset[`${prefix}Src`];
       if (!image || !viewport || !src || !image.hidden) return;
 
       image.hidden = false;
@@ -153,8 +158,19 @@
         if (this.autoScrollRun) this.recalculateAutoScroll(this.autoScrollRun);
       };
       image.addEventListener('load', reveal, { once: true });
+      image.addEventListener('error', () => {
+        if (image.getAttribute('src') === src) viewport.classList.remove('is-loading');
+      }, { once: true });
       image.src = src;
       if (image.complete) reveal();
+    }
+
+    queueSecondaryMockup() {
+      window.clearTimeout(this.secondaryMockupTimer);
+      // Both device screens are part of the modal composition at every
+      // viewport. Load the current viewport's screen first, then reveal the
+      // other screen without making the initial render wait for it.
+      this.secondaryMockupTimer = window.setTimeout(() => this.deferSecondaryMockup(), 0);
     }
 
     prepareAutoScroll() {
@@ -216,7 +232,7 @@
             viewport.classList.remove('is-loading');
           });
           this.startAutoScrollRun(run);
-          if (state.active) this.deferPhoneMockup();
+          if (state.active) this.deferSecondaryMockup();
         };
         image.addEventListener('load', loaded, options);
         if (image.complete) loaded();
@@ -291,6 +307,8 @@
     }
 
     stopAutoScroll() {
+      window.clearTimeout(this.secondaryMockupTimer);
+      this.secondaryMockupTimer = null;
       const run = this.autoScrollRun;
       if (!run) return;
       this.autoScrollRun = null;

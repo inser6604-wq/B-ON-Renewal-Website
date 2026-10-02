@@ -41,21 +41,21 @@
   z-index: 2;
   display: grid;
   justify-items: start;
-  gap: 70px;
+  gap: 96px;
   width: 100%;
 }
 
 .bnon-about__copy {
   display: grid;
   justify-items: start;
-  gap: 40px;
+  gap: 56px;
   width: 100%;
 }
 
 .bnon-about__hero-copy {
   display: grid;
   justify-items: start;
-  gap: 62px;
+  gap: 76px;
 }
 
 .bnon-about__eyebrow,
@@ -199,7 +199,7 @@
 }
 
 @media screen and (min-width: 1200px) {
-  .bnon-about__hero-copy { gap: 62px; }
+  .bnon-about__hero-copy { gap: 76px; }
   .bnon-about__heading { line-height: 1.18; }
   .bnon-about__description {
     justify-self: end;
@@ -209,15 +209,15 @@
 
 @media screen and (max-width: 1199px) {
   .bnon-about__inner { padding: 72px var(--bnon-about-content-end) 72px var(--bnon-about-content-start); }
-  .bnon-about__content { gap: 64px; width: 100%; }
-  .bnon-about__hero-copy { gap: 44px; }
-  .bnon-about__copy { gap: 40px; }
+  .bnon-about__content { gap: 80px; width: 100%; }
+  .bnon-about__hero-copy { gap: 56px; }
+  .bnon-about__copy { gap: 52px; }
   .bnon-about__eyebrow { font-size: 20px; }
   .bnon-about__heading { font-size: clamp(46px, 6.2vw, 68px); }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {
-  .bnon-about__inner { padding-bottom: 112px; }
+  .bnon-about__inner { padding-bottom: 128px; }
 }
 
 @media screen and (max-width: 767px) {
@@ -225,12 +225,12 @@
   .bnon-about__inner {
     display: flex;
     min-height: auto;
-    padding: 72px 20px 32px;
+    padding: 72px 20px 64px;
     flex-direction: column;
   }
-  .bnon-about__content { gap: 56px; width: 100%; }
-  .bnon-about__hero-copy { gap: 32px; }
-  .bnon-about__copy { gap: 30px; }
+  .bnon-about__content { gap: 72px; width: 100%; }
+  .bnon-about__hero-copy { gap: 40px; }
+  .bnon-about__copy { gap: 42px; }
   .bnon-about__eyebrow { font-size: 17px; }
   .bnon-about__heading {
     font-size: clamp(31px, 8.4vw, 38px);

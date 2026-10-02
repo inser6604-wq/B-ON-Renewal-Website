@@ -30,7 +30,7 @@
                 {% unless forloop.first %}hidden{% endunless %}
                 {{ block.shopify_attributes }}
               >
-                <p class="bnon-process__step-title"><span aria-hidden="true">{{ step_number }}</span> {{ block.settings.title | escape }}</p>
+                <p class="bnon-process__step-title"><span aria-hidden="true">{{ step_number }}</span><span class="bnon-process__step-title-text">{{ block.settings.title | escape }}</span></p>
                 {%- if block.settings.description != blank -%}
                   {%- assign process_description = block.settings.description | escape | newline_to_br -%}
                   {%- if forloop.first -%}

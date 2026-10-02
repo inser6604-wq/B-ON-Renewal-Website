@@ -201,7 +201,8 @@ bnon-process { display: block; }
 .bnon-process__panel.is-active { opacity: 1; }
 .bnon-process__panel.is-leaving { opacity: 0; }
 .bnon-process__step-title { display: inline-flex; justify-self: start; align-items: baseline; gap: 8px; padding: 10px 24px; border: 0; border-radius: 10px; background: var(--bnon-color-blue); font-family: var(--bnon-font-korean); font-size: 24px; font-weight: var(--bnon-weight-medium); line-height: 1.2; letter-spacing: -0.04em; }
-.bnon-process__step-title span { font-size: 30px; }
+.bnon-process__step-title span { font-size: 24px; }
+.bnon-process__step-title .bnon-process__step-title-text { font-size: 24px; }
 .bnon-process__step-description,
 .bnon-process__feature { max-width: 470px; font-family: var(--bnon-font-korean); font-size: 20px; font-weight: var(--bnon-weight-medium); line-height: 1.5; letter-spacing: -0.04em; }
 .bnon-process__mobile-break { display: none; }
@@ -249,6 +250,7 @@ bnon-process { display: block; }
   .bnon-process__heading { font-size: 52px; }
   .bnon-process__content { min-height: 260px; }
   .bnon-process__step-title { font-size: 20px; }
+  .bnon-process__step-title .bnon-process__step-title-text { font-size: 24px; }
   .bnon-process__step-description, .bnon-process__feature, .bnon-process__confirm-text { font-size: 18px; }
   .bnon-process__step-button, .bnon-process__confirm { font-size: 16px; }
 }
@@ -1314,11 +1316,13 @@ bnon-contact-entrance { display: block; }
 
 /* HOME mobile layout pass 01 */
 @media screen and (max-width: 480px) {
-  html:has(#MainContent[data-template='index']),
-  body:has(#MainContent[data-template='index']) {
+  html:has(.bnon-footer-v2),
+  body:has(.bnon-footer-v2) {
     background: #0A0A0A;
     overflow-x: clip;
   }
+
+  #MainContent:has(.bnon-contact-page) { background: #fff; }
 
   .bnon-header__inner {
     grid-template-columns: minmax(0, 1fr) auto 40px;
@@ -1557,7 +1561,8 @@ bnon-contact-entrance { display: block; }
   .bnon-process__media { width: 100%; aspect-ratio: 3 / 2; }
   .bnon-process__content { min-height: 240px; }
   .bnon-process__step-title { max-width: 100%; font-size: 17px; }
-  .bnon-process__step-title span { font-size: 21px; }
+  .bnon-process__step-title span { font-size: 24px; }
+  .bnon-process__step-title .bnon-process__step-title-text { font-size: 24px; }
   .bnon-process__step-description,
   .bnon-process__feature,
   .bnon-process__confirm-text { font-size: 16px; line-height: 1.45; }
