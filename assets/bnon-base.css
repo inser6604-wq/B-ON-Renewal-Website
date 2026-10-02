@@ -1314,7 +1314,9 @@ bnon-contact-entrance { display: block; }
 
 /* HOME mobile layout pass 01 */
 @media screen and (max-width: 480px) {
+  html:has(#MainContent[data-template='index']),
   body:has(#MainContent[data-template='index']) {
+    background: #0A0A0A;
     overflow-x: clip;
   }
 
@@ -1909,7 +1911,7 @@ bnon-contact-entrance { display: block; }
 .bnon-review__viewport { margin-top: 60px; overflow-x: auto; overflow-y: hidden; cursor: grab; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
 .bnon-review__viewport::-webkit-scrollbar { display: none; }
 .bnon-review__viewport:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 4px; }
-.bnon-review__viewport.is-dragging { cursor: grabbing; scroll-snap-type: none; -webkit-user-select: none; user-select: none; }
+.bnon-review__viewport.is-dragging { cursor: grabbing; scroll-behavior: auto; scroll-snap-type: none; -webkit-user-select: none; user-select: none; }
 .bnon-review__track { display: grid; grid-auto-columns: calc((100% - 158px) / 3); grid-auto-flow: column; gap: 79px; padding-bottom: 8px; }
 .bnon-review__card { display: grid; grid-template-rows: auto 1fr auto; gap: 45px; min-width: 0; scroll-snap-align: start; }
 .bnon-review__image-wrap { aspect-ratio: 1; overflow: hidden; border-radius: 10px; background: #8A8A8A; }

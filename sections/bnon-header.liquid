@@ -12,19 +12,43 @@
   --header-cta-brand-contrast: {{ section.settings.cta_light_contrast | default: '#FFFFFF' }};
   --header-kakao-active: {{ section.settings.cta_dark | default: '#FEE500' }};
   --header-kakao-active-text: {{ section.settings.cta_dark_contrast | default: '#0A0A0A' }};
+  --header-logo-width: {{ section.settings.logo_width | default: 220 }}px;
+  --header-mobile-logo-width: {{ section.settings.mobile_logo_width | default: 100 }}px;
 ">
   <div class="bnon-container bnon-header__inner">
-    <a class="bnon-header__brand" href="{{ routes.root_url }}" aria-label="{{ logo_text | escape }} 홈">
-      <span class="bnon-header__mobile-wordmark" aria-hidden="true">B&amp;ON<br>UNIVERSE</span>
-      <span class="bnon-header__default-logo">
-        {%- if section.settings.logo_image != blank -%}
-          {{ section.settings.logo_image | image_url: width: 440 | image_tag: class: 'bnon-header__logo-image', widths: '110, 220, 440', sizes: '(min-width: 1024px) 220px, 176px', alt: logo_text }}
-        {%- else -%}
-          <span>{{ logo_text | escape }}</span>
-        {%- endif -%}
-      </span>
-    </a>
+  <a class="bnon-header__brand" href="{{ routes.root_url }}" aria-label="{{ logo_text | escape }} 홈">
 
+    <span class="bnon-header__mobile-wordmark">
+      {%- if section.settings.mobile_logo_image != blank -%}
+        {{
+          section.settings.mobile_logo_image
+          | image_url: width: 400
+          | image_tag:
+            class: 'bnon-header__mobile-logo-image',
+            alt: logo_text
+        }}
+      {%- else -%}
+        <span>B&amp;ON<br>UNIVERSE</span>
+      {%- endif -%}
+    </span>
+
+    <span class="bnon-header__default-logo">
+      {%- if section.settings.logo_image != blank -%}
+        {{
+          section.settings.logo_image
+          | image_url: width: 440
+          | image_tag:
+            class: 'bnon-header__logo-image',
+            widths: '110, 220, 440',
+            sizes: '(min-width: 1024px) 220px, 176px',
+            alt: logo_text
+        }}
+      {%- else -%}
+        <span>{{ logo_text | escape }}</span>
+      {%- endif -%}
+    </span>
+
+  </a>
     <nav class="bnon-header__nav" aria-label="주요 메뉴">
       <ul class="bnon-header__menu" role="list">
         {%- if section.settings.menu != blank -%}
@@ -108,6 +132,31 @@
     { "type": "color", "id": "cta_dark", "label": "Kakao Active Color", "default": "#FEE500" },
     { "type": "color", "id": "cta_dark_contrast", "label": "Kakao Active Text", "default": "#0A0A0A" },
     { "type": "image_picker", "id": "logo_image", "label": "로고 이미지" },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "PC 로고 크기",
+      "min": 80,
+      "max": 300,
+      "step": 5,
+      "default": 220,
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_logo_image",
+      "label": "모바일 로고 이미지"
+    },
+    {
+      "type": "range",
+      "id": "mobile_logo_width",
+      "label": "모바일 로고 크기",
+      "min": 40,
+      "max": 200,
+      "step": 5,
+      "default": 100,
+      "unit": "px"
+    },
     { "type": "text", "id": "logo_text", "label": "텍스트 로고", "default": "B&ON UNIVERSE", "info": "로고 이미지가 없을 때 표시됩니다." },
     { "type": "link_list", "id": "menu", "label": "메뉴", "info": "PORTFOLIO, ABOUT, SERVICE, CONTACT 순서로 설정하세요." },
     { "type": "text", "id": "contact_label", "label": "문의 CTA 문구", "default": "프로젝트 문의" },

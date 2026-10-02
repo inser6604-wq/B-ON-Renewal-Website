@@ -410,3 +410,114 @@
     {%- endif -%}
   </body>
 </html>
+<div id="kakao-widget-fixed">
+  
+  <!-- 🔥 말풍선 -->
+  <div class="kakao-bubble">실시간 문의</div>
+
+  <!-- 🔥 카카오톡 버튼 -->
+  <a href="http://pf.kakao.com/_xaxcxoHn/chat" target="_blank" class="kakao-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#000">
+      <path d="M12 2C6.48 2 2 5.92 2 10.5c0 2.53 1.41 4.78 3.67 6.26L4.5 22l5.07-2.79c.79.15 1.61.23 2.43.23 5.52 0 10-3.92 10-8.5S17.52 2 12 2z"/>
+    </svg>
+  </a>
+
+</div>
+
+<style>
+#kakao-widget-fixed {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* 🔥 말풍선 (흔들림 포함) */
+.kakao-bubble {
+  background: #000;
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  position: relative;
+
+  /* 처음 등장 애니메이션 */
+  animation: fadeInUp 0.5s ease-out, shakeBubble 1s ease-in-out 2s infinite;
+  /* shakeBubble → 2초 뒤 첫 실행, 이후 무한 루프 */
+  animation-delay: 0s, 2s;
+}
+
+/* 🔄 흔들흔들 애니메이션 (5초마다 반복) */
+@keyframes shakeBubble {
+  0%   { transform: translateX(0); }
+  3%   { transform: translateX(-3px); }
+  6%   { transform: translateX(3px); }
+  9%   { transform: translateX(-3px); }
+  12%  { transform: translateX(3px); }
+  15%  { transform: translateX(0); }
+  100% { transform: translateX(0); }
+}
+/* 전체 duration = 1s, 반복 주기 = 5초 → infinite + delay 조합 사용 */
+.kakao-bubble {
+  animation-duration: 0.5s, 1s;
+  animation-iteration-count: 1, infinite;
+  animation-delay: 0s, 0s;
+  animation-timing-function: ease-out, ease-in-out;
+  animation-direction: normal, normal;
+  /* 5초 주기: 쉬는 시간 포함 → shake 1초 + 쉬기 4초(=CSS gap) */
+  animation: fadeInUp 0.5s ease-out, shakeBubble 5s ease-in-out infinite;
+}
+
+/* 초기 등장 애니메이션 */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 말풍선 꼬리 */
+.kakao-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  right: 16px;
+  width: 10px;
+  height: 10px;
+  background: #000;
+  transform: rotate(45deg);
+}
+
+/* 🔥 카카오톡 버튼 */
+.kakao-btn {
+  width: 64px;
+  height: 64px;
+  background: #FFE812;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.kakao-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+.kakao-btn svg {
+  width: 36px;
+  height: 36px;
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  #kakao-widget-fixed {
+    right: 12px;
+    bottom: 12px;
+  }
+}
+</style>

@@ -14,6 +14,16 @@
     "bnon_header": {
       "type": "bnon-header",
       "settings": {
+        "mobile_layout": "menu_left",
+        "kakao_link": "http://pf.kakao.com/_xaxcxoHn/chat",
+        "cta_light": "#3154ee",
+        "cta_light_contrast": "#ffffff",
+        "cta_dark": "#fee500",
+        "cta_dark_contrast": "#0a0a0a",
+        "logo_image": "shopify://shop_images/b_on-logo.png",
+        "logo_width": 180,
+        "mobile_logo_image": "shopify://shop_images/b_on-logo-mb.png",
+        "mobile_logo_width": 70,
         "logo_text": "B&ON UNIVERSE",
         "menu": "",
         "contact_label": "프로젝트 문의",

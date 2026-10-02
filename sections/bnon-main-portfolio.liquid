@@ -74,6 +74,10 @@
               assign panel_id = 'bnon-main-portfolio-panel-' | append: section.id | append: '-' | append: block.id
               assign desktop_mockup = block.settings.mockup_desktop_image
               assign phone_mockup = block.settings.mockup_phone_image
+              assign mobile_background_image = blank
+              if block.settings.project_name == 'ENTALPY' or block.settings.project_name == 'INMI SEOUL'
+                assign mobile_background_image = block.settings.mobile_background_image
+              endif
               assign has_scroll_mockup = false
               if desktop_mockup != blank or phone_mockup != blank
                 assign has_scroll_mockup = true
@@ -91,7 +95,12 @@
             >
               <div class="bnon-main-portfolio__background" aria-hidden="true">
                 {%- if block.settings.background_image != blank -%}
+                  {%- if mobile_background_image != blank -%}
+                    <picture>
+                      <source media="(max-width: 480px)" srcset="{{ mobile_background_image | image_url: width: 1440 }}">
+                  {%- endif -%}
                   {{ block.settings.background_image | image_url: width: 2880 | image_tag: class: 'bnon-main-portfolio__background-image', widths: '750, 1024, 1440, 1920, 2880', sizes: '100vw', alt: '', loading: 'lazy' }}
+                  {%- if mobile_background_image != blank -%}</picture>{%- endif -%}
                 {%- endif -%}
               </div>
 
@@ -167,6 +176,7 @@
         { "type": "text", "id": "scope_2", "label": "범위 2" },
         { "type": "text", "id": "scope_3", "label": "범위 3" },
         { "type": "image_picker", "id": "background_image", "label": "배경 이미지" },
+        { "type": "image_picker", "id": "mobile_background_image", "label": "ENTALPY / INMI SEOUL Mobile Background Image (max 480px)" },
         { "type": "image_picker", "id": "mockup_image", "label": "목업 이미지" },
         { "type": "text", "id": "view_project_label", "label": "프로젝트 링크 문구", "default": "VIEW PROJECT" },
         { "type": "url", "id": "project_link", "label": "프로젝트 링크" },

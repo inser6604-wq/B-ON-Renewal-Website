@@ -1038,6 +1038,7 @@ if (!customElements.get('bnon-review')) {
         pointerId: event.pointerId,
         startX: event.clientX,
         startY: event.clientY,
+        startScrollLeft: this.viewport.scrollLeft,
         direction: null,
       };
     }
@@ -1060,6 +1061,10 @@ if (!customElements.get('bnon-review')) {
       }
 
       event.preventDefault();
+      if (this.isMobileSwipe()) {
+        this.viewport.scrollLeft = drag.startScrollLeft - deltaX;
+        this.updateCurrent();
+      }
     }
 
     onPointerUp(event) {
@@ -1073,6 +1078,15 @@ if (!customElements.get('bnon-review')) {
           this.viewport.releasePointerCapture(drag.pointerId);
         }
         const deltaX = (event?.clientX || drag.startX) - drag.startX;
+        if (this.isMobileSwipe()) {
+          if (Math.abs(deltaX) >= 8) {
+            this.preventClick = true;
+            window.setTimeout(() => { this.preventClick = false; }, 0);
+          }
+          this.scrollToGroup(this.currentGroup());
+          this.restartAutoplay();
+          return;
+        }
         if (Math.abs(deltaX) >= 50) {
           this.preventClick = true;
           window.setTimeout(() => { this.preventClick = false; }, 0);
@@ -1086,7 +1100,10 @@ if (!customElements.get('bnon-review')) {
 
     onPointerCancel(event) {
       if (!this.drag || event.pointerId !== this.drag.pointerId) return;
-      if (this.drag.direction === 'horizontal') this.viewport.classList.remove('is-dragging');
+      if (this.drag.direction === 'horizontal') {
+        this.viewport.classList.remove('is-dragging');
+        if (this.isMobileSwipe()) this.scrollToGroup(this.currentGroup());
+      }
       if (this.viewport.hasPointerCapture?.(this.drag.pointerId)) {
         this.viewport.releasePointerCapture(this.drag.pointerId);
       }
@@ -1124,6 +1141,10 @@ if (!customElements.get('bnon-review')) {
       if (window.matchMedia('(min-width: 1024px)').matches) return 3;
       if (window.matchMedia('(min-width: 768px)').matches) return 2;
       return 1;
+    }
+
+    isMobileSwipe() {
+      return window.matchMedia('(max-width: 767px)').matches;
     }
 
     groupCount() {

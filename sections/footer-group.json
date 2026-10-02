@@ -24,8 +24,7 @@
         "shopify_label": "",
         "shopify_link": "",
         "copyright": "© 2026 B&ON UNIVERSE. All Rights Reserved.",
-        "giant_prefix": "B&ON",
-        "giant_accent": "UNIVERSE"
+        "giant_logo_image": "shopify://shop_images/b_on-btlogo.png"
       }
     },
     "footer": {

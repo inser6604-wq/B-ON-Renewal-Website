@@ -15,11 +15,11 @@
         "project_01": {
           "type": "project",
           "settings": {
-            "image": "shopify://shop_images/Portfolio-page01.webp",
+            "image": "shopify://shop_images/Portfolio-page04_cd99d175-fbc7-4d19-b03b-5575331ebb51.webp",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-pleatsmood.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01_a93294ab-37d8-4abb-9a00-91f0055898c5.webp",
             "live_site_url": "https://pleatsmoodglobal.com/?pb=0",
-            "project_name": "PLEATSMOOD",
+            "project_name": "AUBRE",
             "category": "FASHION"
           }
         },
@@ -48,11 +48,11 @@
         "project_04": {
           "type": "project",
           "settings": {
-            "image": "shopify://shop_images/Portfolio-page04.webp",
-            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_2x_77b038e0-4f93-4975-be7d-eae8012ebc74.webp",
-            "mockup_phone_image": "shopify://shop_images/Rectangle_100_2x_5a1f69dd-4188-426f-bfb5-07515238432d.webp",
+            "image": "shopify://shop_images/Portfolio-page01_a77f4860-3ae3-4047-8f13-018ae67d3ae3.webp",
+            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-pleatsmood.webp",
+            "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01_724a850a-6d6d-41ca-a57e-daffdd1d9115.webp",
             "live_site_url": "https://aubrewear.com/?pb=0",
-            "project_name": "AUBRE",
+            "project_name": "PLEATSMOOD",
             "category": "FASHION"
           }
         },
@@ -81,7 +81,7 @@
         "project_07": {
           "type": "project",
           "settings": {
-            "image": "shopify://shop_images/Portfolio-page07.webp",
+            "image": "shopify://shop_images/imgi_47_m_banner_1080x2400_61ecab03-9f40-4be6-abaf-ca188ea27b44.png",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-vision_1a1cf522-6efa-4bcb-b90f-fd573f6ebd99.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-vision01_a2d73ab8-ceb4-4248-a899-ebbe07a0c9f9.webp",
             "live_site_url": "https://visionx.virnect.com/",

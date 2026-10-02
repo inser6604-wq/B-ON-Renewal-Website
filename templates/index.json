@@ -53,7 +53,7 @@
             "scope_1": "BRAND STRATEGY",
             "scope_2": "UX/UI DESIGN",
             "scope_3": "SHOPIFY DEVELOPMENT",
-            "background_image": "shopify://shop_images/main-fullscreen02.webp",
+            "background_image": "shopify://shop_images/entalpy.webp",
             "mockup_image": "shopify://shop_images/Entalpy-mockup01.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
@@ -125,7 +125,7 @@
             "scope_1": "BRAND STRATEGY",
             "scope_2": "UX/UI DESIGN",
             "scope_3": "SHOPIFY DEVELOPMENT",
-            "background_image": "shopify://shop_images/main-fullscreen06.webp",
+            "background_image": "shopify://shop_images/main-fullscreen06_432a13ac-9311-45e8-bcd7-458519904fbf.webp",
             "mockup_image": "shopify://shop_images/inmi-mockup01_ba3137ff-691b-4d84-bda5-45843ad7aff0.webp",
             "view_project_label": "VIEW PROJECT",
             "project_link": "",
@@ -664,7 +664,7 @@
           "type": "faq",
           "settings": {
             "question": "기존 국내 자사몰을 쇼피파이로 이전할 수 있나요?",
-            "answer": "가능합니다. 상품, 컬렉션, 페이지, 기본 SEO 구조를 검토한 뒤 이전 범위를 정리합니다.\n기존 플랫폼의 데이터 구조에 따라 이전 방식은 달라질 수 있습니다."
+            "answer": "카페 24, 아임웹 등  모두 이전 가능합니다. \n상품, 컬렉션, 페이지, 기본 SEO 구조를 검토한 뒤 이전 범위를 정리합니다.\n기존 플랫폼의 데이터 구조에 따라 이전 방식은 달라질 수 있습니다."
           }
         },
         "faq_w39cdd": {
@@ -723,7 +723,7 @@
         "primary_button_label": "프로젝트 문의하기",
         "primary_button_link": "",
         "secondary_button_label": "실시간 문의",
-        "secondary_button_link": "",
+        "secondary_button_link": "http://pf.kakao.com/_xaxcxoHn/chat",
         "bubble_1_text": "어떤 프로젝트를 준비하고 계신가요?",
         "bubble_2_text": "글로벌 Shopify 스토어가 필요해요.",
         "bubble_3_text": "비앤온이 함께하겠습니다."
