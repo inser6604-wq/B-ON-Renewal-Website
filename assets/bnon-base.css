@@ -1561,8 +1561,8 @@ bnon-contact-entrance { display: block; }
   .bnon-process__media { width: 100%; aspect-ratio: 3 / 2; }
   .bnon-process__content { min-height: 240px; }
   .bnon-process__step-title { max-width: 100%; font-size: 17px; }
-  .bnon-process__step-title span { font-size: 24px; }
-  .bnon-process__step-title .bnon-process__step-title-text { font-size: 24px; }
+  .bnon-process__step-title span { font-size: 16px; }
+  .bnon-process__step-title .bnon-process__step-title-text { font-size: 16px; }
   .bnon-process__step-description,
   .bnon-process__feature,
   .bnon-process__confirm-text { font-size: 16px; line-height: 1.45; }

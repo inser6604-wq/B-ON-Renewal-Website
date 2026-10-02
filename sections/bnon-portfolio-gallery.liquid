@@ -118,7 +118,7 @@
     overflow: visible;
     background: transparent;
     border-radius: 1.3015vw;
-    transform-style: preserve-3d;
+    transform-style: flat;
     transform-origin: 50% 50%;
     backface-visibility: hidden;
     opacity: 1;
@@ -182,12 +182,6 @@
     text-align: center;
     text-transform: uppercase;
     white-space: nowrap;
-    /* The outer cards are nearly side-on. Counter their card-plane yaw for
-       the label only, so the image retains the 3D arc while its text remains
-       readable. */
-    transform: rotateY(calc(-1 * var(--gallery-yaw))) translateZ(1px);
-    transform-origin: 50% 0;
-    backface-visibility: hidden;
   }
 
   .bnon-portfolio-gallery__brand > span {
