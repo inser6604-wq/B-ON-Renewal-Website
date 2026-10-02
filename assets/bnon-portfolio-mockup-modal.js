@@ -10,6 +10,7 @@
       this.liveSite = this.querySelector('.bnon-mockup-modal__live-site');
       this.preloads = new Map();
       this.desktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+      this.mobileViewport = window.matchMedia('(max-width: 480px)');
       this.events = new AbortController();
       const options = { signal: this.events.signal };
       const activate = (event) => {
@@ -26,6 +27,9 @@
         this.preloadTrigger(event.target.closest('[data-mockup-trigger]'));
       }, options);
       document.addEventListener('focusin', (event) => this.preloadTrigger(event.target.closest('[data-mockup-trigger]')), options);
+      this.mobileViewport.addEventListener('change', () => {
+        if (this.dialog.open) this.loadActiveMockup();
+      }, options);
       this.closeButton.addEventListener('click', () => this.dialog.close(), options);
       this.dialog.addEventListener('cancel', (event) => {
         event.preventDefault();
@@ -56,19 +60,7 @@
       if (this.dialog.open || !(trigger.dataset.mockupDesktopSrc || trigger.dataset.mockupPhoneSrc)) return;
       this.stopAutoScroll();
       this.trigger = trigger;
-      for (const image of this.images) {
-        const device = image.dataset.mockupDevice;
-        const prefix = device === 'phone' ? 'mockupPhone' : 'mockupDesktop';
-        const src = trigger.dataset[`${prefix}Src`];
-        image.hidden = !src;
-        image.width = Number(trigger.dataset[`${prefix}Width`]) || 1;
-        image.height = Number(trigger.dataset[`${prefix}Height`]) || 1;
-        image.alt = `${trigger.dataset.mockupTitle || '프로젝트'} 목업`;
-        image.classList.remove('is-loaded');
-        image.parentElement.classList.toggle('is-loading', Boolean(src));
-        if (src) image.src = src;
-        else image.removeAttribute('src');
-      }
+      this.loadActiveMockup();
       // Resolve the URL from this opening's card every time, never the last project.
       const liveSiteUrl = (trigger.dataset.liveSiteUrl || '').trim();
       if (liveSiteUrl) this.liveSite.setAttribute('href', liveSiteUrl);
@@ -94,9 +86,36 @@
       this.prepareAutoScroll();
     }
 
+    activeMockupDevice() {
+      return this.mobileViewport.matches ? 'phone' : 'desktop';
+    }
+
+    loadActiveMockup() {
+      const activeDevice = this.activeMockupDevice();
+      for (const image of this.images) {
+        const device = image.dataset.mockupDevice;
+        const prefix = device === 'phone' ? 'mockupPhone' : 'mockupDesktop';
+        const src = this.trigger.dataset[`${prefix}Src`];
+        const active = device === activeDevice && Boolean(src);
+        image.hidden = !active;
+        image.width = Number(this.trigger.dataset[`${prefix}Width`]) || 1;
+        image.height = Number(this.trigger.dataset[`${prefix}Height`]) || 1;
+        image.alt = `${this.trigger.dataset.mockupTitle || '프로젝트'} 목업`;
+        image.classList.remove('is-loaded');
+        image.parentElement.classList.toggle('is-loading', active);
+        if (active && image.getAttribute('src') !== src) image.src = src;
+        if (!active) image.removeAttribute('src');
+      }
+      if (this.dialog.open) {
+        this.viewports.forEach((viewport) => { viewport.scrollTop = 0; });
+        this.prepareAutoScroll();
+      }
+    }
+
     preloadTrigger(trigger) {
       if (!trigger || trigger.getAttribute('aria-controls') !== this.dialog.id) return;
-      this.preloadImage(trigger.dataset.mockupDesktopSrc);
+      const device = this.activeMockupDevice();
+      this.preloadImage(trigger.dataset[device === 'phone' ? 'mockupPhoneSrc' : 'mockupDesktopSrc']);
     }
 
     preloadImage(src) {
@@ -116,10 +135,31 @@
       return ready;
     }
 
+    deferPhoneMockup() {
+      if (this.activeMockupDevice() !== 'desktop') return;
+      const image = this.images.find((item) => item.dataset.mockupDevice === 'phone');
+      const viewport = image?.parentElement;
+      const src = this.trigger?.dataset.mockupPhoneSrc;
+      if (!image || !viewport || !src || !image.hidden) return;
+
+      image.hidden = false;
+      viewport.classList.add('is-loading');
+      const reveal = async () => {
+        if (!this.dialog.open || image.getAttribute('src') !== src) return;
+        try { await image.decode(); } catch { /* The loaded image can still be displayed. */ }
+        if (!this.dialog.open || image.getAttribute('src') !== src) return;
+        image.classList.add('is-loaded');
+        viewport.classList.remove('is-loading');
+        if (this.autoScrollRun) this.recalculateAutoScroll(this.autoScrollRun);
+      };
+      image.addEventListener('load', reveal, { once: true });
+      image.src = src;
+      if (image.complete) reveal();
+    }
+
     prepareAutoScroll() {
       this.stopAutoScroll();
       const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (motion.matches) return;
       const run = {
         events: new AbortController(),
         states: [],
@@ -130,15 +170,17 @@
         progress: 0,
       };
       this.autoScrollRun = run;
-      const active = () => this.autoScrollRun === run && this.dialog.open && !motion.matches;
+      const active = () => this.autoScrollRun === run && this.dialog.open;
       const options = { signal: run.events.signal };
       motion.addEventListener('change', () => {
-        if (motion.matches) this.stopAutoScroll();
+        if (!active()) return;
+        if (motion.matches) this.pauseAutoScroll(run);
+        else this.resumeAutoScroll(run);
       }, options);
 
       this.viewports.forEach((viewport, index) => {
         const image = this.images[index];
-        const state = { viewport, loaded: image.hidden, autoWriteUntil: 0, maxScroll: 0 };
+        const state = { viewport, active: !image.hidden, loaded: image.hidden, autoWriteUntil: 0, maxScroll: 0 };
         run.states.push(state);
         const pauseForManualInput = () => {
           if (!active()) return;
@@ -174,6 +216,7 @@
             viewport.classList.remove('is-loading');
           });
           this.startAutoScrollRun(run);
+          if (state.active) this.deferPhoneMockup();
         };
         image.addEventListener('load', loaded, options);
         if (image.complete) loaded();
@@ -185,7 +228,7 @@
     startAutoScrollRun(run) {
       if (this.autoScrollRun !== run || run.started || run.states.some((state) => !state.loaded)) return;
       this.recalculateAutoScroll(run);
-      run.progress = this.progressForState(run.states[0]);
+      run.progress = this.progressForState(run.states.find((state) => state.active) || run.states[0]);
       this.applyProgress(run, run.progress);
       run.started = true;
       this.resumeAutoScroll(run);
@@ -225,7 +268,7 @@
     }
 
     resumeAutoScroll(run) {
-      if (this.autoScrollRun !== run || !this.dialog.open || !run.started) return;
+      if (this.autoScrollRun !== run || !this.dialog.open || !run.started || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       run.paused = false;
       cancelAnimationFrame(run.frame);
       const longestRemainingDistance = Math.max(0, ...run.states.map((state) => state.maxScroll * (1 - run.progress)));
