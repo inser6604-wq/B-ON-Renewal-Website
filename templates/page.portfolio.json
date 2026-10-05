@@ -16,9 +16,9 @@
           "type": "project",
           "settings": {
             "image": "shopify://shop_images/Portfolio-page04_cd99d175-fbc7-4d19-b03b-5575331ebb51.webp",
-            "mockup_desktop_image": "shopify://shop_images/scroll-mockup-pleatsmood.webp",
-            "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01_a93294ab-37d8-4abb-9a00-91f0055898c5.webp",
-            "live_site_url": "https://pleatsmoodglobal.com/?pb=0",
+            "mockup_desktop_image": "shopify://shop_images/Rectangle_98_2x_77b038e0-4f93-4975-be7d-eae8012ebc74.webp",
+            "mockup_phone_image": "shopify://shop_images/Rectangle_100_2x_5a1f69dd-4188-426f-bfb5-07515238432d.webp",
+            "live_site_url": "https://aubrewear.com/?pb=0",
             "project_name": "AUBRE",
             "category": "FASHION"
           }

@@ -11,14 +11,14 @@
     <button class="bnon-portfolio-gallery__mobile-nav-button" type="button" data-bnon-portfolio-previous aria-label="이전 포트폴리오"><span aria-hidden="true">‹</span></button>
     <button class="bnon-portfolio-gallery__mobile-nav-button" type="button" data-bnon-portfolio-next aria-label="다음 포트폴리오"><span aria-hidden="true">›</span></button>
   </nav>
-  <div class="bnon-portfolio-gallery__stage is-initializing" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리">
+  <div class="bnon-portfolio-gallery__stage is-initializing" aria-label="{{ section.settings.heading | escape }} 프로젝트 갤러리" style="visibility:hidden">
     {%- for block in section.blocks limit: 7 -%}
       {%- liquid
         assign desktop_mockup = block.settings.mockup_desktop_image | default: block.settings.mockup_image
         assign phone_mockup = block.settings.mockup_phone_image | default: block.settings.mockup_image
       -%}
-      <article class="bnon-portfolio-gallery__card bnon-portfolio-gallery__item" tabindex="0" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {% if desktop_mockup != blank or phone_mockup != blank %}role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-mockup-title="{{ block.settings.project_name | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}" {% if desktop_mockup != blank %}data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %} {% if phone_mockup != blank %}data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %} {% endif %} {{ block.shopify_attributes }}>
-        <div class="bnon-portfolio-gallery__card-entrance">
+      <article class="bnon-portfolio-gallery__card bnon-portfolio-gallery__item" tabindex="0" data-bnon-portfolio-card data-bnon-portfolio-card-index="{{ forloop.index }}" aria-label="{{ block.settings.project_name | escape }}{% if block.settings.category != blank %}, {{ block.settings.category | escape }}{% endif %}" {% if desktop_mockup != blank or phone_mockup != blank %}role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-mockup-title="{{ block.settings.project_name | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}" {% if desktop_mockup != blank %}data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %} {% if phone_mockup != blank %}data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %} {% endif %}{% if block.settings.project_name == 'AUBRE' %} style="transform-style:preserve-3d"{% endif %} {{ block.shopify_attributes }}>
+        <div class="bnon-portfolio-gallery__card-entrance"{% if block.settings.project_name == 'AUBRE' %} style="transform-style:preserve-3d"{% endif %}>
           <div class="bnon-portfolio-gallery__media">
           {%- if block.settings.image != blank -%}
             {{ block.settings.image | image_url: width: 1200 | image_tag: class: 'bnon-portfolio-gallery__image', widths: '320, 480, 640, 900, 1200', sizes: '(min-width: 1024px) 25vw, 80vw', alt: block.settings.image.alt, loading: 'lazy' }}
@@ -26,10 +26,13 @@
             <div class="bnon-portfolio-gallery__placeholder" aria-hidden="true"></div>
           {%- endif -%}
           </div>
-          {%- if block.settings.project_name != blank -%}
+          {%- if block.settings.project_name != blank and block.settings.project_name != 'AUBRE' -%}
             <bnon-portfolio-brand class="bnon-portfolio-gallery__brand"><span>{{ block.settings.project_name | escape }}</span></bnon-portfolio-brand>
           {%- endif -%}
         </div>
+        {%- if block.settings.project_name == 'AUBRE' -%}
+          <bnon-portfolio-brand class="bnon-portfolio-gallery__brand" data-bnon-aubre-brand style="transform-style:preserve-3d"><span data-bnon-aubre-brand-text style="display:inline-block;opacity:0;transform:translate(-0.15vw,-0.35vw) rotateY(-8deg);transform-origin:0 50%;backface-visibility:hidden">{{ block.settings.project_name | escape }}</span></bnon-portfolio-brand>
+        {%- endif -%}
       </article>
     {%- endfor -%}
   </div>
@@ -193,6 +196,35 @@
     --gallery-z: 20.8719vw;
     --gallery-width: 9.3296vw;
     --gallery-yaw: 83.078deg;
+    transform-style: preserve-3d;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(1) .bnon-portfolio-gallery__card-entrance,
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(1) .bnon-portfolio-gallery__brand {
+    transform-style: preserve-3d;
+  }
+
+  .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(1) .bnon-portfolio-gallery__brand > span {
+    transform: translate(-.15vw, -.35vw) rotateY(-8deg);
+    transform-origin: 0 50%;
+    backface-visibility: hidden;
+  }
+
+  /* Opacity on a preserve-3d ancestor forces browser flattening. Keep the
+     hover dimming visual, but dim AUBRE's contents instead of its 3D card. */
+  .bnon-portfolio-gallery__stage:has(> .bnon-portfolio-gallery__card:focus-visible) > .bnon-portfolio-gallery__card:nth-child(1):not(:focus-visible),
+  .bnon-portfolio-gallery__stage:not(:has(> .bnon-portfolio-gallery__card:focus-visible)):has(> .bnon-portfolio-gallery__card:hover) > .bnon-portfolio-gallery__card:nth-child(1):not(:hover) {
+    opacity: 1;
+  }
+
+  .bnon-portfolio-gallery__stage:has(> .bnon-portfolio-gallery__card:focus-visible) > .bnon-portfolio-gallery__card:nth-child(1):not(:focus-visible) .bnon-portfolio-gallery__media,
+  .bnon-portfolio-gallery__stage:not(:has(> .bnon-portfolio-gallery__card:focus-visible)):has(> .bnon-portfolio-gallery__card:hover) > .bnon-portfolio-gallery__card:nth-child(1):not(:hover) .bnon-portfolio-gallery__media {
+    opacity: 0.5;
+  }
+
+  .bnon-portfolio-gallery__stage:has(> .bnon-portfolio-gallery__card:focus-visible) > .bnon-portfolio-gallery__card:nth-child(1):not(:focus-visible) .bnon-portfolio-gallery__brand,
+  .bnon-portfolio-gallery__stage:not(:has(> .bnon-portfolio-gallery__card:focus-visible)):has(> .bnon-portfolio-gallery__card:hover) > .bnon-portfolio-gallery__card:nth-child(1):not(:hover) .bnon-portfolio-gallery__brand {
+    color: rgb(0 0 0 / 50%);
   }
 
   .bnon-portfolio-gallery .bnon-portfolio-gallery__card:nth-child(2) {
@@ -354,7 +386,10 @@
           if (this.entrancePlayed || !entries.some(entry => entry.isIntersecting)) return;
           this.entrancePlayed = true;
           this.entranceObserver.disconnect();
-          if (this.reduced.matches) return;
+          if (this.reduced.matches) {
+            this.querySelector('[data-bnon-aubre-brand-text]')?.style.removeProperty('opacity');
+            return;
+          }
 
           this.entranceAnimations = [];
           const animate = (element, frames, options) => {
@@ -381,12 +416,22 @@
           const order = wrappers.map((wrapper, index) => ({ wrapper, distance: Math.abs(index - center), index }))
             .sort((a, b) => a.distance - b.distance || a.index - b.index);
           if (!mobileSlider) {
-            order.forEach(({ wrapper }, index) => animate(wrapper, cardFrames, {
-              duration: mobile ? 800 : 980,
-              delay: 400 + index * (mobile ? 70 : 80),
-              easing: 'cubic-bezier(.16, 1, .3, 1)',
-              fill: 'backwards',
-            }));
+            order.forEach(({ wrapper }, index) => {
+              const options = {
+                duration: mobile ? 800 : 980,
+                delay: 400 + index * (mobile ? 70 : 80),
+                easing: 'cubic-bezier(.16, 1, .3, 1)',
+                fill: 'backwards',
+              };
+              animate(wrapper, cardFrames, options);
+
+              const aubreBrand = wrapper.parentElement.querySelector(':scope > [data-bnon-aubre-brand]');
+              const aubreText = aubreBrand?.querySelector('[data-bnon-aubre-brand-text]');
+              if (aubreText) animate(aubreText, [
+                { opacity: 0, transform: 'translate(-.15vw, calc(-.35vw + 150px)) scale(.92) rotateY(-8deg)' },
+                { opacity: 1, transform: 'translate(-.15vw, -.35vw) rotateY(-8deg)' },
+              ], { ...options, fill: 'both' });
+            });
           }
         }, { threshold: .15, rootMargin: '0px 0px -20% 0px' });
         this.entranceObserver.observe(this.querySelector('.bnon-portfolio-gallery__stage') || this);
@@ -510,6 +555,9 @@
         }, options);
 
         this.syncMode();
+        // The deferred section script only runs after the compiled CSS is
+        // ready, so releasing this inline guard shows one stable gallery.
+        this.stage.style.removeProperty('visibility');
       }
 
       disconnectedCallback() {
