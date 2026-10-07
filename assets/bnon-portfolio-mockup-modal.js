@@ -26,6 +26,20 @@
         if (!this.desktopPointer.matches) return;
         this.preloadTrigger(event.target.closest('[data-mockup-trigger]'));
       }, options);
+      document.addEventListener('pointerdown', (event) => {
+        if (!this.mobileViewport.matches) return;
+        this.preloadTrigger(event.target.closest('[data-mockup-trigger]'));
+      }, options);
+      this.mobilePreloadObserver = new IntersectionObserver((entries) => {
+        if (!this.mobileViewport.matches) return;
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          this.preloadTrigger(entry.target, true);
+          this.mobilePreloadObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '320px 0px', threshold: .01 });
+      document.querySelectorAll(`[data-mockup-trigger][aria-controls="${this.dialog.id}"]`)
+        .forEach((trigger) => this.mobilePreloadObserver.observe(trigger));
       document.addEventListener('focusin', (event) => this.preloadTrigger(event.target.closest('[data-mockup-trigger]')), options);
       this.mobileViewport.addEventListener('change', () => {
         if (this.dialog.open) this.loadActiveMockup();
@@ -60,6 +74,7 @@
       if (this.dialog.open || !(trigger.dataset.mockupDesktopSrc || trigger.dataset.mockupPhoneSrc)) return;
       this.stopAutoScroll();
       this.trigger = trigger;
+      this.preloadTrigger(trigger);
       this.loadActiveMockup();
       // Resolve the URL from this opening's card every time, never the last project.
       const liveSiteUrl = (trigger.dataset.liveSiteUrl || '').trim();
@@ -84,26 +99,32 @@
       this.viewports.forEach((viewport) => { viewport.scrollTop = 0; });
       this.closeButton.focus({ preventScroll: true });
       this.prepareAutoScroll();
-      this.queueSecondaryMockup();
     }
 
     activeMockupDevice() {
       return this.mobileViewport.matches ? 'phone' : 'desktop';
     }
 
+    sourceForDevice(trigger, device) {
+      const prefix = device === 'phone' ? 'mockupPhone' : 'mockupDesktop';
+      const mobileSource = trigger?.dataset[`${prefix}MobileSrc`];
+      return (this.mobileViewport.matches && mobileSource) || trigger?.dataset[`${prefix}Src`];
+    }
+
     loadActiveMockup() {
       for (const image of this.images) {
         const device = image.dataset.mockupDevice;
         const prefix = device === 'phone' ? 'mockupPhone' : 'mockupDesktop';
-        const src = this.trigger.dataset[`${prefix}Src`];
-        // Both screens are visible in the modal composition at every viewport.
-        // Keep both image elements on the normal display path; only their
-        // network priority differs through the browser's request scheduling.
+        const src = this.sourceForDevice(this.trigger, device);
+        // Both mockups remain visible together. On a phone, sourceForDevice()
+        // selects smaller CDN derivatives so the simultaneous requests finish
+        // sooner without changing the modal composition.
         const active = Boolean(src);
         image.hidden = !active;
         image.width = Number(this.trigger.dataset[`${prefix}Width`]) || 1;
         image.height = Number(this.trigger.dataset[`${prefix}Height`]) || 1;
         image.alt = `${this.trigger.dataset.mockupTitle || '프로젝트'} 목업`;
+        image.fetchPriority = active ? 'high' : 'low';
         image.classList.remove('is-loaded');
         image.parentElement.classList.toggle('is-loading', active);
         if (active && image.getAttribute('src') !== src) image.src = src;
@@ -112,14 +133,16 @@
       if (this.dialog.open) {
         this.viewports.forEach((viewport) => { viewport.scrollTop = 0; });
         this.prepareAutoScroll();
-        this.queueSecondaryMockup();
       }
     }
 
-    preloadTrigger(trigger) {
+    preloadTrigger(trigger, includeBoth = false) {
       if (!trigger || trigger.getAttribute('aria-controls') !== this.dialog.id) return;
       const device = this.activeMockupDevice();
-      this.preloadImage(trigger.dataset[device === 'phone' ? 'mockupPhoneSrc' : 'mockupDesktopSrc']);
+      this.preloadImage(this.sourceForDevice(trigger, device));
+      if (!includeBoth || !this.mobileViewport.matches) return;
+      this.preloadImage(this.sourceForDevice(trigger, 'desktop'));
+      this.preloadImage(this.sourceForDevice(trigger, 'phone'));
     }
 
     preloadImage(src) {
@@ -137,40 +160,6 @@
       if (image.complete) image.dispatchEvent(new Event('load'));
       this.preloads.set(src, ready);
       return ready;
-    }
-
-    deferSecondaryMockup() {
-      const activeDevice = this.activeMockupDevice();
-      const image = this.images.find((item) => item.dataset.mockupDevice !== activeDevice);
-      const viewport = image?.parentElement;
-      const prefix = image?.dataset.mockupDevice === 'phone' ? 'mockupPhone' : 'mockupDesktop';
-      const src = this.trigger?.dataset[`${prefix}Src`];
-      if (!image || !viewport || !src || !image.hidden) return;
-
-      image.hidden = false;
-      viewport.classList.add('is-loading');
-      const reveal = async () => {
-        if (!this.dialog.open || image.getAttribute('src') !== src) return;
-        try { await image.decode(); } catch { /* The loaded image can still be displayed. */ }
-        if (!this.dialog.open || image.getAttribute('src') !== src) return;
-        image.classList.add('is-loaded');
-        viewport.classList.remove('is-loading');
-        if (this.autoScrollRun) this.recalculateAutoScroll(this.autoScrollRun);
-      };
-      image.addEventListener('load', reveal, { once: true });
-      image.addEventListener('error', () => {
-        if (image.getAttribute('src') === src) viewport.classList.remove('is-loading');
-      }, { once: true });
-      image.src = src;
-      if (image.complete) reveal();
-    }
-
-    queueSecondaryMockup() {
-      window.clearTimeout(this.secondaryMockupTimer);
-      // Both device screens are part of the modal composition at every
-      // viewport. Load the current viewport's screen first, then reveal the
-      // other screen without making the initial render wait for it.
-      this.secondaryMockupTimer = window.setTimeout(() => this.deferSecondaryMockup(), 0);
     }
 
     prepareAutoScroll() {
@@ -232,7 +221,6 @@
             viewport.classList.remove('is-loading');
           });
           this.startAutoScrollRun(run);
-          if (state.active) this.deferSecondaryMockup();
         };
         image.addEventListener('load', loaded, options);
         if (image.complete) loaded();
@@ -307,8 +295,6 @@
     }
 
     stopAutoScroll() {
-      window.clearTimeout(this.secondaryMockupTimer);
-      this.secondaryMockupTimer = null;
       const run = this.autoScrollRun;
       if (!run) return;
       this.autoScrollRun = null;
@@ -336,6 +322,7 @@
       if (this.dialog?.open) this.dialog.close();
       this.restore();
       this.events?.abort();
+      this.mobilePreloadObserver?.disconnect();
     }
   });
 })();

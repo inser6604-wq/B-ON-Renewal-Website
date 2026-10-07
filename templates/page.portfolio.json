@@ -51,7 +51,7 @@
             "image": "shopify://shop_images/Portfolio-page01_a77f4860-3ae3-4047-8f13-018ae67d3ae3.webp",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-pleatsmood.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-pleatsmood01_724a850a-6d6d-41ca-a57e-daffdd1d9115.webp",
-            "live_site_url": "https://aubrewear.com/?pb=0",
+            "live_site_url": "https://pleatsmoodglobal.com/",
             "project_name": "PLEATSMOOD",
             "category": "FASHION"
           }
@@ -146,7 +146,7 @@
             "project_link": "",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-monclos.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-monclos01.webp",
-            "live_site_url": "",
+            "live_site_url": "https://monclosglobal.com/",
             "card_size": "medium"
           }
         },
@@ -230,7 +230,7 @@
             "project_link": "",
             "mockup_desktop_image": "shopify://shop_images/scroll-mockup-isla.webp",
             "mockup_phone_image": "shopify://shop_images/scroll-mockup-isla01.webp",
-            "live_site_url": "",
+            "live_site_url": "https://islarunes.com/",
             "card_size": "large"
           }
         },

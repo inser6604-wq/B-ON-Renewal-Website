@@ -1918,7 +1918,7 @@ bnon-contact-entrance { display: block; }
 .bnon-review__viewport:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: 4px; }
 .bnon-review__viewport.is-dragging { cursor: grabbing; scroll-behavior: auto; scroll-snap-type: none; -webkit-user-select: none; user-select: none; }
 .bnon-review__track { display: grid; grid-auto-columns: calc((100% - 158px) / 3); grid-auto-flow: column; gap: 79px; padding-bottom: 8px; }
-.bnon-review__card { display: grid; grid-template-rows: auto 1fr auto; gap: 45px; min-width: 0; scroll-snap-align: start; }
+.bnon-review__card { display: grid; grid-template-rows: auto 1fr auto; gap: 45px; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
 .bnon-review__image-wrap { aspect-ratio: 1; overflow: hidden; border-radius: 10px; background: #8A8A8A; }
 .bnon-review__image,
 .bnon-review__image-placeholder { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -1956,6 +1956,16 @@ bnon-contact-entrance { display: block; }
   .bnon-review__text { font-size: 14px; }
   .bnon-review__brand { font-size: 26px; }
   .bnon-review__service { font-size: 15px; }
+}
+
+/* Let touch browsers own the horizontal gesture. The former pointer-driven
+ * drag prevented native scrolling on some mobile engines after the first swipe. */
+@media (hover: none) and (pointer: coarse) {
+  .bnon-review__viewport {
+    cursor: auto;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+  }
 }
 
 @media screen and (max-width: 390px) {

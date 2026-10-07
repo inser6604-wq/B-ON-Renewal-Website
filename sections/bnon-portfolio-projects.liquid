@@ -47,9 +47,9 @@
       {%- endif -%}
       <article class="bnon-portfolio-projects__card bnon-portfolio-projects__card--{{ card_size }}" aria-label="{{ project_title | escape }}" {{ block.shopify_attributes }}>
         {%- if block.settings.project_link != blank -%}
-          <a class="bnon-portfolio-projects__surface" href="{{ block.settings.project_link | escape }}" aria-label="{{ project_title | escape }}"{% if has_mockup %} role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-mockup-title="{{ project_title | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}"{% if desktop_mockup != blank %} data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %}{% if phone_mockup != blank %} data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %}{% endif %}>
+          <a class="bnon-portfolio-projects__surface" href="{{ block.settings.project_link | escape }}" aria-label="{{ project_title | escape }}"{% if has_mockup %} role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" data-mockup-trigger data-mockup-title="{{ project_title | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}"{% if desktop_mockup != blank %} data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-mobile-src="{{ desktop_mockup | image_url: width: 800 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %}{% if phone_mockup != blank %} data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-mobile-src="{{ phone_mockup | image_url: width: 480 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %}{% endif %}>
         {%- else -%}
-          <div class="bnon-portfolio-projects__surface"{% if has_mockup %} tabindex="0" role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" aria-label="{{ project_title | escape }}" data-mockup-trigger data-mockup-title="{{ project_title | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}"{% if desktop_mockup != blank %} data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %}{% if phone_mockup != blank %} data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %}{% endif %}>
+          <div class="bnon-portfolio-projects__surface"{% if has_mockup %} tabindex="0" role="button" aria-haspopup="dialog" aria-controls="bnon-portfolio-mockup-modal" aria-label="{{ project_title | escape }}" data-mockup-trigger data-mockup-title="{{ project_title | escape }}" data-live-site-url="{{ block.settings.live_site_url | escape }}"{% if desktop_mockup != blank %} data-mockup-desktop-src="{{ desktop_mockup | image_url: width: 2400 }}" data-mockup-desktop-mobile-src="{{ desktop_mockup | image_url: width: 800 }}" data-mockup-desktop-width="{{ desktop_mockup.width }}" data-mockup-desktop-height="{{ desktop_mockup.height }}"{% endif %}{% if phone_mockup != blank %} data-mockup-phone-src="{{ phone_mockup | image_url: width: 1200 }}" data-mockup-phone-mobile-src="{{ phone_mockup | image_url: width: 480 }}" data-mockup-phone-width="{{ phone_mockup.width }}" data-mockup-phone-height="{{ phone_mockup.height }}"{% endif %}{% endif %}>
         {%- endif -%}
           {%- if block.settings.project_image != blank -%}
             {{ block.settings.project_image | image_url: width: 2600 | image_tag: class: 'bnon-portfolio-projects__image', widths: '410, 520, 736, 1040, 1472, 1920, 2600', sizes: '(max-width: 767px) 100vw, (max-width: 1440px) 90vw, 1286px', alt: image_alt, loading: 'lazy' }}
@@ -68,6 +68,7 @@
     {%- endfor -%}
   </div>
 </section>
+<noscript><style>@media screen and (max-width: 767px) { .bnon-portfolio-projects__card { opacity: 1 !important; transform: none !important; } }</style></noscript>
 </bnon-portfolio-projects-entrance>
 
 {% stylesheet %}
@@ -107,9 +108,14 @@
     .bnon-portfolio-projects__gallery { gap: 24px; }
     .bnon-portfolio-projects__row { gap: 12px; }
     .bnon-portfolio-projects__card { border-radius: 12px; }
+    /* Match the first animation frame before a card reaches the viewport. */
+    .bnon-portfolio-projects__card { opacity: 0; transform: translateY(30px); }
     .bnon-portfolio-projects__row--pair .bnon-portfolio-projects__card--large { width: calc((100% - 12px) * .585987); }
     .bnon-portfolio-projects__card--medium { width: calc((100% - 12px) * .414013); }
     .bnon-portfolio-projects__card--small { width: calc((100% - 24px) / 3); }
+  }
+  @media screen and (max-width: 767px) and (prefers-reduced-motion: reduce) {
+    .bnon-portfolio-projects__card { opacity: 1; transform: none; }
   }
 {% endstylesheet %}
 
@@ -152,7 +158,7 @@
               duration: 680,
               delay: enteringCards.length > 1 ? index * 60 : 0,
               easing: 'cubic-bezier(.22, 1, .36, 1)',
-              fill: 'backwards',
+              fill: 'both',
             });
           });
         }, { threshold: .12 });

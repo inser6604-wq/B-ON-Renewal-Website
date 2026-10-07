@@ -10,13 +10,15 @@
         <h1 id="BnonContactHeading-{{ section.id }}" class="bnon-contact-page__heading">{{ section.settings.heading | escape }}</h1>
         <h2 class="bnon-contact-page__title">{{ section.settings.title | escape | newline_to_br }}</h2>
         {%- liquid
-          assign contact_description = section.settings.description
-          assign contact_description = contact_description | replace: '브랜드의 가능성을', '브랜드의<br class="bnon-contact-page__tablet-break">가능성을'
-          assign contact_description = contact_description | replace: '가능성을 글로벌', '가능성을<br class="bnon-contact-page__desktop-break">글로벌'
-          assign contact_description = contact_description | replace: '파트너입니다. 프로젝트', '파트너입니다.<br class="bnon-contact-page__desktop-break bnon-contact-page__tablet-break">프로젝트'
-          assign contact_description = contact_description | replace: '남겨주시면, 빠른', '남겨주시면,<br class="bnon-contact-page__desktop-break">빠른'
+          assign contact_description_desktop = section.settings.description
+          assign contact_description_desktop = contact_description_desktop | replace: '가능성을 글로벌', '가능성을<br class="bnon-contact-page__desktop-break">글로벌'
+          assign contact_description_desktop = contact_description_desktop | replace: '파트너입니다. 프로젝트', '파트너입니다.<br class="bnon-contact-page__desktop-break">프로젝트'
+          assign contact_description_desktop = contact_description_desktop | replace: '남겨주시면, 빠른', '남겨주시면,<br class="bnon-contact-page__desktop-break">빠른'
         -%}
-        <div class="bnon-contact-page__description">{{ contact_description }}</div>
+        <div class="bnon-contact-page__description">
+          <div class="bnon-contact-page__desktop-copy">{{ contact_description_desktop }}</div>
+          <div class="bnon-contact-page__responsive-copy">{{ section.settings.description }}</div>
+        </div>
       </div>
 
       <div class="bnon-contact-page__details">

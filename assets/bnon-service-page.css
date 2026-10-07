@@ -32,7 +32,7 @@
   --bnon-service-stack-step: 18px;
   display: grid;
   align-items: start;
-  gap: 80px;
+  gap: 48px;
   margin-top: 77px;
   padding-bottom: clamp(96px, 18vh, 180px);
   isolation: isolate;
@@ -228,7 +228,7 @@
 @media screen and (min-width: 1200px) {
   .bnon-service-page__heading.is-stack-pinned {
     position: fixed;
-    top: 160px;
+    top: clamp(112px, 14vh, 160px);
     right: 0;
     left: 0;
     width: 100%;
@@ -236,8 +236,30 @@
   }
 
   .bnon-service-page__list {
-    --bnon-service-stack-top: 292px;
+    /* Keep the CTA within shorter desktop viewports while preserving a clear
+       separation from the pinned heading. */
+    --bnon-service-stack-top: clamp(204px, 24vh, 240px);
   }
+}
+
+@media screen and (min-width: 1200px) and (max-height: 899px) {
+  .bnon-service-card {
+    min-height: 548px;
+    padding-block: 48px;
+  }
+
+  .bnon-service-card__media {
+    height: 310px;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-height: 760px) {
+  .bnon-service-page__list { --bnon-service-stack-top: 190px; }
+  .bnon-service-card {
+    min-height: 512px;
+    padding-block: 40px;
+  }
+  .bnon-service-card__media { height: 286px; }
 }
 
 @media screen and (max-width: 1199px) {
@@ -245,7 +267,7 @@
   .bnon-service-page__list {
     --bnon-service-stack-top: clamp(72px, 8vh, 92px);
     --bnon-service-stack-step: 14px;
-    gap: 56px;
+    gap: 40px;
     margin-top: 64px;
     padding-bottom: clamp(80px, 15vh, 140px);
   }

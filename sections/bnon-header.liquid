@@ -5,6 +5,7 @@
 -%}
 
 {{ 'bnon-header.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap">
 <script src="{{ 'bnon-header.js' | asset_url }}" defer="defer"></script>
 <bnon-header-controller>
 <header class="bnon-section bnon-header bnon-header--mobile-{{ section.settings.mobile_layout | default: 'menu_left' }}" style="
@@ -53,24 +54,12 @@
       <ul class="bnon-header__menu" role="list">
         {%- if section.settings.menu != blank -%}
           {%- for link in section.settings.menu.links -%}
-            {%- liquid
-              assign bnon_link_url = link.url
-              if link.object.handle == 'about' or bnon_link_url contains '/pages/about'
-                unless bnon_link_url contains '?view='
-                  assign bnon_link_url = bnon_link_url | append: '?view=about'
-                endunless
-              elsif link.object.handle == 'service' or bnon_link_url contains '/pages/service'
-                unless bnon_link_url contains '?view='
-                  assign bnon_link_url = bnon_link_url | append: '?view=service'
-                endunless
-              endif
-            -%}
-            <li><a href="{{ bnon_link_url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+            <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
           {%- endfor -%}
         {%- else -%}
           <li><a href="/pages/portfolio"{% if page.handle == "portfolio" %} aria-current="page"{% endif %}>PORTFOLIO</a></li>
-          <li><a href="/pages/about?view=about"{% if page.handle == "about" %} aria-current="page"{% endif %}>ABOUT</a></li>
-          <li><a href="/pages/service?view=service"{% if page.handle == "service" %} aria-current="page"{% endif %}>SERVICE</a></li>
+          <li><a href="/pages/about"{% if page.handle == "about" %} aria-current="page"{% endif %}>ABOUT</a></li>
+          <li><a href="/pages/service"{% if page.handle == "service" %} aria-current="page"{% endif %}>SERVICE</a></li>
           <li><a href="/pages/contact"{% if page.handle == "contact" %} aria-current="page"{% endif %}>CONTACT</a></li>
         {%- endif -%}
       </ul>
@@ -86,25 +75,13 @@
       <nav aria-label="모바일 주요 메뉴">
         <ul role="list">
           {%- if section.settings.menu != blank -%}
-            {%- for link in section.settings.menu.links -%}
-              {%- liquid
-                assign bnon_link_url = link.url
-                if link.object.handle == 'about' or bnon_link_url contains '/pages/about'
-                  unless bnon_link_url contains '?view='
-                    assign bnon_link_url = bnon_link_url | append: '?view=about'
-                  endunless
-                elsif link.object.handle == 'service' or bnon_link_url contains '/pages/service'
-                  unless bnon_link_url contains '?view='
-                    assign bnon_link_url = bnon_link_url | append: '?view=service'
-                  endunless
-                endif
-              -%}
-              <li><a href="{{ bnon_link_url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+          {%- for link in section.settings.menu.links -%}
+              <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
             {%- endfor -%}
           {%- else -%}
             <li><a href="/pages/portfolio"{% if page.handle == "portfolio" %} aria-current="page"{% endif %}>PORTFOLIO</a></li>
-            <li><a href="/pages/about?view=about"{% if page.handle == "about" %} aria-current="page"{% endif %}>ABOUT</a></li>
-            <li><a href="/pages/service?view=service"{% if page.handle == "service" %} aria-current="page"{% endif %}>SERVICE</a></li>
+            <li><a href="/pages/about"{% if page.handle == "about" %} aria-current="page"{% endif %}>ABOUT</a></li>
+            <li><a href="/pages/service"{% if page.handle == "service" %} aria-current="page"{% endif %}>SERVICE</a></li>
             <li><a href="/pages/contact"{% if page.handle == "contact" %} aria-current="page"{% endif %}>CONTACT</a></li>
           {%- endif -%}
         </ul>

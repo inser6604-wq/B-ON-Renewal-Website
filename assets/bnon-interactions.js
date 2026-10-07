@@ -998,6 +998,7 @@ if (!customElements.get('bnon-review')) {
     disconnectedCallback() {
       if (this.frame) cancelAnimationFrame(this.frame);
       window.clearTimeout(this.autoplayTimer);
+      window.clearTimeout(this.touchAutoplayTimer);
       this.observer?.disconnect();
       this.entranceObserver?.disconnect();
       this.entranceAnimations?.forEach(animation => animation.cancel());
@@ -1034,6 +1035,12 @@ if (!customElements.get('bnon-review')) {
 
     onPointerDown(event) {
       if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+      // Native horizontal scrolling is more reliable than pointer capture on
+      // mobile browsers. Keep the autoplay timer from competing with a swipe.
+      if (event.pointerType === 'touch') {
+        this.pauseAutoplay();
+        return;
+      }
       this.drag = {
         pointerId: event.pointerId,
         startX: event.clientX,
@@ -1044,6 +1051,7 @@ if (!customElements.get('bnon-review')) {
     }
 
     onPointerMove(event) {
+      if (event.pointerType === 'touch') return;
       const drag = this.drag;
       if (!drag || event.pointerId !== drag.pointerId || drag.direction === 'vertical') return;
       const deltaX = event.clientX - drag.startX;
@@ -1068,6 +1076,10 @@ if (!customElements.get('bnon-review')) {
     }
 
     onPointerUp(event) {
+      if (event.pointerType === 'touch') {
+        this.resumeAutoplayAfterTouch();
+        return;
+      }
       const drag = this.drag;
       if (!drag || (event?.pointerId !== undefined && event.pointerId !== drag.pointerId)) return;
       this.drag = null;
@@ -1099,6 +1111,10 @@ if (!customElements.get('bnon-review')) {
     }
 
     onPointerCancel(event) {
+      if (event.pointerType === 'touch') {
+        this.resumeAutoplayAfterTouch();
+        return;
+      }
       if (!this.drag || event.pointerId !== this.drag.pointerId) return;
       if (this.drag.direction === 'horizontal') {
         this.viewport.classList.remove('is-dragging');
@@ -1180,6 +1196,18 @@ if (!customElements.get('bnon-review')) {
     restartAutoplay() {
       window.clearTimeout(this.autoplayTimer);
       this.syncAutoplay();
+    }
+
+    pauseAutoplay() {
+      window.clearTimeout(this.autoplayTimer);
+      window.clearTimeout(this.touchAutoplayTimer);
+    }
+
+    resumeAutoplayAfterTouch() {
+      window.clearTimeout(this.touchAutoplayTimer);
+      // Do not restart while momentum scrolling is still settling. This also
+      // prevents the next autoplay step from cancelling the user's swipe.
+      this.touchAutoplayTimer = window.setTimeout(() => this.syncAutoplay(), 350);
     }
 
     syncAutoplay() {

@@ -127,7 +127,9 @@
 
           const nextTop = nextCard.getBoundingClientRect().top;
           const nextStickyTop = parseFloat(window.getComputedStyle(nextCard).top) || 0;
-          const transitionStart = Math.min(window.innerHeight * 0.82, nextStickyTop + card.offsetHeight * 0.75);
+          // Start the hand-off earlier and give it a longer scroll range so
+          // stacked cards do not feel like they switch all at once.
+          const transitionStart = Math.min(window.innerHeight * 0.92, nextStickyTop + card.offsetHeight * 0.88);
           const transitionDistance = Math.max(transitionStart - nextStickyTop, 1);
           this.target[index] = clamp((transitionStart - nextTop) / transitionDistance, 0, 1);
         });
@@ -224,7 +226,7 @@
           if (this.reducedMotion.matches) {
             this.current[index] = this.target[index];
           } else {
-            this.current[index] += (this.target[index] - this.current[index]) * 0.16;
+            this.current[index] += (this.target[index] - this.current[index]) * 0.12;
           }
 
           if (Math.abs(this.target[index] - this.current[index]) > 0.001) {
