@@ -1,6 +1,7 @@
 {%- liquid
   assign footer_contact_link = section.settings.contact_link | default: '/pages/contact'
   assign footer_project_link = section.settings.project_link | default: '/pages/portfolio'
+  assign company_deck_url = 'https://cdn.shopify.com/s/files/1/0971/6249/4133/files/B_ON-Company-profile01.pdf?v=1791800710'
 -%}
 
 <section class="bnon-section bnon-footer-v2" aria-label="{{ shop.name | escape }} footer">
@@ -46,7 +47,7 @@
           <span>SHOPIFY</span>
         {%- endif -%}
 
-        <a href="#" download aria-label="회사소개서 다운로드">
+        <a href="{{ company_deck_url }}" data-company-deck-download aria-label="회사소개서 다운로드">
           회사소개서 <span aria-hidden="true">↓</span>
         </a>
 

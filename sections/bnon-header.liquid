@@ -1,60 +1,67 @@
+
 {%- liquid
   assign logo_text = section.settings.logo_text | default: 'B&ON UNIVERSE'
   assign contact_link = section.settings.contact_link | default: '/pages/contact'
-  assign kakao_link = section.settings.kakao_link | default: contact_link
 -%}
 
 {{ 'bnon-header.css' | asset_url | stylesheet_tag }}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap">
 <script src="{{ 'bnon-header.js' | asset_url }}" defer="defer"></script>
+
 <bnon-header-controller>
 <header class="bnon-section bnon-header bnon-header--mobile-{{ section.settings.mobile_layout | default: 'menu_left' }}" style="
   --header-cta-brand: {{ section.settings.cta_light | default: '#3154EE' }};
   --header-cta-brand-contrast: {{ section.settings.cta_light_contrast | default: '#FFFFFF' }};
-  --header-kakao-active: {{ section.settings.cta_dark | default: '#FEE500' }};
-  --header-kakao-active-text: {{ section.settings.cta_dark_contrast | default: '#0A0A0A' }};
+  --header-kakao-active: {{ section.settings.cta_dark | default: '#3154EE' }};
+  --header-kakao-active-text: {{ section.settings.cta_dark_contrast | default: '#FFFFFF' }};
   --header-logo-width: {{ section.settings.logo_width | default: 220 }}px;
   --header-mobile-logo-width: {{ section.settings.mobile_logo_width | default: 100 }}px;
 ">
   <div class="bnon-container bnon-header__inner">
-  <a class="bnon-header__brand" href="{{ routes.root_url }}" aria-label="{{ logo_text | escape }} 홈">
 
-    <span class="bnon-header__mobile-wordmark">
-      {%- if section.settings.mobile_logo_image != blank -%}
-        {{
-          section.settings.mobile_logo_image
-          | image_url: width: 400
-          | image_tag:
-            class: 'bnon-header__mobile-logo-image',
-            alt: logo_text
-        }}
-      {%- else -%}
-        <span>B&amp;ON<br>UNIVERSE</span>
-      {%- endif -%}
-    </span>
+    <a class="bnon-header__brand" href="{{ routes.root_url }}" aria-label="{{ logo_text | escape }} 홈">
 
-    <span class="bnon-header__default-logo">
-      {%- if section.settings.logo_image != blank -%}
-        {{
-          section.settings.logo_image
-          | image_url: width: 440
-          | image_tag:
-            class: 'bnon-header__logo-image',
-            widths: '110, 220, 440',
-            sizes: '(min-width: 1024px) 220px, 176px',
-            alt: logo_text
-        }}
-      {%- else -%}
-        <span>{{ logo_text | escape }}</span>
-      {%- endif -%}
-    </span>
+      <span class="bnon-header__mobile-wordmark">
+        {%- if section.settings.mobile_logo_image != blank -%}
+          {{
+            section.settings.mobile_logo_image
+            | image_url: width: 400
+            | image_tag:
+              class: 'bnon-header__mobile-logo-image',
+              alt: logo_text
+          }}
+        {%- else -%}
+          <span>B&amp;ON<br>UNIVERSE</span>
+        {%- endif -%}
+      </span>
 
-  </a>
+      <span class="bnon-header__default-logo">
+        {%- if section.settings.logo_image != blank -%}
+          {{
+            section.settings.logo_image
+            | image_url: width: 440
+            | image_tag:
+              class: 'bnon-header__logo-image',
+              widths: '110, 220, 440',
+              sizes: '(min-width: 1024px) 220px, 176px',
+              alt: logo_text
+          }}
+        {%- else -%}
+          <span>{{ logo_text | escape }}</span>
+        {%- endif -%}
+      </span>
+
+    </a>
+
     <nav class="bnon-header__nav" aria-label="주요 메뉴">
       <ul class="bnon-header__menu" role="list">
         {%- if section.settings.menu != blank -%}
           {%- for link in section.settings.menu.links -%}
-            <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+            <li>
+              <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>
+                {{ link.title | escape }}
+              </a>
+            </li>
           {%- endfor -%}
         {%- else -%}
           <li><a href="/pages/portfolio"{% if page.handle == "portfolio" %} aria-current="page"{% endif %}>PORTFOLIO</a></li>
@@ -65,18 +72,42 @@
       </ul>
     </nav>
 
+    <!-- DESKTOP / TABLET CTA -->
     <div class="bnon-header__actions">
-      <a class="bnon-header__contact bnon-header__kakao" href="{{ kakao_link | escape }}">카카오톡</a>
-      <a class="bnon-header__contact" href="{{ contact_link | escape }}">{{ section.settings.contact_label | escape }}</a>
+
+      <a
+          class="bnon-header__contact bnon-header__kakao bnon-header__deck"
+          href="https://cdn.shopify.com/s/files/1/0971/6249/4133/files/B_ON-Company-profile01.pdf?v=1791800710"
+          data-company-deck-download
+        >
+          회사소개서
+        </a>
+
+
+      <a
+        class="bnon-header__contact"
+        href="{{ contact_link | escape }}"
+      >
+        {{ section.settings.contact_label | escape }}
+      </a>
+
     </div>
 
+    <!-- MOBILE MENU -->
     <details class="bnon-header__mobile-menu">
-      <summary aria-label="메뉴 열기"><span></span><span></span><span></span></summary>
+      <summary aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </summary>
+
       <nav aria-label="모바일 주요 메뉴">
         <ul role="list">
           {%- if section.settings.menu != blank -%}
-          {%- for link in section.settings.menu.links -%}
-              <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+            {%- for link in section.settings.menu.links -%}
+              <li>
+                <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>
+                  {{ link.title | escape }}
+                </a>
+              </li>
             {%- endfor -%}
           {%- else -%}
             <li><a href="/pages/portfolio"{% if page.handle == "portfolio" %} aria-current="page"{% endif %}>PORTFOLIO</a></li>
@@ -85,12 +116,24 @@
             <li><a href="/pages/contact"{% if page.handle == "contact" %} aria-current="page"{% endif %}>CONTACT</a></li>
           {%- endif -%}
         </ul>
-        <a class="bnon-header__contact bnon-header__kakao" href="{{ kakao_link | escape }}">카카오톡</a>
+
+          <a
+            class="bnon-header__contact bnon-header__kakao bnon-header__deck"
+            href="https://cdn.shopify.com/s/files/1/0971/6249/4133/files/B_ON-Company-profile01.pdf?v=1791800710"
+            data-company-deck-download
+          >
+            회사소개서
+          </a>
+
       </nav>
     </details>
-  </div>
+
+   </div>
 </header>
 </bnon-header-controller>
+
+
+
 
 {% schema %}
 {
@@ -98,17 +141,70 @@
   "tag": "div",
   "class": "bnon-header-section",
   "settings": [
-    { "type": "select", "id": "mobile_layout", "label": "모바일 헤더 정렬", "default": "menu_left", "options": [
-      { "value": "menu_left", "label": "메뉴 좌측 · 로고 중앙 · CTA 우측" },
-      { "value": "default", "label": "기본 정렬" }
-    ] },
-    { "type": "url", "id": "kakao_link", "label": "카카오톡 CTA 링크" },
-    { "type": "header", "content": "Header CTA Colors" },
-    { "type": "color", "id": "cta_light", "label": "Brand CTA Color", "default": "#3154EE" },
-    { "type": "color", "id": "cta_light_contrast", "label": "Brand CTA Contrast", "default": "#FFFFFF" },
-    { "type": "color", "id": "cta_dark", "label": "Kakao Active Color", "default": "#FEE500" },
-    { "type": "color", "id": "cta_dark_contrast", "label": "Kakao Active Text", "default": "#0A0A0A" },
-    { "type": "image_picker", "id": "logo_image", "label": "로고 이미지" },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "모바일 헤더 정렬",
+      "default": "menu_left",
+      "options": [
+        {
+          "value": "menu_left",
+          "label": "메뉴 좌측 · 로고 중앙 · CTA 우측"
+        },
+        {
+          "value": "default",
+          "label": "기본 정렬"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "회사소개서 CTA"
+    },
+    {
+      "type": "text",
+      "id": "company_deck_label",
+      "label": "회사소개서 버튼 문구",
+      "default": "회사소개서"
+    },
+    {
+      "type": "url",
+      "id": "company_deck_link",
+      "label": "회사소개서 PDF 링크"
+    },
+    {
+      "type": "header",
+      "content": "Header CTA Colors"
+    },
+    {
+      "type": "color",
+      "id": "cta_light",
+      "label": "Brand CTA Color",
+      "default": "#3154EE"
+    },
+    {
+      "type": "color",
+      "id": "cta_light_contrast",
+      "label": "Brand CTA Contrast",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "cta_dark",
+      "label": "회사소개서 활성화 배경색",
+      "default": "#3154EE"
+    },
+    {
+      "type": "color",
+      "id": "cta_dark_contrast",
+      "label": "회사소개서 활성화 글자색",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "로고 이미지"
+    },
     {
       "type": "range",
       "id": "logo_width",
@@ -134,10 +230,31 @@
       "default": 100,
       "unit": "px"
     },
-    { "type": "text", "id": "logo_text", "label": "텍스트 로고", "default": "B&ON UNIVERSE", "info": "로고 이미지가 없을 때 표시됩니다." },
-    { "type": "link_list", "id": "menu", "label": "메뉴", "info": "PORTFOLIO, ABOUT, SERVICE, CONTACT 순서로 설정하세요." },
-    { "type": "text", "id": "contact_label", "label": "문의 CTA 문구", "default": "프로젝트 문의" },
-    { "type": "url", "id": "contact_link", "label": "문의 CTA 링크", "info": "비워두면 /pages/contact로 이동합니다." }
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "텍스트 로고",
+      "default": "B&ON UNIVERSE",
+      "info": "로고 이미지가 없을 때 표시됩니다."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "메뉴",
+      "info": "PORTFOLIO, ABOUT, SERVICE, CONTACT 순서로 설정하세요."
+    },
+    {
+      "type": "text",
+      "id": "contact_label",
+      "label": "문의 CTA 문구",
+      "default": "프로젝트 문의"
+    },
+    {
+      "type": "url",
+      "id": "contact_link",
+      "label": "문의 CTA 링크",
+      "info": "비워두면 /pages/contact로 이동합니다."
+    }
   ]
 }
 {% endschema %}
