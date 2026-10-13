@@ -1,5 +1,5 @@
 (() => {
-  const pdfUrl = 'https://cdn.shopify.com/s/files/1/0971/6249/4133/files/B_ON-Company-profile01.pdf?v=1791800710';
+  const pdfUrl = 'https://cdn.shopify.com/s/files/1/0971/6249/4133/files/B_ON-Company-profile01_7c22c177-e87f-471a-a817-45ee1fc1453e.pdf?v=1791854658';
   const filename = 'B&ON-Company-Profile.pdf';
   let downloadPromise = null;
 
