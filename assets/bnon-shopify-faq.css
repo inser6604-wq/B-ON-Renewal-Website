@@ -1,0 +1,59 @@
+/* Figma 560:474. No shared FAQ or page styles are changed. */
+bnon-shopify-faq { display: block; }
+.bnon-shopify-faq { background: var(--shopify-faq-background, #f9f7f7); }
+.bnon-shopify-faq__inner { box-sizing: border-box; width: 100%; max-width: 1440px; margin-inline: auto; padding: 111px clamp(32px, 6.667vw, 96px) 110px clamp(32px, 7.014vw, 101px); }
+.bnon-shopify-faq :is(h2, h3, p) { margin: 0; }
+.bnon-shopify-faq__label-row { padding: 10px 4px; border-bottom: 1px solid var(--bnon-color-black); }
+.bnon-shopify-faq__label { color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: 26px; font-weight: var(--bnon-weight-semibold); line-height: 1.6; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.bnon-shopify-faq__group { margin-top: 60px; }
+.bnon-shopify-faq__group + .bnon-shopify-faq__group { margin-top: 100px; }
+.bnon-shopify-faq__group-heading { color: var(--bnon-color-black); font-size: 30px; font-weight: var(--bnon-weight-medium); line-height: 1.2; letter-spacing: -.04em; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-shopify-faq__accordion { display: grid; gap: 0; width: calc(100% - 10px); margin-top: 47px; }
+.bnon-shopify-faq__item { min-width: 0; overflow: hidden; border: 1px solid #d8d8d8; background: var(--bnon-color-white); }
+.bnon-shopify-faq__item + .bnon-shopify-faq__item { margin-top: -1px; }
+.bnon-shopify-faq__item:first-child { border-radius: 10px 10px 0 0; }
+.bnon-shopify-faq__item:last-child { border-radius: 0 0 10px 10px; }
+.bnon-shopify-faq__item:only-child { border-radius: 10px; }
+.bnon-shopify-faq__trigger { display: flex; align-items: center; justify-content: space-between; gap: 20px; box-sizing: border-box; min-height: 78px; width: 100%; padding: 19px; border-radius: inherit; color: var(--bnon-color-black); background: var(--bnon-color-white); cursor: pointer; list-style: none; }
+.bnon-shopify-faq__trigger::-webkit-details-marker { display: none; }
+.bnon-shopify-faq__trigger::marker { content: ''; }
+.bnon-shopify-faq__item[open] > .bnon-shopify-faq__trigger { border-bottom-left-radius: 0; border-bottom-right-radius: 0; color: var(--bnon-color-white); background: var(--bnon-color-blue); }
+.bnon-shopify-faq__question { min-width: 0; font-size: 24px; font-weight: var(--bnon-weight-semibold); line-height: 1.2; letter-spacing: -.04em; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-shopify-faq__icon { position: relative; flex: 0 0 35px; width: 35px; height: 35px; }
+.bnon-shopify-faq__icon img { display: block; max-width: none; }
+.bnon-shopify-faq__icon-expanded { display: none !important; }
+.bnon-shopify-faq__item[open] .bnon-shopify-faq__icon-collapsed { display: none; }
+.bnon-shopify-faq__item[open] .bnon-shopify-faq__icon-expanded { display: block !important; }
+.bnon-shopify-faq__answer { padding: 30px 19px; color: var(--bnon-color-black); font-size: 20px; font-weight: var(--bnon-weight-regular); line-height: 1.6; letter-spacing: -.04em; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-shopify-faq__group--global .bnon-shopify-faq__answer { font-weight: var(--bnon-weight-medium); }
+.bnon-shopify-faq__answer :is(p, ul, ol) { margin: 0; }
+.bnon-shopify-faq__answer :is(ul, ol) { padding-left: 1.5em; }
+.bnon-shopify-faq__answer strong { font-weight: var(--bnon-weight-bold); }
+.bnon-shopify-faq__answer a { color: var(--bnon-color-blue); text-decoration: underline; text-underline-offset: .15em; }
+.bnon-shopify-faq__trigger:focus-visible, .bnon-shopify-faq__answer a:focus-visible { outline: 2px solid var(--bnon-color-mint); outline-offset: -3px; }
+@media screen and (max-width: 1199px) {
+  .bnon-shopify-faq__inner { padding: 72px 32px 80px; }
+  .bnon-shopify-faq__accordion { width: 100%; }
+  .bnon-shopify-faq__question { font-size: 20px; }
+  .bnon-shopify-faq__answer { font-size: 18px; }
+  .bnon-shopify-faq__group + .bnon-shopify-faq__group { margin-top: 72px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-shopify-faq__inner { padding: 48px 24px 64px; }
+  .bnon-shopify-faq__label { font-size: 18px; }
+  .bnon-shopify-faq__group { margin-top: 40px; }
+  .bnon-shopify-faq__group + .bnon-shopify-faq__group { margin-top: 48px; }
+  .bnon-shopify-faq__group-heading { font-size: 24px; }
+  .bnon-shopify-faq__accordion { margin-top: 28px; }
+  .bnon-shopify-faq__trigger { min-height: 70px; gap: 12px; padding: 16px; }
+  .bnon-shopify-faq__question { font-size: 18px; line-height: 1.4; }
+  .bnon-shopify-faq__icon { flex-basis: 28px; width: 28px; height: 28px; }
+  .bnon-shopify-faq__icon img { transform: scale(.8); transform-origin: left top; }
+  .bnon-shopify-faq__answer { padding: 20px 16px; font-size: 16px; }
+}
+@media screen and (max-width: 480px) {
+  .bnon-shopify-faq__inner { padding-inline: 20px; }
+  .bnon-shopify-faq__trigger { padding: 16px 14px; }
+  .bnon-shopify-faq__question { font-size: 16px; }
+  .bnon-shopify-faq__answer { padding-inline: 14px; }
+}

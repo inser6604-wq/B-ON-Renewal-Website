@@ -1,0 +1,210 @@
+{{ 'bnon-shopify-faq.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-shopify-faq.js' | asset_url }}" defer="defer"></script>
+
+<bnon-shopify-faq data-section-id="{{ section.id }}">
+  <section class="bnon-section bnon-shopify-faq" {% if section.settings.heading != blank %}aria-labelledby="ShopifyFaqHeading-{{ section.id }}"{% endif %} style="--shopify-faq-background: {{ section.settings.background_color | default: '#f9f7f7' | escape }};">
+    <div class="bnon-shopify-faq__inner">
+      {%- if section.settings.heading != blank -%}
+        <div class="bnon-shopify-faq__label-row"><h2 class="bnon-shopify-faq__label" id="ShopifyFaqHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h2></div>
+      {%- endif -%}
+      {%- assign categories = 'build,global' | split: ',' -%}
+      {%- for category in categories -%}
+        {%- liquid
+          assign group_count = 0
+          for block in section.blocks
+            assign block_category = block.settings.category | default: 'build'
+            if block_category == category and block.settings.question != blank
+              assign group_count = group_count | plus: 1
+            endif
+          endfor
+          assign heading_key = category | append: '_heading'
+        -%}
+        {%- if group_count > 0 -%}
+          <div class="bnon-shopify-faq__group bnon-shopify-faq__group--{{ category }}">
+            {%- if section.settings[heading_key] != blank -%}<h3 class="bnon-shopify-faq__group-heading">{{ section.settings[heading_key] | escape }}</h3>{%- endif -%}
+            <div class="bnon-shopify-faq__accordion">
+              {%- assign group_index = 0 -%}
+              {%- for block in section.blocks -%}
+                {%- assign block_category = block.settings.category | default: 'build' -%}
+                {%- if block_category == category and block.settings.question != blank -%}
+                  {%- assign group_index = group_index | plus: 1 -%}
+                  <details
+                    class="bnon-shopify-faq__item"
+                    name="ShopifyFaq-{{ section.id }}-{{ category }}"
+                    data-faq-group="{{ category }}"
+                    data-faq-block-id="{{ block.id }}"
+                    {% if group_index == 1 and section.settings.open_first %}open{% endif %}
+                    {{ block.shopify_attributes }}
+                  >
+                    <summary class="bnon-shopify-faq__trigger" id="ShopifyFaqQuestion-{{ section.id }}-{{ block.id }}">
+                      <span class="bnon-shopify-faq__question">Q. {{ block.settings.question | escape }}</span>
+                      <span class="bnon-shopify-faq__icon" aria-hidden="true">
+                        <img class="bnon-shopify-faq__icon-collapsed" src="{{ 'bnon-shopify-faq-open.svg' | asset_url }}" alt="" width="35" height="35" loading="lazy">
+                        <img class="bnon-shopify-faq__icon-expanded" src="{{ 'bnon-shopify-faq-close.svg' | asset_url }}" alt="" width="35" height="35" loading="lazy">
+                      </span>
+                    </summary>
+                    {%- if block.settings.answer != blank -%}<div class="bnon-shopify-faq__answer">{{ block.settings.answer }}</div>{%- endif -%}
+                  </details>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+</bnon-shopify-faq>
+
+{% schema %}
+{
+  "name": "B&ON Shopify FAQ",
+  "tag": "div",
+  "class": "bnon-shopify-faq-section",
+  "limit": 1,
+  "enabled_on": {
+    "templates": [
+      "page"
+    ]
+  },
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "섹션 제목",
+      "default": "FAQ / 자주 묻는 질문"
+    },
+    {
+      "type": "text",
+      "id": "build_heading",
+      "label": "구축·운영 그룹 제목",
+      "default": "구축 및 운영"
+    },
+    {
+      "type": "text",
+      "id": "global_heading",
+      "label": "글로벌 그룹 제목",
+      "default": "글로벌 판매 및 결제"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_first",
+      "label": "각 그룹의 첫 질문을 처음에 펼치기",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "배경 색상",
+      "default": "#f9f7f7"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "질문과 답변",
+      "settings": [
+        {
+          "type": "select",
+          "id": "category",
+          "label": "질문 그룹",
+          "options": [
+            {
+              "value": "build",
+              "label": "구축 및 운영"
+            },
+            {
+              "value": "global",
+              "label": "글로벌 판매 및 결제"
+            }
+          ],
+          "default": "build"
+        },
+        {
+          "type": "text",
+          "id": "question",
+          "label": "질문",
+          "info": "Q. 접두사는 자동 표시됩니다."
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "답변",
+          "info": "문단, 강조 및 필요한 링크를 편집할 수 있습니다."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON Shopify FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "category": "build",
+            "question": "구축 비용은 어떻게 산정되나요?",
+            "answer": "<p>온·오프라인 기능과 디자인 범위에 따라 견적이 달라집니다.</p><p>사이트맵(메뉴 구조)과 상품 수를 함께 전달해주시면 더욱 빠른 견적 안내가 가능합니다.</p><p>사전 미팅을 통해 브랜드 현황과 목표, 시장을 진단한 뒤 맞춤형 방향을 제안드립니다.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "build",
+            "question": "구축 기간은 얼마나 걸리나요?",
+            "answer": "<p>작업 범위에 따라 달라집니다. 상품 3개 이하의 초기 브랜드는 최단 3일, 기본 구조는 약 2~3주, 커스텀 디자인·다국어·구독 기능 포함 시 6~8주 정도 소요됩니다. 검수와 런칭 테스트를 포함한 일정이며, 프로젝트별 타임라인을 공유합니다.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "build",
+            "question": "구축 이후 운영은 직접 해야 하나요?",
+            "answer": "<p>네. Shopify 관리자에서 상품·재고·할인·고객 관리와 콘텐츠 수정을 직접 할 수 있습니다. 필요 시 관리자 실무 교육 또는 유지관리·운영 대행도 별도로 진행할 수 있습니다.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "build",
+            "question": "런칭 후 문제 발생 시 기술 지원은 어떻게 받나요?",
+            "answer": "<p>런칭 후 14일간 무상 점검을 제공합니다. 이후에는 월 또는 티켓 단위로 수정·기능 추가·에러 대응 등 기술 지원을 받을 수 있습니다.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "global",
+            "question": "Shopify로 한국 전용 스토어도 만들 수 있나요?",
+            "answer": "<p>네. 국내 결제(PG)·원화(KRW)·한글 환경을 지원하며, 네이버페이·카카오페이·토스 등 주요 간편결제도 연동할 수 있습니다.</p><p>Shopify로도 국내 고객에게 익숙한 한국형 자사몰 구축이 가능합니다.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "global",
+            "question": "Shopify Payments를 쓰려면 미국 법인이 꼭 필요한가요?",
+            "answer": "<p>Shopify Payments는 지원 국가의 사업자 요건을 충족해야 합니다. 미국 법인을 설립하면 Shopify Payments를 활용해 다양한 국가의 결제와 통화를 하나의 스토어에서 운영할 수 있으며, B&ON Universe는 미국 법인 설립 절차도 함께 안내합니다.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "global",
+            "question": "여러 국가에 동시에 판매하려면 어떻게 해야 하나요?",
+            "answer": "<p>Shopify에서는 국가별 언어·통화·세금·배송을 관리할 수 있습니다. 운영 환경에 따라 국내·해외 스토어를 분리하거나, Shopify Payments를 활용해 하나의 스토어에서 다국가 판매 환경을 구축할 수 있습니다.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "category": "global",
+            "question": "향후 마케팅 연동이나 광고 추적도 가능한가요?",
+            "answer": "<p>네. Google Ads, Meta Pixel, TikTok Pixel, Klaviyo 등 주요 마케팅 도구를 연동할 수 있으며, 런칭 후 GA4 기반 전환 추적과 리타게팅 광고 설정도 지원합니다.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

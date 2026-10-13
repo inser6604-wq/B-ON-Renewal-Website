@@ -1,0 +1,123 @@
+/* Figma 560:118. Static content scoped to the section after the existing Hero. */
+.bnon-shopify-build {
+  color: var(--bnon-color-black);
+  background: var(--bnon-color-white);
+}
+.bnon-shopify-build__inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 87px clamp(32px, 7.431vw, 107px) 82px clamp(32px, 7.361vw, 106px);
+}
+.bnon-shopify-build :is(p, h2, h3) { margin: 0; }
+.bnon-shopify-build__label-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--bnon-color-black);
+}
+.bnon-shopify-build__label {
+  color: var(--bnon-color-blue);
+  font-family: var(--bnon-font-latin);
+  font-size: 26px;
+  font-weight: var(--bnon-weight-semibold);
+  line-height: 1.6;
+  letter-spacing: -.04em;
+}
+.bnon-shopify-build__intro { display: grid; gap: 70px; margin-top: 76px; }
+.bnon-shopify-build__title { display: grid; gap: 17px; width: min(419px, 100%); }
+.bnon-shopify-build__eyebrow {
+  font-family: var(--bnon-font-korean);
+  font-size: 26px;
+  font-weight: var(--bnon-weight-bold);
+  line-height: 1.4;
+  letter-spacing: -.04em;
+}
+.bnon-shopify-build__heading {
+  color: var(--bnon-color-black);
+  font-family: var(--bnon-font-latin);
+  font-size: 70px;
+  font-weight: var(--bnon-weight-bold);
+  line-height: 1.2;
+  letter-spacing: -.04em;
+  overflow-wrap: anywhere;
+}
+.bnon-shopify-build__accent { color: var(--bnon-color-mint); }
+.bnon-shopify-build__copy { display: grid; gap: 30px; }
+.bnon-shopify-build__paragraph {
+  font-family: var(--bnon-font-korean);
+  font-size: 20px;
+  font-weight: var(--bnon-weight-medium);
+  line-height: 1.4;
+  letter-spacing: -.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.bnon-shopify-build__paragraph--primary > p:first-child { font-weight: var(--bnon-weight-regular); }
+.bnon-shopify-build__paragraph--secondary { font-weight: var(--bnon-weight-bold); }
+.bnon-shopify-build__paragraph--secondary > p:first-child { font-weight: var(--bnon-weight-medium); }
+.bnon-shopify-build__paragraph strong { font-weight: var(--bnon-weight-extrabold); }
+.bnon-shopify-build__pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 289px));
+  gap: clamp(24px, 11.111vw, 160px);
+  margin: 90px 0 0;
+  padding: 10px;
+  list-style: none;
+}
+.bnon-shopify-build__pillar { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.bnon-shopify-build__number {
+  font-family: var(--bnon-font-korean);
+  font-size: 30px;
+  font-weight: var(--bnon-weight-bold);
+  line-height: 1.4;
+  letter-spacing: -.04em;
+}
+.bnon-shopify-build__pillar-heading {
+  border-bottom: 1px solid var(--bnon-color-black);
+  color: var(--bnon-color-blue);
+  font-family: var(--bnon-font-latin);
+  font-size: 24px;
+  font-weight: var(--bnon-weight-bold);
+  line-height: 1.8;
+  letter-spacing: -.04em;
+  overflow-wrap: anywhere;
+}
+.bnon-shopify-build__pillar-description {
+  font-family: var(--bnon-font-korean);
+  font-size: 20px;
+  font-weight: var(--bnon-weight-medium);
+  line-height: 1.4;
+  letter-spacing: -.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+@media screen and (max-width: 1199px) {
+  .bnon-shopify-build__inner { padding-inline: 32px; }
+  .bnon-shopify-build__pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+}
+@media screen and (max-width: 1023px) {
+  .bnon-shopify-build__inner { padding-block: 64px; }
+  .bnon-shopify-build__intro { gap: 56px; margin-top: 60px; }
+  .bnon-shopify-build__heading { font-size: 60px; }
+  .bnon-shopify-build__pillars { gap: 24px; margin-top: 64px; }
+  .bnon-shopify-build__pillar-heading { font-size: 22px; }
+  .bnon-shopify-build__pillar-description { font-size: 18px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-shopify-build__inner { padding: 48px 24px 64px; }
+  .bnon-shopify-build__label { font-size: 18px; }
+  .bnon-shopify-build__intro { gap: 40px; margin-top: 48px; }
+  .bnon-shopify-build__title { gap: 14px; }
+  .bnon-shopify-build__eyebrow { font-size: 20px; }
+  .bnon-shopify-build__heading { font-size: clamp(40px, 10.256vw, 56px); }
+  .bnon-shopify-build__copy { gap: 24px; }
+  .bnon-shopify-build__paragraph { font-size: 16px; }
+  .bnon-shopify-build__pillars { grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 48px; padding: 0; }
+  .bnon-shopify-build__number { font-size: 26px; }
+  .bnon-shopify-build__pillar-description { font-size: 16px; }
+}
+@media screen and (max-width: 480px) {
+  .bnon-shopify-build__inner { padding-inline: 20px; }
+}

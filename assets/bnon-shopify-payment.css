@@ -1,0 +1,100 @@
+/* Figma 560:363. Static diagram; styles are scoped to this section. */
+.bnon-shopify-payment { background: var(--payment-background, #f9f7f7); }
+.bnon-shopify-payment__inner { box-sizing: border-box; width: 100%; max-width: 1440px; margin-inline: auto; padding: 80px clamp(32px, 7.361vw, 106px) 112px clamp(32px, 7.431vw, 107px); }
+.bnon-shopify-payment :is(p, h2, h3) { margin: 0; }
+.bnon-shopify-payment__label-row { display: flex; padding: 10px 4px; border-bottom: 1px solid var(--bnon-color-black); }
+.bnon-shopify-payment__label { color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: 26px; font-weight: var(--bnon-weight-semibold); line-height: 1.6; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.bnon-shopify-payment__heading { margin-top: 60px !important; font-family: var(--bnon-font-korean); font-size: 30px; font-weight: var(--bnon-weight-bold); line-height: 1.4; letter-spacing: -.04em; white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-shopify-payment__accent { color: var(--bnon-color-mint); }
+.bnon-shopify-payment__diagram { display: grid; grid-template-columns: minmax(0, 575fr) minmax(0, 433fr); gap: 62px; max-width: 1070px; margin: 75px 0 0 clamp(48px, 6.806vw, 98px); }
+.bnon-shopify-payment__flows { display: grid; gap: 86px; min-width: 0; }
+.bnon-shopify-payment__flow { position: relative; min-width: 0; }
+.bnon-shopify-payment__flow--domestic { margin-left: 4px; }
+.bnon-shopify-payment__market { color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: 30px; font-weight: var(--bnon-weight-bold); line-height: 1.4; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.bnon-shopify-payment__flow--global .bnon-shopify-payment__market { color: var(--bnon-color-mint); }
+.bnon-shopify-payment__steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr) 56.402px) minmax(0, 1fr); align-items: center; gap: 18.607px; margin-top: 61px; }
+.bnon-shopify-payment__flow--global .bnon-shopify-payment__steps { grid-template-columns: repeat(2, minmax(0, 1fr) 55.995px) minmax(0, 1fr); gap: 18.473px; max-width: 566.882px; margin-top: 71px; }
+.bnon-shopify-payment__circle { display: grid; place-items: center; box-sizing: border-box; min-width: 0; min-height: 127px; padding: 11.629px; border: 1.163px solid #8e8e8e; border-radius: 50%; font-family: var(--bnon-font-korean); font-size: 18.607px; font-weight: var(--bnon-weight-semibold); line-height: 1.4; letter-spacing: -.04em; text-align: center; white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-shopify-payment__currency { font-size: 23.259px; }
+.bnon-shopify-payment__flow--global .bnon-shopify-payment__circle { border-width: 1.155px; font-size: 18.473px; padding: 11.545px; }
+.bnon-shopify-payment__flow--global .bnon-shopify-payment__currency { font-size: 16.164px; padding-inline: 4px; }
+.bnon-shopify-payment__line { position: relative; height: 2.326px; }
+.bnon-shopify-payment__line img { position: absolute; top: 50%; left: 50%; max-width: none; transform: translate(-50%, -50%) rotate(-90deg); }
+.bnon-shopify-payment__connector { position: absolute; top: 165px; left: calc(100% + 36.5px); pointer-events: none; }
+.bnon-shopify-payment__connector img { display: block; max-width: none; }
+.bnon-shopify-payment__flow:nth-child(2) .bnon-shopify-payment__connector { top: 109px; transform: scaleY(-1); }
+.bnon-shopify-payment__result { position: relative; align-self: center; display: grid; gap: 25px; min-width: 0; text-align: center; transform: translateY(47.1px); }
+.bnon-shopify-payment__result-heading { font-family: var(--bnon-font-latin); font-size: clamp(32px, 2.778vw, 40px); font-weight: var(--bnon-weight-medium); line-height: 1.4; letter-spacing: -.04em; white-space: pre-wrap; overflow-wrap: anywhere; }
+.bnon-shopify-payment__result-title { position: relative; min-width: 0; }
+.bnon-shopify-payment__result-description { font-size: 26px; font-weight: var(--bnon-weight-bold); line-height: 1.4; letter-spacing: -.04em; white-space: pre-wrap; overflow-wrap: anywhere; }
+.bnon-shopify-payment__underline { position: absolute; top: calc(100% - 7.5px); left: 0; pointer-events: none; }
+.bnon-shopify-payment__underline img { display: block; max-width: none; }
+.bnon-shopify-payment__diagram--empty { grid-template-columns: minmax(0, 1fr); }
+.bnon-shopify-payment__diagram--empty .bnon-shopify-payment__flows { display: none; }
+.bnon-shopify-payment__diagram--empty .bnon-shopify-payment__result { justify-self: center; max-width: 433px; }
+@media screen and (min-width: 1200px) and (max-width: 1399px) {
+  .bnon-shopify-payment__diagram { gap: 48px; margin-left: 48px; }
+  .bnon-shopify-payment__steps { grid-template-columns: repeat(2, minmax(0, 1fr) 42px) minmax(0, 1fr); gap: 12px; }
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__steps { grid-template-columns: repeat(2, minmax(0, 1fr) 42px) minmax(0, 1fr); gap: 12px; }
+  .bnon-shopify-payment__line { transform: scale(.75); }
+  .bnon-shopify-payment__circle { min-height: 0; aspect-ratio: 1; padding: 8px; font-size: 16px; }
+  .bnon-shopify-payment__currency { font-size: 20px; }
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__circle { font-size: 16px; padding: 8px; }
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__currency { font-size: 13px; padding-inline: 3px; }
+  .bnon-shopify-payment__connector { left: calc(100% + 23px); top: 154.5px; transform: scale(.8); transform-origin: left center; }
+  .bnon-shopify-payment__flow:nth-child(2) .bnon-shopify-payment__connector { top: 98.5px; transform: scale(.8, -.8); }
+  .bnon-shopify-payment__underline { left: 50%; transform: translateX(-50%) scale(.85); transform-origin: center top; }
+}
+@media screen and (max-width: 1199px) {
+  .bnon-shopify-payment__inner { padding: 64px 32px 80px; }
+  .bnon-shopify-payment__diagram { max-width: 1070px; margin: 64px auto 0; gap: 32px; }
+  .bnon-shopify-payment__flows { gap: 64px; }
+  .bnon-shopify-payment__flow--domestic { margin-left: 0; }
+  .bnon-shopify-payment__market { font-size: 24px; }
+  .bnon-shopify-payment__steps, .bnon-shopify-payment__flow--global .bnon-shopify-payment__steps { grid-template-columns: repeat(2, minmax(0, 1fr) 30px) minmax(0, 1fr); gap: 10px; margin-top: 32px; }
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__steps { margin-top: 42px; }
+  .bnon-shopify-payment__circle, .bnon-shopify-payment__flow--global .bnon-shopify-payment__circle { min-height: 0; aspect-ratio: 1; padding: 6px; font-size: 13px; }
+  .bnon-shopify-payment__currency { font-size: 18px; }
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__currency { font-size: 11px; padding-inline: 2px; }
+  .bnon-shopify-payment__line { transform: scale(.5); }
+  .bnon-shopify-payment__connector { top: calc(100% - 48px); left: calc(100% + 16px); transform: scale(.66); transform-origin: left top; }
+  .bnon-shopify-payment__flow:nth-child(2) .bnon-shopify-payment__connector { top: calc(100% - 48px); transform: scale(.66, -.66); }
+  .bnon-shopify-payment__result { transform: translateY(25px); gap: 20px; }
+  .bnon-shopify-payment__result-heading { font-size: 26px; }
+  .bnon-shopify-payment__result-description { font-size: 22px; }
+  .bnon-shopify-payment__underline { left: 50%; transform: translateX(-50%) scale(.65); transform-origin: center top; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-shopify-payment__inner { padding: 48px 24px 64px; }
+  .bnon-shopify-payment__label { font-size: 18px; }
+  .bnon-shopify-payment__heading { margin-top: 40px !important; font-size: 24px; }
+  .bnon-shopify-payment__diagram { display: flex; flex-direction: column; margin-top: 48px; gap: 24px; }
+  .bnon-shopify-payment__flows { display: contents; }
+  .bnon-shopify-payment__flow:first-child { order: 1; }
+  .bnon-shopify-payment__flow:nth-child(2) { order: 3; display: flex; flex-direction: column; }
+  .bnon-shopify-payment__market { font-size: 24px; }
+  .bnon-shopify-payment__steps, .bnon-shopify-payment__flow--global .bnon-shopify-payment__steps { grid-template-columns: repeat(2, minmax(0, 1fr) 20px) minmax(0, 1fr); gap: 4px; margin-top: 24px; }
+  .bnon-shopify-payment__circle, .bnon-shopify-payment__flow--global .bnon-shopify-payment__circle { min-height: clamp(74px, calc((100vw - 96px) / 3), 96px); aspect-ratio: auto; width: 100%; max-width: 96px; justify-self: center; padding: 6px; font-size: 14px; }
+  .bnon-shopify-payment__currency { font-size: 18px; }
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__currency { font-size: 11px; padding-inline: 2px; }
+  .bnon-shopify-payment__line { transform: scale(.35); }
+  .bnon-shopify-payment__connector, .bnon-shopify-payment__flow:nth-child(2) .bnon-shopify-payment__connector { position: relative; display: block; top: auto; left: auto; width: 40px; height: 98px; margin: 24px auto 0; transform: none; }
+  .bnon-shopify-payment__connector img { position: absolute; left: 40px; top: 0; transform: rotate(90deg) scale(.4); transform-origin: left top; }
+  .bnon-shopify-payment__flow:nth-child(2) .bnon-shopify-payment__connector { order: -1; margin: 0 auto 24px; }
+  .bnon-shopify-payment__flow:nth-child(2) .bnon-shopify-payment__connector img { left: 0; top: 98px; transform: rotate(-90deg) scale(.4); }
+  .bnon-shopify-payment__result { order: 2; width: 100%; max-width: 320px; gap: 20px; transform: none; }
+  .bnon-shopify-payment__result-heading { font-size: 28px; }
+  .bnon-shopify-payment__result-description { font-size: 22px; }
+  .bnon-shopify-payment__underline { transform: translateX(-50%) scale(.72); }
+}
+@media screen and (max-width: 480px) {
+  .bnon-shopify-payment__inner { padding-inline: 20px; }
+  .bnon-shopify-payment__result { max-width: 267px; }
+  .bnon-shopify-payment__result-heading { font-size: 24px; }
+  .bnon-shopify-payment__underline { transform: translateX(-50%) scale(.6); }
+  .bnon-shopify-payment__currency { font-size: 16px; }
+}
+@media screen and (max-width: 359px) {
+  .bnon-shopify-payment__circle, .bnon-shopify-payment__flow--global .bnon-shopify-payment__circle { font-size: 12px; }
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__currency { font-size: 10px; }
+}

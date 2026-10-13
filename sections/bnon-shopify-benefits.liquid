@@ -1,0 +1,167 @@
+{{ 'bnon-shopify-benefits.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="bnon-section bnon-shopify-benefits"
+  {% if section.settings.heading != blank %}aria-labelledby="ShopifyBenefitsHeading-{{ section.id }}"{% endif %}
+  style="--why-shopify-background: {{ section.settings.background_color | default: '#f9f7f7' | escape }};"
+>
+  <div class="bnon-shopify-benefits__inner">
+    {%- if section.settings.label != blank -%}
+      <div class="bnon-shopify-benefits__label-row">
+        <p class="bnon-shopify-benefits__label">{{ section.settings.label | escape }}</p>
+      </div>
+    {%- endif -%}
+
+    <div class="bnon-shopify-benefits__intro">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="bnon-shopify-benefits__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="bnon-shopify-benefits__heading" id="ShopifyBenefitsHeading-{{ section.id }}">{{ section.settings.heading | escape }}<span class="bnon-shopify-benefits__accent">{{ section.settings.heading_accent | escape }}</span></h2>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="bnon-shopify-benefits__grid">
+        {%- for block in section.blocks -%}
+          {%- assign benefit_number = forloop.index | prepend: '0' -%}
+          <article class="bnon-shopify-benefits__card" {{ block.shopify_attributes }}>
+            <div class="bnon-shopify-benefits__number-row">
+              <p class="bnon-shopify-benefits__number" aria-hidden="true">{{ block.settings.number | default: benefit_number | escape }}</p>
+            </div>
+            <div class="bnon-shopify-benefits__card-content">
+              {%- if block.settings.title != blank -%}
+                <div class="bnon-shopify-benefits__badge-row">
+                  <h3 class="bnon-shopify-benefits__badge">{{ block.settings.title | escape }}</h3>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.lead != blank -%}<p class="bnon-shopify-benefits__lead">{{ block.settings.lead | escape }}</p>{%- endif -%}
+              {%- if block.settings.description != blank -%}<p class="bnon-shopify-benefits__description">{{ block.settings.description | escape }}</p>{%- endif -%}
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Why Shopify",
+  "tag": "div",
+  "class": "bnon-shopify-benefits-section",
+  "limit": 1,
+  "enabled_on": {
+    "templates": [
+      "page"
+    ]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "섹션 라벨",
+      "default": "WHY SHOPIFY?"
+    },
+    {
+      "type": "textarea",
+      "id": "eyebrow",
+      "label": "제목 위 소개",
+      "default": "글로벌 커머스의 시작,"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "제목",
+      "default": "SHOPIFY"
+    },
+    {
+      "type": "text",
+      "id": "heading_accent",
+      "label": "제목 끝 민트색 문자",
+      "default": "."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "배경 색상",
+      "default": "#f9f7f7"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Shopify 장점",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "번호",
+          "info": "비워두면 현재 항목 순서에 따라 번호를 표시합니다."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "영문 항목명"
+        },
+        {
+          "type": "textarea",
+          "id": "lead",
+          "label": "핵심 문구"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "항목 설명",
+          "info": "줄바꿈이 화면에 그대로 반영됩니다."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON Why Shopify",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "number": "01",
+            "title": "CONVERSION",
+            "lead": "더 짧은 구매 흐름으로 전환을 높입니다.",
+            "description": "간결한 결제 단계와 편리한 결제 경험으로 이탈을 줄이고,\n고객이 구매까지 자연스럽게 이어지도록 설계합니다."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "number": "02",
+            "title": "EFFICIENCY",
+            "lead": "운영은 간편하게, 비용은 효율적으로.",
+            "description": "서버·보안·업데이트 부담을 줄이고 관리자가 직접\n운영할 수 있어,  운영 비용을 절감하고 비즈니스 성장에 집중할 수 있습니다."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "number": "03",
+            "title": "GLOBAL",
+            "lead": "하나의 스토어에서 글로벌 시장으로.",
+            "description": "국가별 통화·세금·배송 환경에 대응하고 국내외 고객을\n함께 관리해, 별도의 복잡한 시스템 없이 글로벌 판매로\n확장할 수 있습니다."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "number": "04",
+            "title": "SCALE",
+            "lead": "브랜드의 성장과 함께 확장됩니다.",
+            "description": "Amazon·Meta·TikTok 등 다양한 판매 채널과 연결하고 데이터를 축적해, 채널이 늘어나도 지속적으로\n확장 가능한 커머스 환경을 만듭니다."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

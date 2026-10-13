@@ -1,0 +1,56 @@
+/* Figma 560:294. Static fifth section; no shared component styles are changed. */
+.bnon-shopify-benefits { background: var(--why-shopify-background, #f9f7f7); }
+.bnon-shopify-benefits__inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 80px clamp(32px, 7.361vw, 106px) 120px clamp(32px, 7.431vw, 107px);
+}
+.bnon-shopify-benefits :is(p, h2, h3) { margin: 0; }
+.bnon-shopify-benefits__label-row { display: flex; padding: 10px 4px; border-bottom: 1px solid var(--bnon-color-black); }
+.bnon-shopify-benefits__label { color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: 26px; font-weight: var(--bnon-weight-semibold); line-height: 1.6; letter-spacing: -.04em; }
+.bnon-shopify-benefits__intro { display: grid; gap: 8px; width: min(100%, 243px); margin-top: 60px; }
+.bnon-shopify-benefits__eyebrow { font-size: 30px; font-weight: var(--bnon-weight-bold); line-height: 1.4; letter-spacing: -.04em; white-space: pre-wrap; overflow-wrap: anywhere; }
+.bnon-shopify-benefits__heading { color: var(--bnon-color-black); font-family: var(--bnon-font-korean); font-size: 45px; font-weight: var(--bnon-weight-bold); line-height: 1.4; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.bnon-shopify-benefits__accent { color: var(--bnon-color-mint); }
+.bnon-shopify-benefits__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 382px)); align-items: center; gap: 38px clamp(48px, 19.653vw, 283px); max-width: 1047px; margin: 40px 0 0 4px; }
+.bnon-shopify-benefits__card { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.bnon-shopify-benefits__number-row { display: flex; align-items: center; height: 60px; padding-right: 10px; }
+.bnon-shopify-benefits__number { width: 100%; color: var(--bnon-color-blue); opacity: .14; font-size: 70px; font-weight: var(--bnon-weight-bold); line-height: 1.2; letter-spacing: -.04em; }
+.bnon-shopify-benefits__card-content { display: grid; gap: 30px; }
+.bnon-shopify-benefits__badge-row { box-sizing: border-box; width: 100%; max-width: 382px; padding-block: 10px; border-bottom: 1px solid var(--bnon-color-black); }
+.bnon-shopify-benefits__badge { display: inline-block; max-width: 100%; padding: 10px; border-radius: 5px; color: var(--bnon-color-white); background: var(--bnon-color-blue); font-family: var(--bnon-font-korean); font-size: 22px; font-weight: var(--bnon-weight-bold); line-height: 1.4; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.bnon-shopify-benefits__lead { font-size: 18px; font-weight: var(--bnon-weight-bold); line-height: 26px; letter-spacing: -.04em; white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-shopify-benefits__description { font-size: 16px; font-weight: var(--bnon-weight-medium); line-height: 1.6; letter-spacing: -.04em; white-space: pre-wrap; word-break: keep-all; overflow-wrap: anywhere; }
+@media screen and (min-width: 1200px) {
+  .bnon-shopify-benefits__lead { max-width: 333px; }
+  .bnon-shopify-benefits__card:nth-child(3) .bnon-shopify-benefits__lead { max-width: 348px; }
+  .bnon-shopify-benefits__card:nth-child(3) { width: 385px; }
+  .bnon-shopify-benefits__card:nth-child(4) { width: 382px; margin-left: -10px; }
+  .bnon-shopify-benefits__card:nth-child(3) .bnon-shopify-benefits__number-row { height: 70px; align-items: flex-start; padding-right: 0; }
+  .bnon-shopify-benefits__card:nth-child(3) .bnon-shopify-benefits__number { height: 70px; }
+  .bnon-shopify-benefits__card:nth-child(4) .bnon-shopify-benefits__number-row { height: 67px; }
+  .bnon-shopify-benefits__card:nth-child(4) .bnon-shopify-benefits__number { height: 70px; }
+}
+@media screen and (max-width: 1199px) {
+  .bnon-shopify-benefits__inner { padding: 64px 32px 80px; }
+  .bnon-shopify-benefits__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; column-gap: 48px; }
+  .bnon-shopify-benefits__number { font-size: 64px; }
+  .bnon-shopify-benefits__badge { font-size: 20px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-shopify-benefits__inner { padding: 48px 24px 64px; }
+  .bnon-shopify-benefits__label { font-size: 18px; }
+  .bnon-shopify-benefits__intro { gap: 8px; margin-top: 40px; }
+  .bnon-shopify-benefits__eyebrow { font-size: 24px; }
+  .bnon-shopify-benefits__heading { font-size: 36px; }
+  .bnon-shopify-benefits__grid { grid-template-columns: minmax(0, 1fr); gap: 40px; margin: 40px 0 0; }
+  .bnon-shopify-benefits__number-row { height: 60px; }
+  .bnon-shopify-benefits__number { font-size: 56px; }
+  .bnon-shopify-benefits__card-content { gap: 24px; }
+  .bnon-shopify-benefits__badge-row { max-width: none; }
+}
+@media screen and (max-width: 480px) {
+  .bnon-shopify-benefits__inner { padding-inline: 20px; }
+}

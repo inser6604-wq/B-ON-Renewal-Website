@@ -1,0 +1,35 @@
+{%- comment -%}
+  Preserve editor-provided URLs and resolve published Pages first. Until the
+  first detail Page is created, its implemented template can be previewed on
+  the existing Service Page using Shopify's verified alternative-view URL.
+{%- endcomment -%}
+{%- liquid
+  assign detail_url = link
+  if detail_url == blank
+    assign detail_handle = blank
+    case service_key
+      when '01', 'SHOPIFY STORE DEVELOPMENT'
+        assign detail_handle = 'shopify-store-development'
+      when '02', 'DIGITAL MARKETING'
+        assign detail_handle = 'digital-marketing'
+      when '03', 'US CORPORATION & 3PL'
+        assign detail_handle = 'us-corporation-3pl'
+      when '04', 'AMAZON'
+        assign detail_handle = 'amazon'
+      when '05', 'SHOPIFY EDUCATION'
+        assign detail_handle = 'shopify-education'
+    endcase
+    if detail_handle != blank
+      assign detail_page = pages[detail_handle]
+      if detail_page != blank
+        assign detail_url = detail_page.url
+      elsif detail_handle == 'shopify-store-development'
+        assign service_page = pages['service']
+        if service_page != blank
+          assign detail_url = service_page.url | append: '?view=shopify-store-development'
+        endif
+      endif
+    endif
+  endif
+-%}
+{{- detail_url -}}

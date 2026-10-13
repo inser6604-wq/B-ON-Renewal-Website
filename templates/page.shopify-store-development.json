@@ -1,0 +1,258 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "shopify_detail": {
+      "type": "bnon-shopify-detail",
+      "settings": {
+        "heading": "SHOPIFY STORE DEVELOPMENT",
+        "subtitle": "쇼피파이 자사몰 구축",
+        "description": "브랜드의 가능성을 글로벌 스토어로 구현합니다.",
+        "contact_label": "프로젝트 문의하기",
+        "use_design_images": true,
+        "enable_scroll": true,
+        "scroll_range": 140,
+        "enable_mobile_scroll": true
+      },
+      "blocks": {
+        "service_01": { "type": "service", "settings": { "number": "01", "label": "쇼피파이 자사몰 구축" } },
+        "service_02": { "type": "service", "settings": { "number": "02", "label": "디지털 마케팅" } },
+        "service_03": { "type": "service", "settings": { "number": "03", "label": "미국 법인 설립 & 3PL" } },
+        "service_04": { "type": "service", "settings": { "number": "04", "label": "아마존 입점" } },
+        "service_05": { "type": "service", "settings": { "number": "05", "label": "쇼피파이 관리자 교육" } }
+      },
+      "block_order": ["service_01", "service_02", "service_03", "service_04", "service_05"]
+    },
+    "shopify_build": {
+      "type": "bnon-shopify-build",
+      "settings": { "label": "WHAT WE BUILD" },
+      "blocks": {
+        "build_design": { "type": "pillar", "settings": { "number": "01", "heading": "DESIGN", "description": "브랜드 아이덴티티를\n반영한 디자인" } },
+        "build_technology": { "type": "pillar", "settings": { "number": "02", "heading": "TECHNOLOGY", "description": "Shopify 기반의\n안정적인 기술 환경" } },
+        "build_data": { "type": "pillar", "settings": { "number": "03", "heading": "DATA", "description": "고객 여정과 전환을\n고려한 구조" } }
+      },
+      "block_order": ["build_design", "build_technology", "build_data"]
+    },
+    "shopify_mission": {
+      "type": "bnon-shopify-mission",
+      "settings": { "label": "OUR MISSION" }
+    },
+    "shopify_process": {
+      "type": "bnon-shopify-process",
+      "settings": {
+        "heading": "OUR BUILD PROCESS",
+        "enable_autoplay": true,
+        "autoplay_interval": 5.5
+      },
+      "blocks": {
+        "process_01": {
+          "type": "step",
+          "settings": {
+            "title_en": "STRATEGY",
+            "title": "전략 수립",
+            "lead": "브랜드의 방향에서 시작합니다.",
+            "description": "<p>단순히 ‘사이트를 만드는’ 수준이 아니라, 브랜드가 <strong>지속적으로 성장할 수 있는 판매 구조와 확장 전략을 함께 설계</strong>합니다.</p><p>시장·경쟁사·고객 데이터를 기반으로 브랜드에 적합한 전략과 구조를 설계합니다.</p>"
+          }
+        },
+        "process_02": {
+          "type": "step",
+          "settings": {
+            "title_en": "UX/UI DESIGN",
+            "title": "UX/UI 기획",
+            "lead": "브랜드 경험을 구매 경험으로 연결합니다.",
+            "description": "<p>브랜드 아이덴티티와 고객의 구매 여정을 바탕으로 UX/UI를 설계하고,</p><p>직관적인 탐색과 자연스러운 구매 전환을 고려한 경험을 구축합니다.</p>"
+          }
+        },
+        "process_03": {
+          "type": "step",
+          "settings": {
+            "title_en": "DEVELOPMENT",
+            "title": "개발 및 세팅",
+            "lead": "디자인을 실제 Shopify 스토어로 구현합니다.",
+            "description": "<p>확정된 디자인을 기반으로 스토어와 필요한 기능을 개발하고,</p><p>다양한 디바이스에 최적화된 안정적인 반응형 환경을 구축합니다.</p>"
+          }
+        },
+        "process_04": {
+          "type": "step",
+          "settings": {
+            "title_en": "PAYMENT & SHIPPING",
+            "title": "결제·배송 세팅",
+            "lead": "구매부터 배송까지 원활하게 연결합니다.",
+            "description": "<p>판매 국가와 운영 환경에 적합한 결제 및 배송 시스템을 설정하고,</p><p>국내외 고객이 편리하게 구매할 수 있는 커머스 환경을 구축합니다.</p>"
+          }
+        },
+        "process_05": {
+          "type": "step",
+          "settings": {
+            "title_en": "TEST & LAUNCH",
+            "title": "테스트 및 런칭",
+            "lead": "오픈 전, 스토어의 모든 흐름을 점검합니다.",
+            "description": "<p>결제·배송·주문 등 주요 기능과 실제 사용자 흐름을 테스트하고,</p><p>최종 안정화 과정을 거쳐 완성된 스토어를 런칭합니다.</p>"
+          }
+        },
+        "process_06": {
+          "type": "step",
+          "settings": {
+            "title_en": "OPERATION SUPPORT",
+            "title": "운영 지원",
+            "lead": "런칭 이후의 운영까지 함께합니다.",
+            "description": "<p>스토어 오픈 이후 안정적인 운영을 위한 실무 지원을 제공하고,</p><p>브랜드가 직접 관리하며 지속적으로 성장할 수 있도록 돕습니다.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "process_01",
+        "process_02",
+        "process_03",
+        "process_04",
+        "process_05",
+        "process_06"
+      ]
+    },
+    "shopify_benefits": {
+      "type": "bnon-shopify-benefits",
+      "settings": { "label": "WHY SHOPIFY?" },
+      "blocks": {
+        "benefit_01": {
+          "type": "benefit",
+          "settings": {
+            "number": "01",
+            "title": "CONVERSION",
+            "lead": "더 짧은 구매 흐름으로 전환을 높입니다.",
+            "description": "간결한 결제 단계와 편리한 결제 경험으로 이탈을 줄이고,\n고객이 구매까지 자연스럽게 이어지도록 설계합니다."
+          }
+        },
+        "benefit_02": {
+          "type": "benefit",
+          "settings": {
+            "number": "02",
+            "title": "EFFICIENCY",
+            "lead": "운영은 간편하게, 비용은 효율적으로.",
+            "description": "서버·보안·업데이트 부담을 줄이고 관리자가 직접\n운영할 수 있어,  운영 비용을 절감하고 비즈니스 성장에 집중할 수 있습니다."
+          }
+        },
+        "benefit_03": {
+          "type": "benefit",
+          "settings": {
+            "number": "03",
+            "title": "GLOBAL",
+            "lead": "하나의 스토어에서 글로벌 시장으로.",
+            "description": "국가별 통화·세금·배송 환경에 대응하고 국내외 고객을\n함께 관리해, 별도의 복잡한 시스템 없이 글로벌 판매로\n확장할 수 있습니다."
+          }
+        },
+        "benefit_04": {
+          "type": "benefit",
+          "settings": {
+            "number": "04",
+            "title": "SCALE",
+            "lead": "브랜드의 성장과 함께 확장됩니다.",
+            "description": "Amazon·Meta·TikTok 등 다양한 판매 채널과 연결하고 데이터를 축적해, 채널이 늘어나도 지속적으로\n확장 가능한 커머스 환경을 만듭니다."
+          }
+        }
+      },
+      "block_order": [
+        "benefit_01",
+        "benefit_02",
+        "benefit_03",
+        "benefit_04"
+      ]
+    },
+    "shopify_payment": {
+      "type": "bnon-shopify-payment",
+      "settings": { "label": "PAYMENT SYSTEM" },
+      "blocks": {
+        "payment_domestic": { "type": "flow", "settings": { "market": "domestic", "title": "DOMESTIC", "currency": "KRW", "gateway": "국내 결제 PG", "customer": "국내 고객" } },
+        "payment_global": { "type": "flow", "settings": { "market": "global", "title": "GLOBAL", "currency": "USD · EUR · GBP", "gateway": "SHOPIFY\nPAYMENTS", "customer": "글로벌 고객" } }
+      },
+      "block_order": ["payment_domestic", "payment_global"]
+    },
+    "shopify_faq": {
+      "type": "bnon-shopify-faq",
+      "settings": {},
+      "blocks": {
+        "faq_01": {
+          "type": "faq",
+          "settings": {
+            "category": "build",
+            "question": "구축 비용은 어떻게 산정되나요?",
+            "answer": "<p>온·오프라인 기능과 디자인 범위에 따라 견적이 달라집니다.</p><p>사이트맵(메뉴 구조)과 상품 수를 함께 전달해주시면 더욱 빠른 견적 안내가 가능합니다.</p><p>사전 미팅을 통해 브랜드 현황과 목표, 시장을 진단한 뒤 맞춤형 방향을 제안드립니다.</p>"
+          }
+        },
+        "faq_02": {
+          "type": "faq",
+          "settings": {
+            "category": "build",
+            "question": "구축 기간은 얼마나 걸리나요?",
+            "answer": "<p>작업 범위에 따라 달라집니다. 상품 3개 이하의 초기 브랜드는 최단 3일, 기본 구조는 약 2~3주, 커스텀 디자인·다국어·구독 기능 포함 시 6~8주 정도 소요됩니다. 검수와 런칭 테스트를 포함한 일정이며, 프로젝트별 타임라인을 공유합니다.</p>"
+          }
+        },
+        "faq_03": {
+          "type": "faq",
+          "settings": {
+            "category": "build",
+            "question": "구축 이후 운영은 직접 해야 하나요?",
+            "answer": "<p>네. Shopify 관리자에서 상품·재고·할인·고객 관리와 콘텐츠 수정을 직접 할 수 있습니다. 필요 시 관리자 실무 교육 또는 유지관리·운영 대행도 별도로 진행할 수 있습니다.</p>"
+          }
+        },
+        "faq_04": {
+          "type": "faq",
+          "settings": {
+            "category": "build",
+            "question": "런칭 후 문제 발생 시 기술 지원은 어떻게 받나요?",
+            "answer": "<p>런칭 후 14일간 무상 점검을 제공합니다. 이후에는 월 또는 티켓 단위로 수정·기능 추가·에러 대응 등 기술 지원을 받을 수 있습니다.</p>"
+          }
+        },
+        "faq_05": {
+          "type": "faq",
+          "settings": {
+            "category": "global",
+            "question": "Shopify로 한국 전용 스토어도 만들 수 있나요?",
+            "answer": "<p>네. 국내 결제(PG)·원화(KRW)·한글 환경을 지원하며, 네이버페이·카카오페이·토스 등 주요 간편결제도 연동할 수 있습니다.</p><p>Shopify로도 국내 고객에게 익숙한 한국형 자사몰 구축이 가능합니다.</p>"
+          }
+        },
+        "faq_06": {
+          "type": "faq",
+          "settings": {
+            "category": "global",
+            "question": "Shopify Payments를 쓰려면 미국 법인이 꼭 필요한가요?",
+            "answer": "<p>Shopify Payments는 지원 국가의 사업자 요건을 충족해야 합니다. 미국 법인을 설립하면 Shopify Payments를 활용해 다양한 국가의 결제와 통화를 하나의 스토어에서 운영할 수 있으며, B&ON Universe는 미국 법인 설립 절차도 함께 안내합니다.</p>"
+          }
+        },
+        "faq_07": {
+          "type": "faq",
+          "settings": {
+            "category": "global",
+            "question": "여러 국가에 동시에 판매하려면 어떻게 해야 하나요?",
+            "answer": "<p>Shopify에서는 국가별 언어·통화·세금·배송을 관리할 수 있습니다. 운영 환경에 따라 국내·해외 스토어를 분리하거나, Shopify Payments를 활용해 하나의 스토어에서 다국가 판매 환경을 구축할 수 있습니다.</p>"
+          }
+        },
+        "faq_08": {
+          "type": "faq",
+          "settings": {
+            "category": "global",
+            "question": "향후 마케팅 연동이나 광고 추적도 가능한가요?",
+            "answer": "<p>네. Google Ads, Meta Pixel, TikTok Pixel, Klaviyo 등 주요 마케팅 도구를 연동할 수 있으며, 런칭 후 GA4 기반 전환 추적과 리타게팅 광고 설정도 지원합니다.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_01",
+        "faq_02",
+        "faq_03",
+        "faq_04",
+        "faq_05",
+        "faq_06",
+        "faq_07",
+        "faq_08"
+      ]
+    }
+  },
+  "order": ["shopify_detail", "shopify_build", "shopify_mission", "shopify_process", "shopify_benefits", "shopify_payment", "shopify_faq"]
+}

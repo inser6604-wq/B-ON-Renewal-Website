@@ -1,0 +1,98 @@
+{{ 'bnon-shopify-payment.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="bnon-section bnon-shopify-payment"
+  {% if section.settings.heading != blank %}aria-labelledby="ShopifyPaymentHeading-{{ section.id }}"{% endif %}
+  style="--payment-background: {{ section.settings.background_color | default: '#f9f7f7' | escape }};"
+>
+  <div class="bnon-shopify-payment__inner">
+    {%- if section.settings.label != blank -%}
+      <div class="bnon-shopify-payment__label-row"><p class="bnon-shopify-payment__label">{{ section.settings.label | escape }}</p></div>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="bnon-shopify-payment__heading" id="ShopifyPaymentHeading-{{ section.id }}">{{ section.settings.heading | escape }}<span class="bnon-shopify-payment__accent">{{ section.settings.heading_accent | escape }}</span></h2>
+    {%- endif -%}
+
+    <div class="bnon-shopify-payment__diagram{% if section.blocks.size == 0 %} bnon-shopify-payment__diagram--empty{% endif %}">
+      <div class="bnon-shopify-payment__flows">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign market = 'domestic'
+            if block.settings.market == 'global'
+              assign market = 'global'
+            endif
+            assign line_asset = 'bnon-shopify-payment-' | append: market | append: '-line.svg'
+            assign connector_asset = 'bnon-shopify-payment-' | append: market | append: '-connector.svg'
+            assign line_width = 2.32587
+            assign line_height = 57.5652
+            if market == 'global'
+              assign line_width = 2.30909
+              assign line_height = 57.15
+            endif
+          -%}
+          <article class="bnon-shopify-payment__flow bnon-shopify-payment__flow--{{ market }}" {{ block.shopify_attributes }}>
+            {%- if block.settings.title != blank -%}<h3 class="bnon-shopify-payment__market">{{ block.settings.title | escape }}</h3>{%- endif -%}
+            <div class="bnon-shopify-payment__steps" role="list" {% if block.settings.title != blank %}aria-label="{{ block.settings.title | escape }}"{% endif %}>
+              <div class="bnon-shopify-payment__circle bnon-shopify-payment__currency" role="listitem">{{ block.settings.currency | escape }}</div>
+              <span class="bnon-shopify-payment__line" aria-hidden="true"><img src="{{ line_asset | asset_url }}" alt="" width="{{ line_width }}" height="{{ line_height }}" loading="lazy"></span>
+              <div class="bnon-shopify-payment__circle" role="listitem">{{ block.settings.gateway | escape }}</div>
+              <span class="bnon-shopify-payment__line" aria-hidden="true"><img src="{{ line_asset | asset_url }}" alt="" width="{{ line_width }}" height="{{ line_height }}" loading="lazy"></span>
+              <div class="bnon-shopify-payment__circle" role="listitem">{{ block.settings.customer | escape }}</div>
+            </div>
+            <span class="bnon-shopify-payment__connector" aria-hidden="true"><img src="{{ connector_asset | asset_url }}" alt="" width="243" height="79.5" loading="lazy"></span>
+          </article>
+        {%- endfor -%}
+      </div>
+      <div class="bnon-shopify-payment__result">
+        {%- if section.settings.result_heading != blank -%}
+          <div class="bnon-shopify-payment__result-title">
+            <p class="bnon-shopify-payment__result-heading">{{ section.settings.result_heading | escape }}</p>
+            <span class="bnon-shopify-payment__underline" aria-hidden="true"><img src="{{ 'bnon-shopify-payment-underline.svg' | asset_url }}" alt="" width="445" height="20" loading="lazy"></span>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.result_description != blank -%}<p class="bnon-shopify-payment__result-description">{{ section.settings.result_description | escape }}</p>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Payment System",
+  "tag": "div",
+  "class": "bnon-shopify-payment-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 2,
+  "settings": [
+    { "type": "text", "id": "label", "label": "섹션 라벨", "default": "PAYMENT SYSTEM" },
+    { "type": "textarea", "id": "heading", "label": "제목", "default": "결제 구조가 곧 매출 구조입니다" },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 민트색 문자", "default": "." },
+    { "type": "textarea", "id": "result_heading", "label": "연결 결과 영문 제목", "default": "SCALABLE COMMERCE" },
+    { "type": "textarea", "id": "result_description", "label": "연결 결과 설명", "default": "국내에서 글로벌까지" },
+    { "type": "color", "id": "background_color", "label": "배경 색상", "default": "#f9f7f7" }
+  ],
+  "blocks": [
+    {
+      "type": "flow",
+      "name": "결제 흐름",
+      "settings": [
+        { "type": "select", "id": "market", "label": "결제 흐름 종류", "options": [{ "value": "domestic", "label": "국내 (파란색)" }, { "value": "global", "label": "글로벌 (민트색)" }], "default": "domestic" },
+        { "type": "text", "id": "title", "label": "흐름 제목" },
+        { "type": "textarea", "id": "currency", "label": "통화" },
+        { "type": "textarea", "id": "gateway", "label": "결제 시스템", "info": "줄바꿈이 그대로 반영됩니다." },
+        { "type": "textarea", "id": "customer", "label": "고객" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON Payment System",
+      "blocks": [
+        { "type": "flow", "settings": { "market": "domestic", "title": "DOMESTIC", "currency": "KRW", "gateway": "국내 결제 PG", "customer": "국내 고객" } },
+        { "type": "flow", "settings": { "market": "global", "title": "GLOBAL", "currency": "USD · EUR · GBP", "gateway": "SHOPIFY\nPAYMENTS", "customer": "글로벌 고객" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

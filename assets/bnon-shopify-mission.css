@@ -1,0 +1,89 @@
+/* Figma 560:560. Static third section; reuse the existing B&ON font/color tokens. */
+.bnon-shopify-mission {
+  color: var(--mission-text, var(--bnon-color-white));
+  background: var(--mission-background, var(--bnon-color-black));
+}
+.bnon-shopify-mission__inner {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 69px clamp(32px, 7.361vw, 106px) 110px clamp(32px, 7.431vw, 107px);
+}
+.bnon-shopify-mission :is(p, h2) { margin: 0; }
+.bnon-shopify-mission__label-row {
+  display: flex;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--mission-text, var(--bnon-color-white));
+}
+.bnon-shopify-mission__label {
+  color: var(--mission-accent, var(--bnon-color-mint));
+  font-family: var(--bnon-font-latin);
+  font-size: 26px;
+  font-weight: var(--bnon-weight-semibold);
+  line-height: 1.6;
+  letter-spacing: -.04em;
+}
+.bnon-shopify-mission .bnon-shopify-mission__heading {
+  width: min(419px, 100%);
+  margin-top: 76px;
+  color: var(--mission-text, var(--bnon-color-white));
+  font-family: var(--bnon-font-latin);
+  font-size: 70px;
+  font-weight: var(--bnon-weight-bold);
+  line-height: 1.2;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.bnon-shopify-mission__accent { color: var(--mission-accent, var(--bnon-color-mint)); }
+.bnon-shopify-mission__copy {
+  display: grid;
+  gap: 8px;
+  margin-top: 70px;
+  font-family: var(--bnon-font-korean);
+  font-size: 20px;
+  font-weight: var(--bnon-weight-medium);
+  line-height: 1.4;
+  letter-spacing: -.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.bnon-shopify-mission__copy > p:first-child { font-weight: var(--bnon-weight-regular); }
+.bnon-shopify-mission__copy strong {
+  color: var(--mission-accent, var(--bnon-color-mint));
+  font-weight: var(--bnon-weight-bold);
+  text-transform: uppercase;
+}
+.bnon-shopify-mission__partner {
+  display: grid;
+  gap: 14px;
+  margin-top: 80px;
+  font-family: var(--bnon-font-korean);
+  line-height: 1.4;
+  letter-spacing: -.04em;
+  text-align: right;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.bnon-shopify-mission__partner-intro { font-size: 20px; font-weight: var(--bnon-weight-regular); }
+.bnon-shopify-mission__partner-message { font-size: 30px; font-weight: var(--bnon-weight-bold); }
+@media screen and (max-width: 1199px) {
+  .bnon-shopify-mission__inner { padding: 64px 32px 80px; }
+  .bnon-shopify-mission .bnon-shopify-mission__heading { margin-top: 60px; font-size: 60px; }
+  .bnon-shopify-mission__copy { margin-top: 56px; }
+  .bnon-shopify-mission__partner { margin-top: 64px; }
+  .bnon-shopify-mission__partner-message { font-size: 26px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-shopify-mission__inner { padding: 48px 24px 64px; }
+  .bnon-shopify-mission__label { font-size: 18px; }
+  .bnon-shopify-mission .bnon-shopify-mission__heading { margin-top: 48px; font-size: clamp(40px, 8.333vw, 56px); }
+  .bnon-shopify-mission__copy { margin-top: 40px; font-size: 16px; }
+  .bnon-shopify-mission__partner { margin-top: 48px; }
+  .bnon-shopify-mission__partner-intro { font-size: 16px; }
+  .bnon-shopify-mission__partner-message { font-size: 24px; }
+}
+@media screen and (max-width: 480px) {
+  .bnon-shopify-mission__inner { padding-inline: 20px; }
+}

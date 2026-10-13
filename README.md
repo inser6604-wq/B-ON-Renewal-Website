@@ -57,3 +57,36 @@
 - `.env`, 토큰, 스토어 비밀번호는 Git에 올리지 않는다.
 
 자세한 화면 기준은 `design.md`, 기능/콘텐츠 기준은 `PRD.md`, Shopify 구현과 schema 기준은 `TRD.md`를 확인합니다.
+
+## Shopify 스토어 구축 상세페이지 (로컬 구현)
+
+Figma `560:24`의 Hero를 `page.shopify-store-development` 템플릿으로 구현했습니다. 기존 `layout/theme.liquid`의 Header, Breadcrumb, Footer를 재사용합니다. 시안에 포함되지 않은 본문 섹션은 추가하지 않았습니다.
+
+테마 템플릿 파일만 추가해도 Shopify 관리자의 페이지가 생성되지는 않습니다. 현재 공개 사이트맵에서 아래 상세페이지를 확인하지 못했으며, 자동 배포나 관리자 페이지 생성은 하지 않았습니다.
+
+| 서비스 | 생성할 페이지 핸들 (권장, 아직 실제 경로로 연결하지 않음) | 템플릿 |
+| --- | --- | --- |
+| 쇼피파이 스토어 구축 | `shopify-store-development` | `page.shopify-store-development` 구현됨 |
+| 디지털 마케팅 | `digital-marketing` | 후속 구현 |
+| 미국 법인 설립 & 물류 | `us-corporation-3pl` | 후속 구현 |
+| 아마존 입점 | `amazon` | 후속 구현 |
+| 쇼피파이 관리자 교육 | `shopify-education` | 후속 구현 |
+
+배포 승인 이후 Shopify에서 스토어 구축 페이지를 생성하고 해당 템플릿을 지정해야 합니다. 페이지가 실제로 존재하면 메인 What We Do, Service의 View Service, Footer의 Shopify 링크가 `pages[handle].url`을 통해 연결됩니다. 다른 핸들을 사용한다면 각 영역의 기존 링크 설정에 실제 페이지 URL을 지정합니다. 기존 설정의 링크를 우선하며, 미생성 페이지 URL은 출력하지 않습니다. 메인의 미연결 서비스는 기존 `/pages/service#service-01…05` 이동을 유지합니다.
+
+1번은 별도 Shopify 페이지 생성 전에도 개발 테마에서 확인할 수 있도록, 실제 존재하는 Service 페이지의 대체 템플릿 주소 `/pages/service?view=shopify-store-development`를 사용합니다. 이 주소는 개발 서버에서 정상 렌더링을 확인했습니다. 메인의 1번 자세히 보기, 기존 Service의 1번 View Service, Footer의 Shopify가 같은 주소로 연결됩니다. 실제 `shopify-store-development` 페이지를 생성하면 해당 페이지 URL을 자동으로 우선합니다. 2–5번은 상세 템플릿이 아직 없어 대체 상세 URL을 생성하지 않습니다.
+
+링크 QA: 실제 Shopify 개발 서버에서 Chrome 1440/768/390px로 위 세 링크를 각각 클릭해 동일한 상세 템플릿으로 이동하는 것을 확인했으며, 테스트 중 JavaScript 실행 오류는 없었습니다. 실기기 검증 및 라이브 배포는 하지 않았습니다.
+
+상세페이지 내 서비스 이동 목록은 블록별 `page` 선택으로 실제 페이지를 지정합니다. 아직 선택되지 않거나 생성되지 않은 서비스는 비활성 텍스트로 표시합니다. 기존 JSON 설정 및 Schema ID는 변경하지 않았습니다.
+
+새 Section의 테마 에디터 설정:
+
+- 영문/국문 제목, 소개 문구, 문의 버튼 문구와 링크
+- 데스크탑 및 모바일 목업 내부 이미지 (`image_picker`), 이미지 설명
+- 이미지 미선택 시 다운로드한 Figma 원본 이미지 사용 여부
+- 스크롤 애니메이션 활성화, 스크롤 구간 60–300vh, 모바일 애니메이션 활성화
+
+Hero의 두 화면은 고정된 비율과 `overflow: hidden`을 유지합니다. 페이지 스크롤 진행률에 따라 내부 이미지만 `translateY`로 이동하며, 이동량은 각 이미지의 실제 렌더링 높이에서 화면 높이를 뺀 값입니다. 연출 구간에서는 화면 그룹이 sticky로 고정됩니다. 모바일 구간은 설정값의 65%를 사용하지만 이미지 끝까지의 이동량은 유지합니다. 이미지가 화면보다 짧거나 애니메이션을 끄거나 `prefers-reduced-motion`을 사용하면 추가 스크롤 구간 없이 정적으로 표시됩니다. 휠/터치 입력을 가로채거나 내부 스크롤바를 만들지 않습니다.
+
+로컬 QA: 실제 Liquid를 임시 렌더러로 렌더링해 Chrome에서 1440/1024/768/390/320px, 이미지 시작·중간·끝, 구간 종료, 모바일/전체 애니메이션 끄기, 줄인 모션, 이미지 미설정 및 짧은 이미지, 섹션 재연결을 확인했습니다. Shopify Theme Check의 새 오류는 없습니다. Shopify 실제 템플릿 지정 및 테마 에디터, iOS Safari/Android 실기기 확인은 배포 승인 이후 필요합니다.

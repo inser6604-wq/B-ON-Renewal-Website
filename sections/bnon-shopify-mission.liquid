@@ -1,0 +1,57 @@
+{{ 'bnon-shopify-mission.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="bnon-section bnon-shopify-mission"
+  {% if section.settings.heading != blank %}aria-labelledby="ShopifyMissionHeading-{{ section.id }}"{% endif %}
+  style="--mission-background: {{ section.settings.background_color | default: '#0a0a0a' | escape }}; --mission-text: {{ section.settings.text_color | default: '#ffffff' | escape }}; --mission-accent: {{ section.settings.accent_color | default: '#28dbc4' | escape }};"
+>
+  <div class="bnon-shopify-mission__inner">
+    {%- if section.settings.label != blank -%}
+      <div class="bnon-shopify-mission__label-row">
+        <p class="bnon-shopify-mission__label">{{ section.settings.label | escape }}</p>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="bnon-shopify-mission__heading" id="ShopifyMissionHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span class="bnon-shopify-mission__accent">{{ section.settings.heading_accent | escape }}</span></h2>
+    {%- endif -%}
+
+    {%- if section.settings.description != blank -%}
+      <div class="bnon-shopify-mission__copy">{{ section.settings.description }}</div>
+    {%- endif -%}
+
+    {%- if section.settings.partner_intro != blank or section.settings.partner_message != blank -%}
+      <div class="bnon-shopify-mission__partner">
+        {%- if section.settings.partner_intro != blank -%}
+          <p class="bnon-shopify-mission__partner-intro">{{ section.settings.partner_intro | escape | newline_to_br }}</p>
+        {%- endif -%}
+        {%- if section.settings.partner_message != blank -%}
+          <p class="bnon-shopify-mission__partner-message">{{ section.settings.partner_message | escape | newline_to_br }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Our Mission",
+  "tag": "div",
+  "class": "bnon-shopify-mission-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "섹션 라벨", "default": "OUR MISSION" },
+    { "type": "textarea", "id": "heading", "label": "영문 제목", "default": "GLOBAL\nISN’T\nOPTIONAL\nANYMORE", "info": "줄바꿈이 화면에 그대로 반영됩니다." },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 강조 문자", "default": "." },
+    { "type": "richtext", "id": "description", "label": "소개 문구", "default": "<p>이제 글로벌 시장 진출은 선택이 아니라 필수입니다.</p><p><strong>B&amp;ON Universe</strong>는 ‘해외 자사몰 중심의 DTC 모델’을 통해</p><p>브랜드가 스스로 시장을 개척하고 성장하도록 돕습니다.</p>", "info": "문단별 줄 간격을 유지합니다. 굵게 지정한 텍스트는 강조 색상과 영문 대문자로 표시됩니다." },
+    { "type": "textarea", "id": "partner_intro", "label": "파트너 메시지 소개", "default": "저희는 단순한 제작사가 아닌" },
+    { "type": "textarea", "id": "partner_message", "label": "파트너 메시지", "default": "브랜드의 글로벌 판매 생태계를 설계하는 파트너입니다." },
+    { "type": "header", "content": "섹션 색상" },
+    { "type": "color", "id": "background_color", "label": "배경 색상", "default": "#0a0a0a" },
+    { "type": "color", "id": "text_color", "label": "글자 색상", "default": "#ffffff" },
+    { "type": "color", "id": "accent_color", "label": "강조 색상", "default": "#28dbc4" }
+  ],
+  "presets": [{ "name": "B&ON Our Mission" }]
+}
+{% endschema %}

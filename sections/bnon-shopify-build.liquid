@@ -1,0 +1,95 @@
+{{ 'bnon-shopify-build.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="bnon-section bnon-shopify-build"
+  {% if section.settings.heading != blank %}aria-labelledby="ShopifyBuildHeading-{{ section.id }}"{% endif %}
+  data-header-theme="light"
+>
+  <div class="bnon-shopify-build__inner">
+    {%- if section.settings.label != blank -%}
+      <div class="bnon-shopify-build__label-row">
+        <p class="bnon-shopify-build__label">{{ section.settings.label | escape }}</p>
+      </div>
+    {%- endif -%}
+
+    <div class="bnon-shopify-build__intro">
+      <div class="bnon-shopify-build__title">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="bnon-shopify-build__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="bnon-shopify-build__heading" id="ShopifyBuildHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span class="bnon-shopify-build__accent">{{ section.settings.heading_accent | escape }}</span></h2>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.description != blank or section.settings.description_secondary != blank -%}
+        <div class="bnon-shopify-build__copy">
+          {%- if section.settings.description != blank -%}
+            <div class="bnon-shopify-build__paragraph bnon-shopify-build__paragraph--primary">{{ section.settings.description }}</div>
+          {%- endif -%}
+          {%- if section.settings.description_secondary != blank -%}
+            <div class="bnon-shopify-build__paragraph bnon-shopify-build__paragraph--secondary">{{ section.settings.description_secondary }}</div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <ol class="bnon-shopify-build__pillars" role="list">
+        {%- for block in section.blocks -%}
+          <li class="bnon-shopify-build__pillar" {{ block.shopify_attributes }}>
+            {%- if block.settings.number != blank -%}
+              <p class="bnon-shopify-build__number">{{ block.settings.number | escape }}</p>
+            {%- endif -%}
+            {%- if block.settings.heading != blank -%}
+              <h3 class="bnon-shopify-build__pillar-heading">{{ block.settings.heading | escape }}</h3>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="bnon-shopify-build__pillar-description">{{ block.settings.description | escape | newline_to_br }}</p>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON What We Build",
+  "tag": "div",
+  "class": "bnon-shopify-build-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "섹션 라벨", "default": "WHAT WE BUILD" },
+    { "type": "text", "id": "eyebrow", "label": "제목 위 소개", "default": "브랜드의 정체성을 담은" },
+    { "type": "textarea", "id": "heading", "label": "영문 제목", "default": "GLOBAL\nCOMMERCE\nSTORE", "info": "줄바꿈이 화면에 그대로 반영됩니다." },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 민트색 문자", "default": "." },
+    { "type": "richtext", "id": "description", "label": "첫 번째 소개 문구", "default": "<p>저희는 <strong>디자인과 기술, 데이터가 유기적으로 작동하는</strong></p><p><strong>비즈니스</strong> 스토어를 만듭니다.</p>" },
+    { "type": "richtext", "id": "description_secondary", "label": "두 번째 소개 문구", "default": "<p>Shopify의 안정성과 확장성을 기반으로 브랜드 아이덴티티와</p><p>고객 여정을 반영한 <strong>맞춤형 구조 설계</strong>를 제공합니다.</p>" }
+  ],
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "구축 핵심 항목",
+      "settings": [
+        { "type": "text", "id": "number", "label": "번호" },
+        { "type": "text", "id": "heading", "label": "영문 항목명" },
+        { "type": "textarea", "id": "description", "label": "항목 설명", "info": "줄바꿈이 화면에 그대로 반영됩니다." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON What We Build",
+      "blocks": [
+        { "type": "pillar", "settings": { "number": "01", "heading": "DESIGN", "description": "브랜드 아이덴티티를\n반영한 디자인" } },
+        { "type": "pillar", "settings": { "number": "02", "heading": "TECHNOLOGY", "description": "Shopify 기반의\n안정적인 기술 환경" } },
+        { "type": "pillar", "settings": { "number": "03", "heading": "DATA", "description": "고객 여정과 전환을\n고려한 구조" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,181 @@
+{{ 'bnon-shopify-process.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-shopify-process.js' | asset_url }}" defer="defer"></script>
+
+<bnon-shopify-process
+  class="bnon-section bnon-shopify-process"
+  data-enable-autoplay="{{ section.settings.enable_autoplay }}"
+  data-autoplay-interval="{{ section.settings.autoplay_interval | default: 5.5 | times: 1000 }}"
+>
+  <section class="bnon-shopify-process__inner" role="region" aria-roledescription="carousel"{% if section.settings.heading != blank %} aria-labelledby="ShopifyProcessHeading-{{ section.id }}"{% else %} aria-label="스토어 구축 프로세스"{% endif %}>
+    {%- if section.settings.heading != blank -%}
+      <header class="bnon-shopify-process__label-row">
+        <h2 class="bnon-shopify-process__label" id="ShopifyProcessHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <nav class="bnon-shopify-process__navigation" aria-label="스토어 구축 진행 단계">
+        <div class="bnon-shopify-process__track" aria-hidden="true">
+          <img class="bnon-shopify-process__line" src="{{ 'bnon-shopify-process-line.svg' | asset_url }}" width="1226" height="22" alt="">
+          <span class="bnon-shopify-process__fill"></span>
+          <img class="bnon-shopify-process__cursor" src="{{ 'bnon-shopify-process-cursor.png' | asset_url }}" width="87" height="32" alt="">
+        </div>
+        <div class="bnon-shopify-process__steps">
+          {%- for block in section.blocks -%}
+            <button class="bnon-shopify-process__step" type="button" data-process-trigger data-step-id="{{ block.id }}" aria-controls="ShopifyProcessStep-{{ section.id }}-{{ block.id }}" aria-current="{% if forloop.first %}step{% else %}false{% endif %}" disabled>{{ block.settings.title | escape }}</button>
+          {%- endfor -%}
+        </div>
+      </nav>
+
+      <div class="bnon-shopify-process__stage" tabindex="0" aria-label="진행 단계, 좌우 방향키로 전환" aria-live="off">
+        {%- for block in section.blocks -%}
+          <article class="bnon-shopify-process__panel" id="ShopifyProcessStep-{{ section.id }}-{{ block.id }}" data-process-panel data-step-id="{{ block.id }}" role="group" aria-roledescription="slide" aria-label="{{ forloop.index }} / {{ section.blocks.size }} {{ block.settings.title | escape }}"{% unless forloop.first %} hidden{% endunless %} {{ block.shopify_attributes }}>
+            <div class="bnon-shopify-process__step-heading">
+              <p class="bnon-shopify-process__count">{{ forloop.index | prepend: '0' }} / <span>{{ section.blocks.size | prepend: '0' }}</span></p>
+              <h3 class="bnon-shopify-process__title-en">{{ block.settings.title_en | escape }}</h3>
+              <p class="bnon-shopify-process__title">{{ block.settings.title | escape }}</p>
+            </div>
+            {%- if block.settings.lead != blank -%}<p class="bnon-shopify-process__lead">{{ block.settings.lead | escape | newline_to_br }}</p>{%- endif -%}
+            {%- if block.settings.description != blank -%}<div class="bnon-shopify-process__description">{{ block.settings.description }}</div>{%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+
+      <div class="bnon-shopify-process__controls" role="group" aria-label="진행 단계 및 자동재생 조작">
+        <button type="button" data-process-previous aria-label="이전 단계" disabled>←</button>
+        <button type="button" data-process-toggle aria-label="단계 자동재생 일시정지" disabled>일시정지</button>
+        <button type="button" data-process-next aria-label="다음 단계" disabled>→</button>
+      </div>
+      <p class="visually-hidden" data-process-status role="status" aria-live="polite" aria-atomic="true"></p>
+    {%- endif -%}
+  </section>
+</bnon-shopify-process>
+
+{% schema %}
+{
+  "name": "B&ON Build Process",
+  "tag": "div",
+  "class": "bnon-shopify-process-section",
+  "limit": 1,
+  "enabled_on": {
+    "templates": [
+      "page"
+    ]
+  },
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "섹션 제목",
+      "default": "OUR BUILD PROCESS"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "자동재생 사용",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "label": "자동 전환 간격",
+      "min": 5,
+      "max": 6,
+      "step": 0.5,
+      "default": 5.5,
+      "unit": "초"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "진행 단계",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title_en",
+          "label": "영문 단계명"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "국문 단계명"
+        },
+        {
+          "type": "textarea",
+          "id": "lead",
+          "label": "핵심 문구"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "단계 설명"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "B&ON Build Process",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title_en": "STRATEGY",
+            "title": "전략 수립",
+            "lead": "브랜드의 방향에서 시작합니다.",
+            "description": "<p>단순히 ‘사이트를 만드는’ 수준이 아니라, 브랜드가 <strong>지속적으로 성장할 수 있는 판매 구조와 확장 전략을 함께 설계</strong>합니다.</p><p>시장·경쟁사·고객 데이터를 기반으로 브랜드에 적합한 전략과 구조를 설계합니다.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title_en": "UX/UI DESIGN",
+            "title": "UX/UI 기획",
+            "lead": "브랜드 경험을 구매 경험으로 연결합니다.",
+            "description": "<p>브랜드 아이덴티티와 고객의 구매 여정을 바탕으로 UX/UI를 설계하고,</p><p>직관적인 탐색과 자연스러운 구매 전환을 고려한 경험을 구축합니다.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title_en": "DEVELOPMENT",
+            "title": "개발 및 세팅",
+            "lead": "디자인을 실제 Shopify 스토어로 구현합니다.",
+            "description": "<p>확정된 디자인을 기반으로 스토어와 필요한 기능을 개발하고,</p><p>다양한 디바이스에 최적화된 안정적인 반응형 환경을 구축합니다.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title_en": "PAYMENT & SHIPPING",
+            "title": "결제·배송 세팅",
+            "lead": "구매부터 배송까지 원활하게 연결합니다.",
+            "description": "<p>판매 국가와 운영 환경에 적합한 결제 및 배송 시스템을 설정하고,</p><p>국내외 고객이 편리하게 구매할 수 있는 커머스 환경을 구축합니다.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title_en": "TEST & LAUNCH",
+            "title": "테스트 및 런칭",
+            "lead": "오픈 전, 스토어의 모든 흐름을 점검합니다.",
+            "description": "<p>결제·배송·주문 등 주요 기능과 실제 사용자 흐름을 테스트하고,</p><p>최종 안정화 과정을 거쳐 완성된 스토어를 런칭합니다.</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title_en": "OPERATION SUPPORT",
+            "title": "운영 지원",
+            "lead": "런칭 이후의 운영까지 함께합니다.",
+            "description": "<p>스토어 오픈 이후 안정적인 운영을 위한 실무 지원을 제공하고,</p><p>브랜드가 직접 관리하며 지속적으로 성장할 수 있도록 돕습니다.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
