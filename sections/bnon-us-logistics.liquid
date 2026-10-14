@@ -1,0 +1,80 @@
+{%- comment -%}The preceding US sections already load the shared build stylesheet; do not reorder its cascade here.{%- endcomment -%}
+{{ 'bnon-us-final.css' | asset_url | stylesheet_tag }}
+
+<section class="bnon-section bnon-shopify-build bnon-us-logistics"{% if section.settings.heading != blank %} aria-labelledby="UsLogisticsHeading-{{ section.id }}"{% endif %} data-header-theme="dark">
+  <div class="bnon-shopify-build__inner">
+    {%- if section.settings.label != blank -%}<div class="bnon-shopify-build__label-row"><p class="bnon-shopify-build__label">{{ section.settings.label | escape }}</p></div>{%- endif -%}
+    <div class="bnon-us-logistics__intro">
+      {%- if section.settings.heading != blank -%}<div class="bnon-shopify-build__title"><h2 class="bnon-shopify-build__heading" id="UsLogisticsHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span class="bnon-shopify-build__accent"> {{ section.settings.heading_accent | escape }}</span></h2></div>{%- endif -%}
+      {%- if section.settings.description != blank -%}<div class="bnon-shopify-build__copy"><p class="bnon-shopify-build__paragraph">{{ section.settings.description | escape | newline_to_br }}</p></div>{%- endif -%}
+    </div>
+    {%- assign steps = section.blocks | where: 'type', 'step' -%}
+    {%- if steps.size > 0 -%}
+      <ol class="bnon-shopify-build__copy bnon-us-logistics__flow" role="list" style="--us-flow-count: {{ steps.size }};">
+        {%- for block in steps -%}
+          <li class="bnon-us-logistics__step" {{ block.shopify_attributes }}>
+            <div class="bnon-us-logistics__step-card">
+              {%- if block.settings.heading != blank -%}<h3>{{ block.settings.heading | escape }}</h3>{%- endif -%}
+              {%- if block.settings.description != blank -%}<p>{{ block.settings.description | escape }}</p>{%- endif -%}
+            </div>
+            {%- unless forloop.last -%}
+              <span class="bnon-us-logistics__arrow" aria-hidden="true">
+                {%- if section.settings.arrow_image != blank -%}
+                  {{ section.settings.arrow_image | image_url: width: 226 | image_tag: alt: '', loading: 'lazy' }}
+                {%- else -%}<img src="{{ 'bnon-us-logistics-arrow.png' | asset_url }}" width="113" height="22" alt="" loading="lazy">{%- endif -%}
+              </span>
+            {%- endunless -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+    {%- if section.settings.sync_label != blank -%}<p class="bnon-shopify-build__copy bnon-us-logistics__sync">{{ section.settings.sync_label | escape }}</p>{%- endif -%}
+    {%- assign benefits = section.blocks | where: 'type', 'benefit' -%}
+    {%- if benefits.size > 0 -%}
+      <ol class="bnon-us-logistics__benefits" role="list">
+        {%- for block in benefits -%}
+          <li class="bnon-shopify-benefits__card bnon-us-logistics__benefit" {{ block.shopify_attributes }}>
+            {%- if block.settings.heading != blank -%}<h3>{{ block.settings.heading | escape }}</h3>{%- endif -%}
+            {%- if block.settings.description != blank -%}<p>{{ block.settings.description | escape }}</p>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON US 3PL Logistics",
+  "tag": "div", "class": "bnon-us-logistics-section", "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "US 3PL LOGISTICS" },
+    { "type": "textarea", "id": "heading", "label": "메인 제목", "default": "배송은 더 빠르게,\n운영은 더 간편하게" },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 민트색 문자", "default": "." },
+    { "type": "textarea", "id": "description", "label": "물류 연계 소개 문구", "default": "미국 현지 3PL 파트너 연계로 배송 부담을 줄이고, Shopify 주문·재고 관리의 자동화를 지원합니다" },
+    { "type": "image_picker", "id": "arrow_image", "label": "단계 연결 화살표", "info": "비워두면 Figma 원본을 사용합니다. 모바일에서는 아래 방향으로 표시합니다." },
+    { "type": "text", "id": "sync_label", "label": "주문·재고 연동 영문 문구", "default": "SHOPIFY ORDER & INVENTORY SYNC" }
+  ],
+  "max_blocks": 7,
+  "blocks": [
+    { "type": "step", "name": "물류 연계 단계", "limit": 3, "settings": [
+      { "type": "text", "id": "heading", "label": "단계명" },
+      { "type": "text", "id": "description", "label": "단계 설명" }
+    ] },
+    { "type": "benefit", "name": "연계 서비스 장점", "limit": 4, "settings": [
+      { "type": "text", "id": "heading", "label": "영문 강조 문구" },
+      { "type": "text", "id": "description", "label": "국문 설명" }
+    ] }
+  ],
+  "presets": [{ "name": "B&ON US 3PL Logistics", "blocks": [
+    { "type": "step", "settings": { "heading": "한국", "description": "상품발송" } },
+    { "type": "step", "settings": { "heading": "미국 3PL", "description": "현지보관 · 출고" } },
+    { "type": "step", "settings": { "heading": "미국 고객", "description": "현지배송" } },
+    { "type": "benefit", "settings": { "heading": "COST  ↓", "description": "배송비 부담 절감" } },
+    { "type": "benefit", "settings": { "heading": "TIME  ↓", "description": "배송 시간 단축" } },
+    { "type": "benefit", "settings": { "heading": "AUTO", "description": "주문·재고 자동화" } },
+    { "type": "benefit", "settings": { "heading": "DUTY HANDLED", "description": "추가 관세 부담 최소화" } }
+  ] }]
+}
+{% endschema %}

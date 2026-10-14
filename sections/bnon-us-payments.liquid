@@ -1,0 +1,83 @@
+{{ 'bnon-shopify-build.css' | asset_url | stylesheet_tag }}
+{{ 'bnon-us-payments.css' | asset_url | stylesheet_tag }}
+
+<section class="bnon-section bnon-shopify-build bnon-us-payments"{% if section.settings.heading != blank %} aria-labelledby="UsPaymentsHeading-{{ section.id }}"{% endif %} data-header-theme="light">
+  <div class="bnon-shopify-build__inner">
+    <div class="bnon-us-payments__intro">
+      {%- if section.settings.label != blank -%}<div class="bnon-shopify-build__label-row"><p class="bnon-shopify-build__label">{{ section.settings.label | escape }}</p></div>{%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <div class="bnon-shopify-build__title">
+          <h2 class="bnon-shopify-build__heading" id="UsPaymentsHeading-{{ section.id }}">
+            {%- assign heading_lines = section.settings.heading | newline_to_br | split: '<br />' -%}
+            {%- for line in heading_lines -%}<span class="bnon-us-payments__heading-line">{{ line | strip | escape }}{%- if forloop.last -%}<span class="bnon-shopify-build__accent"> {{ section.settings.heading_accent | escape }}</span>{%- endif -%}</span>{%- endfor -%}
+          </h2>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}<div class="bnon-shopify-build__copy"><p class="bnon-shopify-build__paragraph">{{ section.settings.description | escape | newline_to_br }}</p></div>{%- endif -%}
+    </div>
+    <div class="bnon-us-payments__diagram">
+      <div class="bnon-shopify-build__copy bnon-us-payments__visual">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1312 | image_tag: widths: '340, 680, 1024, 1312', sizes: '(min-width: 1440px) 340px, (min-width: 1024px) 24vw, (min-width: 768px) 340px, 72vw', alt: section.settings.image_alt, loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'bnon-us-payments-visual.png' | asset_url }}" width="1312" height="1199" alt="{{ section.settings.image_alt | escape }}" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="bnon-shopify-build__copy bnon-us-payments__connector bnon-us-payments__connector--top" aria-hidden="true">
+        {%- if section.settings.connector_top != blank -%}
+          {{ section.settings.connector_top | image_url: width: 1248 | image_tag: alt: '', loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'bnon-us-payments-top.svg' | asset_url }}" width="624" height="97" alt="" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="bnon-shopify-build__copy bnon-us-payments__connector bnon-us-payments__connector--bottom" aria-hidden="true">
+        {%- if section.settings.connector_bottom != blank -%}
+          {{ section.settings.connector_bottom | image_url: width: 1248 | image_tag: alt: '', loading: 'lazy' }}
+        {%- else -%}
+          <img src="{{ 'bnon-us-payments-bottom.svg' | asset_url }}" width="624" height="97" alt="" loading="lazy">
+        {%- endif -%}
+      </div>
+      {%- if section.blocks.size > 0 -%}
+        <ol class="bnon-us-payments__benefits" role="list">
+          {%- for block in section.blocks -%}
+            <li class="bnon-shopify-benefits__card bnon-us-payments__benefit" {{ block.shopify_attributes }}>
+              {%- if block.settings.heading != blank -%}<h3>{{ block.settings.heading | escape }}</h3>{%- endif -%}
+              {%- if block.settings.description != blank -%}<p>{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON US Shopify Payments",
+  "tag": "div", "class": "bnon-us-payments-section", "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "SHOPIFY PAYMENTS" },
+    { "type": "textarea", "id": "heading", "label": "메인 제목", "default": "글로벌 결제를 더 간편하게,\nShopify Payments", "info": "줄바꿈한 행을 디자인과 동일한 간격으로 표시합니다." },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 민트색 문자", "default": "." },
+    { "type": "textarea", "id": "description", "label": "소개 문구", "default": "글로벌 판매를 위한 결제 환경부터 운영 관리까지, 하나의 시스템으로 연결합니다." },
+    { "type": "image_picker", "id": "image", "label": "중앙 결제 이미지", "info": "비워두면 Figma 원본 이미지를 사용합니다." },
+    { "type": "text", "id": "image_alt", "label": "중앙 이미지 대체 텍스트", "default": "Shopify Payments 결제 및 카드 연동 이미지" },
+    { "type": "image_picker", "id": "connector_top", "label": "상단 연결선 이미지", "info": "비워두면 Figma 원본 SVG를 사용합니다. 태블릿·모바일에서는 연결선을 숨깁니다." },
+    { "type": "image_picker", "id": "connector_bottom", "label": "하단 연결선 이미지", "info": "비워두면 Figma 원본 SVG를 사용합니다. 태블릿·모바일에서는 연결선을 숨깁니다." }
+  ],
+  "max_blocks": 6,
+  "blocks": [{ "type": "benefit", "name": "결제 혜택", "settings": [
+    { "type": "text", "id": "heading", "label": "혜택 제목" },
+    { "type": "textarea", "id": "description", "label": "혜택 설명" }
+  ] }],
+  "presets": [{ "name": "B&ON US Shopify Payments", "blocks": [
+    { "type": "benefit", "settings": { "heading": "외부 PG 추가 수수료 완전 면제", "description": "Shopify Payments로 처리된 결제에는 Shopify의 외부 PG 추가 거래 수수료가 부과되지 않아, 결제 비용 부담을 줄일 수 있습니다." } },
+    { "type": "benefit", "settings": { "heading": "높은 결제 승인율", "description": "글로벌 카드 네트워크를 기반으로 안정적인 결제 환경을 제공합니다" } },
+    { "type": "benefit", "settings": { "heading": "다국가 통화 지원", "description": "지원되는 국가와 통화에 맞춰 현지화된 결제 환경을 제공합니다" } },
+    { "type": "benefit", "settings": { "heading": "빠르고 안정적인 정산", "description": "결제 대금과 정산 내역을 Shopify에서 통합 관리할 수 있습니다" } },
+    { "type": "benefit", "settings": { "heading": "운영 데이터 통합", "description": "주문과 결제 데이터를 한곳에서 관리해 운영 효율을 높입니다" } },
+    { "type": "benefit", "settings": { "heading": "브랜드 신뢰도", "description": "일관된 결제 경험으로 고객의 구매 신뢰 형성을 돕습니다" } }
+  ] }]
+}
+{% endschema %}

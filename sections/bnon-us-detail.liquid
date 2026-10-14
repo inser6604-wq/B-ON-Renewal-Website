@@ -1,0 +1,71 @@
+{{ 'bnon-shopify-detail.css' | asset_url | stylesheet_tag }}
+{{ 'bnon-us-detail.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-shopify-detail.js' | asset_url }}" defer="defer"></script>
+
+<bnon-shopify-detail
+  class="bnon-section bnon-shopify-detail bnon-us-detail"
+  data-intro-only
+  data-breadcrumb-home-label="{{ section.settings.breadcrumb_home_label | escape }}"
+  data-breadcrumb-current-label="{{ section.settings.breadcrumb_current_label | default: page.title | escape }}"
+  data-breadcrumb-home-link="{{ section.settings.breadcrumb_home_link | default: routes.root_url | escape }}"
+  data-breadcrumb-separator="{{ section.settings.breadcrumb_separator | escape }}"
+  data-breadcrumb-label="{{ section.settings.breadcrumb_accessibility_label | escape }}"
+>
+  {%- capture detail_heading_id -%}UsDetailHeading-{{ section.id }}{%- endcapture -%}
+  <section class="bnon-shopify-detail__inner" aria-labelledby="{{ detail_heading_id }}" data-header-theme="light">
+    {% render 'bnon-service-detail-intro', section: section, active_service: '03', heading_id: detail_heading_id %}
+
+    <div class="bnon-us-detail__art">
+      {%- if section.settings.hero_image != blank -%}
+        {{ section.settings.hero_image | image_url: width: 2562 | image_tag: class: 'bnon-us-detail__image', widths: '480, 768, 1024, 1281, 1920, 2562', sizes: '(min-width: 1440px) 1281px, (min-width: 1024px) 89vw, calc(100vw - 40px)', alt: section.settings.image_alt, loading: 'eager' }}
+      {%- else -%}
+        <img class="bnon-us-detail__image" src="{{ 'bnon-us-hero-map.png' | asset_url }}" width="1024" height="683" alt="{{ section.settings.image_alt | escape }}" loading="eager">
+      {%- endif -%}
+    </div>
+    {%- if section.settings.caption != blank -%}<p class="bnon-us-detail__caption">{{ section.settings.caption | escape | newline_to_br }}</p>{%- endif -%}
+  </section>
+</bnon-shopify-detail>
+
+{% schema %}
+{
+  "name": "B&ON US & 3PL Hero",
+  "tag": "div",
+  "class": "bnon-us-detail-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 5,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "영문 타이틀", "default": "US INCORPORATION & 3PL" },
+    { "type": "text", "id": "subtitle", "label": "국문 서브 타이틀", "default": "미국 법인 설립부터 현지 물류까지" },
+    { "type": "textarea", "id": "description", "label": "서비스 설명", "default": "미국 LLC 설립과 Shopify Payments 활성화, 현지 3PL 물류 연계까지\n글로벌 판매에 필요한 비즈니스 인프라를 연결합니다." },
+    { "type": "text", "id": "contact_label", "label": "문의 버튼 문구", "default": "프로젝트 문의하기" },
+    { "type": "url", "id": "contact_link", "label": "문의 버튼 링크", "info": "비워두면 기존 상세페이지와 동일한 Contact 페이지로 연결합니다." },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero 이미지", "info": "비워두면 Figma 원본 미국 지도 이미지를 사용합니다." },
+    { "type": "text", "id": "image_alt", "label": "Hero 이미지 대체 텍스트", "default": "미국 지도 형태의 글로벌 비즈니스 인프라 이미지" },
+    { "type": "textarea", "id": "caption", "label": "이미지 보조 문구", "default": "GLOBAL BUSINESS INFRASTRUCTURE" },
+    { "type": "text", "id": "navigation_label", "label": "서비스 메뉴 접근성 설명", "default": "서비스 상세페이지" },
+    { "type": "text", "id": "breadcrumb_home_label", "label": "경로 표시 홈 문구", "default": "HOME" },
+    { "type": "url", "id": "breadcrumb_home_link", "label": "경로 표시 홈 링크" },
+    { "type": "text", "id": "breadcrumb_current_label", "label": "경로 표시 현재 페이지명", "default": "US INCORPORATION & 3PL" },
+    { "type": "text", "id": "breadcrumb_separator", "label": "경로 표시 구분 문자", "default": "/" },
+    { "type": "text", "id": "breadcrumb_accessibility_label", "label": "경로 표시 접근성 설명", "default": "Breadcrumb" }
+  ],
+  "blocks": [{
+    "type": "service", "name": "서비스 이동", "limit": 5,
+    "settings": [
+      { "type": "select", "id": "number", "label": "서비스 번호", "default": "01", "options": [{ "value": "01", "label": "01 구축" }, { "value": "02", "label": "02 마케팅" }, { "value": "03", "label": "03 법인·물류 연계" }, { "value": "04", "label": "04 아마존" }, { "value": "05", "label": "05 교육" }] },
+      { "type": "text", "id": "display_number", "label": "화면에 표시할 번호", "info": "비워두면 서비스 번호를 표시합니다." },
+      { "type": "text", "id": "label", "label": "서비스명" },
+      { "type": "page", "id": "page", "label": "연결할 실제 Shopify 페이지" },
+      { "type": "url", "id": "link", "label": "직접 지정할 서비스 링크", "info": "직접 지정한 링크를 우선합니다. 미생성 페이지는 비워두세요." }
+    ]
+  }],
+  "presets": [{ "name": "B&ON US & 3PL Hero", "blocks": [
+    { "type": "service", "settings": { "number": "01", "label": "쇼피파이 자사몰 구축" } },
+    { "type": "service", "settings": { "number": "02", "label": "디지털 마케팅" } },
+    { "type": "service", "settings": { "number": "03", "label": "미국 법인 설립 & 물류 연계", "link": "/pages/service?view=us-corporation-3pl" } },
+    { "type": "service", "settings": { "number": "04", "label": "아마존 입점" } },
+    { "type": "service", "settings": { "number": "05", "label": "쇼피파이 관리자 교육" } }
+  ] }]
+}
+{% endschema %}

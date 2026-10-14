@@ -1,0 +1,74 @@
+/* Figma 560:583. Shared Hero typography, CTA and navigation metrics are reused. */
+.bnon-us-detail { position: relative; overflow: hidden; isolation: isolate; }
+
+/* Paint the backdrop across the Hero, not inside the image or 1440px copy box.
+   Intermediate stops preserve Figma's white-to-blue colour/opacity blend. */
+.bnon-us-detail::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 75px 0 0;
+  background: linear-gradient(140.06822deg,
+    rgba(255, 255, 255, 0) 9.0242%,
+    rgba(204, 212, 251, 0.03) 29.6729%,
+    rgba(152, 170, 247, 0.06) 50.3216%,
+    rgba(101, 127, 242, 0.09) 70.9703%,
+    rgba(49, 84, 238, 0.12) 91.619%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 120px);
+  mask-image: linear-gradient(to bottom, transparent, #000 120px);
+  pointer-events: none;
+}
+
+.bnon-us-detail .bnon-shopify-detail__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(700px, 57.84722vw, 833px);
+  padding-bottom: 64px;
+  overflow: visible;
+  isolation: isolate;
+}
+
+.bnon-us-detail .bnon-shopify-detail__intro { position: relative; z-index: 1; flex: 0 0 auto; }
+.bnon-us-detail__art {
+  position: absolute;
+  top: 75px;
+  left: calc(clamp(32px, 7.778vw, 112px) + 120px);
+  width: 88.958333%;
+  max-width: 1281px;
+  aspect-ratio: 1281 / 855;
+  pointer-events: none;
+}
+
+.bnon-us-detail__image { display: block; width: 100%; height: 100%; max-width: none; object-fit: contain; object-position: bottom; }
+.bnon-us-detail__caption {
+  position: relative;
+  z-index: 1;
+  margin: auto 0 0;
+  padding-top: 40px;
+  color: #999;
+  font-family: var(--bnon-font-korean);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: -0.8px;
+  overflow-wrap: anywhere;
+}
+
+@media screen and (min-width: 1024px) {
+  .bnon-us-detail .bnon-shopify-detail__service > span:last-child { white-space: nowrap; }
+}
+
+@media screen and (max-width: 1199px) {
+  .bnon-us-detail__art { left: 152px; }
+}
+
+@media screen and (max-width: 1023px) {
+  .bnon-us-detail .bnon-shopify-detail__inner { min-height: 0; }
+  .bnon-us-detail__art { position: relative; top: auto; left: auto; width: 100%; max-width: none; flex: 0 0 auto; margin-top: 24px; }
+  .bnon-us-detail__caption { margin-top: 24px; padding-top: 0; }
+}
+
+@media screen and (max-width: 767px) {
+  .bnon-us-detail__caption { font-size: 14px; line-height: 1.6; letter-spacing: -0.56px; }
+}

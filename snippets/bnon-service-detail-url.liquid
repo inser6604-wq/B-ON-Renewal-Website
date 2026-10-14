@@ -1,8 +1,8 @@
 {%- comment -%}
   Preserve editor-provided URLs and resolve published Pages first. Until the
   detail Pages are created, implemented templates can be previewed on the
-  existing Service Page. Marketing preview is opt-in for detail navigation
-  only, leaving the existing homepage and Service page links unchanged.
+  existing Service Page. Implemented-template routes are opt-in at service
+  links; unimplemented detail templates never receive invented URLs.
 {%- endcomment -%}
 {%- liquid
   assign detail_url = link
@@ -33,6 +33,11 @@
         assign service_page = pages['service']
         if service_page != blank
           assign detail_url = service_page.url | append: '?view=digital-marketing'
+        endif
+      elsif detail_handle == 'us-corporation-3pl' and allow_us_preview
+        assign service_page = pages['service']
+        if service_page != blank
+          assign detail_url = service_page.url | append: '?view=us-corporation-3pl'
         endif
       endif
     endif

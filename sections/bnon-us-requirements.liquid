@@ -1,0 +1,105 @@
+{%- comment -%}Reuse the preceding US sections' build stylesheet without overriding their responsive rules.{%- endcomment -%}
+{{ 'bnon-us-final.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-shopify-faq.js' | asset_url }}" defer="defer"></script>
+
+<bnon-shopify-faq class="bnon-us-requirements-controller" data-section-id="{{ section.id }}">
+  <section class="bnon-section bnon-shopify-build bnon-us-requirements"{% if section.settings.heading != blank %} aria-labelledby="UsRequirementsHeading-{{ section.id }}"{% endif %} data-header-theme="light">
+    <div class="bnon-shopify-build__inner">
+      {%- if section.settings.label != blank -%}<div class="bnon-shopify-build__label-row"><p class="bnon-shopify-build__label">{{ section.settings.label | escape }}</p></div>{%- endif -%}
+      <div class="bnon-us-requirements__intro">
+        {%- if section.settings.heading != blank -%}<div class="bnon-shopify-build__title"><h2 class="bnon-shopify-build__heading" id="UsRequirementsHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span class="bnon-shopify-build__accent">{{ section.settings.heading_accent | escape }}</span></h2></div>{%- endif -%}
+        {%- if section.settings.description != blank -%}<div class="bnon-shopify-build__copy"><p class="bnon-shopify-build__paragraph">{{ section.settings.description | escape | newline_to_br }}</p></div>{%- endif -%}
+      </div>
+      {%- assign documents = section.blocks | where: 'type', 'document' -%}
+      {%- if documents.size > 0 -%}
+        <ol class="bnon-us-requirements__documents" role="list">
+          {%- for block in documents -%}
+            {%- assign document_icon = block.settings.icon | default: section.settings.check_icon -%}
+            <li class="bnon-shopify-benefits__card bnon-us-requirements__document" {{ block.shopify_attributes }}>
+              <span class="bnon-us-requirements__check" aria-hidden="true">
+                {%- if document_icon != blank -%}{{ document_icon | image_url: width: 110 | image_tag: alt: '', loading: 'lazy' }}
+                {%- else -%}<img src="{{ 'bnon-us-requirements-check.svg' | asset_url }}" width="54" height="58" alt="" loading="lazy">{%- endif -%}
+              </span>
+              <p>{{ block.settings.label | escape }}</p>
+            </li>
+          {%- endfor -%}
+        </ol>
+      {%- endif -%}
+      {%- assign accordions = section.blocks | where: 'type', 'accordion' -%}
+      {%- if accordions.size > 0 -%}
+        <div class="bnon-shopify-faq__group bnon-us-requirements__accordion">
+          {%- for block in accordions -%}
+            <details class="bnon-us-requirements__item" name="UsRequirements-{{ section.id }}" data-faq-group="requirements" data-faq-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
+              <summary class="bnon-us-requirements__trigger" id="UsRequirementQuestion-{{ section.id }}-{{ block.id }}" aria-controls="UsRequirementAnswer-{{ section.id }}-{{ block.id }}">
+                <span>{{ block.settings.question | escape }}</span><span class="bnon-us-requirements__toggle" aria-hidden="true"></span>
+              </summary>
+              <div class="bnon-shopify-faq__answer bnon-us-requirements__answer" id="UsRequirementAnswer-{{ section.id }}-{{ block.id }}">
+                {%- if block.settings.answer != blank -%}{{ block.settings.answer }}{%- endif -%}
+                {%- if block.settings.layout == 'table' -%}
+                  <dl class="bnon-us-requirements__table">
+                    {%- for row in (1..4) -%}
+                      {%- assign label_key = 'row_' | append: row | append: '_label' -%}
+                      {%- assign value_key = 'row_' | append: row | append: '_value' -%}
+                      {%- if block.settings[label_key] != blank or block.settings[value_key] != blank -%}
+                        <div class="bnon-us-requirements__table-row"><dt>{{ block.settings[label_key] | escape }}</dt><dd>{{ block.settings[value_key] | escape | newline_to_br }}</dd></div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </dl>
+                {%- endif -%}
+                {%- if block.settings.note != blank -%}<p class="bnon-us-requirements__note">{{ block.settings.note | escape | newline_to_br }}</p>{%- endif -%}
+              </div>
+            </details>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </section>
+</bnon-shopify-faq>
+
+{% schema %}
+{
+  "name": "B&ON US Requirements",
+  "tag": "div", "class": "bnon-us-requirements-section", "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "SHOPIFY PAYMENT REQUIREMENTS" },
+    { "type": "textarea", "id": "heading", "label": "메인 제목", "default": "글로벌 결제 활성화,\n준비는 이것만" },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 민트색 문자", "default": "." },
+    { "type": "textarea", "id": "description", "label": "소개 문구", "default": "Shopify Payments 신청에 필요한 주요 서류와 준비사항을 확인하세요." },
+    { "type": "image_picker", "id": "check_icon", "label": "공통 체크 아이콘", "info": "비워두면 Figma 원본 SVG를 사용합니다." }
+  ],
+  "max_blocks": 9,
+  "blocks": [
+    { "type": "document", "name": "준비 서류", "limit": 5, "settings": [
+      { "type": "text", "id": "label", "label": "서류명" },
+      { "type": "image_picker", "id": "icon", "label": "개별 체크 아이콘", "info": "비워두면 공통 체크 아이콘을 사용합니다." }
+    ] },
+    { "type": "accordion", "name": "펼침 안내 항목", "limit": 4, "settings": [
+      { "type": "text", "id": "question", "label": "항목 제목" },
+      { "type": "richtext", "id": "answer", "label": "본문 및 링크", "info": "문단, 강조, 목록 및 링크를 편집합니다." },
+      { "type": "select", "id": "layout", "label": "추가 표 표시", "default": "text", "options": [{ "value": "text", "label": "본문만 표시" }, { "value": "table", "label": "본문과 2열 구성표" }] },
+      { "type": "header", "content": "2열 구성표 내용" },
+      { "type": "text", "id": "row_1_label", "label": "1행 항목명" },
+      { "type": "textarea", "id": "row_1_value", "label": "1행 내용" },
+      { "type": "text", "id": "row_2_label", "label": "2행 항목명" },
+      { "type": "textarea", "id": "row_2_value", "label": "2행 내용" },
+      { "type": "text", "id": "row_3_label", "label": "3행 항목명" },
+      { "type": "textarea", "id": "row_3_value", "label": "3행 내용" },
+      { "type": "text", "id": "row_4_label", "label": "4행 항목명" },
+      { "type": "textarea", "id": "row_4_value", "label": "4행 내용" },
+      { "type": "textarea", "id": "note", "label": "하단 안내 문구" }
+    ] }
+  ],
+  "presets": [{ "name": "B&ON US Requirements", "blocks": [
+    { "type": "document", "settings": { "label": "사업자등록번호 확인서 (EIN Letter)" } },
+    { "type": "document", "settings": { "label": "법인 설립 증명서" } },
+    { "type": "document", "settings": { "label": "대표자 신분증" } },
+    { "type": "document", "settings": { "label": "미국 은행 계좌" } },
+    { "type": "document", "settings": { "label": "은행 거래내역서" } },
+    { "type": "accordion", "settings": { "question": "언어 및 표기 규칙", "answer": "<p><strong>① 정부 문서 표기와 100% 일치</strong></p><p>법인명, 대표자 이름, 주소는 EIN·소유자 확인 서류까지 동일해야 합니다.</p><p><strong>② 서류는 영문으로 제출</strong></p><p>한국어 서류만 제출 시 승인 지연 가능성이 높습니다. 필요 시 영어 번역본을 함께 첨부하세요.</p><p><strong>③ 결제 명세서에 표시될 이름</strong></p><p>영문 2~19자 범위 내에서 법인명, 상호명, 도메인 중 하나를 사용합니다.</p><p>예: BNONU LLC / BNONU.COM</p>" } },
+    { "type": "accordion", "settings": { "question": "주요 영어 간단 정리", "answer": "<p><strong>ITIN (Individual Taxpayer Identification Number)</strong></p><p>외국인을 위한 미국 개인 납세자 번호입니다. SSN(사회보장번호)이 없는 외국인은 발급을 권장하며, Stripe(Shopify Payments)의 세금 식별 절차(W-8BEN 등)에서 추가 확인이나 보류를 방지하는 데 도움이 될 수 있습니다.</p><p><strong>EIN (Employer Identification Number)</strong></p><p>미국 사업자 등록번호로, 법인 설립 시 반드시 신청해야 합니다.</p>" } },
+    { "type": "accordion", "settings": { "question": "1인 LLC 기준 기본 구성", "layout": "table", "row_1_label": "법인", "row_1_value": "미국 내 1인 유한책임회사(LLC)", "row_2_label": "세금번호", "row_2_value": "EIN (필수) + ITIN (발급 권장)", "row_3_label": "계좌", "row_3_value": "미국 달러 계좌 (ACH 가능, Mercury 등 핀테크 가능)", "row_4_label": "서류", "row_4_value": "법인 증명서 + 은행 거래내역서" } },
+    { "type": "accordion", "settings": { "question": "자주 보류되는 사유", "answer": "<ul><li>서류상의 이름 또는 철자가 EIN 문서와 불일치</li><li>개인 명의 은행 계좌 사용 (법인명 계좌 필수)</li><li>여권 이미지 저화질 또는 훼손</li><li>한국어 서류 단독 제출 (영문 번역 필요)</li><li>ACH 출금 불가 은행 사용</li></ul>", "note": "모든 정보는 IRS 문서의 영문 표기와 정확히 일치해야 하며, 은행 계좌 명의도 동일해야 합니다." } }
+  ] }]
+}
+{% endschema %}

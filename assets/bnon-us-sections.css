@@ -1,0 +1,95 @@
+/* Figma 568:692 / 570:31. Reuse the existing build typography and entrances.
+   Every override is scoped to these two US detail sections. */
+:is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__label-row {
+  border-bottom: 0;
+  box-shadow: inset 0 -1px 0 var(--bnon-color-black);
+}
+:is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__title { width: 100%; }
+:is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__heading {
+  font-family: var(--bnon-font-korean);
+  font-weight: var(--bnon-weight-semibold);
+  word-break: keep-all;
+}
+.bnon-us-reasons .bnon-shopify-build__inner { padding: 85px clamp(32px, 7.361vw, 106px) 85px clamp(32px, 7.431vw, 107px); }
+.bnon-us-reasons .bnon-shopify-build__label-row { justify-content: flex-start; }
+.bnon-us-reasons .bnon-shopify-build__heading { font-size: 60px; line-height: 1.3; }
+.bnon-us-reasons .bnon-shopify-build__paragraph { font-weight: var(--bnon-weight-regular); }
+.bnon-us-reasons .bnon-shopify-build__paragraph strong { font-weight: var(--bnon-weight-bold); }
+.bnon-us-reasons .bnon-shopify-build__pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 40px 10px; }
+.bnon-us-reasons .bnon-shopify-build__pillar-heading {
+  border-bottom: 0;
+  border-top: 1px solid var(--bnon-color-black);
+  font-family: var(--bnon-font-korean);
+  line-height: 2;
+}
+.bnon-us-llc .bnon-shopify-build__inner { padding: 72px clamp(32px, 7.153vw, 103px) 72px clamp(32px, 7.431vw, 107px); }
+.bnon-us-llc__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7.317073%; margin-top: 76px; }
+.bnon-us-llc__left, .bnon-us-llc__right { min-width: 0; }
+.bnon-us-llc .bnon-shopify-build__title { gap: 40px; }
+.bnon-us-llc .bnon-shopify-build__heading { font-size: clamp(40px, 4.167vw, 60px); line-height: 1; }
+.bnon-us-llc .bnon-shopify-build__heading .bnon-shopify-build__accent { font-size: 1.166667em; line-height: 1.1; }
+.bnon-us-llc__subtitle,
+.bnon-us-llc__description,
+.bnon-us-llc__feature :is(p, h3) {
+  font-family: var(--bnon-font-korean);
+  font-size: 20px;
+  font-weight: var(--bnon-weight-medium);
+  line-height: 1.4;
+  letter-spacing: -.04em;
+  overflow-wrap: anywhere;
+}
+.bnon-us-llc__subtitle { color: #a3a3a3; }
+.bnon-us-llc .bnon-us-llc__mark {
+  display: block;
+  margin-top: 308px;
+  color: #a3a3a3;
+  font-family: var(--bnon-font-korean);
+  font-size: 120px;
+  font-weight: var(--bnon-weight-medium);
+  line-height: 1.2;
+  letter-spacing: -.04em;
+  overflow-wrap: anywhere;
+}
+.bnon-us-llc__features { display: grid; gap: 7px; margin: 40px 0 0; padding: 0; list-style: none; }
+.bnon-us-llc .bnon-us-llc__feature {
+  box-sizing: border-box;
+  min-height: 194px;
+  gap: 20px;
+  padding-block: 20px;
+  border-bottom: 1px solid #666;
+}
+.bnon-us-llc__feature:first-child { border-top: 1px solid #666; }
+.bnon-us-llc__feature-label { color: var(--bnon-color-blue); }
+.bnon-us-llc__feature .bnon-us-llc__feature-heading { font-weight: var(--bnon-weight-semibold); }
+.bnon-us-llc__feature-description { color: #666; }
+@media screen and (min-width: 1200px) {
+  /* Figma keeps this caption on its two authored lines; the column gap
+     accommodates its intrinsic text width without moving the other cards. */
+  .bnon-us-reasons .bnon-shopify-build__pillar:nth-child(2) .bnon-shopify-build__pillar-description { white-space: nowrap; }
+}
+@media screen and (max-width: 1199px) {
+  :is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__inner { padding-inline: 32px; }
+}
+@media screen and (max-width: 1023px) {
+  :is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__inner { padding-block: 64px; }
+  .bnon-us-reasons .bnon-shopify-build__heading { font-size: 48px; }
+  .bnon-us-reasons .bnon-shopify-build__pillars { padding-inline: 0; }
+  .bnon-us-llc__grid { grid-template-columns: minmax(0, 1fr); gap: 48px; margin-top: 60px; }
+  .bnon-us-llc .bnon-shopify-build__heading { font-size: 48px; }
+  .bnon-us-llc .bnon-us-llc__mark { margin-top: 40px; font-size: 90px; }
+  .bnon-us-llc .bnon-us-llc__feature { min-height: 0; }
+}
+@media screen and (max-width: 767px) {
+  :is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__inner { padding: 48px 24px 64px; }
+  .bnon-us-reasons .bnon-shopify-build__heading { font-size: clamp(28px, 7.692vw, 36px); }
+  .bnon-us-reasons .bnon-shopify-build__pillars { grid-template-columns: minmax(0, 1fr); padding: 24px 0; }
+  .bnon-us-llc__grid { gap: 40px; margin-top: 48px; }
+  .bnon-us-llc .bnon-shopify-build__title { gap: 24px; }
+  .bnon-us-llc .bnon-shopify-build__heading { font-size: clamp(28px, 7.692vw, 36px); }
+  .bnon-us-llc .bnon-us-llc__mark { margin-top: 32px; font-size: 80px; }
+  .bnon-us-llc__subtitle, .bnon-us-llc__description, .bnon-us-llc__feature :is(p, h3) { font-size: 16px; }
+  .bnon-us-llc__features { margin-top: 32px; }
+}
+@media screen and (max-width: 480px) {
+  :is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__inner { padding-inline: 20px; }
+}

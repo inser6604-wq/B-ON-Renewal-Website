@@ -1,0 +1,63 @@
+{{ 'bnon-shopify-build.css' | asset_url | stylesheet_tag }}
+{{ 'bnon-us-sections.css' | asset_url | stylesheet_tag }}
+
+<section class="bnon-section bnon-shopify-build bnon-us-llc"{% if section.settings.heading != blank %} aria-labelledby="UsLlcHeading-{{ section.id }}"{% endif %} data-header-theme="light">
+  <div class="bnon-shopify-build__inner">
+    {%- if section.settings.label != blank -%}
+      <div class="bnon-shopify-build__label-row"><p class="bnon-shopify-build__label">{{ section.settings.label | escape }}</p></div>
+    {%- endif -%}
+    <div class="bnon-us-llc__grid">
+      <div class="bnon-us-llc__left">
+        <div class="bnon-shopify-build__title">
+          {%- if section.settings.heading != blank -%}<h2 class="bnon-shopify-build__heading" id="UsLlcHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span class="bnon-shopify-build__accent"> {{ section.settings.heading_accent | escape }}</span></h2>{%- endif -%}
+          {%- if section.settings.subtitle != blank -%}<p class="bnon-us-llc__subtitle">{{ section.settings.subtitle | escape }}</p>{%- endif -%}
+        </div>
+        {%- if section.settings.mark != blank or section.settings.mark_accent != blank -%}<p class="bnon-shopify-build__copy bnon-us-llc__mark">{{ section.settings.mark | escape }}<span class="bnon-shopify-build__accent">{{ section.settings.mark_accent | escape }}</span></p>{%- endif -%}
+      </div>
+      <div class="bnon-us-llc__right">
+        {%- if section.settings.description != blank -%}<div class="bnon-shopify-build__copy"><p class="bnon-us-llc__description">{{ section.settings.description | escape | newline_to_br }}</p></div>{%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <ol class="bnon-us-llc__features" role="list">
+            {%- for block in section.blocks -%}
+              <li class="bnon-shopify-build__pillar bnon-us-llc__feature" {{ block.shopify_attributes }}>
+                {%- if block.settings.label != blank -%}<p class="bnon-us-llc__feature-label">{{ block.settings.label | escape }}</p>{%- endif -%}
+                {%- if block.settings.heading != blank -%}<h3 class="bnon-us-llc__feature-heading">{{ block.settings.heading | escape }}</h3>{%- endif -%}
+                {%- if block.settings.description != blank -%}<p class="bnon-us-llc__feature-description">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ol>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Why LLC",
+  "tag": "div",
+  "class": "bnon-us-llc-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "WHY LLC?" },
+    { "type": "textarea", "id": "heading", "label": "메인 제목", "default": "글로벌 비즈니스를 위한\n유연한 법인 구조" },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 민트색 강조 문자", "default": "." },
+    { "type": "text", "id": "subtitle", "label": "영문 보조 문구", "default": "LIMITED LIABILITY COMPANY" },
+    { "type": "text", "id": "mark", "label": "하단 대형 영문 문구", "default": "LLC" },
+    { "type": "text", "id": "mark_accent", "label": "대형 문구 끝 민트색 문자", "default": "." },
+    { "type": "textarea", "id": "description", "label": "LLC 소개 문구", "default": "미국 LLC는 유연한 운영 구조와 유한책임이라는 특징을 가진 법인 형태입니다." }
+  ],
+  "max_blocks": 3,
+  "blocks": [{ "type": "feature", "name": "LLC 특징", "settings": [
+    { "type": "text", "id": "label", "label": "번호 및 영문 항목명" },
+    { "type": "text", "id": "heading", "label": "국문 항목 제목" },
+    { "type": "textarea", "id": "description", "label": "항목 설명" }
+  ] }],
+  "presets": [{ "name": "B&ON Why LLC", "blocks": [
+    { "type": "feature", "settings": { "label": "01 / LIMITED LIABILITY", "heading": "개인 자산과 사업 책임의 분리", "description": "원칙적으로 구성원의 개인 책임을 제한하여 사업 운영에 따른 위험을 관리할 수 있습니다." } },
+    { "type": "feature", "settings": { "label": "02 / FLEXIBLE STRUCTURE", "heading": "유연한 운영 구조", "description": "사업 규모와 운영 방식에 맞춰 관리 및 의사결정 구조를 설계할 수 있습니다." } },
+    { "type": "feature", "settings": { "label": "03 / BUSINESS FOUNDATION", "heading": "미국 비즈니스 기반 마련", "description": "미국 현지 사업을 위한 법적 기반을 마련하고 글로벌 판매 환경 구축을 준비할 수 있습니다." } }
+  ] }]
+}
+{% endschema %}

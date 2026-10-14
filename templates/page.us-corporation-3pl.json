@@ -1,0 +1,94 @@
+{
+  "sections": {
+    "us_detail": {
+      "type": "bnon-us-detail",
+      "settings": {},
+      "blocks": {
+        "service_01": { "type": "service", "settings": { "number": "01", "label": "쇼피파이 자사몰 구축" } },
+        "service_02": { "type": "service", "settings": { "number": "02", "label": "디지털 마케팅" } },
+        "service_03": { "type": "service", "settings": { "number": "03", "label": "미국 법인 설립 & 물류 연계", "link": "/pages/service?view=us-corporation-3pl" } },
+        "service_04": { "type": "service", "settings": { "number": "04", "label": "아마존 입점" } },
+        "service_05": { "type": "service", "settings": { "number": "05", "label": "쇼피파이 관리자 교육" } }
+      },
+      "block_order": ["service_01", "service_02", "service_03", "service_04", "service_05"]
+    },
+    "us_reasons": {
+      "type": "bnon-us-reasons",
+      "settings": {},
+      "blocks": {
+        "reason_01": { "type": "reason", "settings": { "number": "01", "heading": "글로벌 비즈니스 신뢰도", "description": "미국 현지 법인을 기반으로 해외 고객 및 파트너와의 거래 신뢰도를 높입니다" } },
+        "reason_02": { "type": "reason", "settings": { "number": "02", "heading": "글로벌 브랜드 성장", "description": "미국 시장을 기반으로 글로벌 판매와\n비즈니스 확장을 위한 환경을 마련합니다." } },
+        "reason_03": { "type": "reason", "settings": { "number": "03", "heading": "효율적인 법인 운영", "description": "사업에 적합한 법인 구조를 검토하고\n효율적인 운영 기반을 구축합니다." } }
+      },
+      "block_order": ["reason_01", "reason_02", "reason_03"]
+    },
+    "us_llc": {
+      "type": "bnon-us-llc",
+      "settings": {},
+      "blocks": {
+        "feature_01": { "type": "feature", "settings": { "label": "01 / LIMITED LIABILITY", "heading": "개인 자산과 사업 책임의 분리", "description": "원칙적으로 구성원의 개인 책임을 제한하여 사업 운영에 따른 위험을 관리할 수 있습니다." } },
+        "feature_02": { "type": "feature", "settings": { "label": "02 / FLEXIBLE STRUCTURE", "heading": "유연한 운영 구조", "description": "사업 규모와 운영 방식에 맞춰 관리 및 의사결정 구조를 설계할 수 있습니다." } },
+        "feature_03": { "type": "feature", "settings": { "label": "03 / BUSINESS FOUNDATION", "heading": "미국 비즈니스 기반 마련", "description": "미국 현지 사업을 위한 법적 기반을 마련하고 글로벌 판매 환경 구축을 준비할 수 있습니다." } }
+      },
+      "block_order": ["feature_01", "feature_02", "feature_03"]
+    },
+    "us_payments": {
+      "type": "bnon-us-payments",
+      "settings": {},
+      "blocks": {
+        "benefit_01": { "type": "benefit", "settings": { "heading": "외부 PG 추가 수수료 완전 면제", "description": "Shopify Payments로 처리된 결제에는 Shopify의 외부 PG 추가 거래 수수료가 부과되지 않아, 결제 비용 부담을 줄일 수 있습니다." } },
+        "benefit_02": { "type": "benefit", "settings": { "heading": "높은 결제 승인율", "description": "글로벌 카드 네트워크를 기반으로 안정적인 결제 환경을 제공합니다" } },
+        "benefit_03": { "type": "benefit", "settings": { "heading": "다국가 통화 지원", "description": "지원되는 국가와 통화에 맞춰 현지화된 결제 환경을 제공합니다" } },
+        "benefit_04": { "type": "benefit", "settings": { "heading": "빠르고 안정적인 정산", "description": "결제 대금과 정산 내역을 Shopify에서 통합 관리할 수 있습니다" } },
+        "benefit_05": { "type": "benefit", "settings": { "heading": "운영 데이터 통합", "description": "주문과 결제 데이터를 한곳에서 관리해 운영 효율을 높입니다" } },
+        "benefit_06": { "type": "benefit", "settings": { "heading": "브랜드 신뢰도", "description": "일관된 결제 경험으로 고객의 구매 신뢰 형성을 돕습니다" } }
+      },
+      "block_order": ["benefit_01", "benefit_02", "benefit_03", "benefit_04", "benefit_05", "benefit_06"]
+    },
+    "us_comparison": {
+      "type": "bnon-us-comparison",
+      "settings": {},
+      "blocks": {
+        "metric_01": { "type": "metric", "settings": { "label": "외부 PG 추가 수수료", "value": "면제" } },
+        "metric_02": { "type": "metric", "settings": { "label": "결제 승인율", "value": "글로벌 카드 네트워크 기반 결제 지원" } },
+        "metric_03": { "type": "metric", "settings": { "label": "정산 속도", "value": "미국 기준 통상 영업일 3~5일 내 입금" } },
+        "metric_04": { "type": "metric", "settings": { "label": "다국가 통화", "value": "지원 조건별 제공" } },
+        "provider_paypal": { "type": "provider", "settings": { "heading": "PayPal", "fees": "추가 거래 수수료: 조건별 상이", "approval": "결제 승인율 : 결제 수단 및 거래 조건에 따라 상이", "settlement": "정산 속도:  출금 방식 및 계정 조건에 따라 상이", "currency": "다국가 통화: 지원 조건별" } },
+        "provider_external": { "type": "provider", "settings": { "heading": "외부 PG", "fees": "추가 거래 수수료: 요금제별 상이", "approval": "결제 승인율 : PG사 및 카드사별 승인 조건 상이", "settlement": "정산 속도 : PG사별 정산 주기 상이", "currency": "다국가 통화 : PG사별 상이" } }
+      },
+      "block_order": ["metric_01", "metric_02", "metric_03", "metric_04", "provider_paypal", "provider_external"]
+    },
+    "us_logistics": {
+      "type": "bnon-us-logistics", "settings": {},
+      "blocks": {
+        "step_korea": { "type": "step", "settings": { "heading": "한국", "description": "상품발송" } },
+        "step_3pl": { "type": "step", "settings": { "heading": "미국 3PL", "description": "현지보관 · 출고" } },
+        "step_customer": { "type": "step", "settings": { "heading": "미국 고객", "description": "현지배송" } },
+        "benefit_cost": { "type": "benefit", "settings": { "heading": "COST  ↓", "description": "배송비 부담 절감" } },
+        "benefit_time": { "type": "benefit", "settings": { "heading": "TIME  ↓", "description": "배송 시간 단축" } },
+        "benefit_auto": { "type": "benefit", "settings": { "heading": "AUTO", "description": "주문·재고 자동화" } },
+        "benefit_duty": { "type": "benefit", "settings": { "heading": "DUTY HANDLED", "description": "추가 관세 부담 최소화" } }
+      },
+      "block_order": ["step_korea", "step_3pl", "step_customer", "benefit_cost", "benefit_time", "benefit_auto", "benefit_duty"]
+    },
+    "us_requirements": {
+      "type": "bnon-us-requirements", "settings": {},
+      "blocks": {
+        "document_ein": { "type": "document", "settings": { "label": "사업자등록번호 확인서 (EIN Letter)" } },
+        "document_incorporation": { "type": "document", "settings": { "label": "법인 설립 증명서" } },
+        "document_identity": { "type": "document", "settings": { "label": "대표자 신분증" } },
+        "document_account": { "type": "document", "settings": { "label": "미국 은행 계좌" } },
+        "document_statement": { "type": "document", "settings": { "label": "은행 거래내역서" } },
+        "guide_language": { "type": "accordion", "settings": { "question": "언어 및 표기 규칙", "answer": "<p><strong>① 정부 문서 표기와 100% 일치</strong></p><p>법인명, 대표자 이름, 주소는 EIN·소유자 확인 서류까지 동일해야 합니다.</p><p><strong>② 서류는 영문으로 제출</strong></p><p>한국어 서류만 제출 시 승인 지연 가능성이 높습니다. 필요 시 영어 번역본을 함께 첨부하세요.</p><p><strong>③ 결제 명세서에 표시될 이름</strong></p><p>영문 2~19자 범위 내에서 법인명, 상호명, 도메인 중 하나를 사용합니다.</p><p>예: BNONU LLC / BNONU.COM</p>" } },
+        "guide_terms": { "type": "accordion", "settings": { "question": "주요 영어 간단 정리", "answer": "<p><strong>ITIN (Individual Taxpayer Identification Number)</strong></p><p>외국인을 위한 미국 개인 납세자 번호입니다. SSN(사회보장번호)이 없는 외국인은 발급을 권장하며, Stripe(Shopify Payments)의 세금 식별 절차(W-8BEN 등)에서 추가 확인이나 보류를 방지하는 데 도움이 될 수 있습니다.</p><p><strong>EIN (Employer Identification Number)</strong></p><p>미국 사업자 등록번호로, 법인 설립 시 반드시 신청해야 합니다.</p>" } },
+        "guide_structure": { "type": "accordion", "settings": { "question": "1인 LLC 기준 기본 구성", "layout": "table", "row_1_label": "법인", "row_1_value": "미국 내 1인 유한책임회사(LLC)", "row_2_label": "세금번호", "row_2_value": "EIN (필수) + ITIN (발급 권장)", "row_3_label": "계좌", "row_3_value": "미국 달러 계좌 (ACH 가능, Mercury 등 핀테크 가능)", "row_4_label": "서류", "row_4_value": "법인 증명서 + 은행 거래내역서" } },
+        "guide_holds": { "type": "accordion", "settings": { "question": "자주 보류되는 사유", "answer": "<ul><li>서류상의 이름 또는 철자가 EIN 문서와 불일치</li><li>개인 명의 은행 계좌 사용 (법인명 계좌 필수)</li><li>여권 이미지 저화질 또는 훼손</li><li>한국어 서류 단독 제출 (영문 번역 필요)</li><li>ACH 출금 불가 은행 사용</li></ul>", "note": "모든 정보는 IRS 문서의 영문 표기와 정확히 일치해야 하며, 은행 계좌 명의도 동일해야 합니다." } }
+      },
+      "block_order": ["document_ein", "document_incorporation", "document_identity", "document_account", "document_statement", "guide_language", "guide_terms", "guide_structure", "guide_holds"]
+    }
+  },
+  "order": [
+    "us_detail", "us_reasons", "us_llc", "us_payments", "us_comparison",
+    "us_logistics", "us_requirements"
+  ]
+}
