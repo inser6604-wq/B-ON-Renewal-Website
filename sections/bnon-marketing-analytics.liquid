@@ -1,0 +1,81 @@
+{{ 'bnon-shopify-build.css' | asset_url | stylesheet_tag }}
+{{ 'bnon-marketing-sections.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign flow_image_url = 'bnon-marketing-analytics-flow.svg' | asset_url
+  if section.settings.flow_image != blank
+    assign flow_image_url = section.settings.flow_image | image_url: width: 2448
+  endif
+-%}
+<section class="bnon-section bnon-shopify-build bnon-marketing-analytics"{% if section.settings.heading != blank %} aria-labelledby="MarketingAnalyticsHeading-{{ section.id }}"{% endif %} data-header-theme="light">
+  <div class="bnon-shopify-build__inner">
+    {%- if section.settings.label_prefix != blank or section.settings.label_suffix != blank or section.settings.label_symbol != blank -%}
+      <div class="bnon-shopify-build__label-row">
+        <p class="bnon-shopify-build__label">{{ section.settings.label_prefix | escape }}{% if section.settings.label_symbol != blank %} <span class="bnon-marketing-analytics__label-symbol">{{ section.settings.label_symbol | escape }}</span>{% endif %}{% if section.settings.label_suffix != blank %} {{ section.settings.label_suffix | escape }}{% endif %}</p>
+      </div>
+    {%- endif -%}
+    <div class="bnon-shopify-build__intro">
+      <div class="bnon-shopify-build__title">
+        {%- if section.settings.heading != blank -%}<h2 class="bnon-shopify-build__heading" id="MarketingAnalyticsHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span class="bnon-shopify-build__accent">{{ section.settings.heading_accent | escape }}</span></h2>{%- endif -%}
+      </div>
+      {%- if section.settings.description != blank -%}
+        <div class="bnon-shopify-build__copy"><p class="bnon-marketing-analytics__description">{{ section.settings.description | escape | newline_to_br }}</p></div>
+      {%- endif -%}
+    </div>
+    {%- if section.blocks.size > 0 -%}
+      <div class="bnon-shopify-build__copy bnon-marketing-analytics__flow">
+        <span class="bnon-marketing-analytics__line" aria-hidden="true"><img src="{{ flow_image_url | escape }}" alt="" width="1224" height="14.7279" loading="lazy"></span>
+        <ol class="bnon-marketing-analytics__steps" role="list" style="--marketing-flow-count: {{ section.blocks.size }};">
+          {%- for block in section.blocks -%}
+            <li class="bnon-marketing-analytics__step" {{ block.shopify_attributes }}>
+              <div class="bnon-marketing-analytics__step-heading">
+                {%- if block.settings.number != blank -%}<p class="bnon-marketing-analytics__number">{{ block.settings.number | escape }}</p>{%- endif -%}
+                {%- if block.settings.heading != blank -%}<h3 class="bnon-marketing-analytics__name">{{ block.settings.heading | escape }}</h3>{%- endif -%}
+              </div>
+              <div class="bnon-marketing-analytics__step-copy">
+                {%- if block.settings.lead != blank -%}<p class="bnon-marketing-analytics__lead">{{ block.settings.lead | escape | newline_to_br }}</p>{%- endif -%}
+                {%- if block.settings.description != blank -%}<p class="bnon-marketing-analytics__detail">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Ads & Analytics",
+  "tag": "div",
+  "class": "bnon-marketing-analytics-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "label_prefix", "label": "영문 라벨 앞 문구", "default": "GOOGLE ADS" },
+    { "type": "text", "id": "label_symbol", "label": "영문 라벨 구분 문자", "default": "&" },
+    { "type": "text", "id": "label_suffix", "label": "영문 라벨 뒤 문구", "default": "ANALYTICS" },
+    { "type": "textarea", "id": "heading", "label": "제목", "default": "데이터를 연결하고,\n전환을 추적합니다", "info": "줄바꿈을 그대로 표시합니다." },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 강조 문자", "default": "." },
+    { "type": "textarea", "id": "description", "label": "소개 문구", "default": "Google Ads · GA4 · Shopify를 하나의 데이터 흐름으로 연결합니다." },
+    { "type": "image_picker", "id": "flow_image", "label": "데이터 흐름 연결선 이미지", "info": "비워두면 Figma 원본을 유지합니다. 기존 비율 1224:14.7279의 가로형 연결선을 사용하세요." }
+  ],
+  "blocks": [
+    {
+      "type": "platform", "name": "데이터 연결 단계",
+      "settings": [
+        { "type": "text", "id": "number", "label": "표시 번호" },
+        { "type": "text", "id": "heading", "label": "플랫폼 이름" },
+        { "type": "textarea", "id": "lead", "label": "강조 설명" },
+        { "type": "textarea", "id": "description", "label": "보조 설명" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "B&ON Ads & Analytics", "blocks": [
+    { "type": "platform", "settings": { "number": "01", "heading": "GOOGLE ADS", "lead": "구매 신호를 정확하게 전달합니다.", "description": "광고 전환 데이터 수집" } },
+    { "type": "platform", "settings": { "number": "02", "heading": "GA4", "lead": "전환 데이터를 하나의 기준으로 통합합니다.", "description": "고객 행동 · 전환 분석" } },
+    { "type": "platform", "settings": { "number": "03", "heading": "SHOPIFY", "lead": "클릭부터 결제까지 흐름을 연결합니다.", "description": "유입 · 구매 데이터 연결" } }
+  ] }]
+}
+{% endschema %}

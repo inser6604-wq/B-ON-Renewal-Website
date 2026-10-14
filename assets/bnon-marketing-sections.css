@@ -1,0 +1,112 @@
+/* Figma 560:147 and 560:260. Overrides apply only to the new marketing sections. */
+.bnon-marketing-overview .bnon-shopify-build__inner {
+  padding: 91px clamp(32px, 7.431vw, 107px) 91px clamp(32px, 7.361vw, 106px);
+}
+.bnon-marketing-overview .bnon-shopify-build__label-row,
+.bnon-marketing-analytics .bnon-shopify-build__label-row {
+  border-bottom: 0;
+  box-shadow: inset 0 -1px 0 var(--bnon-color-black);
+}
+.bnon-marketing-overview .bnon-shopify-build__label-row { justify-content: flex-start; }
+.bnon-marketing-overview .bnon-shopify-build__label,
+.bnon-marketing-analytics .bnon-shopify-build__label { line-height: 42px; }
+.bnon-marketing-overview .bnon-shopify-build__title { width: fit-content; max-width: 100%; }
+.bnon-marketing-overview .bnon-shopify-build__paragraph { font-weight: var(--bnon-weight-regular); }
+.bnon-marketing-overview .bnon-shopify-build__paragraph strong { font-weight: var(--bnon-weight-bold); }
+.bnon-marketing-overview .bnon-shopify-build__pillars {
+  padding: 40px 10px;
+  box-shadow: inset 0 1px 0 var(--bnon-color-black);
+}
+.bnon-marketing-overview .bnon-shopify-build__pillar-heading {
+  border-bottom: 0;
+  box-shadow: inset 0 -1px 0 var(--bnon-color-black);
+}
+.bnon-marketing-analytics .bnon-shopify-build__inner {
+  padding: 65px clamp(32px, 7.361vw, 106px) 113px clamp(32px, 7.431vw, 107px);
+}
+.bnon-marketing-analytics .bnon-shopify-build__intro { gap: 40px; margin-top: 40px; }
+.bnon-marketing-analytics .bnon-shopify-build__title { display: block; width: auto; }
+.bnon-marketing-analytics .bnon-shopify-build__heading {
+  font-family: var(--bnon-font-korean);
+  font-size: 30px;
+  line-height: 1.5;
+}
+.bnon-marketing-analytics__label-symbol { font-family: 'Instrument Sans', var(--bnon-font-latin); }
+.bnon-marketing-analytics__description {
+  font-family: var(--bnon-font-korean);
+  font-size: 20px;
+  font-weight: var(--bnon-weight-medium);
+  line-height: 1.4;
+  letter-spacing: -.04em;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.bnon-marketing-analytics__flow { position: relative; min-height: 135px; margin-top: 112px; }
+.bnon-marketing-analytics__line {
+  position: absolute;
+  top: 58px;
+  right: 2px;
+  left: 3px;
+  transform: translateY(-50%);
+}
+.bnon-marketing-analytics__line img { display: block; width: 100%; height: auto; aspect-ratio: 1224 / 14.7279; object-fit: contain; }
+.bnon-marketing-analytics__steps {
+  display: grid;
+  grid-template-columns: repeat(var(--marketing-flow-count, 3), minmax(0, 1fr));
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.bnon-marketing-analytics__step { min-width: 0; width: 100%; max-width: 273px; }
+.bnon-marketing-analytics__step:nth-child(2) { justify-self: center; max-width: 255px; text-align: center; }
+.bnon-marketing-analytics__step:last-child { justify-self: end; max-width: 240px; margin-right: 2px; text-align: right; }
+.bnon-marketing-analytics__step-heading { display: flex; align-items: start; gap: 14px; }
+.bnon-marketing-analytics__step:nth-child(2) .bnon-marketing-analytics__step-heading { justify-content: center; }
+.bnon-marketing-analytics__step:last-child .bnon-marketing-analytics__step-heading { justify-content: flex-end; }
+.bnon-marketing-analytics__number,
+.bnon-marketing-analytics__name { font-size: 26px; font-weight: var(--bnon-weight-semibold); line-height: 42px; letter-spacing: -.04em; }
+.bnon-marketing-analytics__number { color: var(--bnon-color-blue); font-family: var(--bnon-font-korean); }
+.bnon-marketing-analytics__name { min-width: 0; font-family: var(--bnon-font-latin); overflow-wrap: anywhere; }
+.bnon-marketing-analytics__step-copy { display: grid; gap: 11px; margin-top: 30px; }
+.bnon-marketing-analytics__lead,
+.bnon-marketing-analytics__detail { font-family: var(--bnon-font-korean); font-size: 16px; line-height: 26px; letter-spacing: -.04em; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-marketing-analytics__lead { font-weight: var(--bnon-weight-bold); }
+.bnon-marketing-analytics__detail { font-weight: var(--bnon-weight-medium); }
+@media screen and (max-width: 1439px) {
+  .bnon-marketing-overview .bnon-shopify-build__pillars { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media screen and (max-width: 1199px) {
+  .bnon-marketing-overview .bnon-shopify-build__inner,
+  .bnon-marketing-analytics .bnon-shopify-build__inner { padding-inline: 32px; }
+}
+@media screen and (max-width: 1023px) {
+  .bnon-marketing-overview .bnon-shopify-build__inner { padding-block: 64px; }
+  .bnon-marketing-overview .bnon-shopify-build__pillars { gap: 24px; }
+  .bnon-marketing-analytics .bnon-shopify-build__inner { padding-block: 64px 80px; }
+  .bnon-marketing-analytics__flow { margin-top: 80px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-marketing-overview .bnon-shopify-build__inner,
+  .bnon-marketing-analytics .bnon-shopify-build__inner { padding: 48px 24px 64px; }
+  .bnon-marketing-overview .bnon-shopify-build__label,
+  .bnon-marketing-analytics .bnon-shopify-build__label { line-height: 1.6; }
+  .bnon-marketing-overview .bnon-shopify-build__pillars { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 32px 0; }
+  .bnon-marketing-analytics .bnon-shopify-build__label { white-space: normal; overflow-wrap: anywhere; }
+  .bnon-marketing-analytics .bnon-shopify-build__intro { gap: 28px; margin-top: 32px; }
+  .bnon-marketing-analytics .bnon-shopify-build__heading { font-size: 24px; }
+  .bnon-marketing-analytics__description { font-size: 16px; }
+  .bnon-marketing-analytics__flow { margin-top: 64px; }
+  .bnon-marketing-analytics__step-heading { flex-direction: column; gap: 6px; align-items: flex-start; }
+  .bnon-marketing-analytics__step:nth-child(2) .bnon-marketing-analytics__step-heading { align-items: center; }
+  .bnon-marketing-analytics__step:last-child .bnon-marketing-analytics__step-heading { align-items: flex-end; }
+  .bnon-marketing-analytics__number { font-size: 18px; line-height: 28.8px; }
+  .bnon-marketing-analytics__name { min-height: 48px; font-size: 16px; line-height: 24px; }
+  .bnon-marketing-analytics__line { top: 98.8px; }
+  .bnon-marketing-analytics__lead,
+  .bnon-marketing-analytics__detail { font-size: 14px; line-height: 1.6; }
+}
+@media screen and (max-width: 480px) {
+  .bnon-marketing-overview .bnon-shopify-build__inner,
+  .bnon-marketing-analytics .bnon-shopify-build__inner { padding-inline: 20px; }
+}

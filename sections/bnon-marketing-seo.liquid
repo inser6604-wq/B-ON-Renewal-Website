@@ -1,0 +1,108 @@
+{{ 'bnon-shopify-build.css' | asset_url | stylesheet_tag }}
+{{ 'bnon-marketing-seo.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-marketing-seo.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign search_icon = 'bnon-marketing-seo-search.svg' | asset_url
+  if section.settings.search_image != blank
+    assign search_icon = section.settings.search_image | image_url: width: 96
+  endif
+  assign groups = 'keyword,structure,console' | split: ','
+-%}
+<section class="bnon-section bnon-shopify-build bnon-marketing-seo"{% if section.settings.heading != blank or section.settings.heading_emphasis != blank %} aria-labelledby="MarketingSeoHeading-{{ section.id }}"{% endif %} data-header-theme="light">
+  <div class="bnon-shopify-build__inner">
+    {%- if section.settings.label != blank -%}
+      <div class="bnon-shopify-build__label-row"><p class="bnon-shopify-build__label">{{ section.settings.label | escape }}</p></div>
+    {%- endif -%}
+    <div class="bnon-shopify-build__intro">
+      <div class="bnon-shopify-build__title">
+        {%- if section.settings.heading != blank or section.settings.heading_emphasis != blank -%}
+          <h2 class="bnon-shopify-build__heading" id="MarketingSeoHeading-{{ section.id }}"><span class="bnon-marketing-seo__heading-text">{{ section.settings.heading | escape }}{% if section.settings.heading != blank and section.settings.heading_emphasis != blank %}&#32;{% endif %}</span><span class="bnon-marketing-seo__emphasis">{{ section.settings.heading_emphasis | escape }}</span><span class="bnon-shopify-build__accent">{{ section.settings.heading_accent | escape }}</span></h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}<p class="bnon-marketing-seo__subtitle">{{ section.settings.subtitle | escape | newline_to_br }}</p>{%- endif -%}
+      </div>
+      <div class="bnon-shopify-build__copy bnon-marketing-seo__copy">
+        {%- if section.settings.lead != blank -%}<p><strong>{{ section.settings.lead | escape | newline_to_br }}</strong></p>{%- endif -%}
+        {%- if section.settings.description != blank -%}<p>{{ section.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+      </div>
+    </div>
+    <div class="bnon-marketing-seo__diagram">
+      <bnon-marketing-seo-search class="bnon-marketing-seo__search" data-typing-enabled="{{ section.settings.typing_enabled }}" data-typing-duration="{{ section.settings.typing_duration | times: 1000 }}">
+        <span class="bnon-marketing-seo__phrase"><span data-seo-source>{{ section.settings.search_text | escape }}</span><span data-seo-typed aria-hidden="true"></span></span>
+        <img class="bnon-marketing-seo__search-icon" src="{{ search_icon | escape }}" width="35.527" height="35.527" alt="" loading="lazy" aria-hidden="true">
+      </bnon-marketing-seo-search>
+      <div class="bnon-marketing-seo__groups">
+        {%- for group in groups -%}
+          {%- assign heading_key = group | append: '_heading' -%}
+          <div class="bnon-marketing-seo__group bnon-marketing-seo__group--{{ group }}">
+            {%- if section.settings[heading_key] != blank -%}<h3 class="bnon-marketing-seo__group-heading">{{ section.settings[heading_key] | escape }}</h3>{%- endif -%}
+            <ul class="bnon-marketing-seo__tags" role="list">
+              {%- for block in section.blocks -%}
+                {%- if block.settings.group == group -%}
+                  <li class="bnon-marketing-seo__tag" {{ block.shopify_attributes }}>
+                    <span>{{ block.settings.text | escape }}</span>
+                    {%- if block.settings.marker != blank -%}<span class="bnon-marketing-seo__marker">{{ block.settings.marker | escape }}</span>{%- endif -%}
+                    {%- if block.settings.image != blank -%}
+                      <img class="bnon-marketing-seo__tag-image" src="{{ block.settings.image | image_url: width: 96 }}" alt="" width="32.632" height="32.632" loading="lazy">
+                    {%- elsif block.settings.design_arrow -%}
+                      <img class="bnon-marketing-seo__tag-image" src="{{ 'bnon-marketing-seo-arrow.svg' | asset_url }}" alt="" width="32.632" height="32.632" loading="lazy">
+                    {%- endif -%}
+                  </li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Google SEO",
+  "tag": "div",
+  "class": "bnon-marketing-seo-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 20,
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "GOOGLE SEO" },
+    { "type": "text", "id": "heading", "label": "제목 앞 문구", "default": "GOOGLE" },
+    { "type": "text", "id": "heading_emphasis", "label": "제목 큰 강조 문구", "default": "SEO" },
+    { "type": "text", "id": "heading_accent", "label": "제목 끝 강조 문자", "default": "." },
+    { "type": "textarea", "id": "subtitle", "label": "부제목", "default": "검색에 노출되는 구조를 만듭니다." },
+    { "type": "textarea", "id": "lead", "label": "굵은 강조 설명", "default": "좋은 콘텐츠도 검색엔진이 이해할 수 있는 구조가 필요합니다." },
+    { "type": "textarea", "id": "description", "label": "본문 설명", "default": "브랜드와 타깃에 맞는 핵심 키워드를 분석하고,\nGoogle이 페이지를 정확히 인식할 수 있도록 Shopify의 SEO 구조를 설계합니다." },
+    { "type": "text", "id": "search_text", "label": "검색창 타이핑 문구", "default": "브랜드 핵심 키워드" },
+    { "type": "image_picker", "id": "search_image", "label": "검색창 아이콘", "info": "비워두면 Figma 원본 검색 아이콘을 사용합니다." },
+    { "type": "checkbox", "id": "typing_enabled", "label": "검색창 타이핑 애니메이션 사용", "default": true },
+    { "type": "range", "id": "typing_duration", "label": "전체 문구 입력 시간", "min": 1, "max": 4, "step": 0.1, "unit": "초", "default": 1.8 },
+    { "type": "text", "id": "keyword_heading", "label": "키워드 분석 그룹 제목", "default": "KEYWORD ANALYSIS" },
+    { "type": "text", "id": "structure_heading", "label": "SEO 구조 그룹 제목", "default": "SEO STRUCTURE" },
+    { "type": "text", "id": "console_heading", "label": "Search Console 그룹 제목", "default": "GOOGLE SEARCH CONSOLE" }
+  ],
+  "blocks": [{
+    "type": "tag", "name": "SEO 태그",
+    "settings": [
+      { "type": "select", "id": "group", "label": "표시 그룹", "options": [{ "value": "keyword", "label": "키워드 분석" }, { "value": "structure", "label": "SEO 구조" }, { "value": "console", "label": "Search Console" }], "default": "keyword" },
+      { "type": "text", "id": "text", "label": "태그 문구" },
+      { "type": "text", "id": "marker", "label": "강조 표시 문자", "info": "검색 등록 태그의 체크 표시 등을 편집합니다." },
+      { "type": "image_picker", "id": "image", "label": "태그 아이콘" },
+      { "type": "checkbox", "id": "design_arrow", "label": "Figma 원본 화살표 사용", "default": false, "info": "아이콘을 직접 선택하면 선택한 이미지가 우선 적용됩니다." }
+    ]
+  }],
+  "presets": [{ "name": "B&ON Google SEO", "blocks": [
+    { "type": "tag", "settings": { "group": "keyword", "text": "브랜드 핵심 키워드" } },
+    { "type": "tag", "settings": { "group": "keyword", "text": "타깃 키워드" } },
+    { "type": "tag", "settings": { "group": "keyword", "text": "카테고리 키워드" } },
+    { "type": "tag", "settings": { "group": "keyword", "text": "검색 의도" } },
+    { "type": "tag", "settings": { "group": "structure", "text": "META TITLE" } },
+    { "type": "tag", "settings": { "group": "structure", "text": "DESCRIPTION" } },
+    { "type": "tag", "settings": { "group": "structure", "text": "URL" } },
+    { "type": "tag", "settings": { "group": "structure", "text": "ALT TEXT" } },
+    { "type": "tag", "settings": { "group": "console", "text": "검색 등록", "marker": "✓" } },
+    { "type": "tag", "settings": { "group": "console", "text": "노출 · 클릭 데이터", "design_arrow": true } }
+  ] }]
+}
+{% endschema %}

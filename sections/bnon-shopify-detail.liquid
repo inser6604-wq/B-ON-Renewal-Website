@@ -2,7 +2,6 @@
 <script src="{{ 'bnon-shopify-detail.js' | asset_url }}" defer="defer"></script>
 
 {%- liquid
-  assign contact_url = section.settings.contact_link | default: '/pages/contact'
   assign desktop_image = section.settings.hero_image
   assign mobile_image = section.settings.hero_mobile_image
 -%}
@@ -21,36 +20,8 @@
   data-breadcrumb-label="{{ section.settings.breadcrumb_accessibility_label | escape }}"
 >
   <section class="bnon-shopify-detail__inner" aria-labelledby="ShopifyDetailHeading-{{ section.id }}" data-header-theme="light">
-    <div class="bnon-shopify-detail__intro">
-      <div class="bnon-shopify-detail__copy">
-        <h1 class="bnon-shopify-detail__heading" id="ShopifyDetailHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
-        <p class="bnon-shopify-detail__subtitle">{{ section.settings.subtitle | escape }}</p>
-        <p class="bnon-shopify-detail__description">{{ section.settings.description | escape }}</p>
-        <a class="bnon-shopify-detail__contact" href="{{ contact_url | escape }}">{{ section.settings.contact_label | escape }}</a>
-      </div>
-
-      {%- if section.blocks.size > 0 -%}
-        <nav class="bnon-shopify-detail__navigation" aria-label="{{ section.settings.navigation_label | escape }}">
-          <ol class="bnon-shopify-detail__services" role="list">
-            {%- for block in section.blocks -%}
-              {%- assign selected_service_url = block.settings.link | default: block.settings.page.url -%}
-              {%- capture service_url -%}{%- render 'bnon-service-detail-url', link: selected_service_url, service_key: block.settings.number -%}{%- endcapture -%}
-              {%- assign service_url = service_url | strip -%}
-              {%- assign display_number = block.settings.display_number | default: block.settings.number -%}
-              <li {{ block.shopify_attributes }}>
-                {%- if block.settings.number == '01' and block.settings.link == blank -%}
-                  <span class="bnon-shopify-detail__service is-current" aria-current="page"><span>{{ display_number | escape }}</span><span>{{ block.settings.label | escape }}</span></span>
-                {%- elsif service_url != blank -%}
-                  <a class="bnon-shopify-detail__service{% if block.settings.number == '01' %} is-current{% endif %}" href="{{ service_url | escape }}"{% if block.settings.number == '01' %} aria-current="page"{% endif %}><span>{{ display_number | escape }}</span><span>{{ block.settings.label | escape }}</span></a>
-                {%- else -%}
-                  <span class="bnon-shopify-detail__service" aria-disabled="true"><span>{{ display_number | escape }}</span><span>{{ block.settings.label | escape }}</span></span>
-                {%- endif -%}
-              </li>
-            {%- endfor -%}
-          </ol>
-        </nav>
-      {%- endif -%}
-    </div>
+    {%- capture detail_heading_id -%}ShopifyDetailHeading-{{ section.id }}{%- endcapture -%}
+    {% render 'bnon-service-detail-intro', section: section, active_service: '01', heading_id: detail_heading_id %}
 
     <div class="bnon-shopify-detail__scroll-stage">
       <div class="bnon-shopify-detail__media">

@@ -97,6 +97,8 @@
         ['.bnon-shopify-payment__flow, .bnon-shopify-payment__result', 0],
         ['.bnon-shopify-faq__label-row', 16],
         ['.bnon-shopify-faq__group', 0],
+        ['.bnon-marketing-detail__card', 0],
+        ['.bnon-marketing-detail__caption', 16],
       ];
       groups.forEach(([selector, rise, duration = 600, stagger = 100, threshold = .08]) => {
         this.root.querySelectorAll(selector).forEach((target, index) => {
@@ -123,6 +125,14 @@
     connectedCallback() {
       if (this.events) return;
       this.syncBreadcrumbs();
+      // Other service Heroes reuse the same once-only copy/gallery entrances,
+      // without starting the Shopify-specific mockup scroll controller.
+      if (this.hasAttribute('data-intro-only')) {
+        this.events = new AbortController();
+        const main = this.closest('#MainContent');
+        if (main) this.entrances = new DetailEntrances(main);
+        return;
+      }
       this.stage = this.querySelector('.bnon-shopify-detail__scroll-stage');
       this.media = this.querySelector('.bnon-shopify-detail__media');
       if (!this.stage || !this.media) return;

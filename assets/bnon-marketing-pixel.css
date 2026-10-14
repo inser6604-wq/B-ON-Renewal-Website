@@ -1,0 +1,66 @@
+/* Figma 560:402. Comparison geometry and motion are local to this section. */
+.bnon-marketing-pixel { background: var(--pixel-background); color: var(--pixel-text); }
+.bnon-marketing-pixel .bnon-shopify-build__inner { padding: 80px 106px 169px 107px; }
+.bnon-marketing-pixel .bnon-shopify-build__label-row { border-bottom: 0; box-shadow: inset 0 -1px var(--bnon-color-black); }
+.bnon-marketing-pixel .bnon-shopify-build__label { line-height: 42px; }
+.bnon-marketing-pixel .bnon-shopify-build__intro { margin-top: 60px; }
+.bnon-marketing-pixel .bnon-shopify-build__title { width: 100%; gap: 8px; }
+.bnon-marketing-pixel .bnon-shopify-build__heading { color: var(--pixel-text); font-family: var(--bnon-font-korean); font-size: 60px; line-height: 84px; }
+.bnon-marketing-pixel__subtitle { font-family: var(--bnon-font-korean); font-size: 40px; font-weight: 700; line-height: 56px; letter-spacing: -1.6px; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-marketing-pixel .bnon-marketing-pixel__description { margin-top: 6px; font-family: var(--bnon-font-korean); font-size: 20px; font-weight: 500; line-height: 28px; letter-spacing: -0.8px; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-marketing-pixel__metrics { display: block; width: min(1116px, calc(100% - 24px)); margin: 119px 0 0 12px; }
+.bnon-marketing-pixel__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(56px, 17.778vw, 256px); }
+.bnon-marketing-pixel__metric { display: grid; align-content: start; gap: 30px; min-width: 0; }
+.bnon-marketing-pixel__metric-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 24px; min-width: 0; }
+.bnon-marketing-pixel__metric-title { color: var(--pixel-text); font-family: var(--bnon-font-korean); font-size: 24px; font-weight: 600; line-height: 34px; letter-spacing: -0.96px; word-break: keep-all; overflow-wrap: anywhere; }
+.bnon-marketing-pixel__hint { color: #9b9b9b; font-family: var(--bnon-font-korean); font-size: 14px; font-weight: 500; line-height: 20px; letter-spacing: -0.56px; overflow-wrap: anywhere; }
+.bnon-marketing-pixel__row { display: grid; grid-template-columns: 88px minmax(0, 264px) 42px; align-items: center; gap: 18px; min-width: 0; }
+.bnon-marketing-pixel__row--on { grid-template-columns: 81px minmax(0, 264px) 43px; gap: 21px; }
+.bnon-marketing-pixel__state { min-width: 0; color: var(--pixel-off-label); font-family: var(--bnon-font-korean); font-size: 20px; font-weight: 500; line-height: 28px; letter-spacing: -0.8px; overflow-wrap: anywhere; }
+.bnon-marketing-pixel__track { display: block; min-width: 0; height: 6px; overflow: hidden; border-radius: 100px; background: var(--pixel-track); }
+.bnon-marketing-pixel__fill { display: block; width: var(--pixel-fill, 0%); height: 100%; border-radius: inherit; background: var(--pixel-off); transform-origin: left center; }
+.bnon-marketing-pixel__value { min-width: 0; color: var(--pixel-off); font-family: var(--bnon-font-korean); font-size: 16px; font-weight: 400; line-height: 22px; letter-spacing: -0.64px; overflow-wrap: anywhere; }
+.bnon-marketing-pixel__row--on .bnon-marketing-pixel__state { color: var(--pixel-on); }
+.bnon-marketing-pixel__row--on .bnon-marketing-pixel__fill { background: var(--pixel-on); }
+.bnon-marketing-pixel__row--on .bnon-marketing-pixel__value { color: var(--pixel-text); font-weight: 600; }
+.bnon-marketing-pixel__divider { grid-column: 1 / -1; display: block; width: calc(100% + 6px); margin: 79.5px 0 54.5px 7.5px; }
+.bnon-marketing-pixel__divider img { display: block; width: 100%; height: auto; aspect-ratio: 1122 / 1; }
+
+@media screen and (max-width: 1199px) {
+  .bnon-marketing-pixel .bnon-shopify-build__inner { padding-inline: 32px; }
+  .bnon-marketing-pixel__metrics { width: 100%; margin-left: 0; }
+  .bnon-marketing-pixel__grid { column-gap: 56px; }
+  .bnon-marketing-pixel__divider { width: 100%; margin-left: 0; }
+}
+
+@media screen and (max-width: 1023px) {
+  .bnon-marketing-pixel .bnon-shopify-build__inner { padding-block: 64px 80px; }
+  .bnon-marketing-pixel .bnon-shopify-build__heading { font-size: 48px; line-height: 1.4; }
+  .bnon-marketing-pixel__subtitle { font-size: 34px; line-height: 1.4; }
+  .bnon-marketing-pixel__metrics { margin-top: 80px; }
+  .bnon-marketing-pixel__metric-heading { gap: 8px 16px; }
+  .bnon-marketing-pixel__metric-title { font-size: 20px; line-height: 28px; }
+  .bnon-marketing-pixel__state { font-size: 16px; line-height: 24px; }
+  .bnon-marketing-pixel__row,
+  .bnon-marketing-pixel__row--on { grid-template-columns: 72px minmax(0, 1fr) minmax(36px, 42px); gap: 12px; }
+  .bnon-marketing-pixel__value { font-size: 14px; line-height: 20px; }
+  .bnon-marketing-pixel__divider { margin-block: 56px; }
+}
+
+@media screen and (max-width: 767px) {
+  .bnon-marketing-pixel .bnon-shopify-build__inner { padding: 48px 24px 64px; }
+  .bnon-marketing-pixel .bnon-shopify-build__label { font-size: 18px; line-height: 1.6; }
+  .bnon-marketing-pixel .bnon-shopify-build__intro { margin-top: 40px; }
+  .bnon-marketing-pixel .bnon-shopify-build__heading { font-size: clamp(28px, 6.5vw, 40px); line-height: 1.3; }
+  .bnon-marketing-pixel__subtitle { font-size: 28px; line-height: 1.4; letter-spacing: -1.12px; }
+  .bnon-marketing-pixel .bnon-marketing-pixel__description { font-size: 16px; line-height: 1.6; letter-spacing: -0.64px; }
+  .bnon-marketing-pixel__metrics { margin-top: 56px; }
+  .bnon-marketing-pixel__grid { grid-template-columns: minmax(0, 1fr); row-gap: 40px; }
+  .bnon-marketing-pixel__metric { gap: 24px; }
+  .bnon-marketing-pixel__metric-heading { gap: 8px 20px; }
+  .bnon-marketing-pixel__divider { margin-block: 0; }
+}
+
+@media screen and (max-width: 480px) {
+  .bnon-marketing-pixel .bnon-shopify-build__inner { padding-inline: 20px; }
+}

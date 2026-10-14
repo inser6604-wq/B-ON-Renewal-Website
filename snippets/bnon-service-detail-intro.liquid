@@ -1,0 +1,36 @@
+{%- comment -%}
+  Shared service Hero copy, CTA and full-row navigation. Keep the established
+  Shopify detail classes so all five services use the same responsive UI.
+{%- endcomment -%}
+{%- liquid
+  assign contact_url = section.settings.contact_link | default: '/pages/contact'
+  assign service_blocks = section.blocks | where: 'type', 'service'
+-%}
+<div class="bnon-shopify-detail__intro">
+  <div class="bnon-shopify-detail__copy">
+    <h1 class="bnon-shopify-detail__heading" id="{{ heading_id | escape }}">{{ section.settings.heading | escape }}</h1>
+    <p class="bnon-shopify-detail__subtitle">{{ section.settings.subtitle | escape }}</p>
+    <p class="bnon-shopify-detail__description">{{ section.settings.description | escape }}</p>
+    <a class="bnon-shopify-detail__contact" href="{{ contact_url | escape }}">{{ section.settings.contact_label | escape }}</a>
+  </div>
+
+  {%- if service_blocks.size > 0 -%}
+    <nav class="bnon-shopify-detail__navigation" aria-label="{{ section.settings.navigation_label | escape }}">
+      <ol class="bnon-shopify-detail__services" role="list">
+        {%- for block in service_blocks -%}
+          {%- assign selected_service_url = block.settings.link | default: block.settings.page.url -%}
+          {%- capture service_url -%}{%- render 'bnon-service-detail-url', link: selected_service_url, service_key: block.settings.number, allow_marketing_preview: true -%}{%- endcapture -%}
+          {%- assign service_url = service_url | strip -%}
+          {%- assign display_number = block.settings.display_number | default: block.settings.number -%}
+          <li {{ block.shopify_attributes }}>
+            {%- if service_url != blank -%}
+              <a class="bnon-shopify-detail__service{% if block.settings.number == active_service %} is-current{% endif %}" href="{{ service_url | escape }}"{% if block.settings.number == active_service %} aria-current="page"{% endif %}><span>{{ display_number | escape }}</span><span>{{ block.settings.label | escape }}</span></a>
+            {%- else -%}
+              <span class="bnon-shopify-detail__service{% if block.settings.number == active_service %} is-current{% endif %}" aria-disabled="true"{% if block.settings.number == active_service %} aria-current="page"{% endif %}><span>{{ display_number | escape }}</span><span>{{ block.settings.label | escape }}</span></span>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    </nav>
+  {%- endif -%}
+</div>

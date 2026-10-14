@@ -1,7 +1,8 @@
 {%- comment -%}
   Preserve editor-provided URLs and resolve published Pages first. Until the
-  first detail Page is created, its implemented template can be previewed on
-  the existing Service Page using Shopify's verified alternative-view URL.
+  detail Pages are created, implemented templates can be previewed on the
+  existing Service Page. Marketing preview is opt-in for detail navigation
+  only, leaving the existing homepage and Service page links unchanged.
 {%- endcomment -%}
 {%- liquid
   assign detail_url = link
@@ -27,6 +28,11 @@
         assign service_page = pages['service']
         if service_page != blank
           assign detail_url = service_page.url | append: '?view=shopify-store-development'
+        endif
+      elsif detail_handle == 'digital-marketing' and allow_marketing_preview
+        assign service_page = pages['service']
+        if service_page != blank
+          assign detail_url = service_page.url | append: '?view=digital-marketing'
         endif
       endif
     endif

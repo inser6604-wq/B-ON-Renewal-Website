@@ -1,0 +1,78 @@
+{
+  "sections": {
+    "marketing_detail": {
+      "type": "bnon-marketing-detail",
+      "settings": {},
+      "blocks": {
+        "service_01": { "type": "service", "settings": { "number": "01", "label": "쇼피파이 자사몰 구축" } },
+        "service_02": { "type": "service", "settings": { "number": "02", "label": "디지털 마케팅" } },
+        "service_03": { "type": "service", "settings": { "number": "03", "label": "미국 법인 설립 & 3PL" } },
+        "service_04": { "type": "service", "settings": { "number": "04", "label": "아마존 입점" } },
+        "service_05": { "type": "service", "settings": { "number": "05", "label": "쇼피파이 관리자 교육" } },
+        "case_model": { "type": "case_image", "settings": { "design_image": "model", "image_alt": "CCLIME 토너를 소개하는 모델" } },
+        "case_products": { "type": "case_image", "settings": { "design_image": "products", "image_alt": "CCLIME 토너와 핑크 스킨케어 제품" } },
+        "case_device": { "type": "case_image", "settings": { "design_image": "device", "image_alt": "CCLIME 뷰티 디바이스와 스킨케어 제품" } }
+      },
+      "block_order": ["service_01", "service_02", "service_03", "service_04", "service_05", "case_model", "case_products", "case_device"]
+    },
+    "marketing_overview": {
+      "type": "bnon-marketing-overview",
+      "settings": {},
+      "blocks": {
+        "overview_google": { "type": "channel", "settings": { "number": "01", "heading": "GOOGLE ADS", "description": "광고·분석·구매 데이터 연동" } },
+        "overview_seo": { "type": "channel", "settings": { "number": "02", "heading": "SEO", "description": "검색 노출을 위한 구조 최적화" } },
+        "overview_meta": { "type": "channel", "settings": { "number": "03", "heading": "META ADS", "description": "픽셀 기반 전환 추적과 광고 최적화" } }
+      },
+      "block_order": ["overview_google", "overview_seo", "overview_meta"]
+    },
+    "marketing_analytics": {
+      "type": "bnon-marketing-analytics",
+      "settings": {},
+      "blocks": {
+        "analytics_ads": { "type": "platform", "settings": { "number": "01", "heading": "GOOGLE ADS", "lead": "구매 신호를 정확하게 전달합니다.", "description": "광고 전환 데이터 수집" } },
+        "analytics_ga4": { "type": "platform", "settings": { "number": "02", "heading": "GA4", "lead": "전환 데이터를 하나의 기준으로 통합합니다.", "description": "고객 행동 · 전환 분석" } },
+        "analytics_shopify": { "type": "platform", "settings": { "number": "03", "heading": "SHOPIFY", "lead": "클릭부터 결제까지 흐름을 연결합니다.", "description": "유입 · 구매 데이터 연결" } }
+      },
+      "block_order": ["analytics_ads", "analytics_ga4", "analytics_shopify"]
+    },
+    "marketing_seo": {
+      "type": "bnon-marketing-seo",
+      "settings": {},
+      "blocks": {
+        "seo_brand": { "type": "tag", "settings": { "group": "keyword", "text": "브랜드 핵심 키워드" } },
+        "seo_target": { "type": "tag", "settings": { "group": "keyword", "text": "타깃 키워드" } },
+        "seo_category": { "type": "tag", "settings": { "group": "keyword", "text": "카테고리 키워드" } },
+        "seo_intent": { "type": "tag", "settings": { "group": "keyword", "text": "검색 의도" } },
+        "seo_meta": { "type": "tag", "settings": { "group": "structure", "text": "META TITLE" } },
+        "seo_description": { "type": "tag", "settings": { "group": "structure", "text": "DESCRIPTION" } },
+        "seo_url": { "type": "tag", "settings": { "group": "structure", "text": "URL" } },
+        "seo_alt": { "type": "tag", "settings": { "group": "structure", "text": "ALT TEXT" } },
+        "seo_registration": { "type": "tag", "settings": { "group": "console", "text": "검색 등록", "marker": "✓" } },
+        "seo_data": { "type": "tag", "settings": { "group": "console", "text": "노출 · 클릭 데이터", "design_arrow": true } }
+      },
+      "block_order": ["seo_brand", "seo_target", "seo_category", "seo_intent", "seo_meta", "seo_description", "seo_url", "seo_alt", "seo_registration", "seo_data"]
+    },
+    "marketing_meta": {
+      "type": "bnon-marketing-meta",
+      "settings": {},
+      "blocks": {
+        "meta_discovery": { "type": "stage", "settings": { "funnel_title": "DISCOVERY", "eyebrow": "01 / DISCOVERY", "heading": "브랜드 노출", "description": "잠재 고객을 발굴하고, 타겟팅 광고를 통해 브랜드 인지도를 높입니다." } },
+        "meta_interest": { "type": "stage", "settings": { "funnel_title": "INTEREST", "eyebrow": "02 / INTEREST", "heading": "고객 행동 유도", "description": "광고 콘텐츠를 통해 고객의 관심을 웹사이트 방문과 상품 탐색으로 연결합니다." } },
+        "meta_conversion": { "type": "stage", "settings": { "funnel_title": "CONVERSION", "eyebrow": "03 / CONVERSION", "heading": "구매 전환 최적화", "description": "픽셀 기반 전환 데이터를 분석해 구매 가능성이 높은 고객에게 광고를 최적화합니다.", "funnel_text_color": "#ffffff" } }
+      },
+      "block_order": ["meta_discovery", "meta_interest", "meta_conversion"]
+    },
+    "marketing_pixel": {
+      "type": "bnon-marketing-pixel",
+      "settings": {},
+      "blocks": {
+        "pixel_accuracy": { "type": "metric", "settings": { "heading": "전환추적 정확도", "hint": "↑ 높을수록 좋음", "off_value": "58", "off_unit": "%", "off_fill": 53.787879, "on_value": "94", "on_unit": "%", "on_fill": 92.80303 } },
+        "pixel_learning": { "type": "metric", "settings": { "heading": "학습 속도", "hint": "↑ 높을수록 좋음", "off_value": "42", "off_unit": "%", "off_fill": 32.575758, "on_value": "88", "on_unit": "%", "on_fill": 85.606061 } },
+        "pixel_cpa": { "type": "metric", "settings": { "heading": "CPA (비용)", "hint": "↓ 낮을수록 좋음", "off_value": "84", "off_fill": 78.030303, "on_value": "38", "on_fill": 36.742424 } },
+        "pixel_roas": { "type": "metric", "settings": { "heading": "ROAS", "hint": "↑ 높을수록 좋음", "off_value": "165", "off_unit": "%", "off_fill": 57.954545, "on_value": "310", "on_unit": "%", "on_fill": 100 } }
+      },
+      "block_order": ["pixel_accuracy", "pixel_learning", "pixel_cpa", "pixel_roas"]
+    }
+  },
+  "order": ["marketing_detail", "marketing_overview", "marketing_analytics", "marketing_seo", "marketing_meta", "marketing_pixel"]
+}

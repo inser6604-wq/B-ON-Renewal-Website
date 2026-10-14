@@ -1,0 +1,63 @@
+/* Figma 560:65. Copy/CTA/navigation/container reuse bnon-shopify-detail.css. */
+.bnon-marketing-detail__gallery { margin: 65px 0 0; }
+.bnon-marketing-detail__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 32px;
+  padding-block: 24.927px;
+}
+.bnon-marketing-detail__card {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 387.618 / 372.146;
+  overflow: hidden;
+  border-radius: 9.433px;
+}
+.bnon-marketing-detail__image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+/* Preserve the original Figma crops, including the device layer's fill offset. */
+.bnon-marketing-detail__card--model .bnon-marketing-detail__image--design {
+  top: -8.9723%;
+  width: 99.9352%;
+  height: 135.3173%;
+}
+.bnon-marketing-detail__card--products .bnon-marketing-detail__image--design {
+  top: -9.1900%;
+  height: 130.1967%;
+}
+.bnon-marketing-detail__card--device .bnon-marketing-detail__image--design {
+  top: -26.6307%;
+  left: -0.16%;
+  width: 100.16%;
+  height: 156.4862%;
+}
+.bnon-marketing-detail__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 7px;
+  margin-top: 2px;
+  color: var(--bnon-color-black);
+  font-family: var(--bnon-font-latin);
+  font-size: 18.867px;
+  line-height: 1.6;
+  letter-spacing: -.04em;
+}
+.bnon-marketing-detail__brand { font-weight: var(--bnon-weight-medium); white-space: pre-wrap; }
+.bnon-marketing-detail__caption-copy { min-width: 0; font-weight: var(--bnon-weight-regular); overflow-wrap: anywhere; }
+@media screen and (max-width: 1199px) {
+  .bnon-marketing-detail__grid { gap: 20px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-marketing-detail__gallery { margin-top: 40px; }
+  .bnon-marketing-detail__grid { grid-template-columns: minmax(0, 1fr); gap: 20px; padding-block: 0; }
+  .bnon-marketing-detail__caption { margin-top: 18px; font-size: 14px; }
+}

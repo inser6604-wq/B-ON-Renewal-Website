@@ -1,0 +1,102 @@
+{{ 'bnon-shopify-build.css' | asset_url | stylesheet_tag }}
+{{ 'bnon-marketing-pixel.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-marketing-pixel.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign divider_url = 'bnon-marketing-pixel-divider.svg' | asset_url
+  if section.settings.divider_image != blank
+    assign divider_url = section.settings.divider_image | image_url: width: 2244
+  endif
+-%}
+<section class="bnon-section bnon-shopify-build bnon-marketing-pixel"{% if section.settings.heading != blank %} aria-labelledby="MarketingPixelHeading-{{ section.id }}"{% endif %} data-header-theme="light" style="--pixel-background: {{ section.settings.background_color | default: '#f9f7f7' | escape }}; --pixel-text: {{ section.settings.text_color | default: '#0a0a0a' | escape }}; --pixel-off: {{ section.settings.off_color | default: '#acacac' | escape }}; --pixel-on: {{ section.settings.on_color | default: '#28dbc4' | escape }}; --pixel-track: {{ section.settings.track_color | default: '#d9d9d9' | escape }}; --pixel-off-label: {{ section.settings.off_label_color | default: '#a0a0a0' | escape }};">
+  <div class="bnon-shopify-build__inner">
+    {%- if section.settings.label != blank -%}<div class="bnon-shopify-build__label-row"><p class="bnon-shopify-build__label">{{ section.settings.label | escape }}</p></div>{%- endif -%}
+    <div class="bnon-shopify-build__intro">
+      <div class="bnon-shopify-build__title">
+        {%- if section.settings.heading != blank -%}<h2 class="bnon-shopify-build__heading" id="MarketingPixelHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>{%- endif -%}
+        {%- if section.settings.subtitle != blank -%}<p class="bnon-marketing-pixel__subtitle">{{ section.settings.subtitle | escape | newline_to_br }}<span class="bnon-shopify-build__accent">{{ section.settings.subtitle_accent | escape }}</span></p>{%- endif -%}
+        {%- if section.settings.description != blank -%}<p class="bnon-marketing-pixel__description">{{ section.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+      </div>
+    </div>
+    {%- if section.blocks.size > 0 -%}
+      <bnon-marketing-pixel class="bnon-marketing-pixel__metrics" data-animate="{{ section.settings.animate_bars }}" data-duration="{{ section.settings.animation_duration | times: 1000 }}" data-on-delay="{{ section.settings.on_delay }}">
+        <div class="bnon-marketing-pixel__grid">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign off_fill = block.settings.off_fill | default: 0 | plus: 0 | at_least: 0 | at_most: 100
+              assign on_fill = block.settings.on_fill | default: 0 | plus: 0 | at_least: 0 | at_most: 100
+            -%}
+            <div class="bnon-marketing-pixel__metric" {{ block.shopify_attributes }}>
+              <div class="bnon-marketing-pixel__metric-heading">
+                {%- if block.settings.heading != blank -%}<h3 class="bnon-marketing-pixel__metric-title">{{ block.settings.heading | escape }}</h3>{%- endif -%}
+                {%- if block.settings.hint != blank -%}<p class="bnon-marketing-pixel__hint">{{ block.settings.hint | escape }}</p>{%- endif -%}
+              </div>
+              <div class="bnon-marketing-pixel__row bnon-marketing-pixel__row--off">
+                <p class="bnon-marketing-pixel__state">{{ section.settings.off_label | escape }}</p>
+                <span class="bnon-marketing-pixel__track" aria-hidden="true"><span class="bnon-marketing-pixel__fill" data-pixel-fill="off" style="--pixel-fill: {{ off_fill }}%;"></span></span>
+                <p class="bnon-marketing-pixel__value">{{ block.settings.off_value | escape }}{{ block.settings.off_unit | escape }}</p>
+              </div>
+              <div class="bnon-marketing-pixel__row bnon-marketing-pixel__row--on">
+                <p class="bnon-marketing-pixel__state">{{ section.settings.on_label | escape }}</p>
+                <span class="bnon-marketing-pixel__track" aria-hidden="true"><span class="bnon-marketing-pixel__fill" data-pixel-fill="on" style="--pixel-fill: {{ on_fill }}%;"></span></span>
+                <p class="bnon-marketing-pixel__value">{{ block.settings.on_value | escape }}{{ block.settings.on_unit | escape }}</p>
+              </div>
+            </div>
+            {%- if forloop.index == 2 and forloop.last == false -%}
+              <span class="bnon-marketing-pixel__divider" aria-hidden="true"><img src="{{ divider_url | escape }}" width="1122" height="1" alt="" loading="lazy"></span>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </bnon-marketing-pixel>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Meta Pixel",
+  "tag": "div",
+  "class": "bnon-marketing-pixel-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "META PIXEL INTEGRATION" },
+    { "type": "text", "id": "heading", "label": "메인 타이틀", "default": "META PIXEL INTEGRATION" },
+    { "type": "textarea", "id": "subtitle", "label": "국문 타이틀", "default": "픽셀 연동이\n만들어내는 차이" },
+    { "type": "text", "id": "subtitle_accent", "label": "국문 타이틀 끝 강조 문자", "default": "." },
+    { "type": "textarea", "id": "description", "label": "국문 설명", "default": "데이터는 연결될수록 정확해지고, 광고는 학습될수록 똑똑해집니다." },
+    { "type": "text", "id": "off_label", "label": "픽셀 미연동 라벨", "default": "PIXEL OFF" },
+    { "type": "text", "id": "on_label", "label": "픽셀 연동 라벨", "default": "PIXEL ON" },
+    { "type": "checkbox", "id": "animate_bars", "label": "스크롤 진입 시 비교 바 애니메이션", "default": true },
+    { "type": "range", "id": "animation_duration", "label": "각 바 채움 시간", "min": 0.6, "max": 2, "step": 0.1, "unit": "초", "default": 1 },
+    { "type": "range", "id": "on_delay", "label": "PIXEL ON 시작 지연", "min": 0, "max": 400, "step": 50, "unit": "ms", "default": 200 },
+    { "type": "color", "id": "off_color", "label": "PIXEL OFF 바 및 수치 색상", "default": "#acacac" },
+    { "type": "color", "id": "on_color", "label": "PIXEL ON 바 및 라벨 색상", "default": "#28dbc4" },
+    { "type": "color", "id": "track_color", "label": "고정 트랙 색상", "default": "#d9d9d9" },
+    { "type": "color", "id": "off_label_color", "label": "PIXEL OFF 라벨 색상", "default": "#a0a0a0" },
+    { "type": "color", "id": "background_color", "label": "섹션 배경색", "default": "#f9f7f7" },
+    { "type": "color", "id": "text_color", "label": "제목 및 본문 글자색", "default": "#0a0a0a" },
+    { "type": "image_picker", "id": "divider_image", "label": "지표 행 구분선 이미지", "info": "비워두면 Figma 원본 구분선을 유지합니다." }
+  ],
+  "blocks": [{
+    "type": "metric", "name": "픽셀 비교 지표",
+    "settings": [
+      { "type": "text", "id": "heading", "label": "지표 제목" },
+      { "type": "text", "id": "hint", "label": "보조 문구" },
+      { "type": "text", "id": "off_value", "label": "OFF 표시 수치" },
+      { "type": "text", "id": "off_unit", "label": "OFF 표시 단위" },
+      { "type": "number", "id": "off_fill", "label": "OFF 시각적 채움 비율 (%)", "default": 50, "info": "표시 수치와 별개로 최종 바 길이를 정합니다. 0~100 범위로 제한됩니다." },
+      { "type": "text", "id": "on_value", "label": "ON 표시 수치" },
+      { "type": "text", "id": "on_unit", "label": "ON 표시 단위" },
+      { "type": "number", "id": "on_fill", "label": "ON 시각적 채움 비율 (%)", "default": 90, "info": "표시 수치와 별개로 최종 바 길이를 정합니다. ROAS 310%도 바 길이는 100%로 지정할 수 있습니다." }
+    ]
+  }],
+  "presets": [{ "name": "B&ON Meta Pixel", "blocks": [
+    { "type": "metric", "settings": { "heading": "전환추적 정확도", "hint": "↑ 높을수록 좋음", "off_value": "58", "off_unit": "%", "off_fill": 53.787879, "on_value": "94", "on_unit": "%", "on_fill": 92.80303 } },
+    { "type": "metric", "settings": { "heading": "학습 속도", "hint": "↑ 높을수록 좋음", "off_value": "42", "off_unit": "%", "off_fill": 32.575758, "on_value": "88", "on_unit": "%", "on_fill": 85.606061 } },
+    { "type": "metric", "settings": { "heading": "CPA (비용)", "hint": "↓ 낮을수록 좋음", "off_value": "84", "off_fill": 78.030303, "on_value": "38", "on_fill": 36.742424 } },
+    { "type": "metric", "settings": { "heading": "ROAS", "hint": "↑ 높을수록 좋음", "off_value": "165", "off_unit": "%", "off_fill": 57.954545, "on_value": "310", "on_unit": "%", "on_fill": 100 } }
+  ] }]
+}
+{% endschema %}

@@ -1,0 +1,71 @@
+{{ 'bnon-shopify-build.css' | asset_url | stylesheet_tag }}
+{{ 'bnon-marketing-meta.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-marketing-meta.js' | asset_url }}" defer="defer"></script>
+
+<section class="bnon-section bnon-shopify-build bnon-marketing-meta"{% if section.settings.heading != blank %} aria-labelledby="MarketingMetaHeading-{{ section.id }}"{% endif %} data-header-theme="light" style="--meta-background: {{ section.settings.background_color | default: '#f9f7f7' | escape }}; --meta-text: {{ section.settings.text_color | default: '#0a0a0a' | escape }}; --meta-discovery-mask: url('{{ 'bnon-marketing-meta-discovery.svg' | asset_url }}'); --meta-interest-mask: url('{{ 'bnon-marketing-meta-interest.svg' | asset_url }}'); --meta-conversion-mask: url('{{ 'bnon-marketing-meta-conversion.svg' | asset_url }}');">
+  <div class="bnon-shopify-build__inner">
+    {%- if section.settings.label != blank -%}
+      <div class="bnon-shopify-build__label-row"><p class="bnon-shopify-build__label">{{ section.settings.label | escape }}</p></div>
+    {%- endif -%}
+    <div class="bnon-shopify-build__intro">
+      <div class="bnon-shopify-build__title">
+        {%- if section.settings.heading != blank -%}<h2 class="bnon-shopify-build__heading" id="MarketingMetaHeading-{{ section.id }}">{{ section.settings.heading | escape }}<span class="bnon-shopify-build__accent">{{ section.settings.heading_accent | escape }}</span></h2>{%- endif -%}
+        {%- if section.settings.subtitle != blank -%}<p class="bnon-marketing-meta__subtitle">{{ section.settings.subtitle | escape | newline_to_br }}</p>{%- endif -%}
+      </div>
+    </div>
+    {%- if section.blocks.size > 0 -%}
+      <bnon-marketing-meta class="bnon-marketing-meta__stages">
+        <ol class="bnon-marketing-meta__steps" role="list">
+          {%- for block in section.blocks -%}
+            <li class="bnon-marketing-meta__step" style="--meta-stage-background: {{ block.settings.background_color | default: '#3154ee' | escape }}; --meta-stage-text: {{ block.settings.funnel_text_color | default: '#0a0a0a' | escape }}; --meta-step-label: {{ block.settings.label_color | default: '#3154ee' | escape }};" {{ block.shopify_attributes }}>
+              <div class="bnon-marketing-meta__visual">
+                <div class="bnon-marketing-meta__shape"><p class="bnon-marketing-meta__funnel-title">{{ block.settings.funnel_title | escape }}</p></div>
+              </div>
+              <div class="bnon-marketing-meta__content">
+                {%- if block.settings.eyebrow != blank -%}<p class="bnon-marketing-meta__eyebrow">{{ block.settings.eyebrow | escape }}</p>{%- endif -%}
+                {%- if block.settings.heading != blank -%}<h3 class="bnon-marketing-meta__heading">{{ block.settings.heading | escape }}</h3>{%- endif -%}
+                {%- if block.settings.description != blank -%}<p class="bnon-marketing-meta__description">{{ block.settings.description | escape | newline_to_br }}</p>{%- endif -%}
+              </div>
+            </li>
+          {%- endfor -%}
+        </ol>
+      </bnon-marketing-meta>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Meta Ads",
+  "tag": "div",
+  "class": "bnon-marketing-meta-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "META ADS" },
+    { "type": "text", "id": "heading", "label": "메인 타이틀", "default": "META ADS" },
+    { "type": "text", "id": "heading_accent", "label": "타이틀 끝 강조 문자", "default": "." },
+    { "type": "textarea", "id": "subtitle", "label": "서브 타이틀", "default": "고객의 관심을 구매 전환으로 연결합니다." },
+    { "type": "color", "id": "background_color", "label": "섹션 배경색", "default": "#f9f7f7" },
+    { "type": "color", "id": "text_color", "label": "제목 및 본문 글자색", "default": "#0a0a0a" }
+  ],
+  "blocks": [{
+    "type": "stage", "name": "퍼널 단계",
+    "settings": [
+      { "type": "text", "id": "funnel_title", "label": "퍼널 안 영문 제목" },
+      { "type": "text", "id": "eyebrow", "label": "설명 위 단계 번호 및 영문 제목" },
+      { "type": "text", "id": "heading", "label": "국문 단계 제목" },
+      { "type": "textarea", "id": "description", "label": "단계 설명" },
+      { "type": "color", "id": "background_color", "label": "퍼널 바탕색", "default": "#3154ee", "info": "Figma 원본 투명도를 유지합니다. 위에서부터 20%, 60%, 100% 농도로 표시됩니다." },
+      { "type": "color", "id": "funnel_text_color", "label": "퍼널 안 글자색", "default": "#0a0a0a" },
+      { "type": "color", "id": "label_color", "label": "단계 번호 및 영문 제목 색상", "default": "#3154ee" }
+    ]
+  }],
+  "presets": [{ "name": "B&ON Meta Ads", "blocks": [
+    { "type": "stage", "settings": { "funnel_title": "DISCOVERY", "eyebrow": "01 / DISCOVERY", "heading": "브랜드 노출", "description": "잠재 고객을 발굴하고, 타겟팅 광고를 통해 브랜드 인지도를 높입니다." } },
+    { "type": "stage", "settings": { "funnel_title": "INTEREST", "eyebrow": "02 / INTEREST", "heading": "고객 행동 유도", "description": "광고 콘텐츠를 통해 고객의 관심을 웹사이트 방문과 상품 탐색으로 연결합니다." } },
+    { "type": "stage", "settings": { "funnel_title": "CONVERSION", "eyebrow": "03 / CONVERSION", "heading": "구매 전환 최적화", "description": "픽셀 기반 전환 데이터를 분석해 구매 가능성이 높은 고객에게 광고를 최적화합니다.", "funnel_text_color": "#ffffff" } }
+  ] }]
+}
+{% endschema %}
