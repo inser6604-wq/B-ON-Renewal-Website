@@ -1,0 +1,51 @@
+/* Figma 586:3 / 587:52. Shared Hero CTA/nav metrics stay unchanged. */
+.bnon-amazon-detail .bnon-shopify-detail__inner { position: relative; padding-bottom: 90px; }
+.bnon-amazon-detail .bnon-shopify-detail__intro { display: block; }
+.bnon-amazon-detail .bnon-shopify-detail__copy { text-align: center; }
+.bnon-amazon-detail .bnon-shopify-detail__copy > :is(h1,p) { position: relative; z-index: 1; }
+.bnon-amazon-detail .bnon-shopify-detail__description { margin-top: 20px; }
+.bnon-amazon-detail .bnon-shopify-detail__navigation { position: absolute; z-index: 1; top: 53px; right: clamp(32px, 7.014vw, 101px); width: 218px; }
+.bnon-amazon-detail .bnon-shopify-detail__service > span:last-child { white-space: nowrap; }
+.bnon-amazon-detail .bnon-shopify-detail__contact { position: absolute; left: clamp(32px, 7.778vw, 112px); bottom: 175px; z-index: 1; margin-top: 0; }
+.bnon-amazon-detail__art { width: min(986px, 100%); margin: -32px auto 0; }
+.bnon-amazon-detail__image { display: block; width: 100%; height: auto; }
+.bnon-amazon-why { color: #fff; background: #0a0a0a; }
+.bnon-amazon-why__inner { box-sizing: border-box; max-width: 1440px; margin-inline: auto; padding: 49px clamp(32px, 7.431vw, 107px) 100px clamp(32px, 7.361vw, 106px); }
+.bnon-amazon-why :is(h2,h3,p) { margin: 0; color: inherit; font-weight: 500; line-height: 1.6; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.bnon-amazon-why .bnon-shopify-build__label-row { padding: 10px 4px; border-bottom: 1px solid #fff; }
+.bnon-amazon-why h2 { font-family: var(--bnon-font-latin); font-size: 26px; font-weight: 600; }
+.bnon-amazon-why__row { display: grid; gap: 20px; margin-top: 35px; padding-block: 30px; border-bottom: 1px solid #fff; }
+.bnon-amazon-why .bnon-shopify-build__title { width: 100%; }
+.bnon-amazon-why h3 { font-family: var(--bnon-font-korean); font-size: 50px; font-weight: 600; white-space: pre-wrap; }
+.bnon-amazon-why h3 span { display: block; }
+.bnon-amazon-why p { font-family: var(--bnon-font-korean); font-size: 24px; text-align: right; }
+@media screen and (max-width: 1199px) {
+  .bnon-amazon-detail .bnon-shopify-detail__navigation { right: 32px; }
+  .bnon-amazon-detail .bnon-shopify-detail__contact { left: 32px; bottom: 130px; }
+  .bnon-amazon-detail .bnon-shopify-detail__heading { font-size: 42px; }
+  .bnon-amazon-why__inner { padding-inline: 32px; }
+}
+@media screen and (min-width: 1024px) {
+  /* Keep the centered Figma heading readable alongside the fixed right nav. */
+  .bnon-amazon-detail .bnon-shopify-detail__heading { padding-inline: 100px; }
+}
+@media screen and (max-width: 1023px) {
+  .bnon-amazon-detail .bnon-shopify-detail__intro { display: grid; }
+  .bnon-amazon-detail .bnon-shopify-detail__navigation { position: static; width: auto; }
+  .bnon-amazon-detail .bnon-shopify-detail__service > span:last-child { white-space: normal; }
+  .bnon-amazon-detail .bnon-shopify-detail__contact { position: static; margin-top: 40px; }
+  .bnon-amazon-detail .bnon-shopify-detail__inner { padding-bottom: 64px; }
+  .bnon-amazon-detail__art { margin-top: 20px; }
+  .bnon-amazon-why h3 { font-size: 40px; }
+  .bnon-amazon-why p { font-size: 20px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-amazon-detail .bnon-shopify-detail__heading { font-size: clamp(28px, 6.667vw, 40px); }
+  .bnon-amazon-detail .bnon-shopify-detail__contact { margin-top: 32px; }
+  .bnon-amazon-why__inner { padding: 40px 24px 64px; }
+  .bnon-amazon-why h2 { font-size: 20px; }
+  .bnon-amazon-why h3 { font-size: 32px; }
+  .bnon-amazon-why p { font-size: 16px; text-align: left; word-break: keep-all; }
+  .bnon-amazon-why__row { gap: 20px; margin-top: 24px; padding-block: 24px; }
+}
+@media screen and (max-width: 480px) { .bnon-amazon-why__inner { padding-inline: 20px; } }

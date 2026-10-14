@@ -47,6 +47,11 @@
 .bnon-us-comparison__provider { display: flex; flex-direction: column; gap: 20px; min-width: 0; padding: 20px 40px; border-radius: 20px; color: #767676; background: #f2f2f2; }
 .bnon-us-comparison__provider h3 { border-bottom: 1px solid var(--bnon-color-black); color: #767676; font-family: var(--bnon-font-korean); font-size: 30px; font-weight: var(--bnon-weight-bold); line-height: 2; letter-spacing: -.04em; overflow-wrap: anywhere; }
 .bnon-us-comparison__provider p { white-space: pre-wrap; }
+@media screen and (min-width: 1024px) {
+  /* Reserve the center illustration's space for the two middle-row copies. */
+  .bnon-us-payments__benefit:nth-child(3) { padding-right: 24%; }
+  .bnon-us-payments__benefit:nth-child(4) { padding-left: 24%; }
+}
 @media screen and (max-width: 1199px) {
   :is(.bnon-us-payments, .bnon-us-comparison) .bnon-shopify-build__inner { padding-inline: 32px; }
   :is(.bnon-us-payments, .bnon-us-comparison) .bnon-shopify-build__heading { font-size: 52px; }

@@ -1,0 +1,101 @@
+/* Figma 592:415 / 601:25. All layout overrides are isolated to service 05. */
+.bnon-training-detail .bnon-shopify-detail__inner { position: relative; padding-bottom: 140px; }
+.bnon-training-detail .bnon-shopify-detail__heading { width: 242px; max-width: 100%; color: #3154ee; font-size: 20px; font-weight: 600; line-height: 1.6; }
+.bnon-training-detail .bnon-shopify-detail__subtitle { margin: 79px 0 0 215px; font-size: 40px; font-weight: 600; line-height: 1.2; white-space: pre-line; }
+.bnon-training-detail .bnon-shopify-detail__description { width: 510px; max-width: calc(100% - 215px); margin: 14px 0 0 215px; color: #666; font-size: 20px; line-height: 1.3; }
+.bnon-training-detail .bnon-shopify-detail__contact { position: absolute; bottom: 56px; left: 50%; margin-top: 0; transform: translateX(-50%); }
+.bnon-training-detail .bnon-shopify-detail__service > span:last-child { white-space: nowrap; }
+.bnon-training-detail__art { position: relative; container-type: inline-size; width: min(846px,100%); aspect-ratio: 846 / 428; margin: 3px auto 0; }
+.bnon-training-detail__word { position: absolute; max-width: 100%; margin: 0; color: #0a0a0a; font-family: var(--bnon-font-latin); font-size: min(163.373px,19.31123cqw); font-weight: 900; line-height: 1.2; letter-spacing: -.04em; }
+.bnon-training-detail__word--learn { top: 0; left: 2.468%; line-height: 1.1; }
+.bnon-training-detail__word--manage { top: 26.507%; left: 9.12%; }
+.bnon-training-detail__word--grow { top: 54.286%; left: 0; color: #3154ee; }
+.bnon-training-detail__cursor { position: absolute; top: 42.157%; left: 55.895%; display: grid; place-items: center; width: 34.9277%; height: 65.055%; pointer-events: none; }
+.bnon-training-detail__cursor img { display: block; width: 85.6%; height: auto; opacity: .8; transform: rotate(-12.03deg); }
+.bnon-training-detail__badge { position: absolute; top: 11.4486%; left: 73.877%; display: flex; align-items: center; gap: 14px; box-sizing: border-box; width: 28.37%; padding: 16px 20px; border: .5px solid rgba(0,0,0,.2); border-radius: 10px; background: #fff; box-shadow: 0 4px 20px rgba(49,84,238,.2); }
+.bnon-training-detail__badge img { display: block; flex: 0 0 auto; width: auto; height: auto; max-width: 44.1101px; max-height: 49.9559px; }
+.bnon-training-detail__badge p { margin: 0; color: #0a0a0a; font: 600 16px/1.3 var(--bnon-font-korean); letter-spacing: -.04em; }
+.bnon-training-detail__badge p:first-child { margin-bottom: 1px; color: #666; line-height: 1.1; letter-spacing: .04em; }
+bnon-training-curriculum { display: block; background: #f9f9f9; color: #0a0a0a; }
+.bnon-training-curriculum__inner { box-sizing: border-box; width: 100%; max-width: 1440px; margin-inline: auto; padding: 72px clamp(32px,7.431vw,107px) 120px clamp(32px,7.361vw,106px); }
+.bnon-training-curriculum :is(h2,h3,h4,p) { margin: 0; color: inherit; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.bnon-training-curriculum__label-row { padding: 10px 4px; border-bottom: 1px solid #0a0a0a; }
+.bnon-training-curriculum__label-row p { color: #3154ee; font: 600 26px/1.6 var(--bnon-font-latin); }
+.bnon-training-curriculum__title { margin-top: 76px; }
+.bnon-training-curriculum__title h2 { font: 600 60px/1.3 var(--bnon-font-korean); }
+.bnon-training-curriculum__title h2 span { color: #28dbc4; }
+.bnon-training-curriculum__description { display: grid; gap: 8px; margin-top: 30px; }
+.bnon-training-curriculum__description p { font: 500 20px/1.4 var(--bnon-font-korean); word-break: keep-all; }
+.bnon-training-curriculum__tabs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(24px,6.146vw,88.5px); margin-top: 49px; }
+.bnon-training-curriculum__tab { display: grid; gap: 4px; min-width: 0; padding: 21px 0 0; border: 0; border-top: 4px solid #d9d9d9; border-radius: 2px 2px 0 0; background: transparent; color: #898989; font-family: var(--bnon-font-korean); letter-spacing: -.04em; line-height: 1.4; text-align: left; cursor: pointer; transition: color .2s ease-out,border-color .2s ease-out; }
+.bnon-training-curriculum__tab span:first-child { font-size: 40px; font-weight: 500; }
+.bnon-training-curriculum__tab span:last-child { font-size: 50px; font-weight: 700; }
+.bnon-training-curriculum__tab.is-active { color: #3154ee; border-color: #3154ee; }
+.bnon-training-curriculum__tab:hover { color: #3154ee; }
+.bnon-training-curriculum :is(button,[role='tabpanel']):focus-visible { outline: 2px solid #3154ee; outline-offset: 6px; }
+.bnon-training-curriculum__panels { margin-top: 47px; }
+.bnon-training-curriculum__panel { box-sizing: border-box; padding: 33px 28px 91px; border: 1px solid rgba(0,0,0,.2); border-radius: 10px; background: #fff; }
+.bnon-training-curriculum__panel[hidden] { display: none; }
+.bnon-training-curriculum__panel + .bnon-training-curriculum__panel:not([hidden]) { margin-top: 32px; }
+bnon-training-curriculum:defined .bnon-training-curriculum__panel { margin-top: 0; }
+.bnon-training-curriculum__panel-intro { display: grid; gap: 10px; padding: 20px 10px 32px; border-bottom: 1px solid #a2a2a2; }
+.bnon-training-curriculum__panel-intro h3 { font: 600 30px/1.4 var(--bnon-font-korean); }
+.bnon-training-curriculum__panel-intro p { color: #666; font: 600 20px/1.4 var(--bnon-font-korean); }
+.bnon-training-curriculum__lessons { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 50px 4px; margin: 44px 0 0; padding: 0; list-style: none; }
+.bnon-training-curriculum__lesson { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+.bnon-training-curriculum__lesson > div { min-width: 0; }
+.bnon-training-curriculum__icon { display: block; flex: 0 0 40px; width: 40px; height: 45px; }
+.bnon-training-curriculum__icon img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; }
+.bnon-training-curriculum__lesson h4 { font: 500 30px/1.4 var(--bnon-font-korean); }
+.bnon-training-curriculum__lesson p { margin-top: 8px; color: #666; font: 500 20px/1.4 var(--bnon-font-korean); word-break: keep-all; }
+@media screen and (max-width: 1199px) {
+  .bnon-training-detail .bnon-shopify-detail__subtitle { margin-left: 120px; }
+  .bnon-training-detail .bnon-shopify-detail__description { margin-left: 120px; max-width: calc(100% - 120px); }
+  .bnon-training-curriculum__inner { padding-inline: 32px; }
+  .bnon-training-curriculum__title h2 { font-size: 48px; }
+  .bnon-training-curriculum__tab span:last-child { font-size: 42px; }
+}
+@media screen and (max-width: 1023px) {
+  .bnon-training-detail .bnon-shopify-detail__subtitle { margin: 50px 0 0; font-size: 36px; }
+  .bnon-training-detail .bnon-shopify-detail__description { max-width: 100%; margin-left: 0; }
+  .bnon-training-detail .bnon-shopify-detail__service > span:last-child { white-space: normal; }
+  .bnon-training-detail__art { margin-top: 40px; }
+  .bnon-training-detail__badge { gap: 10px; padding: 12px; }
+  .bnon-training-detail__badge img { max-width: 32px; max-height: 37px; }
+  .bnon-training-detail__badge p { font-size: 12px; }
+  .bnon-training-curriculum__tab span:first-child { font-size: 32px; }
+  .bnon-training-curriculum__tab span:last-child { font-size: 32px; }
+  .bnon-training-curriculum__panel { padding: 28px 24px 64px; }
+  .bnon-training-curriculum__lesson h4 { font-size: 24px; }
+  .bnon-training-curriculum__lesson p { font-size: 18px; }
+}
+@media screen and (max-width: 767px) {
+  .bnon-training-detail .bnon-shopify-detail__heading { width: auto; font-size: 18px; }
+  .bnon-training-detail .bnon-shopify-detail__subtitle { margin-top: 32px; font-size: 28px; }
+  .bnon-training-detail .bnon-shopify-detail__description { width: auto; font-size: 16px; }
+  .bnon-training-detail .bnon-shopify-detail__inner { padding-bottom: 120px; }
+  .bnon-training-detail .bnon-shopify-detail__contact { bottom: 40px; }
+  .bnon-training-detail__art { margin-top: 96px; }
+  .bnon-training-detail__badge { top: -70px; right: 0; left: auto; width: 176px; }
+  .bnon-training-curriculum__inner { padding: 48px 24px 80px; }
+  .bnon-training-curriculum__label-row p { font-size: 20px; }
+  .bnon-training-curriculum__title { margin-top: 40px; }
+  .bnon-training-curriculum__title h2 { font-size: 32px; }
+  .bnon-training-curriculum__description p { font-size: 16px; }
+  .bnon-training-curriculum__tabs { gap: 14px; margin-top: 36px; }
+  .bnon-training-curriculum__tab { padding-top: 16px; }
+  .bnon-training-curriculum__tab span:first-child { font-size: 24px; }
+  .bnon-training-curriculum__tab span:last-child { font-size: clamp(18px,5vw,24px); }
+  .bnon-training-curriculum__panels { margin-top: 32px; }
+  .bnon-training-curriculum__panel { padding: 20px 16px 32px; }
+  .bnon-training-curriculum__panel-intro { padding: 8px 0 24px; }
+  .bnon-training-curriculum__panel-intro h3 { font-size: 24px; }
+  .bnon-training-curriculum__panel-intro p { font-size: 16px; }
+  .bnon-training-curriculum__lessons { grid-template-columns: minmax(0,1fr); gap: 28px; margin-top: 28px; }
+  .bnon-training-curriculum__icon { flex-basis: 24px; width: 24px; height: 27px; }
+  .bnon-training-curriculum__lesson { gap: 8px; }
+  .bnon-training-curriculum__lesson h4 { font-size: 20px; }
+  .bnon-training-curriculum__lesson p { font-size: 16px; }
+}
+@media screen and (max-width: 480px) { .bnon-training-curriculum__inner { padding-inline: 20px; } }
+@media (prefers-reduced-motion: reduce) { .bnon-training-curriculum__tab { transition: none; } }

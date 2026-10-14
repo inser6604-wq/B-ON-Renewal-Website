@@ -1,0 +1,86 @@
+{{ 'bnon-training-detail.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'bnon-training-curriculum.js' | asset_url }}" defer="defer"></script>
+{%- assign stages = 'learn,manage,grow' | split: ',' -%}
+
+<bnon-training-curriculum class="bnon-section bnon-training-curriculum" data-header-theme="light" data-section-id="{{ section.id }}">
+  <section class="bnon-training-curriculum__inner" aria-labelledby="TrainingCurriculumHeading-{{ section.id }}">
+    <div class="bnon-shopify-build__label-row bnon-training-curriculum__label-row"><p>{{ section.settings.label | escape }}</p></div>
+    <div class="bnon-shopify-build__title bnon-training-curriculum__title"><h2 id="TrainingCurriculumHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span>{{ section.settings.heading_accent | escape }}</span></h2></div>
+    <div class="bnon-shopify-build__copy bnon-training-curriculum__description"><p>{{ section.settings.description | escape | newline_to_br }}</p><p>{{ section.settings.instruction | escape }}</p></div>
+    <div class="bnon-shopify-benefits__intro bnon-training-curriculum__tabs" data-training-tabs aria-label="{{ section.settings.tabs_label | escape }}">
+      {%- for stage in stages -%}
+        {%- assign number_key = stage | append: '_number' -%}{%- assign label_key = stage | append: '_label' -%}
+        <button type="button" class="bnon-training-curriculum__tab{% if forloop.first %} is-active{% endif %}" id="TrainingTab-{{ section.id }}-{{ stage }}" data-training-tab="{{ stage }}" aria-controls="TrainingPanel-{{ section.id }}-{{ stage }}" disabled><span>{{ section.settings[number_key] | escape }}</span><span>{{ section.settings[label_key] | escape }}</span></button>
+      {%- endfor -%}
+    </div>
+    <div class="bnon-shopify-faq__group bnon-training-curriculum__panels">
+      {%- for stage in stages -%}
+        {%- assign heading_key = stage | append: '_heading' -%}{%- assign description_key = stage | append: '_description' -%}
+        <div class="bnon-training-curriculum__panel" id="TrainingPanel-{{ section.id }}-{{ stage }}" data-training-panel="{{ stage }}" aria-labelledby="TrainingTab-{{ section.id }}-{{ stage }}">
+          <div class="bnon-training-curriculum__panel-intro"><h3>{{ section.settings[heading_key] | escape }}</h3>{%- if section.settings[description_key] != blank -%}<p>{{ section.settings[description_key] | escape | newline_to_br }}</p>{%- endif -%}</div>
+          <ul class="bnon-training-curriculum__lessons" role="list">
+            {%- for block in section.blocks -%}
+              {%- if block.settings.stage == stage -%}
+                {%- assign lesson_icon = block.settings.icon | default: section.settings.lesson_icon -%}
+                <li class="bnon-training-curriculum__lesson" data-training-lesson="{{ block.id }}" {{ block.shopify_attributes }}>
+                  <span class="bnon-training-curriculum__icon" aria-hidden="true">{%- if lesson_icon != blank -%}{{ lesson_icon | image_url: width: 80 | image_tag: alt: '', loading: 'lazy' }}{%- else -%}<img src="{{ 'bnon-training-bullet.svg' | asset_url }}" width="40" height="45" alt="" loading="lazy">{%- endif -%}</span>
+                  <div><h4>{{ block.settings.heading | escape }}</h4><p>{{ block.settings.description | escape | newline_to_br }}</p></div>
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+  </section>
+</bnon-training-curriculum>
+
+{% schema %}
+{
+  "name": "B&ON Training Curriculum", "tag": "div", "class": "bnon-training-curriculum-section", "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "YOUR LEARNING JOURNEY" },
+    { "type": "textarea", "id": "heading", "label": "메인 제목", "default": "배움에서 운영까지,\n브랜드 성장을 위한 실무 교육" },
+    { "type": "text", "id": "heading_accent", "label": "제목 강조 기호", "default": "." },
+    { "type": "textarea", "id": "description", "label": "소개 문구", "default": "실제 Shopify 스토어 운영에 필요한 핵심 기능을 익히고, 직접 관리할 수 있는 역량을 키웁니다." },
+    { "type": "text", "id": "instruction", "label": "탭 선택 안내", "default": "각 단계를 선택해 교육 내용을 확인해 보세요." },
+    { "type": "text", "id": "tabs_label", "label": "탭 접근성 설명", "default": "교육 커리큘럼 단계" },
+    { "type": "image_picker", "id": "lesson_icon", "label": "교육 항목 공통 아이콘", "info": "비워두면 Figma 원본 블루 아이콘을 사용합니다." },
+    { "type": "header", "content": "LEARN 단계" },
+    { "type": "text", "id": "learn_number", "label": "LEARN 번호", "default": "01" },
+    { "type": "text", "id": "learn_label", "label": "LEARN 탭 문구", "default": "LEARN" },
+    { "type": "text", "id": "learn_heading", "label": "LEARN 교육 제목", "default": "운영의 기초를 배우다" },
+    { "type": "textarea", "id": "learn_description", "label": "LEARN 소개", "default": "Shopify 스토어의 기본 구조와 상품 관리 기능을 익힙니다." },
+    { "type": "header", "content": "MANAGE 단계" },
+    { "type": "text", "id": "manage_number", "label": "MANAGE 번호", "default": "02" },
+    { "type": "text", "id": "manage_label", "label": "MANAGE 탭 문구", "default": "MANAGE" },
+    { "type": "text", "id": "manage_heading", "label": "MANAGE 교육 제목", "default": "스토어를 직접 운영하다" },
+    { "type": "textarea", "id": "manage_description", "label": "MANAGE 소개 (선택)", "default": "고객 관리부터 마케팅, 콘텐츠 운영까지 스토어 관리에 필요한 실무 기능을 익힙니다." },
+    { "type": "header", "content": "GROW 단계" },
+    { "type": "text", "id": "grow_number", "label": "GROW 번호", "default": "03" },
+    { "type": "text", "id": "grow_label", "label": "GROW 탭 문구", "default": "GROW" },
+    { "type": "text", "id": "grow_heading", "label": "GROW 교육 제목", "default": "브랜드의 성장을 확장하다" },
+    { "type": "textarea", "id": "grow_description", "label": "GROW 소개 (선택)", "default": "글로벌 판매 환경 설정과 인플루언서 마케팅을 통해 브랜드 성장에 필요한 기능을 익힙니다." }
+  ],
+  "max_blocks": 30,
+  "blocks": [{ "type": "lesson", "name": "교육 항목", "settings": [
+    { "type": "select", "id": "stage", "label": "표시할 단계", "default": "learn", "options": [{ "value": "learn", "label": "LEARN" }, { "value": "manage", "label": "MANAGE" }, { "value": "grow", "label": "GROW" }] },
+    { "type": "text", "id": "heading", "label": "교육 항목 제목" },
+    { "type": "textarea", "id": "description", "label": "교육 항목 설명" },
+    { "type": "image_picker", "id": "icon", "label": "교육 항목 아이콘 (선택)" }
+  ] }],
+  "presets": [{ "name": "B&ON Training Curriculum", "blocks": [
+    { "type": "lesson", "settings": { "stage": "learn", "heading": "제품 등록", "description": "상품명, 가격, 이미지, 옵션 등을 설정하고 상품을 등록하는 방법을 배웁니다." } },
+    { "type": "lesson", "settings": { "stage": "learn", "heading": "컬렉션 구성 및 관리", "description": "상품을 카테고리별로 분류하고 컬렉션을 구성하는 방법을 익힙니다." } },
+    { "type": "lesson", "settings": { "stage": "learn", "heading": "재고 및 주문 관리", "description": "재고 수량을 관리하고 주문 확인부터 처리까지의 기본 과정을 익힙니다." } },
+    { "type": "lesson", "settings": { "stage": "manage", "heading": "고객 관리 및 스토어 크레딧", "description": "고객 정보를 관리하고 스토어 크레딧을 설정·활용하는 방법을 배웁니다." } },
+    { "type": "lesson", "settings": { "stage": "manage", "heading": "이메일 마케팅", "description": "고객 대상 이메일 캠페인을 생성하고 발송하는 방법을 익힙니다." } },
+    { "type": "lesson", "settings": { "stage": "manage", "heading": "할인 및 프로모션 설계", "description": "할인 코드와 자동 할인을 설정하고 프로모션을 운영하는 방법을 배웁니다." } },
+    { "type": "lesson", "settings": { "stage": "manage", "heading": "콘텐츠 및 블로그 운영", "description": "스토어 페이지와 블로그 콘텐츠를 작성하고 관리하는 방법을 익힙니다." } },
+    { "type": "lesson", "settings": { "stage": "manage", "heading": "인박스 및 CS 처리", "description": "Shopify Inbox를 활용해 고객 문의에 응대하고 상담을 관리하는 방법을 배웁니다." } },
+    { "type": "lesson", "settings": { "stage": "grow", "heading": "마켓 및 다국어 설정", "description": "판매 국가별 마켓과 언어를 설정해 글로벌 판매 환경을 구성하는 방법을 배웁니다." } },
+    { "type": "lesson", "settings": { "stage": "grow", "heading": "인플루언서 마케팅", "description": "인플루언서 협업과 관련된 마케팅 기능을 이해하고 활용하는 방법을 익힙니다." } }
+  ] }]
+}
+{% endschema %}

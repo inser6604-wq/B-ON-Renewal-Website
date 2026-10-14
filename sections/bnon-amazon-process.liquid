@@ -1,0 +1,51 @@
+{{ 'bnon-amazon-sections.css' | asset_url | stylesheet_tag }}
+
+<section class="bnon-section bnon-amazon-process" data-header-theme="light" aria-labelledby="AmazonProcessHeading-{{ section.id }}">
+  <div class="bnon-amazon-sections__inner">
+    <div class="bnon-shopify-build__label-row bnon-amazon-sections__label-row bnon-amazon-sections__label-row--end"><p>{{ section.settings.label | escape }}</p></div>
+    <div class="bnon-shopify-build__title bnon-amazon-sections__title">
+      <h2 id="AmazonProcessHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span>{{ section.settings.heading_accent | escape }}</span></h2>
+    </div>
+    <div class="bnon-shopify-build__copy bnon-amazon-process__description"><p>{{ section.settings.description | escape | newline_to_br }}</p></div>
+    <ol class="bnon-amazon-process__steps" role="list">
+      {%- for block in section.blocks -%}
+        <li class="bnon-amazon-process__step{% if forloop.index == 2 %} bnon-amazon-process__step--right{% endif %}" {{ block.shopify_attributes }}>
+          <div class="bnon-shopify-benefits__card bnon-amazon-process__step-content">
+            <p class="bnon-amazon-process__number">{{ block.settings.number | escape }}</p>
+            <h3>{{ block.settings.heading | escape }}</h3>
+            <p class="bnon-amazon-process__english">{{ block.settings.label | escape }}</p>
+            <p class="bnon-amazon-process__body">{{ block.settings.description | escape | newline_to_br }}</p>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Amazon Launch",
+  "tag": "div",
+  "class": "bnon-amazon-process-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "AMAZON LAUNCH PROCESS" },
+    { "type": "textarea", "id": "heading", "label": "메인 제목", "default": "아마존 입점,\n복잡하지 않게" },
+    { "type": "text", "id": "heading_accent", "label": "제목 강조 기호", "default": "." },
+    { "type": "textarea", "id": "description", "label": "소개 문구", "default": "핵심 단계만 정확히 진행해 글로벌 판매 기반을 완성합니다" }
+  ],
+  "max_blocks": 3,
+  "blocks": [{ "type": "step", "name": "입점 단계", "settings": [
+    { "type": "text", "id": "number", "label": "표시 번호" },
+    { "type": "text", "id": "heading", "label": "국문 단계 제목" },
+    { "type": "text", "id": "label", "label": "영문 단계 제목" },
+    { "type": "textarea", "id": "description", "label": "단계 설명" }
+  ] }],
+  "presets": [{ "name": "B&ON Amazon Launch", "blocks": [
+    { "type": "step", "settings": { "number": "01", "heading": "셀러 계정 개설 및 서류 검수", "label": "ACCOUNT SETUP", "description": "판매 가능한 셀러 계정을 직접 개설하고, 여권·신용카드·은행명세서 등 필수 서류가 승인 기준에 맞게 검토되도록 지원합니다." } },
+    { "type": "step", "settings": { "number": "02", "heading": "상품 리스팅 및 상세페이지 등록", "label": "PRODUCT LISTING", "description": "검색 노출을 고려한 상품 등록과 브랜드 톤에 맞는 상세페이지 구성으로 아마존 내 경쟁력을 높입니다." } },
+    { "type": "step", "settings": { "number": "03", "heading": "Shopify 연동 구조 설계", "label": "SHOPIFY INTEGRATION", "description": "Shopify 스토어와 아마존 판매를 함께 운영할 수 있도록 상품·재고·주문 흐름이 자연스럽게 이어지는 구조를 만듭니다." } }
+  ] }]
+}
+{% endschema %}

@@ -5,6 +5,10 @@
 -%}
 {%- capture footer_shopify_link -%}{%- render 'bnon-service-detail-url', link: section.settings.shopify_link, service_key: '01' -%}{%- endcapture -%}
 {%- assign footer_shopify_link = footer_shopify_link | strip -%}
+{%- capture footer_amazon_link -%}{%- render 'bnon-service-detail-url', link: section.settings.amazon_link, service_key: '04', allow_amazon_preview: true -%}{%- endcapture -%}
+{%- assign footer_amazon_link = footer_amazon_link | strip -%}
+{%- capture footer_training_link -%}{%- render 'bnon-service-detail-url', link: section.settings.training_link, service_key: '05', allow_training_preview: true -%}{%- endcapture -%}
+{%- assign footer_training_link = footer_training_link | strip -%}
 
 <section class="bnon-section bnon-footer-v2" aria-label="{{ shop.name | escape }} footer">
   <div class="bnon-footer-v2__container">
@@ -52,6 +56,14 @@
         <a href="{{ company_deck_url }}" data-company-deck-download aria-label="회사소개서 다운로드">
           회사소개서 <span aria-hidden="true">↓</span>
         </a>
+
+        {%- if footer_amazon_link != blank -%}
+          <a href="{{ footer_amazon_link | escape }}">{{ section.settings.amazon_label | escape }}</a>
+        {%- endif -%}
+
+        {%- if footer_training_link != blank -%}
+          <a href="{{ footer_training_link | escape }}">{{ section.settings.training_label | escape }}</a>
+        {%- endif -%}
 
       </nav>
     </div>
@@ -185,6 +197,11 @@
       "id": "shopify_link",
       "label": "SHOPIFY 링크"
     },
+
+    { "type": "text", "id": "amazon_label", "label": "Amazon 서비스 문구", "default": "AMAZON" },
+    { "type": "url", "id": "amazon_link", "label": "Amazon 서비스 링크", "info": "비워두면 실제 아마존 상세페이지 경로를 자동으로 연결합니다." },
+    { "type": "text", "id": "training_label", "label": "Shopify 관리자 교육 문구", "default": "관리자 교육" },
+    { "type": "url", "id": "training_link", "label": "Shopify 관리자 교육 링크", "info": "비워두면 실제 교육 상세페이지 경로를 자동으로 연결합니다." },
 
     {
       "type": "text",

@@ -1,0 +1,98 @@
+{{ 'bnon-amazon-sections.css' | asset_url | stylesheet_tag }}
+{%- assign channels = section.blocks | where: 'type', 'channel' -%}
+{%- assign features = section.blocks | where: 'type', 'feature' -%}
+
+<section class="bnon-section bnon-amazon-integration" data-header-theme="light" aria-labelledby="AmazonIntegrationHeading-{{ section.id }}">
+  <div class="bnon-amazon-sections__inner">
+    <div class="bnon-amazon-integration__intro">
+      <div class="bnon-shopify-build__label-row bnon-amazon-sections__label-row"><p>{{ section.settings.label | escape }}</p></div>
+      <div class="bnon-shopify-build__title bnon-amazon-sections__title"><h2 id="AmazonIntegrationHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span>{{ section.settings.heading_accent | escape }}</span></h2></div>
+      <div class="bnon-shopify-build__copy bnon-amazon-integration__description"><p>{{ section.settings.description | escape | newline_to_br }}</p></div>
+    </div>
+    <div class="bnon-shopify-benefits__intro bnon-amazon-integration__diagram">
+      <div class="bnon-amazon-integration__channels">
+        {%- for block in channels -%}
+          <div class="bnon-amazon-integration__channel" style="--channel-bg: {{ block.settings.background_color }}; --channel-border: {{ block.settings.border_color }};" {{ block.shopify_attributes }}>
+            <div class="bnon-amazon-integration__logo">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 700 | image_tag: widths: '240, 350, 700', sizes: '(min-width: 1200px) 350px, (min-width: 768px) 26vw, 70vw', alt: block.settings.image_alt, loading: 'lazy' }}
+              {%- elsif block.settings.platform == 'amazon' -%}
+                <img src="{{ 'bnon-amazon-integration-amazon.svg' | asset_url }}" width="281.947" height="84.9343" alt="{{ block.settings.image_alt | escape }}" loading="lazy">
+              {%- else -%}
+                <img src="{{ 'bnon-amazon-integration-shopify.png' | asset_url }}" width="350" height="100" alt="{{ block.settings.image_alt | escape }}" loading="lazy">
+              {%- endif -%}
+            </div>
+            <p>{{ block.settings.label | escape }}</p>
+          </div>
+          {%- if forloop.first and channels.size > 1 -%}
+            <div class="bnon-amazon-integration__sync">
+              <p>{{ section.settings.sync_label | escape }}</p>
+              {%- if section.settings.sync_image != blank -%}
+                {{ section.settings.sync_image | image_url: width: 176 | image_tag: alt: section.settings.sync_image_alt, loading: 'lazy' }}
+              {%- else -%}
+                <img src="{{ 'bnon-amazon-integration-sync.svg' | asset_url }}" width="87.3846" height="32.1749" alt="{{ section.settings.sync_image_alt | escape }}" loading="lazy">
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <p class="bnon-amazon-integration__data"><span>{{ section.settings.product_label | escape }}</span><span>{{ section.settings.separator | escape }}</span><span>{{ section.settings.inventory_label | escape }}</span><span>{{ section.settings.separator | escape }}</span><span>{{ section.settings.order_label | escape }}</span></p>
+    </div>
+    <div class="bnon-amazon-integration__features">
+      {%- for block in features -%}
+        <div class="bnon-shopify-benefits__card bnon-amazon-integration__feature" {{ block.shopify_attributes }}>
+          <p class="bnon-amazon-integration__eyebrow">{{ block.settings.label | escape }}</p>
+          <h3>{{ block.settings.heading | escape }}</h3>
+          <p class="bnon-amazon-integration__body">{{ block.settings.description | escape | newline_to_br }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Amazon Integration",
+  "tag": "div",
+  "class": "bnon-amazon-integration-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "SHOPIFY × AMAZON INTEGRATION" },
+    { "type": "textarea", "id": "heading", "label": "메인 제목", "default": "두 개의 판매 채널,\n하나의 운영 흐름" },
+    { "type": "text", "id": "heading_accent", "label": "제목 강조 기호", "default": "." },
+    { "type": "textarea", "id": "description", "label": "소개 문구", "default": "Shopify 자사몰과 Amazon 판매 채널을 연결해 상품·재고·주문 관리를 보다 효율적으로 운영합니다." },
+    { "type": "text", "id": "sync_label", "label": "동기화 문구", "default": "SYNC" },
+    { "type": "image_picker", "id": "sync_image", "label": "동기화 연결선 이미지", "info": "비워두면 Figma 원본 양방향 연결선을 사용합니다." },
+    { "type": "text", "id": "sync_image_alt", "label": "연결선 대체 텍스트", "default": "양방향 동기화" },
+    { "type": "text", "id": "product_label", "label": "상품 동기화 항목", "default": "PRODUCT" },
+    { "type": "text", "id": "inventory_label", "label": "재고 동기화 항목", "default": "INVENTORY" },
+    { "type": "text", "id": "order_label", "label": "주문 동기화 항목", "default": "ORDER" },
+    { "type": "text", "id": "separator", "label": "동기화 항목 구분 기호", "default": "·" }
+  ],
+  "max_blocks": 6,
+  "blocks": [
+    { "type": "channel", "name": "연동 판매 채널", "limit": 2, "settings": [
+      { "type": "select", "id": "platform", "label": "기본 로고", "default": "shopify", "options": [{ "value": "shopify", "label": "Shopify" }, { "value": "amazon", "label": "Amazon" }] },
+      { "type": "image_picker", "id": "image", "label": "채널 로고 이미지" },
+      { "type": "text", "id": "image_alt", "label": "로고 대체 텍스트" },
+      { "type": "text", "id": "label", "label": "채널 설명 문구" },
+      { "type": "color", "id": "background_color", "label": "카드 배경색", "default": "#eaf2da" },
+      { "type": "color", "id": "border_color", "label": "카드 테두리색", "default": "#cadfa3" }
+    ] },
+    { "type": "feature", "name": "연동 운영 장점", "limit": 4, "settings": [
+      { "type": "text", "id": "label", "label": "영문 항목 제목" },
+      { "type": "text", "id": "heading", "label": "국문 항목 제목" },
+      { "type": "textarea", "id": "description", "label": "항목 설명" }
+    ] }
+  ],
+  "presets": [{ "name": "B&ON Amazon Integration", "blocks": [
+    { "type": "channel", "settings": { "platform": "shopify", "image_alt": "Shopify", "label": "BRAND STORE", "background_color": "#eaf2da", "border_color": "#cadfa3" } },
+    { "type": "channel", "settings": { "platform": "amazon", "image_alt": "Amazon", "label": "MARKET PLACE", "background_color": "#fdebd2", "border_color": "#f4951c" } },
+    { "type": "feature", "settings": { "label": "PRODUCT SYNC", "heading": "상품·재고 자동 동기화", "description": "Shopify와 Amazon의 상품 및 재고 정보를 연동해\n중복 관리 부담을 줄이고, 판매 채널 간 재고를 효율적으로 관리합니다." } },
+    { "type": "feature", "settings": { "label": "ORDER MANAGEMENT", "heading": "주문 통합 관리", "description": "두 판매 채널의 주문 정보를 연결해 주문 현황을 보다\n편리하게 확인하고 관리할 수 있습니다." } },
+    { "type": "feature", "settings": { "label": "PRICE & SHIPPING", "heading": "가격·배송 정보 일관 반영", "description": "상품 가격과 배송 정보를 연동해 채널 간 정보의 일관성을 유지하고\n반복적인 수정 작업을 줄입니다." } },
+    { "type": "feature", "settings": { "label": "SALES ANALYTICS", "heading": "판매 성과 통합 보기", "description": "Shopify와 Amazon의 판매 데이터를 함께 확인해 채널별\n성과를 비교하고 운영 전략에 활용합니다." } }
+  ] }]
+}
+{% endschema %}

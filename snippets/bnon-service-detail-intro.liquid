@@ -19,7 +19,7 @@
       <ol class="bnon-shopify-detail__services" role="list">
         {%- for block in service_blocks -%}
           {%- assign selected_service_url = block.settings.link | default: block.settings.page.url -%}
-          {%- capture service_url -%}{%- render 'bnon-service-detail-url', link: selected_service_url, service_key: block.settings.number, allow_marketing_preview: true, allow_us_preview: true -%}{%- endcapture -%}
+          {%- capture service_url -%}{%- render 'bnon-service-detail-url', link: selected_service_url, service_key: block.settings.number, allow_marketing_preview: true, allow_us_preview: true, allow_amazon_preview: true, allow_training_preview: true -%}{%- endcapture -%}
           {%- assign service_url = service_url | strip -%}
           {%- assign display_number = block.settings.display_number | default: block.settings.number -%}
           <li {{ block.shopify_attributes }}>

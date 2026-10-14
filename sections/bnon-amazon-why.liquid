@@ -1,0 +1,37 @@
+{{ 'bnon-amazon-detail.css' | asset_url | stylesheet_tag }}
+
+<section class="bnon-section bnon-amazon-why" data-header-theme="dark" aria-labelledby="AmazonWhyHeading-{{ section.id }}">
+  <div class="bnon-amazon-why__inner">
+    <div class="bnon-shopify-build__label-row"><h2 id="AmazonWhyHeading-{{ section.id }}">{{ section.settings.label | escape }}</h2></div>
+    {%- for block in section.blocks -%}
+      <div class="bnon-amazon-why__row" {{ block.shopify_attributes }}>
+        <div class="bnon-shopify-build__title">
+          <h3>{{ block.settings.heading | escape | newline_to_br }}<span style="color: {{ block.settings.accent_color }}">{{ block.settings.brand | escape }}</span></h3>
+        </div>
+        <div class="bnon-shopify-build__copy"><p>{{ block.settings.description | escape | newline_to_br }}</p></div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "B&ON Why Amazon",
+  "tag": "div",
+  "class": "bnon-amazon-why-section",
+  "limit": 1,
+  "enabled_on": { "templates": ["page"] },
+  "settings": [{ "type": "text", "id": "label", "label": "영문 섹션 라벨", "default": "WHY AMAZON?" }],
+  "max_blocks": 2,
+  "blocks": [{ "type": "platform", "name": "플랫폼 비교", "settings": [
+    { "type": "textarea", "id": "heading", "label": "플랫폼 소개 제목" },
+    { "type": "text", "id": "brand", "label": "강조 플랫폼명" },
+    { "type": "textarea", "id": "description", "label": "플랫폼 설명" },
+    { "type": "color", "id": "accent_color", "label": "플랫폼명 강조 색상", "default": "#28dbc4" }
+  ] }],
+  "presets": [{ "name": "B&ON Why Amazon", "blocks": [
+    { "type": "platform", "settings": { "heading": "브랜드를 만드는 곳,", "brand": "Shopify.", "description": "브랜드의 정체성과 스토리를 담아 고객에게 일관된 쇼핑 경험을 제공합니다.", "accent_color": "#28dbc4" } },
+    { "type": "platform", "settings": { "heading": "브랜드를  발견하는 곳,", "brand": "Amazon.", "description": "글로벌 마켓플레이스를 통해 새로운 고객과 만나고, 더 넓은 시장으로 판매 기회를 확장합니다.", "accent_color": "#ff9900" } }
+  ] }]
+}
+{% endschema %}

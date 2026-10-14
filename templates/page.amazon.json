@@ -1,0 +1,50 @@
+/* Amazon detail: shared Header/Footer, Hero followed by WHY AMAZON. */
+{
+  "sections": {
+    "amazon_detail": {
+      "type": "bnon-amazon-detail",
+      "settings": {},
+      "blocks": {
+        "service_01": { "type": "service", "settings": { "number": "01", "label": "쇼피파이 자사몰 구축" } },
+        "service_02": { "type": "service", "settings": { "number": "02", "label": "디지털 마케팅" } },
+        "service_03": { "type": "service", "settings": { "number": "03", "label": "미국 법인 설립 & 물류 연계" } },
+        "service_04": { "type": "service", "settings": { "number": "04", "label": "아마존 입점" } },
+        "service_05": { "type": "service", "settings": { "number": "05", "label": "쇼피파이 관리자 교육" } }
+      },
+      "block_order": ["service_01", "service_02", "service_03", "service_04", "service_05"]
+    },
+    "amazon_why": {
+      "type": "bnon-amazon-why",
+      "settings": {},
+      "blocks": {
+        "shopify": { "type": "platform", "settings": { "heading": "브랜드를 만드는 곳,", "brand": "Shopify.", "description": "브랜드의 정체성과 스토리를 담아 고객에게 일관된 쇼핑 경험을 제공합니다.", "accent_color": "#28dbc4" } },
+        "amazon": { "type": "platform", "settings": { "heading": "브랜드를  발견하는 곳,", "brand": "Amazon.", "description": "글로벌 마켓플레이스를 통해 새로운 고객과 만나고, 더 넓은 시장으로 판매 기회를 확장합니다.", "accent_color": "#ff9900" } }
+      },
+      "block_order": ["shopify", "amazon"]
+    },
+    "amazon_process": {
+      "type": "bnon-amazon-process",
+      "settings": {},
+      "blocks": {
+        "step_01": { "type": "step", "settings": { "number": "01", "heading": "셀러 계정 개설 및 서류 검수", "label": "ACCOUNT SETUP", "description": "판매 가능한 셀러 계정을 직접 개설하고, 여권·신용카드·은행명세서 등 필수 서류가 승인 기준에 맞게 검토되도록 지원합니다." } },
+        "step_02": { "type": "step", "settings": { "number": "02", "heading": "상품 리스팅 및 상세페이지 등록", "label": "PRODUCT LISTING", "description": "검색 노출을 고려한 상품 등록과 브랜드 톤에 맞는 상세페이지 구성으로 아마존 내 경쟁력을 높입니다." } },
+        "step_03": { "type": "step", "settings": { "number": "03", "heading": "Shopify 연동 구조 설계", "label": "SHOPIFY INTEGRATION", "description": "Shopify 스토어와 아마존 판매를 함께 운영할 수 있도록 상품·재고·주문 흐름이 자연스럽게 이어지는 구조를 만듭니다." } }
+      },
+      "block_order": ["step_01", "step_02", "step_03"]
+    },
+    "amazon_integration": {
+      "type": "bnon-amazon-integration",
+      "settings": {},
+      "blocks": {
+        "channel_shopify": { "type": "channel", "settings": { "platform": "shopify", "image_alt": "Shopify", "label": "BRAND STORE", "background_color": "#eaf2da", "border_color": "#cadfa3" } },
+        "channel_amazon": { "type": "channel", "settings": { "platform": "amazon", "image_alt": "Amazon", "label": "MARKET PLACE", "background_color": "#fdebd2", "border_color": "#f4951c" } },
+        "product_sync": { "type": "feature", "settings": { "label": "PRODUCT SYNC", "heading": "상품·재고 자동 동기화", "description": "Shopify와 Amazon의 상품 및 재고 정보를 연동해\n중복 관리 부담을 줄이고, 판매 채널 간 재고를 효율적으로 관리합니다." } },
+        "order_management": { "type": "feature", "settings": { "label": "ORDER MANAGEMENT", "heading": "주문 통합 관리", "description": "두 판매 채널의 주문 정보를 연결해 주문 현황을 보다\n편리하게 확인하고 관리할 수 있습니다." } },
+        "price_shipping": { "type": "feature", "settings": { "label": "PRICE & SHIPPING", "heading": "가격·배송 정보 일관 반영", "description": "상품 가격과 배송 정보를 연동해 채널 간 정보의 일관성을 유지하고\n반복적인 수정 작업을 줄입니다." } },
+        "sales_analytics": { "type": "feature", "settings": { "label": "SALES ANALYTICS", "heading": "판매 성과 통합 보기", "description": "Shopify와 Amazon의 판매 데이터를 함께 확인해 채널별\n성과를 비교하고 운영 전략에 활용합니다." } }
+      },
+      "block_order": ["channel_shopify", "channel_amazon", "product_sync", "order_management", "price_shipping", "sales_analytics"]
+    }
+  },
+  "order": ["amazon_detail", "amazon_why", "amazon_process", "amazon_integration"]
+}

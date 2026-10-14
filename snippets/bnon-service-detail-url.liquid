@@ -17,7 +17,7 @@
         assign detail_handle = 'us-corporation-3pl'
       when '04', 'AMAZON'
         assign detail_handle = 'amazon'
-      when '05', 'SHOPIFY EDUCATION'
+      when '05', 'SHOPIFY EDUCATION', 'SHOPIFY ADMIN TRAINING'
         assign detail_handle = 'shopify-education'
     endcase
     if detail_handle != blank
@@ -38,6 +38,16 @@
         assign service_page = pages['service']
         if service_page != blank
           assign detail_url = service_page.url | append: '?view=us-corporation-3pl'
+        endif
+      elsif detail_handle == 'amazon' and allow_amazon_preview
+        assign service_page = pages['service']
+        if service_page != blank
+          assign detail_url = service_page.url | append: '?view=amazon'
+        endif
+      elsif detail_handle == 'shopify-education' and allow_training_preview
+        assign service_page = pages['service']
+        if service_page != blank
+          assign detail_url = service_page.url | append: '?view=shopify-education'
         endif
       endif
     endif

@@ -32,7 +32,7 @@
             {%- endif -%}
           </div>
 
-          {%- capture detail_url -%}{%- render 'bnon-service-detail-url', link: block.settings.link, service_key: block.settings.title, allow_marketing_preview: true, allow_us_preview: true -%}{%- endcapture -%}
+          {%- capture detail_url -%}{%- render 'bnon-service-detail-url', link: block.settings.link, service_key: block.settings.title, allow_marketing_preview: true, allow_us_preview: true, allow_amazon_preview: true, allow_training_preview: true -%}{%- endcapture -%}
           {%- assign detail_url = detail_url | strip -%}
           {%- if detail_url != blank -%}
             <a class="bnon-service-card__link" href="{{ detail_url | escape }}">

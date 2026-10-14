@@ -1,0 +1,154 @@
+{
+  "sections": {
+    "training_detail": {
+      "type": "bnon-training-detail",
+      "settings": {},
+      "blocks": {
+        "service_01": {
+          "type": "service",
+          "settings": {
+            "number": "01",
+            "label": "쇼피파이 자사몰 구축"
+          }
+        },
+        "service_02": {
+          "type": "service",
+          "settings": {
+            "number": "02",
+            "label": "디지털 마케팅"
+          }
+        },
+        "service_03": {
+          "type": "service",
+          "settings": {
+            "number": "03",
+            "label": "미국 법인 설립 & 물류 연계"
+          }
+        },
+        "service_04": {
+          "type": "service",
+          "settings": {
+            "number": "04",
+            "label": "아마존 입점"
+          }
+        },
+        "service_05": {
+          "type": "service",
+          "settings": {
+            "number": "05",
+            "label": "쇼피파이 관리자 교육"
+          }
+        }
+      },
+      "block_order": [
+        "service_01",
+        "service_02",
+        "service_03",
+        "service_04",
+        "service_05"
+      ]
+    },
+    "training_curriculum": {
+      "type": "bnon-training-curriculum",
+      "settings": {},
+      "blocks": {
+        "lesson_01": {
+          "type": "lesson",
+          "settings": {
+            "stage": "learn",
+            "heading": "제품 등록",
+            "description": "상품명, 가격, 이미지, 옵션 등을 설정하고 상품을 등록하는 방법을 배웁니다."
+          }
+        },
+        "lesson_02": {
+          "type": "lesson",
+          "settings": {
+            "stage": "learn",
+            "heading": "컬렉션 구성 및 관리",
+            "description": "상품을 카테고리별로 분류하고 컬렉션을 구성하는 방법을 익힙니다."
+          }
+        },
+        "lesson_03": {
+          "type": "lesson",
+          "settings": {
+            "stage": "learn",
+            "heading": "재고 및 주문 관리",
+            "description": "재고 수량을 관리하고 주문 확인부터 처리까지의 기본 과정을 익힙니다."
+          }
+        },
+        "lesson_04": {
+          "type": "lesson",
+          "settings": {
+            "stage": "manage",
+            "heading": "고객 관리 및 스토어 크레딧",
+            "description": "고객 정보를 관리하고 스토어 크레딧을 설정·활용하는 방법을 배웁니다."
+          }
+        },
+        "lesson_05": {
+          "type": "lesson",
+          "settings": {
+            "stage": "manage",
+            "heading": "이메일 마케팅",
+            "description": "고객 대상 이메일 캠페인을 생성하고 발송하는 방법을 익힙니다."
+          }
+        },
+        "lesson_06": {
+          "type": "lesson",
+          "settings": {
+            "stage": "manage",
+            "heading": "할인 및 프로모션 설계",
+            "description": "할인 코드와 자동 할인을 설정하고 프로모션을 운영하는 방법을 배웁니다."
+          }
+        },
+        "lesson_07": {
+          "type": "lesson",
+          "settings": {
+            "stage": "manage",
+            "heading": "콘텐츠 및 블로그 운영",
+            "description": "스토어 페이지와 블로그 콘텐츠를 작성하고 관리하는 방법을 익힙니다."
+          }
+        },
+        "lesson_08": {
+          "type": "lesson",
+          "settings": {
+            "stage": "manage",
+            "heading": "인박스 및 CS 처리",
+            "description": "Shopify Inbox를 활용해 고객 문의에 응대하고 상담을 관리하는 방법을 배웁니다."
+          }
+        },
+        "lesson_09": {
+          "type": "lesson",
+          "settings": {
+            "stage": "grow",
+            "heading": "마켓 및 다국어 설정",
+            "description": "판매 국가별 마켓과 언어를 설정해 글로벌 판매 환경을 구성하는 방법을 배웁니다."
+          }
+        },
+        "lesson_10": {
+          "type": "lesson",
+          "settings": {
+            "stage": "grow",
+            "heading": "인플루언서 마케팅",
+            "description": "인플루언서 협업과 관련된 마케팅 기능을 이해하고 활용하는 방법을 익힙니다."
+          }
+        }
+      },
+      "block_order": [
+        "lesson_01",
+        "lesson_02",
+        "lesson_03",
+        "lesson_04",
+        "lesson_05",
+        "lesson_06",
+        "lesson_07",
+        "lesson_08",
+        "lesson_09",
+        "lesson_10"
+      ]
+    }
+  },
+  "order": [
+    "training_detail",
+    "training_curriculum"
+  ]
+}
