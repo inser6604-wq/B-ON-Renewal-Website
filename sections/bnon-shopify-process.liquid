@@ -6,7 +6,7 @@
   data-enable-autoplay="{{ section.settings.enable_autoplay }}"
   data-autoplay-interval="{{ section.settings.autoplay_interval | default: 5.5 | times: 1000 }}"
 >
-  <section class="bnon-shopify-process__inner" role="region" aria-roledescription="carousel"{% if section.settings.heading != blank %} aria-labelledby="ShopifyProcessHeading-{{ section.id }}"{% else %} aria-label="스토어 구축 프로세스"{% endif %}>
+  <section class="bnon-shopify-process__inner" role="region" aria-roledescription="{{ section.settings.carousel_description | escape }}"{% if section.settings.heading != blank %} aria-labelledby="ShopifyProcessHeading-{{ section.id }}"{% else %} aria-label="{{ section.settings.region_label | escape }}"{% endif %}>
     {%- if section.settings.heading != blank -%}
       <header class="bnon-shopify-process__label-row">
         <h2 class="bnon-shopify-process__label" id="ShopifyProcessHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
@@ -14,11 +14,19 @@
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <nav class="bnon-shopify-process__navigation" aria-label="스토어 구축 진행 단계">
+      <nav class="bnon-shopify-process__navigation" aria-label="{{ section.settings.navigation_label | escape }}">
         <div class="bnon-shopify-process__track" aria-hidden="true">
-          <img class="bnon-shopify-process__line" src="{{ 'bnon-shopify-process-line.svg' | asset_url }}" width="1226" height="22" alt="">
+          {%- if section.settings.track_image != blank -%}
+            <img class="bnon-shopify-process__line" src="{{ section.settings.track_image | image_url: width: 2452 }}" width="1226" height="22" alt="">
+          {%- else -%}
+            <img class="bnon-shopify-process__line" src="{{ 'bnon-shopify-process-line.svg' | asset_url }}" width="1226" height="22" alt="">
+          {%- endif -%}
           <span class="bnon-shopify-process__fill"></span>
-          <img class="bnon-shopify-process__cursor" src="{{ 'bnon-shopify-process-cursor.png' | asset_url }}" width="87" height="32" alt="">
+          {%- if section.settings.cursor_image != blank -%}
+            <img class="bnon-shopify-process__cursor" src="{{ section.settings.cursor_image | image_url: width: 174 }}" width="87" height="32" alt="">
+          {%- else -%}
+            <img class="bnon-shopify-process__cursor" src="{{ 'bnon-shopify-process-cursor.png' | asset_url }}" width="87" height="32" alt="">
+          {%- endif -%}
         </div>
         <div class="bnon-shopify-process__steps">
           {%- for block in section.blocks -%}
@@ -27,11 +35,17 @@
         </div>
       </nav>
 
-      <div class="bnon-shopify-process__stage" tabindex="0" aria-label="진행 단계, 좌우 방향키로 전환" aria-live="off">
+      {%- assign default_total = section.blocks.size | prepend: '0' -%}
+      {%- assign total_display = section.settings.total_label | default: default_total -%}
+      {%- assign total_accessible = section.settings.total_label | default: section.blocks.size -%}
+      <div class="bnon-shopify-process__stage" tabindex="0" aria-label="{{ section.settings.stage_label | escape }}" aria-live="off">
         {%- for block in section.blocks -%}
-          <article class="bnon-shopify-process__panel" id="ShopifyProcessStep-{{ section.id }}-{{ block.id }}" data-process-panel data-step-id="{{ block.id }}" role="group" aria-roledescription="slide" aria-label="{{ forloop.index }} / {{ section.blocks.size }} {{ block.settings.title | escape }}"{% unless forloop.first %} hidden{% endunless %} {{ block.shopify_attributes }}>
+          {%- assign default_number = forloop.index | prepend: '0' -%}
+          {%- assign display_number = block.settings.number | default: default_number -%}
+          {%- assign accessible_number = block.settings.number | default: forloop.index -%}
+          <article class="bnon-shopify-process__panel" id="ShopifyProcessStep-{{ section.id }}-{{ block.id }}" data-process-panel data-step-id="{{ block.id }}" data-display-duration="{{ block.settings.display_duration | default: 0 }}" role="group" aria-roledescription="{{ section.settings.slide_description | escape }}" aria-label="{{ accessible_number | escape }} {{ section.settings.count_separator | escape }} {{ total_accessible | escape }} {{ block.settings.title | escape }}"{% unless forloop.first %} hidden{% endunless %} {{ block.shopify_attributes }}>
             <div class="bnon-shopify-process__step-heading">
-              <p class="bnon-shopify-process__count">{{ forloop.index | prepend: '0' }} / <span>{{ section.blocks.size | prepend: '0' }}</span></p>
+              <p class="bnon-shopify-process__count">{{ display_number | escape }} {{ section.settings.count_separator | escape }} <span>{{ total_display | escape }}</span></p>
               <h3 class="bnon-shopify-process__title-en">{{ block.settings.title_en | escape }}</h3>
               <p class="bnon-shopify-process__title">{{ block.settings.title | escape }}</p>
             </div>
@@ -41,10 +55,9 @@
         {%- endfor -%}
       </div>
 
-      <div class="bnon-shopify-process__controls" role="group" aria-label="진행 단계 및 자동재생 조작">
-        <button type="button" data-process-previous aria-label="이전 단계" disabled>←</button>
-        <button type="button" data-process-toggle aria-label="단계 자동재생 일시정지" disabled>일시정지</button>
-        <button type="button" data-process-next aria-label="다음 단계" disabled>→</button>
+      <div class="bnon-shopify-process__controls" role="group" aria-label="{{ section.settings.controls_label | escape }}">
+        <button type="button" data-process-previous aria-label="{{ section.settings.previous_accessibility_label | escape }}" disabled>{{ section.settings.previous_label | escape }}</button>
+        <button type="button" data-process-next aria-label="{{ section.settings.next_accessibility_label | escape }}" disabled>{{ section.settings.next_label | escape }}</button>
       </div>
       <p class="visually-hidden" data-process-status role="status" aria-live="polite" aria-atomic="true"></p>
     {%- endif -%}
@@ -73,19 +86,46 @@
     {
       "type": "checkbox",
       "id": "enable_autoplay",
-      "label": "자동재생 사용",
-      "default": true
+      "label": "최초 1회 자동 진행 사용",
+      "default": true,
+      "info": "마지막 단계에 도달하거나 버튼·단계 선택·스와이프 조작을 하면 자동 진행을 종료합니다."
     },
     {
       "type": "range",
       "id": "autoplay_interval",
-      "label": "자동 전환 간격",
+      "label": "단계 기본 표시 시간",
       "min": 5,
-      "max": 6,
+      "max": 20,
       "step": 0.5,
       "default": 5.5,
       "unit": "초"
-    }
+    },
+    {"type":"header","content":"단계 번호 표시"},
+    {"type":"text","id":"total_label","label":"전체 단계 수 표시","info":"비워두면 현재 Blocks 수를 06 형태로 자동 표시합니다. 실제 단계 수와 전환 동작은 바꾸지 않습니다."},
+    {"type":"text","id":"count_separator","label":"단계 번호 구분 문자","default":"/"},
+    {"type":"header","content":"이전·다음 및 자동재생 버튼 문구"},
+    {"type":"text","id":"previous_label","label":"이전 버튼 문구","default":"←"},
+    {"type":"text","id":"next_label","label":"다음 버튼 문구","default":"→"},
+    {"type":"paragraph","content":"아래 재생 버튼 문구와 관련 접근성 설정은 기존 데이터를 보존하기 위한 항목입니다. 1회 자동 진행 모드에서는 재생 버튼을 표시하지 않습니다."},
+    {"type":"text","id":"pause_label","label":"재생 중 표시할 문구","default":"일시정지"},
+    {"type":"text","id":"play_label","label":"일시정지 중 표시할 문구","default":"재생"},
+    {"type":"text","id":"disabled_label","label":"자동재생 꺼짐 문구","default":"자동재생 꺼짐"},
+    {"type":"header","content":"스크린리더 및 접근성 문구"},
+    {"type":"text","id":"previous_accessibility_label","label":"이전 버튼 접근성 설명","default":"이전 단계"},
+    {"type":"text","id":"next_accessibility_label","label":"다음 버튼 접근성 설명","default":"다음 단계"},
+    {"type":"text","id":"pause_accessibility_label","label":"일시정지 버튼 접근성 설명","default":"단계 자동재생 일시정지"},
+    {"type":"text","id":"play_accessibility_label","label":"재생 버튼 접근성 설명","default":"단계 자동재생 재생"},
+    {"type":"text","id":"disabled_accessibility_label","label":"자동재생 꺼짐 접근성 설명","default":"자동재생 비활성화"},
+    {"type":"textarea","id":"reduced_motion_message","label":"움직임 줄이기 안내","default":"움직임 줄이기 설정으로 자동재생이 비활성화되어 있습니다."},
+    {"type":"text","id":"region_label","label":"제목이 없을 때 영역 설명","default":"스토어 구축 프로세스"},
+    {"type":"text","id":"navigation_label","label":"단계 메뉴 접근성 설명","default":"스토어 구축 진행 단계"},
+    {"type":"text","id":"stage_label","label":"단계 내용 접근성 설명","default":"진행 단계, 좌우 방향키로 전환"},
+    {"type":"text","id":"controls_label","label":"조작 버튼 묶음 접근성 설명","default":"진행 단계 및 자동재생 조작"},
+    {"type":"text","id":"carousel_description","label":"프로세스 영역 종류 설명","default":"carousel"},
+    {"type":"text","id":"slide_description","label":"각 단계 영역 종류 설명","default":"slide"},
+    {"type":"header","content":"진행선 이미지 (비워두면 기존 원본 유지)"},
+    {"type":"image_picker","id":"track_image","label":"배경 진행선 이미지","info":"기존 비율(약 1226:22)의 가로형 이미지를 사용하세요."},
+    {"type":"image_picker","id":"cursor_image","label":"현재 단계 커서 이미지","info":"기존 비율(87:32)의 이미지를 사용하세요."}
   ],
   "blocks": [
     {
@@ -111,6 +151,23 @@
           "type": "richtext",
           "id": "description",
           "label": "단계 설명"
+        },
+        {
+          "type": "text",
+          "id": "number",
+          "label": "화면에 표시할 단계 번호",
+          "info": "비워두면 순서에 따라 01 형태로 표시합니다. 실제 전환 순서는 기존 Block 순서를 유지합니다."
+        },
+        {
+          "type": "range",
+          "id": "display_duration",
+          "label": "이 단계 표시 시간",
+          "min": 0,
+          "max": 20,
+          "step": 0.5,
+          "default": 0,
+          "unit": "초",
+          "info": "0이면 섹션의 단계 기본 표시 시간을 사용합니다. 0보다 큰 값은 최소 5초로 적용합니다."
         }
       ]
     }

@@ -11,7 +11,6 @@
       this.navigation = this.querySelector('.bnon-shopify-process__navigation');
       this.previous = this.querySelector('[data-process-previous]');
       this.next = this.querySelector('[data-process-next]');
-      this.toggle = this.querySelector('[data-process-toggle]');
       this.status = this.querySelector('[data-process-status]');
       if (!this.panels.length || !this.stage || !this.navigation) return;
 
@@ -23,11 +22,12 @@
       this.visible = false;
       this.hovered = window.matchMedia('(hover: hover)').matches && this.matches(':hover');
       this.focusPaused = this.contains(document.activeElement);
-      this.userPaused = false;
+      this.autoplayFinished = this.autoplayFinished === true || this.reduced.matches;
       this.editorSelected = false;
       this.pointer = null;
       this.sectionId = this.closest('.shopify-section')?.id.replace('shopify-section-', '');
-      this.interval = Math.max(5000, Math.min(6000, Number(this.dataset.autoplayInterval) || 5500));
+      this.interval = Math.max(5000, Math.min(20000, Number(this.dataset.autoplayInterval) || 5500));
+      this.remaining ??= this.intervalFor(this.index);
 
       this.triggers.forEach((trigger, index) => {
         trigger.disabled = false;
@@ -36,11 +36,6 @@
       this.previous.disabled = this.next.disabled = this.panels.length < 2;
       this.previous.addEventListener('click', () => this.activate(this.index - 1, true), options);
       this.next.addEventListener('click', () => this.activate(this.index + 1, true), options);
-      this.toggle.addEventListener('click', () => {
-        this.userPaused = !this.userPaused;
-        if (!this.userPaused) this.focusPaused = false;
-        this.syncAutoplay();
-      }, options);
       this.addEventListener('pointerenter', event => {
         if (event.pointerType === 'touch') return;
         this.hovered = true;
@@ -69,7 +64,13 @@
       window.addEventListener('pointerup', event => this.finishSwipe(event), options);
       window.addEventListener('pointercancel', event => this.finishSwipe(event, true), options);
       document.addEventListener('visibilitychange', () => this.syncAutoplay(), options);
-      this.reduced.addEventListener('change', () => this.syncAutoplay(), options);
+      this.reduced.addEventListener('change', () => {
+        if (this.reduced.matches) {
+          this.autoplayFinished = true;
+          this.panelAnimation?.cancel();
+        }
+        this.syncAutoplay();
+      }, options);
       this.mobile.addEventListener('change', () => this.updateCursor(), options);
       document.addEventListener('shopify:block:select', event => {
         if (event.detail?.sectionId !== this.sectionId) return;
@@ -84,52 +85,103 @@
         this.syncAutoplay();
       }, options);
       this.observer = new IntersectionObserver(entries => {
-        this.visible = entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= .01);
+        this.visible = entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= .15);
+        if (this.visible && !this.entered) {
+          this.entered = true;
+          this.fadePanel();
+        }
         this.syncAutoplay();
-      }, { threshold: [0, .01] });
-      this.observer.observe(this);
-      this.resizeObserver = new ResizeObserver(() => this.updateCursor());
+      }, { threshold: [0, .15] });
+      this.observer.observe(this.stage);
+      this.resizeObserver = new ResizeObserver(() => {
+        this.updateCursor();
+        this.scheduleMeasure();
+      });
       this.resizeObserver.observe(this.navigation);
       this.triggers.forEach(trigger => this.resizeObserver.observe(trigger));
+      document.fonts?.ready.then(() => { if (this.isConnected) this.scheduleMeasure(); });
       this.activate(this.index);
+    }
+
+    intervalFor(index) {
+      const duration = Number(this.panels[index]?.dataset.displayDuration);
+      return duration > 0 ? Math.max(5000, Math.min(20000, duration * 1000)) : this.interval;
     }
 
     canAutoplay() {
       return this.isConnected && !!this.events && this.dataset.enableAutoplay === 'true' && this.panels.length > 1
         && this.visible && !document.hidden && !this.reduced.matches
-        && !this.hovered && !this.focusPaused && !this.userPaused
+        && !this.hovered && !this.focusPaused && !this.autoplayFinished
         && !this.editorSelected && !this.pointer;
     }
 
     stopAutoplay() {
+      if (this.timer != null) this.remaining = Math.max(0, this.remaining - (performance.now() - this.timerStarted));
       clearTimeout(this.timer);
       this.timer = null;
     }
 
     syncAutoplay() {
       this.stopAutoplay();
-      const disabled = this.dataset.enableAutoplay !== 'true' || this.reduced.matches || this.panels.length < 2;
-      this.toggle.disabled = disabled;
-      this.toggle.textContent = disabled ? '자동재생 꺼짐' : this.userPaused ? '재생' : '일시정지';
-      this.toggle.setAttribute('aria-label', disabled ? '자동재생 비활성화' : this.userPaused ? '단계 자동재생 재생' : '단계 자동재생 일시정지');
-      this.toggle.title = this.reduced.matches ? '움직임 줄이기 설정으로 자동재생이 비활성화되어 있습니다.' : '';
       if (!this.canAutoplay()) return;
+      if (this.index === this.panels.length - 1) {
+        this.autoplayFinished = true;
+        return;
+      }
+      this.timerStarted = performance.now();
       this.timer = setTimeout(() => {
         this.timer = null;
         if (this.canAutoplay()) this.activate(this.index + 1);
-      }, this.interval);
+      }, this.remaining);
     }
 
     activate(index, manual = false) {
+      this.stopAutoplay();
       const count = this.panels.length;
+      const previousIndex = this.index;
+      if (manual) this.autoplayFinished = true;
       this.index = ((index % count) + count) % count;
+      if (!manual && this.index === count - 1) this.autoplayFinished = true;
+      this.remaining = this.intervalFor(this.index);
+      this.panelAnimation?.cancel();
       // No overlapping exit layer: only one step is visible/accessible at a time.
       this.panels.forEach((panel, i) => { panel.hidden = i !== this.index; });
       this.triggers.forEach((trigger, i) => trigger.setAttribute('aria-current', i === this.index ? 'step' : 'false'));
       this.updateCursor();
+      if (previousIndex !== this.index && this.visible) this.fadePanel();
       if (manual) this.status.textContent = this.panels[this.index].getAttribute('aria-label');
       else this.status.textContent = '';
       this.syncAutoplay();
+    }
+
+    fadePanel() {
+      this.panelAnimation?.cancel();
+      if (this.reduced.matches) return;
+      this.panelAnimation = this.panels[this.index].animate([
+        { opacity: 0 }, { opacity: 1 },
+      ], { duration: 500, easing: 'ease-out' });
+    }
+
+    scheduleMeasure() {
+      if (this.measureFrame) return;
+      this.measureFrame = requestAnimationFrame(() => {
+        this.measureFrame = null;
+        if (!this.isConnected) return;
+        // Measure an inert off-flow copy, never briefly expose inactive real slides.
+        this.stage.style.removeProperty('min-height');
+        const style = getComputedStyle(this.stage);
+        const copy = this.stage.cloneNode(true);
+        copy.removeAttribute('tabindex');
+        copy.setAttribute('aria-hidden', 'true');
+        copy.inert = true;
+        copy.style.cssText = `position:absolute;visibility:hidden;pointer-events:none;width:${this.stage.getBoundingClientRect().width}px;min-height:0;margin:0;`;
+        copy.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
+        copy.querySelectorAll('[data-process-panel]').forEach(panel => { panel.hidden = false; });
+        this.stage.after(copy);
+        const tallest = Math.max(...[...copy.querySelectorAll('[data-process-panel]')].map(panel => panel.getBoundingClientRect().height));
+        copy.remove();
+        this.stage.style.minHeight = `${Math.max(parseFloat(style.minHeight) || 0, tallest + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom))}px`;
+      });
     }
 
     updateCursor() {
@@ -139,7 +191,12 @@
       const center = this.mobile.matches
         ? rect.width * (this.index + .5) / this.panels.length
         : trigger.left - rect.left + trigger.width / 2;
-      this.navigation.style.setProperty('--process-cursor-left', `${Math.max(2.5, Math.min(rect.width - 43.5, center - 35.5))}px`);
+      const lastStep = this.index === this.panels.length - 1;
+      const cursorLeft = Math.max(2.5, Math.min(rect.width - 43.5, lastStep ? rect.width - 43.5 : center - 35.5));
+      // Keep the cursor and all strokes on one track; only the final step fills its full width.
+      const fillWidth = Math.max(0, lastStep ? rect.width - 2.5 : cursorLeft - 2.5);
+      this.navigation.style.setProperty('--process-cursor-left', `${cursorLeft}px`);
+      this.navigation.style.setProperty('--process-fill-width', `${fillWidth}px`);
     }
 
     onKeydown(event) {
@@ -165,6 +222,9 @@
 
     disconnectedCallback() {
       this.stopAutoplay();
+      this.panelAnimation?.cancel();
+      cancelAnimationFrame(this.measureFrame);
+      this.measureFrame = null;
       this.events?.abort();
       this.events = null;
       this.observer?.disconnect();

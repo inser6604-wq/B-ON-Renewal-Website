@@ -53,6 +53,7 @@ body:has(bnon-shopify-detail.is-scroll-enabled) { overflow-x: clip; }
 .bnon-shopify-detail__image { display: block; width: 100%; max-width: 100%; height: auto; transform: translateY(var(--detail-image-offset, 0px)); }
 .bnon-shopify-detail.is-scroll-enabled .bnon-shopify-detail__media { position: sticky; top: var(--detail-sticky-top, 104px); }
 .bnon-shopify-detail.is-scroll-enabled .bnon-shopify-detail__image { will-change: transform; }
+.bnon-shopify-detail.is-mobile-playing .bnon-shopify-detail__image { will-change: transform; }
 @media screen and (max-width: 1199px) {
   .bnon-shopify-detail__inner { padding-inline: 32px; }
   .bnon-shopify-detail__intro { grid-template-columns: minmax(0, 1fr) 192px; gap: 24px; }

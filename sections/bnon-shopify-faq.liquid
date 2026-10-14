@@ -1,6 +1,17 @@
 {{ 'bnon-shopify-faq.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'bnon-shopify-faq.js' | asset_url }}" defer="defer"></script>
 
+{%- liquid
+  assign open_icon_url = 'bnon-shopify-faq-open.svg' | asset_url
+  assign close_icon_url = 'bnon-shopify-faq-close.svg' | asset_url
+  if section.settings.open_icon != blank
+    assign open_icon_url = section.settings.open_icon | image_url: width: 70
+  endif
+  if section.settings.close_icon != blank
+    assign close_icon_url = section.settings.close_icon | image_url: width: 70
+  endif
+-%}
+
 <bnon-shopify-faq data-section-id="{{ section.id }}">
   <section class="bnon-section bnon-shopify-faq" {% if section.settings.heading != blank %}aria-labelledby="ShopifyFaqHeading-{{ section.id }}"{% endif %} style="--shopify-faq-background: {{ section.settings.background_color | default: '#f9f7f7' | escape }};">
     <div class="bnon-shopify-faq__inner">
@@ -37,10 +48,10 @@
                     {{ block.shopify_attributes }}
                   >
                     <summary class="bnon-shopify-faq__trigger" id="ShopifyFaqQuestion-{{ section.id }}-{{ block.id }}">
-                      <span class="bnon-shopify-faq__question">Q. {{ block.settings.question | escape }}</span>
+                      <span class="bnon-shopify-faq__question">{{ section.settings.question_prefix | escape }}{% if section.settings.question_prefix != blank %} {% endif %}{{ block.settings.question | escape }}</span>
                       <span class="bnon-shopify-faq__icon" aria-hidden="true">
-                        <img class="bnon-shopify-faq__icon-collapsed" src="{{ 'bnon-shopify-faq-open.svg' | asset_url }}" alt="" width="35" height="35" loading="lazy">
-                        <img class="bnon-shopify-faq__icon-expanded" src="{{ 'bnon-shopify-faq-close.svg' | asset_url }}" alt="" width="35" height="35" loading="lazy">
+                        <img class="bnon-shopify-faq__icon-collapsed" src="{{ open_icon_url | escape }}" alt="" width="35" height="35" loading="lazy">
+                        <img class="bnon-shopify-faq__icon-expanded" src="{{ close_icon_url | escape }}" alt="" width="35" height="35" loading="lazy">
                       </span>
                     </summary>
                     {%- if block.settings.answer != blank -%}<div class="bnon-shopify-faq__answer">{{ block.settings.answer }}</div>{%- endif -%}
@@ -97,7 +108,10 @@
       "id": "background_color",
       "label": "배경 색상",
       "default": "#f9f7f7"
-    }
+    },
+    { "type": "text", "id": "question_prefix", "label": "질문 앞 접두사", "default": "Q.", "info": "비워두면 접두사를 표시하지 않습니다." },
+    { "type": "image_picker", "id": "open_icon", "label": "펼치기 아이콘", "info": "비워두면 기존 원본을 유지합니다. 정사각형 이미지를 사용하세요." },
+    { "type": "image_picker", "id": "close_icon", "label": "접기 아이콘", "info": "비워두면 기존 원본을 유지합니다. 정사각형 이미지를 사용하세요." }
   ],
   "blocks": [
     {
@@ -124,7 +138,7 @@
           "type": "text",
           "id": "question",
           "label": "질문",
-          "info": "Q. 접두사는 자동 표시됩니다."
+          "info": "접두사는 섹션의 질문 앞 접두사 설정에서 변경할 수 있습니다."
         },
         {
           "type": "richtext",

@@ -1,5 +1,12 @@
 {{ 'bnon-shopify-payment.css' | asset_url | stylesheet_tag }}
 
+{%- liquid
+  assign underline_url = 'bnon-shopify-payment-underline.svg' | asset_url
+  if section.settings.underline_image != blank
+    assign underline_url = section.settings.underline_image | image_url: width: 890
+  endif
+-%}
+
 <section
   class="bnon-section bnon-shopify-payment"
   {% if section.settings.heading != blank %}aria-labelledby="ShopifyPaymentHeading-{{ section.id }}"{% endif %}
@@ -23,6 +30,14 @@
             endif
             assign line_asset = 'bnon-shopify-payment-' | append: market | append: '-line.svg'
             assign connector_asset = 'bnon-shopify-payment-' | append: market | append: '-connector.svg'
+            assign line_url = line_asset | asset_url
+            assign connector_url = connector_asset | asset_url
+            if block.settings.line_image != blank
+              assign line_url = block.settings.line_image | image_url: width: 120
+            endif
+            if block.settings.connector_image != blank
+              assign connector_url = block.settings.connector_image | image_url: width: 486
+            endif
             assign line_width = 2.32587
             assign line_height = 57.5652
             if market == 'global'
@@ -34,12 +49,12 @@
             {%- if block.settings.title != blank -%}<h3 class="bnon-shopify-payment__market">{{ block.settings.title | escape }}</h3>{%- endif -%}
             <div class="bnon-shopify-payment__steps" role="list" {% if block.settings.title != blank %}aria-label="{{ block.settings.title | escape }}"{% endif %}>
               <div class="bnon-shopify-payment__circle bnon-shopify-payment__currency" role="listitem">{{ block.settings.currency | escape }}</div>
-              <span class="bnon-shopify-payment__line" aria-hidden="true"><img src="{{ line_asset | asset_url }}" alt="" width="{{ line_width }}" height="{{ line_height }}" loading="lazy"></span>
+              <span class="bnon-shopify-payment__line" aria-hidden="true"><img src="{{ line_url | escape }}" alt="" width="{{ line_width }}" height="{{ line_height }}" loading="lazy"></span>
               <div class="bnon-shopify-payment__circle" role="listitem">{{ block.settings.gateway | escape }}</div>
-              <span class="bnon-shopify-payment__line" aria-hidden="true"><img src="{{ line_asset | asset_url }}" alt="" width="{{ line_width }}" height="{{ line_height }}" loading="lazy"></span>
+              <span class="bnon-shopify-payment__line" aria-hidden="true"><img src="{{ line_url | escape }}" alt="" width="{{ line_width }}" height="{{ line_height }}" loading="lazy"></span>
               <div class="bnon-shopify-payment__circle" role="listitem">{{ block.settings.customer | escape }}</div>
             </div>
-            <span class="bnon-shopify-payment__connector" aria-hidden="true"><img src="{{ connector_asset | asset_url }}" alt="" width="243" height="79.5" loading="lazy"></span>
+            <span class="bnon-shopify-payment__connector" aria-hidden="true"><img src="{{ connector_url | escape }}" alt="" width="243" height="79.5" loading="lazy"></span>
           </article>
         {%- endfor -%}
       </div>
@@ -47,7 +62,7 @@
         {%- if section.settings.result_heading != blank -%}
           <div class="bnon-shopify-payment__result-title">
             <p class="bnon-shopify-payment__result-heading">{{ section.settings.result_heading | escape }}</p>
-            <span class="bnon-shopify-payment__underline" aria-hidden="true"><img src="{{ 'bnon-shopify-payment-underline.svg' | asset_url }}" alt="" width="445" height="20" loading="lazy"></span>
+            <span class="bnon-shopify-payment__underline" aria-hidden="true"><img src="{{ underline_url | escape }}" alt="" width="445" height="20" loading="lazy"></span>
           </div>
         {%- endif -%}
         {%- if section.settings.result_description != blank -%}<p class="bnon-shopify-payment__result-description">{{ section.settings.result_description | escape }}</p>{%- endif -%}
@@ -70,7 +85,8 @@
     { "type": "text", "id": "heading_accent", "label": "제목 끝 민트색 문자", "default": "." },
     { "type": "textarea", "id": "result_heading", "label": "연결 결과 영문 제목", "default": "SCALABLE COMMERCE" },
     { "type": "textarea", "id": "result_description", "label": "연결 결과 설명", "default": "국내에서 글로벌까지" },
-    { "type": "color", "id": "background_color", "label": "배경 색상", "default": "#f9f7f7" }
+    { "type": "color", "id": "background_color", "label": "배경 색상", "default": "#f9f7f7" },
+    { "type": "image_picker", "id": "underline_image", "label": "연결 결과 밑줄 이미지", "info": "비워두면 기존 원본을 유지합니다. 기존 비율은 445:20입니다." }
   ],
   "blocks": [
     {
@@ -81,7 +97,9 @@
         { "type": "text", "id": "title", "label": "흐름 제목" },
         { "type": "textarea", "id": "currency", "label": "통화" },
         { "type": "textarea", "id": "gateway", "label": "결제 시스템", "info": "줄바꿈이 그대로 반영됩니다." },
-        { "type": "textarea", "id": "customer", "label": "고객" }
+        { "type": "textarea", "id": "customer", "label": "고객" },
+        { "type": "image_picker", "id": "line_image", "label": "원 사이 연결선 이미지", "info": "비워두면 기존 원본을 유지합니다. 세로형 이미지(약 2.3:57)를 사용하세요." },
+        { "type": "image_picker", "id": "connector_image", "label": "결과로 이어지는 연결선 이미지", "info": "비워두면 기존 원본을 유지합니다. 기존 비율은 243:79.5입니다." }
       ]
     }
   ],

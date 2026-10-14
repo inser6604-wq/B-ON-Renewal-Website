@@ -13,9 +13,9 @@ bnon-shopify-process { display: block; }
 .bnon-shopify-process__label { color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: 26px; font-weight: var(--bnon-weight-semibold); line-height: 1.6; letter-spacing: -.04em; }
 .bnon-shopify-process__navigation { position: relative; margin-top: 110px; }
 .bnon-shopify-process__track { position: absolute; inset: 0 0 auto; height: 0; pointer-events: none; }
-.bnon-shopify-process__line { position: absolute; left: 3px; top: 0; display: block; width: calc(100% - 1.5px); max-width: none; height: auto; transform: translateY(-50%); }
-.bnon-shopify-process__cursor { position: absolute; left: var(--process-cursor-left, 2.5px); top: -7px; display: block; width: 43.5px; height: 16px; max-width: none; }
-.bnon-shopify-process__fill { position: absolute; left: 2.5px; top: 0; width: max(0px, calc(var(--process-cursor-left, 2.5px) - 2.5px)); height: 3px; background: var(--bnon-color-mint); }
+.bnon-shopify-process__line { position: absolute; left: 2.5px; top: 0; display: block; width: calc(100% - 2.5px); max-width: none; height: auto; transform: translateY(-50%); clip-path: inset(0 0 0 var(--process-fill-width, 0px)); }
+.bnon-shopify-process__cursor { position: absolute; left: var(--process-cursor-left, 2.5px); top: -8px; display: block; width: 43.5px; height: 16px; max-width: none; }
+.bnon-shopify-process__fill { position: absolute; left: 2.5px; top: 0; width: var(--process-fill-width, 0px); height: 3px; background: var(--bnon-color-mint); transform: translateY(-50%); }
 .bnon-shopify-process__steps { display: flex; width: calc(100% - 37px); justify-content: space-between; align-items: start; gap: 16px; padding-top: 11.5px; }
 .bnon-shopify-process__step { flex: 0 0 auto; min-height: 44px; padding: 10px 0; border: 0; color: var(--bnon-color-black); background: transparent; font-family: var(--bnon-font-latin); font-size: 20px; font-weight: var(--bnon-weight-semibold); line-height: 1.2; letter-spacing: -.04em; text-align: left; cursor: pointer; }
 .bnon-shopify-process__step[aria-current='step'] { color: var(--bnon-color-black); }

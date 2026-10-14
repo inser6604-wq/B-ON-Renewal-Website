@@ -11,7 +11,14 @@
   class="bnon-section bnon-shopify-detail"
   data-scroll-enabled="{{ section.settings.enable_scroll }}"
   data-mobile-scroll-enabled="{{ section.settings.enable_mobile_scroll }}"
+  data-mobile-autoplay-enabled="{{ section.settings.enable_mobile_autoplay }}"
+  data-mobile-autoplay-duration="{{ section.settings.mobile_autoplay_duration | default: 18 | times: 1000 }}"
   data-scroll-range="{{ section.settings.scroll_range | default: 140 }}"
+  data-breadcrumb-home-label="{{ section.settings.breadcrumb_home_label | escape }}"
+  data-breadcrumb-current-label="{{ section.settings.breadcrumb_current_label | default: page.title | escape }}"
+  data-breadcrumb-home-link="{{ section.settings.breadcrumb_home_link | default: routes.root_url | escape }}"
+  data-breadcrumb-separator="{{ section.settings.breadcrumb_separator | escape }}"
+  data-breadcrumb-label="{{ section.settings.breadcrumb_accessibility_label | escape }}"
 >
   <section class="bnon-shopify-detail__inner" aria-labelledby="ShopifyDetailHeading-{{ section.id }}" data-header-theme="light">
     <div class="bnon-shopify-detail__intro">
@@ -23,18 +30,20 @@
       </div>
 
       {%- if section.blocks.size > 0 -%}
-        <nav class="bnon-shopify-detail__navigation" aria-label="서비스 상세페이지">
+        <nav class="bnon-shopify-detail__navigation" aria-label="{{ section.settings.navigation_label | escape }}">
           <ol class="bnon-shopify-detail__services" role="list">
             {%- for block in section.blocks -%}
-              {%- capture service_url -%}{%- render 'bnon-service-detail-url', link: block.settings.page.url, service_key: block.settings.number -%}{%- endcapture -%}
+              {%- assign selected_service_url = block.settings.link | default: block.settings.page.url -%}
+              {%- capture service_url -%}{%- render 'bnon-service-detail-url', link: selected_service_url, service_key: block.settings.number -%}{%- endcapture -%}
               {%- assign service_url = service_url | strip -%}
+              {%- assign display_number = block.settings.display_number | default: block.settings.number -%}
               <li {{ block.shopify_attributes }}>
-                {%- if block.settings.number == '01' -%}
-                  <span class="bnon-shopify-detail__service is-current" aria-current="page"><span>{{ block.settings.number | escape }}</span><span>{{ block.settings.label | escape }}</span></span>
+                {%- if block.settings.number == '01' and block.settings.link == blank -%}
+                  <span class="bnon-shopify-detail__service is-current" aria-current="page"><span>{{ display_number | escape }}</span><span>{{ block.settings.label | escape }}</span></span>
                 {%- elsif service_url != blank -%}
-                  <a class="bnon-shopify-detail__service" href="{{ service_url | escape }}"><span>{{ block.settings.number | escape }}</span><span>{{ block.settings.label | escape }}</span></a>
+                  <a class="bnon-shopify-detail__service{% if block.settings.number == '01' %} is-current{% endif %}" href="{{ service_url | escape }}"{% if block.settings.number == '01' %} aria-current="page"{% endif %}><span>{{ display_number | escape }}</span><span>{{ block.settings.label | escape }}</span></a>
                 {%- else -%}
-                  <span class="bnon-shopify-detail__service" aria-disabled="true"><span>{{ block.settings.number | escape }}</span><span>{{ block.settings.label | escape }}</span></span>
+                  <span class="bnon-shopify-detail__service" aria-disabled="true"><span>{{ display_number | escape }}</span><span>{{ block.settings.label | escape }}</span></span>
                 {%- endif -%}
               </li>
             {%- endfor -%}
@@ -85,8 +94,17 @@
     { "type": "text", "id": "mobile_image_alt", "label": "모바일 이미지 설명", "default": "ISIA 쇼피파이 스토어 모바일 화면" },
     { "type": "header", "content": "페이지 스크롤 연출" },
     { "type": "checkbox", "id": "enable_scroll", "label": "스크롤 애니메이션 활성화", "default": true },
-    { "type": "range", "id": "scroll_range", "label": "스크롤 연출 구간", "min": 60, "max": 300, "step": 10, "default": 140, "unit": "vh", "info": "값이 클수록 천천히 전체 이미지를 보여줍니다. 모바일 구간은 이 값의 65%로 조절됩니다." },
-    { "type": "checkbox", "id": "enable_mobile_scroll", "label": "모바일 애니메이션 활성화", "default": true }
+    { "type": "range", "id": "scroll_range", "label": "스크롤 연출 구간", "min": 60, "max": 300, "step": 10, "default": 140, "unit": "vh", "info": "Desktop/Tablet 전용입니다. 값이 클수록 천천히 전체 이미지를 보여줍니다. 모바일은 별도의 재생 시간을 사용합니다." },
+    { "type": "checkbox", "id": "enable_mobile_scroll", "label": "모바일 애니메이션 활성화", "default": true, "info": "모바일에서는 페이지 스크롤 대신 아래의 1회 자동 스크롤을 사용합니다." },
+    { "type": "checkbox", "id": "enable_mobile_autoplay", "label": "모바일 목업 1회 자동 스크롤", "default": true, "info": "모바일 애니메이션이 활성화된 경우에만 적용됩니다. 화면 밖에서는 멈추고 재진입하면 이어서 진행합니다." },
+    { "type": "range", "id": "mobile_autoplay_duration", "label": "모바일 목업 재생 시간", "min": 5, "max": 60, "step": 1, "default": 18, "unit": "초" },
+    { "type": "header", "content": "서비스 메뉴 및 경로 표시" },
+    { "type": "text", "id": "navigation_label", "label": "서비스 메뉴 접근성 설명", "default": "서비스 상세페이지" },
+    { "type": "text", "id": "breadcrumb_home_label", "label": "경로 표시 홈 문구", "default": "HOME" },
+    { "type": "url", "id": "breadcrumb_home_link", "label": "경로 표시 홈 링크", "info": "비워두면 기존 홈 주소를 유지합니다." },
+    { "type": "text", "id": "breadcrumb_current_label", "label": "경로 표시 현재 페이지명", "info": "비워두면 기존 Shopify 페이지 제목을 유지합니다." },
+    { "type": "text", "id": "breadcrumb_separator", "label": "경로 표시 구분 문자", "default": "/" },
+    { "type": "text", "id": "breadcrumb_accessibility_label", "label": "경로 표시 접근성 설명", "default": "Breadcrumb" }
   ],
   "blocks": [
     {
@@ -96,7 +114,9 @@
       "settings": [
         { "type": "select", "id": "number", "label": "서비스 번호", "default": "01", "options": [{ "value": "01", "label": "01 구축" }, { "value": "02", "label": "02 마케팅" }, { "value": "03", "label": "03 법인·물류" }, { "value": "04", "label": "04 아마존" }, { "value": "05", "label": "05 교육" }] },
         { "type": "text", "id": "label", "label": "서비스명" },
-        { "type": "page", "id": "page", "label": "연결할 실제 Shopify 페이지", "info": "미생성 페이지는 링크를 표시하지 않습니다." }
+        { "type": "page", "id": "page", "label": "연결할 실제 Shopify 페이지", "info": "미생성 페이지는 링크를 표시하지 않습니다." },
+        { "type": "text", "id": "display_number", "label": "화면에 표시할 번호", "info": "비워두면 기존 서비스 번호를 표시합니다. 서비스 번호는 라우팅용으로 유지됩니다." },
+        { "type": "url", "id": "link", "label": "직접 지정할 서비스 링크", "info": "선택한 Shopify 페이지보다 우선합니다. 비워두면 기존 연결을 유지합니다." }
       ]
     }
   ],

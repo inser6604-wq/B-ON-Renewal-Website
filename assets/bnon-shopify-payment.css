@@ -89,6 +89,9 @@
 }
 @media screen and (max-width: 480px) {
   .bnon-shopify-payment__inner { padding-inline: 20px; }
+  .bnon-shopify-payment__diagram { gap: 32px; }
+  .bnon-shopify-payment__connector,
+  .bnon-shopify-payment__flow:nth-child(2) .bnon-shopify-payment__connector { display: none; }
   .bnon-shopify-payment__result { max-width: 267px; }
   .bnon-shopify-payment__result-heading { font-size: 24px; }
   .bnon-shopify-payment__underline { transform: translateX(-50%) scale(.6); }
