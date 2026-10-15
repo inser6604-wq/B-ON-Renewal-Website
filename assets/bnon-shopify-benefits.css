@@ -53,4 +53,12 @@
 }
 @media screen and (max-width: 480px) {
   .bnon-shopify-benefits__inner { padding-inline: 20px; }
+  .bnon-shopify-benefits__grid { gap: 36px; margin-top: 32px; }
+  .bnon-shopify-benefits__number-row { height: 52px; }
+  .bnon-shopify-benefits__number { color: #3154ee; opacity: .48; font-size: 58px; }
+  .bnon-shopify-benefits__card { gap: 8px; }
+  .bnon-shopify-benefits__card-content { gap: 18px; }
+  .bnon-shopify-benefits__badge-row { padding-block: 8px; }
+  .bnon-shopify-benefits__lead { line-height: 1.5; }
+  .bnon-shopify-benefits__description { line-height: 1.55; }
 }

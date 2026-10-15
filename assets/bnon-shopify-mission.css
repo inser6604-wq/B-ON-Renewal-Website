@@ -68,6 +68,7 @@
 }
 .bnon-shopify-mission__partner-intro { font-size: 20px; font-weight: var(--bnon-weight-regular); }
 .bnon-shopify-mission__partner-message { font-size: 30px; font-weight: var(--bnon-weight-bold); }
+.bnon-shopify-mission__partner-suffix { font-weight: var(--bnon-weight-medium); }
 @media screen and (max-width: 1199px) {
   .bnon-shopify-mission__inner { padding: 64px 32px 80px; }
   .bnon-shopify-mission .bnon-shopify-mission__heading { margin-top: 60px; font-size: 60px; }

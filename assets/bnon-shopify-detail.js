@@ -229,8 +229,8 @@
         && this.screens.every(({ image }) => image.complete && image.naturalWidth > 0)
         && this.screens.some(screen => screen.maxTravel > 0);
       if (this.mobileEnabled) {
-        // Keep editor values intact while playing mobile mockups at 1.3x speed.
-        this.mobileDuration = Math.max(5000, Math.min(60000, Number(this.dataset.mobileAutoplayDuration) || 18000)) / 1.3;
+        // Keep editor values intact at 2.0592x speed (20% faster than the prior 1.716x rate).
+        this.mobileDuration = Math.max(5000, Math.min(60000, Number(this.dataset.mobileAutoplayDuration) || 18000)) / 2.0592;
         this.mobileAnimations = this.screens.map(({ image, maxTravel }) => {
           const animation = image.animate([
             { transform: 'translateY(0px)' },

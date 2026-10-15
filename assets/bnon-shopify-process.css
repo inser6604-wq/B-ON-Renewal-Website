@@ -58,4 +58,19 @@ bnon-shopify-process { display: block; }
 }
 @media screen and (max-width: 480px) {
   .bnon-shopify-process__inner { padding-inline: 20px; }
+  .bnon-shopify-process__navigation { height: 6px; margin-top: 40px; border-radius: 999px; background: #dfe3e8; overflow: hidden; }
+  .bnon-shopify-process__track { position: static; height: 100%; }
+  .bnon-shopify-process__line,
+  .bnon-shopify-process__cursor,
+  .bnon-shopify-process__steps { display: none; }
+  .bnon-shopify-process__fill { top: 0; left: 0; width: var(--process-fill-width, 0px); height: 100%; border-radius: inherit; background: var(--bnon-color-blue); transform: none; transition: width 500ms ease-out; }
+  .bnon-shopify-process__stage { min-height: 0; margin-top: 32px; padding-block: 0; }
+  .bnon-shopify-process__step-heading { gap: 6px; }
+  .bnon-shopify-process__count { color: var(--bnon-color-blue); font-family: var(--bnon-font-latin); font-size: 18px; }
+  .bnon-shopify-process__title-en { font-size: 20px; line-height: 1.4; }
+  .bnon-shopify-process .bnon-shopify-process__title { width: 100%; padding-bottom: 10px; font-size: 22px; }
+  .bnon-shopify-process .bnon-shopify-process__lead { margin-top: 18px; font-size: 17px; }
+  .bnon-shopify-process__description { margin-top: 16px; font-size: 15px; line-height: 1.55; }
+  .bnon-shopify-process__controls { justify-content: space-between; margin-top: 28px; }
+  .bnon-shopify-process__controls button { width: calc(50% - 5px); min-height: 48px; border-color: #aeb6c2; border-radius: 999px; font-size: 16px; }
 }

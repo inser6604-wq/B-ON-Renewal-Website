@@ -2,7 +2,7 @@
 {{ 'bnon-training-detail.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'bnon-shopify-detail.js' | asset_url }}" defer="defer"></script>
 
-<bnon-shopify-detail class="bnon-section bnon-shopify-detail bnon-training-detail" data-intro-only
+<bnon-shopify-detail class="bnon-section bnon-shopify-detail bnon-training-detail" data-intro-only data-bnon-ampersand-scope
   data-breadcrumb-home-label="{{ section.settings.breadcrumb_home_label | escape }}"
   data-breadcrumb-current-label="{{ section.settings.breadcrumb_current_label | default: page.title | escape }}"
   data-breadcrumb-home-link="{{ section.settings.breadcrumb_home_link | default: routes.root_url | escape }}"

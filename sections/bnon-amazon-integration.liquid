@@ -12,7 +12,7 @@
     <div class="bnon-shopify-benefits__intro bnon-amazon-integration__diagram">
       <div class="bnon-amazon-integration__channels">
         {%- for block in channels -%}
-          <div class="bnon-amazon-integration__channel" style="--channel-bg: {{ block.settings.background_color }}; --channel-border: {{ block.settings.border_color }};" {{ block.shopify_attributes }}>
+          <div class="bnon-amazon-integration__channel bnon-amazon-integration__channel--{{ block.settings.platform | escape }}" style="--channel-bg: {{ block.settings.background_color }}; --channel-border: {{ block.settings.border_color }};" {{ block.shopify_attributes }}>
             <div class="bnon-amazon-integration__logo">
               {%- if block.settings.image != blank -%}
                 {{ block.settings.image | image_url: width: 700 | image_tag: widths: '240, 350, 700', sizes: '(min-width: 1200px) 350px, (min-width: 768px) 26vw, 70vw', alt: block.settings.image_alt, loading: 'lazy' }}

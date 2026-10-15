@@ -91,4 +91,10 @@
 }
 @media screen and (max-width: 480px) {
   :is(.bnon-us-payments, .bnon-us-comparison) .bnon-shopify-build__inner { padding-inline: 20px; }
+  :is(.bnon-us-payments, .bnon-us-comparison) :is(h2, h3, p, dt, dd) { word-break: keep-all; overflow-wrap: break-word; }
+  :is(.bnon-us-payments, .bnon-us-comparison) .bnon-shopify-build__heading { max-width: 100%; line-height: 1.32; letter-spacing: -.055em; }
+  .bnon-us-comparison__providers { gap: 16px; }
+  .bnon-us-comparison__provider { gap: 14px; padding: 22px 20px; }
+  .bnon-us-comparison__provider h3 { padding-bottom: 6px; line-height: 1.4; }
+  .bnon-us-comparison__provider p { line-height: 1.65; white-space: normal; }
 }

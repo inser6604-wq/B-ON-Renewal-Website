@@ -89,10 +89,16 @@
 }
 @media screen and (max-width: 480px) {
   .bnon-shopify-payment__inner { padding-inline: 20px; }
-  .bnon-shopify-payment__diagram { gap: 32px; }
+  .bnon-shopify-payment__diagram { gap: 40px; }
+  .bnon-shopify-payment__flow { width: min(100%, 330px); margin-inline: auto; }
+  .bnon-shopify-payment__market { text-align: center; }
+  .bnon-shopify-payment__steps,
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__steps { grid-template-columns: repeat(2, minmax(0, 1fr) 16px) minmax(0, 1fr); gap: 6px; margin-top: 20px; }
+  .bnon-shopify-payment__circle,
+  .bnon-shopify-payment__flow--global .bnon-shopify-payment__circle { width: 100%; max-width: 100px; min-height: 0; aspect-ratio: 1; justify-self: center; }
   .bnon-shopify-payment__connector,
   .bnon-shopify-payment__flow:nth-child(2) .bnon-shopify-payment__connector { display: none; }
-  .bnon-shopify-payment__result { max-width: 267px; }
+  .bnon-shopify-payment__result { max-width: 267px; margin-inline: auto; }
   .bnon-shopify-payment__result-heading { font-size: 24px; }
   .bnon-shopify-payment__underline { transform: translateX(-50%) scale(.6); }
   .bnon-shopify-payment__currency { font-size: 16px; }

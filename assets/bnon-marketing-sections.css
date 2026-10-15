@@ -109,4 +109,18 @@
 @media screen and (max-width: 480px) {
   .bnon-marketing-overview .bnon-shopify-build__inner,
   .bnon-marketing-analytics .bnon-shopify-build__inner { padding-inline: 20px; }
+  .bnon-marketing-analytics__flow { min-height: 0; margin-top: 48px; }
+  .bnon-marketing-analytics__line { display: none; }
+  .bnon-marketing-analytics__steps { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .bnon-marketing-analytics__step,
+  .bnon-marketing-analytics__step:nth-child(2),
+  .bnon-marketing-analytics__step:last-child { max-width: none; margin-right: 0; justify-self: stretch; text-align: left; }
+  .bnon-marketing-analytics__step-heading,
+  .bnon-marketing-analytics__step:nth-child(2) .bnon-marketing-analytics__step-heading,
+  .bnon-marketing-analytics__step:last-child .bnon-marketing-analytics__step-heading { flex-direction: row; align-items: center; justify-content: flex-start; gap: 10px; }
+  .bnon-marketing-analytics__number { flex: 0 0 auto; font-size: 18px; line-height: 1.4; }
+  .bnon-marketing-analytics__name { min-height: 0; font-size: 20px; line-height: 1.4; }
+  .bnon-marketing-analytics__step-copy { gap: 8px; margin-top: 14px; padding-left: 0; }
+  .bnon-marketing-analytics__lead,
+  .bnon-marketing-analytics__detail { font-size: 16px; line-height: 1.6; }
 }

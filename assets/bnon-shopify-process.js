@@ -18,6 +18,7 @@
       const options = { signal: this.events.signal };
       this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
       this.mobile = window.matchMedia('(max-width: 767px)');
+      this.compactMobile = window.matchMedia('(max-width: 480px)');
       this.index = Math.max(0, this.panels.findIndex(panel => !panel.hidden));
       this.visible = false;
       this.hovered = window.matchMedia('(hover: hover)').matches && this.matches(':hover');
@@ -72,6 +73,7 @@
         this.syncAutoplay();
       }, options);
       this.mobile.addEventListener('change', () => this.updateCursor(), options);
+      this.compactMobile.addEventListener('change', () => this.updateCursor(), options);
       document.addEventListener('shopify:block:select', event => {
         if (event.detail?.sectionId !== this.sectionId) return;
         const index = this.panels.findIndex(panel => panel.dataset.stepId === event.detail.blockId);
@@ -193,8 +195,10 @@
         : trigger.left - rect.left + trigger.width / 2;
       const lastStep = this.index === this.panels.length - 1;
       const cursorLeft = Math.max(2.5, Math.min(rect.width - 43.5, lastStep ? rect.width - 43.5 : center - 35.5));
-      // Keep the cursor and all strokes on one track; only the final step fills its full width.
-      const fillWidth = Math.max(0, lastStep ? rect.width - 2.5 : cursorLeft - 2.5);
+      // The compact mobile progress bar represents the currently visible step.
+      const fillWidth = this.compactMobile.matches
+        ? rect.width * (this.index + 1) / this.panels.length
+        : Math.max(0, lastStep ? rect.width - 2.5 : cursorLeft - 2.5);
       this.navigation.style.setProperty('--process-cursor-left', `${cursorLeft}px`);
       this.navigation.style.setProperty('--process-fill-width', `${fillWidth}px`);
     }

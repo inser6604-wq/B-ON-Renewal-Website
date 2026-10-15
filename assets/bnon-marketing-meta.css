@@ -9,6 +9,7 @@
 .bnon-marketing-meta__subtitle { font-family: var(--bnon-font-korean); font-size: 30px; font-weight: 500; line-height: 42px; letter-spacing: -1.2px; word-break: keep-all; overflow-wrap: anywhere; }
 
 .bnon-marketing-meta__stages { display: block; width: calc(100% + 32px); margin-top: 106px; }
+.bnon-marketing-meta__mobile-funnel { display: none; }
 .bnon-marketing-meta__steps { display: grid; gap: 20px; list-style: none; padding: 0; margin: 0; }
 .bnon-marketing-meta__step { display: grid; grid-template-columns: minmax(0, 716fr) minmax(0, 504fr); align-items: center; gap: 39px; min-width: 0; }
 .bnon-marketing-meta__visual { min-width: 0; }
@@ -82,4 +83,20 @@
 
 @media screen and (max-width: 480px) {
   .bnon-marketing-meta .bnon-shopify-build__inner { padding-inline: 20px; }
+  .bnon-marketing-meta__stages { margin-top: 40px; }
+  .bnon-marketing-meta__mobile-funnel { display: grid; justify-items: center; gap: 2px; width: min(100%, 350px); margin: 0 auto 36px; }
+  .bnon-marketing-meta__mobile-funnel-stage { width: 100%; }
+  .bnon-marketing-meta__mobile-funnel-stage .bnon-marketing-meta__shape { width: 100%; padding: 8px 0; aspect-ratio: 716 / 164.048; }
+  .bnon-marketing-meta__mobile-funnel-stage:nth-child(2) .bnon-marketing-meta__shape { width: 78.04296%; aspect-ratio: 558.788 / 133.289; }
+  .bnon-marketing-meta__mobile-funnel-stage:nth-child(2) .bnon-marketing-meta__shape::before { -webkit-mask-image: var(--meta-interest-mask); mask-image: var(--meta-interest-mask); }
+  .bnon-marketing-meta__mobile-funnel-stage:nth-child(3) .bnon-marketing-meta__shape { width: 61.33645%; aspect-ratio: 439.169 / 132.434; }
+  .bnon-marketing-meta__mobile-funnel-stage:nth-child(3) .bnon-marketing-meta__shape::before { -webkit-mask-image: var(--meta-conversion-mask); mask-image: var(--meta-conversion-mask); }
+  .bnon-marketing-meta__mobile-funnel-stage .bnon-marketing-meta__funnel-title { font-size: clamp(16px, 4.5vw, 21px); }
+  .bnon-marketing-meta__step { display: block; }
+  .bnon-marketing-meta__step .bnon-marketing-meta__visual { display: none; }
+  .bnon-marketing-meta__steps { gap: 28px; }
+  .bnon-marketing-meta__content { gap: 8px; }
+  .bnon-marketing-meta__eyebrow { display: none; }
+  .bnon-marketing-meta__heading { font-size: 21px; line-height: 1.4; }
+  .bnon-marketing-meta__description { font-size: 16px; line-height: 1.6; }
 }

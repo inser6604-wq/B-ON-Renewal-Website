@@ -82,6 +82,10 @@ body:has(bnon-shopify-detail.is-scroll-enabled) { overflow-x: clip; }
 }
 @media screen and (max-width: 480px) {
   .bnon-shopify-detail__inner { padding-inline: 20px; }
+  .bnon-shopify-detail__scroll-stage { margin-top: 32px; }
+  .bnon-shopify-detail__media { position: relative; display: block; min-height: 0; padding: 18px 0 0; }
+  .bnon-shopify-detail__screen--desktop { width: 89%; margin-left: auto; }
+  .bnon-shopify-detail__screen--mobile { position: absolute; z-index: 1; bottom: 0; left: 0; width: 36%; margin: 0; box-shadow: 0 10px 24px rgba(0, 0, 0, .12); }
 }
 @media (prefers-reduced-motion: reduce) {
   .bnon-shopify-detail__image { transform: none; will-change: auto; }

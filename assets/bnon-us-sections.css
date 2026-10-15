@@ -92,4 +92,11 @@
 }
 @media screen and (max-width: 480px) {
   :is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__inner { padding-inline: 20px; }
+  :is(.bnon-us-reasons, .bnon-us-llc) :is(h2, h3, p) { word-break: keep-all; overflow-wrap: break-word; }
+  :is(.bnon-us-reasons, .bnon-us-llc) .bnon-shopify-build__heading { max-width: 100%; line-height: 1.32; letter-spacing: -.055em; }
+  .bnon-us-reasons .bnon-shopify-build__pillar { min-width: 0; }
+  .bnon-us-reasons .bnon-shopify-build__pillar-description { line-height: 1.55; }
+  .bnon-us-llc__subtitle,
+  .bnon-us-llc__description,
+  .bnon-us-llc__feature :is(p, h3) { line-height: 1.55; }
 }

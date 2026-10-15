@@ -1,0 +1,9 @@
+.bnon-instrument-ampersand {
+  font-family: 'Instrument Sans', var(--bnon-font-latin), sans-serif;
+  font-size: 1em;
+  font-weight: inherit;
+  font-style: normal;
+  line-height: inherit;
+  letter-spacing: inherit;
+  vertical-align: baseline;
+}

@@ -85,4 +85,21 @@
 @media screen and (max-width: 480px) {
   .bnon-amazon-sections__inner,.bnon-amazon-integration .bnon-amazon-sections__inner { padding-inline: 20px; }
   .bnon-amazon-sections__title h2 { font-size: 32px; }
+  .bnon-amazon-process__steps { margin-top: 8px; }
+  .bnon-amazon-process__step,
+  .bnon-amazon-process__step--right { padding-block: 28px; }
+  .bnon-amazon-process__step-content { gap: 8px; }
+  .bnon-amazon-process__number { line-height: 1.15; }
+  .bnon-amazon-process__step h3 { line-height: 1.35; }
+  .bnon-amazon-process__english { padding-top: 8px; font-size: 19px; line-height: 1.55; }
+  .bnon-amazon-process__body { line-height: 1.6; }
+  .bnon-amazon-integration__channel { min-height: 160px; padding-block: 8px; gap: 8px; }
+  .bnon-amazon-integration__logo { height: 80px; }
+  .bnon-amazon-integration__logo img { max-height: 80px; }
+  .bnon-amazon-integration__channel--amazon .bnon-amazon-integration__logo,
+  .bnon-amazon-integration__channel--amazon .bnon-amazon-integration__logo img { max-height: 72px; height: 72px; }
+  .bnon-amazon-integration__channel > p { font-size: 18px; }
+  .bnon-amazon-integration__sync { gap: 10px; padding-bottom: 4px; }
+  .bnon-amazon-integration__sync img { margin-block: 8px; }
+  .bnon-amazon-integration__channels { gap: 20px; }
 }

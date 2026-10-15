@@ -72,3 +72,12 @@
 @media screen and (max-width: 767px) {
   .bnon-us-detail__caption { font-size: 14px; line-height: 1.6; letter-spacing: -0.56px; }
 }
+@media screen and (max-width: 480px) {
+  .bnon-us-detail::before { top: 0; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 96px); mask-image: linear-gradient(to bottom, transparent, #000 96px); }
+  .bnon-us-detail .bnon-shopify-detail__heading { max-width: 100%; font-size: clamp(26px, 7.4vw, 32px); line-height: 1.25; letter-spacing: -.055em; word-break: normal; overflow-wrap: break-word; }
+  .bnon-us-detail .bnon-shopify-detail__subtitle,
+  .bnon-us-detail .bnon-shopify-detail__description,
+  .bnon-us-detail .bnon-shopify-detail__service { word-break: keep-all; overflow-wrap: break-word; }
+  .bnon-us-detail__art { width: 163.2%; margin-top: 32px; margin-left: -31.6%; }
+  .bnon-us-detail__caption { margin-top: 28px; word-break: normal; overflow-wrap: break-word; }
+}

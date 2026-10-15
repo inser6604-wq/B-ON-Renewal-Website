@@ -26,7 +26,13 @@
           <p class="bnon-shopify-mission__partner-intro">{{ section.settings.partner_intro | escape | newline_to_br }}</p>
         {%- endif -%}
         {%- if section.settings.partner_message != blank -%}
-          <p class="bnon-shopify-mission__partner-message">{{ section.settings.partner_message | escape | newline_to_br }}</p>
+          {%- assign partner_suffix = '입니다.' -%}
+          {%- if section.settings.partner_message contains partner_suffix -%}
+            {%- assign partner_message_bold = section.settings.partner_message | remove_last: partner_suffix -%}
+            <p class="bnon-shopify-mission__partner-message"><strong>{{ partner_message_bold | escape }}</strong><span class="bnon-shopify-mission__partner-suffix">{{ partner_suffix }}</span></p>
+          {%- else -%}
+            <p class="bnon-shopify-mission__partner-message">{{ section.settings.partner_message | escape | newline_to_br }}</p>
+          {%- endif -%}
         {%- endif -%}
       </div>
     {%- endif -%}
@@ -44,7 +50,7 @@
     { "type": "text", "id": "label", "label": "섹션 라벨", "default": "OUR MISSION" },
     { "type": "textarea", "id": "heading", "label": "영문 제목", "default": "GLOBAL\nISN’T\nOPTIONAL\nANYMORE", "info": "줄바꿈이 화면에 그대로 반영됩니다." },
     { "type": "text", "id": "heading_accent", "label": "제목 끝 강조 문자", "default": "." },
-    { "type": "richtext", "id": "description", "label": "소개 문구", "default": "<p>이제 글로벌 시장 진출은 선택이 아니라 필수입니다.</p><p><strong>B&amp;ON Universe</strong>는 ‘해외 자사몰 중심의 DTC 모델’을 통해</p><p>브랜드가 스스로 시장을 개척하고 성장하도록 돕습니다.</p>", "info": "문단별 줄 간격을 유지합니다. 굵게 지정한 텍스트는 강조 색상과 영문 대문자로 표시됩니다." },
+    { "type": "richtext", "id": "description", "label": "소개 문구", "default": "<p>이제 글로벌 시장 진출은 선택이 아니라 필수입니다.</p><p><strong>B&amp;ON Universe</strong>는 ‘해외 자사몰 중심의 DTC 모델’을 통해 브랜드가 스스로 시장을 개척하고 성장하도록 돕습니다.</p>", "info": "문단별 줄 간격을 유지합니다. 굵게 지정한 텍스트는 강조 색상과 영문 대문자로 표시됩니다." },
     { "type": "textarea", "id": "partner_intro", "label": "파트너 메시지 소개", "default": "저희는 단순한 제작사가 아닌" },
     { "type": "textarea", "id": "partner_message", "label": "파트너 메시지", "default": "브랜드의 글로벌 판매 생태계를 설계하는 파트너입니다." },
     { "type": "header", "content": "섹션 색상" },

@@ -103,6 +103,10 @@
 }
 @media screen and (max-width: 480px) {
   :is(.bnon-us-logistics, .bnon-us-requirements) .bnon-shopify-build__inner { padding-inline: 20px; }
+  :is(.bnon-us-logistics, .bnon-us-requirements) :is(h2, h3, p, summary, dt, dd) { word-break: keep-all; overflow-wrap: break-word; }
+  :is(.bnon-us-logistics, .bnon-us-requirements) .bnon-shopify-build__heading { max-width: 100%; line-height: 1.32; letter-spacing: -.055em; }
+  .bnon-us-requirements__document { align-items: flex-start; }
+  .bnon-us-requirements__document p { line-height: 1.5; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bnon-us-requirements__toggle::after { transition: none; }
