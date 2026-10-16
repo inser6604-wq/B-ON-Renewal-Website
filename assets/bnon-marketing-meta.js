@@ -1,11 +1,11 @@
 (() => {
   if (customElements.get('bnon-marketing-meta')) return;
 
-  // One animation per complete row keeps the funnel and its explanation in sync.
+  // Compact funnel stages and complete explanation rows reveal once in DOM order.
   class MarketingMeta extends HTMLElement {
     connectedCallback() {
       if (this.completed || this.observer) return;
-      this.rows = Array.from(this.querySelectorAll('.bnon-marketing-meta__step'));
+      this.rows = Array.from(this.querySelectorAll('.bnon-marketing-meta__mobile-funnel-stage, .bnon-marketing-meta__step'));
       this.motion = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (!this.rows.length || this.motion.matches || !window.IntersectionObserver || !this.animate) {
         this.finish();
@@ -38,8 +38,9 @@
           this.revealed.add(entry.target);
           this.observer.unobserve(entry.target);
           // Rows entering together stagger in DOM order; offscreen rows stay paused.
-          // A later mobile row begins only when its triangle AND copy can be seen.
-          this.lastStart = Math.max(origin, (this.lastStart ?? origin - 180) + 180);
+          // Hidden compact stages stay observed for later breakpoint changes.
+          const stagger = entry.target.matches('.bnon-marketing-meta__mobile-funnel-stage') ? 220 : 180;
+          this.lastStart = Math.max(origin, (this.lastStart ?? origin - stagger) + stagger);
           const animation = this.animations[this.rows.indexOf(entry.target)];
           animation.play();
           animation.startTime = this.lastStart;

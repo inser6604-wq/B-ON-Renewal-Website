@@ -48,6 +48,10 @@
 .bnon-marketing-meta__heading { color: var(--meta-text); font-family: var(--bnon-font-latin); font-size: 30px; font-weight: 600; line-height: 36px; letter-spacing: -1.2px; word-break: keep-all; overflow-wrap: anywhere; }
 .bnon-marketing-meta__description { font-family: var(--bnon-font-korean); font-size: 20px; font-weight: 500; line-height: 28px; letter-spacing: -0.8px; word-break: keep-all; overflow-wrap: anywhere; }
 
+@media screen and (min-width: 1024px) {
+  .bnon-marketing-meta__step:first-child .bnon-marketing-meta__eyebrow { position: relative; top: 6px; }
+}
+
 @media screen and (max-width: 1199px) {
   .bnon-marketing-meta .bnon-shopify-build__inner { padding-inline: 32px; }
   .bnon-marketing-meta__stages { width: 100%; }
@@ -79,6 +83,7 @@
   .bnon-marketing-meta__content { width: 100%; max-width: none; gap: 8px; }
   .bnon-marketing-meta__step:first-child .bnon-marketing-meta__content { max-width: none; }
   .bnon-marketing-meta__heading { font-size: 22px; }
+  .bnon-marketing-meta__eyebrow { color: #1fbba7; }
 }
 
 @media screen and (max-width: 480px) {
@@ -96,7 +101,6 @@
   .bnon-marketing-meta__step .bnon-marketing-meta__visual { display: none; }
   .bnon-marketing-meta__steps { gap: 28px; }
   .bnon-marketing-meta__content { gap: 8px; }
-  .bnon-marketing-meta__eyebrow { display: none; }
   .bnon-marketing-meta__heading { font-size: 21px; line-height: 1.4; }
   .bnon-marketing-meta__description { font-size: 16px; line-height: 1.6; }
 }

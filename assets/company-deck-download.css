@@ -1,0 +1,42 @@
+.company-deck-feedback {
+  position: fixed;
+  z-index: 1000;
+  top: calc(96px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) 28px;
+  align-items: start;
+  gap: 12px;
+  box-sizing: border-box;
+  width: min(420px, calc(100% - 32px));
+  padding: 16px;
+  border: 1px solid #dfe3e8;
+  border-radius: 12px;
+  background: #fff;
+  color: #0a0a0a;
+  box-shadow: 0 6px 24px rgba(10, 10, 10, .12);
+  transform: translateX(-50%);
+  font: 500 14px/1.6 'Pretendard', system-ui, sans-serif;
+  letter-spacing: -.04em;
+}
+.company-deck-feedback[hidden], .company-deck-feedback [hidden] { display: none; }
+.company-deck-feedback__message { margin: 0; word-break: keep-all; overflow-wrap: anywhere; }
+.company-deck-feedback__icon { box-sizing: border-box; width: 20px; height: 20px; margin-top: 2px; border: 2px solid #dfe3e8; border-top-color: #28dbc4; border-radius: 50%; animation: company-deck-spin .8s linear infinite; }
+.company-deck-feedback[data-state='success'] .company-deck-feedback__icon,
+.company-deck-feedback[data-state='error'] .company-deck-feedback__icon { display: grid; place-items: center; border: 0; animation: none; font-weight: 700; line-height: 20px; }
+.company-deck-feedback[data-state='success'] .company-deck-feedback__icon { background: #28dbc4; }
+.company-deck-feedback[data-state='success'] .company-deck-feedback__icon::before { content: '✓'; }
+.company-deck-feedback[data-state='error'] .company-deck-feedback__icon { background: #fff0ed; color: #b42318; }
+.company-deck-feedback[data-state='error'] .company-deck-feedback__icon::before { content: '!'; }
+.company-deck-feedback button { box-sizing: border-box; border: 0; color: inherit; background: transparent; font: inherit; cursor: pointer; }
+.company-deck-feedback .company-deck-feedback__close { grid-column: 3; grid-row: 1; width: 36px; height: 36px; margin: -8px -8px 0 0; padding: 0; font-size: 24px; line-height: 36px; }
+.company-deck-feedback .company-deck-feedback__retry { grid-column: 2; justify-self: start; min-height: 40px; padding: 6px 16px; border: 1px solid #0a0a0a; border-radius: 999px; }
+.company-deck-feedback button:focus-visible { outline: 2px solid #3154ee; outline-offset: 3px; }
+@media (hover: hover) {
+  .company-deck-feedback__close:hover { color: #3154ee; }
+  .company-deck-feedback__retry:hover { background: #e5faf6; }
+}
+@keyframes company-deck-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .company-deck-feedback__icon { animation: none; }
+}

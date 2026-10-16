@@ -55,6 +55,12 @@ bnon-shopify-process { display: block; }
   .bnon-shopify-process .bnon-shopify-process__title { font-size: 20px; }
   .bnon-shopify-process .bnon-shopify-process__lead { font-size: 16px; }
   .bnon-shopify-process__description { margin-top: 20px; font-size: 16px; }
+  .bnon-shopify-process :is(.bnon-shopify-process__lead, .bnon-shopify-process__description) {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    text-wrap: balance;
+  }
+  .bnon-shopify-process__controls button { min-width: 44px; min-height: 44px; padding: 6px 10px; font-size: 14px; }
 }
 @media screen and (max-width: 480px) {
   .bnon-shopify-process__inner { padding-inline: 20px; }
@@ -71,6 +77,6 @@ bnon-shopify-process { display: block; }
   .bnon-shopify-process .bnon-shopify-process__title { width: 100%; padding-bottom: 10px; font-size: 22px; }
   .bnon-shopify-process .bnon-shopify-process__lead { margin-top: 18px; font-size: 17px; }
   .bnon-shopify-process__description { margin-top: 16px; font-size: 15px; line-height: 1.55; }
-  .bnon-shopify-process__controls { justify-content: space-between; margin-top: 28px; }
-  .bnon-shopify-process__controls button { width: calc(50% - 5px); min-height: 48px; border-color: #aeb6c2; border-radius: 999px; font-size: 16px; }
+  .bnon-shopify-process__controls { justify-content: flex-end; margin-top: 28px; }
+  .bnon-shopify-process__controls button { border-color: #aeb6c2; border-radius: 999px; }
 }

@@ -10,7 +10,8 @@
         this.finish();
         return;
       }
-      const duration = Math.min(2000, Math.max(600, Number(this.dataset.duration) || 1000));
+      // Slow the existing configured timing without changing editor settings.
+      const duration = Math.min(2000, Math.max(600, Number(this.dataset.duration) || 1000)) * 2;
       const delay = Math.min(400, Math.max(0, Number(this.dataset.onDelay) || 0));
       // Width is rendered by Liquid from the visual ratio, never from the label's value.
       // Only transform changes: tracks, labels and metric layout remain stationary.

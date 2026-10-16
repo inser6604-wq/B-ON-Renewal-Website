@@ -18,7 +18,7 @@
 
     <div class="bnon-us-detail__art">
       {%- if section.settings.hero_image != blank -%}
-        {{ section.settings.hero_image | image_url: width: 2562 | image_tag: class: 'bnon-us-detail__image', widths: '480, 768, 1024, 1281, 1920, 2562', sizes: '(min-width: 1440px) 1281px, (min-width: 1024px) 89vw, calc(100vw - 40px)', alt: section.settings.image_alt, loading: 'eager' }}
+        {{ section.settings.hero_image | image_url: width: 2562 | image_tag: class: 'bnon-us-detail__image', widths: '480, 768, 1024, 1281, 1920, 2562', sizes: '(min-width: 1440px) 1382px, (min-width: 1024px) 96vw, (max-width: 480px) calc(125vw - 50px), (max-width: 767px) calc(90vw - 43px), calc(100vw - 64px)', alt: section.settings.image_alt, loading: 'eager' }}
       {%- else -%}
         <img class="bnon-us-detail__image" src="{{ 'bnon-us-hero-map.png' | asset_url }}" width="1024" height="683" alt="{{ section.settings.image_alt | escape }}" loading="eager">
       {%- endif -%}

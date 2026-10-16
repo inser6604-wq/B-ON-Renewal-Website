@@ -23,7 +23,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: clamp(700px, 57.84722vw, 833px);
+  min-height: clamp(760px, 64vw, 922px);
   padding-bottom: 64px;
   overflow: visible;
   isolation: isolate;
@@ -32,10 +32,11 @@
 .bnon-us-detail .bnon-shopify-detail__intro { position: relative; z-index: 1; flex: 0 0 auto; }
 .bnon-us-detail__art {
   position: absolute;
-  top: 75px;
-  left: calc(clamp(32px, 7.778vw, 112px) + 120px);
-  width: 88.958333%;
-  max-width: 1281px;
+  top: 36px;
+  /* Keep the map on the viewport's right edge, including wide screens. */
+  left: calc(12% + max(0px, (100vw - 1440px) / 2));
+  width: 96%;
+  max-width: 1382px;
   aspect-ratio: 1281 / 855;
   pointer-events: none;
 }
@@ -59,8 +60,8 @@
   .bnon-us-detail .bnon-shopify-detail__service > span:last-child { white-space: nowrap; }
 }
 
-@media screen and (max-width: 1199px) {
-  .bnon-us-detail__art { left: 152px; }
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+  .bnon-us-detail__art { top: 72px; }
 }
 
 @media screen and (max-width: 1023px) {
@@ -70,7 +71,9 @@
 }
 
 @media screen and (max-width: 767px) {
-  .bnon-us-detail__caption { font-size: 14px; line-height: 1.6; letter-spacing: -0.56px; }
+  .bnon-us-detail .bnon-shopify-detail__inner { padding-bottom: 32px; }
+  .bnon-us-detail__art { order: 2; width: 90%; margin-top: -10%; margin-left: -6%; }
+  .bnon-us-detail__caption { order: 1; margin-top: 12px; color: #aaa; font-size: 14px; line-height: 1.6; letter-spacing: -0.56px; }
 }
 @media screen and (max-width: 480px) {
   .bnon-us-detail::before { top: 0; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 96px); mask-image: linear-gradient(to bottom, transparent, #000 96px); }
@@ -78,6 +81,6 @@
   .bnon-us-detail .bnon-shopify-detail__subtitle,
   .bnon-us-detail .bnon-shopify-detail__description,
   .bnon-us-detail .bnon-shopify-detail__service { word-break: keep-all; overflow-wrap: break-word; }
-  .bnon-us-detail__art { width: 163.2%; margin-top: 32px; margin-left: -31.6%; }
-  .bnon-us-detail__caption { margin-top: 28px; word-break: normal; overflow-wrap: break-word; }
+  .bnon-us-detail__art { width: 125%; margin-top: -16%; margin-left: -28%; }
+  .bnon-us-detail__caption { word-break: normal; overflow-wrap: break-word; }
 }

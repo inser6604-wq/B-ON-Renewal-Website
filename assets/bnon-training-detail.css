@@ -22,7 +22,7 @@ bnon-training-curriculum { display: block; background: #f9f9f9; color: #0a0a0a; 
 .bnon-training-curriculum__label-row { padding: 10px 4px; border-bottom: 1px solid #0a0a0a; }
 .bnon-training-curriculum__label-row p { color: #3154ee; font: 600 26px/1.6 var(--bnon-font-latin); }
 .bnon-training-curriculum__title { margin-top: 76px; }
-.bnon-training-curriculum__title h2 { font: 600 60px/1.3 var(--bnon-font-korean); }
+.bnon-training-curriculum__title h2 { font: 600 60px/1.3 var(--bnon-font-korean); word-break: keep-all; overflow-wrap: normal; text-wrap: balance; }
 .bnon-training-curriculum__title h2 span { color: #28dbc4; }
 .bnon-training-curriculum__description { display: grid; gap: 8px; margin-top: 30px; }
 .bnon-training-curriculum__description p { font: 500 20px/1.4 var(--bnon-font-korean); word-break: keep-all; }
@@ -72,7 +72,7 @@ bnon-training-curriculum:defined .bnon-training-curriculum__panel { margin-top: 
 @media screen and (max-width: 767px) {
   .bnon-training-detail .bnon-shopify-detail__heading { width: auto; font-size: 18px; }
   .bnon-training-detail .bnon-shopify-detail__subtitle { margin-top: 32px; font-size: 28px; }
-  .bnon-training-detail .bnon-shopify-detail__description { width: auto; font-size: 16px; }
+  .bnon-training-detail .bnon-shopify-detail__description { width: auto; font-size: 16px; line-height: 1.6; }
   .bnon-training-detail .bnon-shopify-detail__inner { padding-bottom: 120px; }
   .bnon-training-detail .bnon-shopify-detail__contact { bottom: 40px; }
   .bnon-training-detail__art { margin-top: 96px; }

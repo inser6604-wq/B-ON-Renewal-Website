@@ -5,7 +5,7 @@
 <bnon-training-curriculum class="bnon-section bnon-training-curriculum" data-header-theme="light" data-section-id="{{ section.id }}">
   <section class="bnon-training-curriculum__inner" aria-labelledby="TrainingCurriculumHeading-{{ section.id }}">
     <div class="bnon-shopify-build__label-row bnon-training-curriculum__label-row"><p>{{ section.settings.label | escape }}</p></div>
-    <div class="bnon-shopify-build__title bnon-training-curriculum__title"><h2 id="TrainingCurriculumHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span>{{ section.settings.heading_accent | escape }}</span></h2></div>
+    <div class="bnon-shopify-build__title bnon-training-curriculum__title"><h2 id="TrainingCurriculumHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br | replace: '실무 교육', '실무&nbsp;교육' }}<span>{{ section.settings.heading_accent | escape }}</span></h2></div>
     <div class="bnon-shopify-build__copy bnon-training-curriculum__description"><p>{{ section.settings.description | escape | newline_to_br }}</p><p>{{ section.settings.instruction | escape }}</p></div>
     <div class="bnon-shopify-benefits__intro bnon-training-curriculum__tabs" data-training-tabs aria-label="{{ section.settings.tabs_label | escape }}">
       {%- for stage in stages -%}

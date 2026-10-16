@@ -6,7 +6,7 @@
     <div class="bnon-shopify-build__title bnon-amazon-sections__title">
       <h2 id="AmazonProcessHeading-{{ section.id }}">{{ section.settings.heading | escape | newline_to_br }}<span>{{ section.settings.heading_accent | escape }}</span></h2>
     </div>
-    <div class="bnon-shopify-build__copy bnon-amazon-process__description"><p>{{ section.settings.description | escape | newline_to_br }}</p></div>
+    <div class="bnon-shopify-build__copy bnon-amazon-process__description"><p>{{ section.settings.description | escape | newline_to_br | replace: '진행해 글로벌', '진행해<br class="bnon-amazon-mobile-break"> 글로벌' }}</p></div>
     <ol class="bnon-amazon-process__steps" role="list">
       {%- for block in section.blocks -%}
         <li class="bnon-amazon-process__step{% if forloop.index == 2 %} bnon-amazon-process__step--right{% endif %}" {{ block.shopify_attributes }}>

@@ -19,7 +19,16 @@
           this.observer.unobserve(target);
           revealed.add(target);
           if (this.reduced.matches || target.contains(document.activeElement)) this.finishEntrance(target);
-          else this.animations.get(target)?.play();
+          else {
+            const animation = this.animations.get(target);
+            const amazonProcess = target.closest('.bnon-amazon-process');
+            if (amazonProcess && window.matchMedia('(min-width: 1024px)').matches) {
+              // Keep the launch heading ahead of its copy/cards, independent of earlier sections.
+              const sequence = [...amazonProcess.querySelectorAll('.bnon-shopify-build__label-row, .bnon-shopify-build__title, .bnon-shopify-build__copy, .bnon-shopify-benefits__card')];
+              animation?.effect.updateTiming({ delay: sequence.indexOf(target) * 120 });
+            }
+            animation?.play();
+          }
         });
       }, { threshold: [0, .08, .45], rootMargin: '0px 0px -24px 0px' });
       this.reduced.addEventListener('change', () => {

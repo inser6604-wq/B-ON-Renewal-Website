@@ -40,10 +40,14 @@
     </div>
     <div class="bnon-amazon-integration__features">
       {%- for block in features -%}
+        {%- assign feature_description = block.settings.description | escape | newline_to_br -%}
+        {%- if block.settings.label == 'PRICE & SHIPPING' -%}
+          {%- assign feature_description = feature_description | replace: '<br />', ' ' -%}
+        {%- endif -%}
         <div class="bnon-shopify-benefits__card bnon-amazon-integration__feature" {{ block.shopify_attributes }}>
           <p class="bnon-amazon-integration__eyebrow">{{ block.settings.label | escape }}</p>
           <h3>{{ block.settings.heading | escape }}</h3>
-          <p class="bnon-amazon-integration__body">{{ block.settings.description | escape | newline_to_br }}</p>
+          <p class="bnon-amazon-integration__body{% if block.settings.label == 'SALES ANALYTICS' %} bnon-amazon-integration__body--sales{% elsif block.settings.label == 'PRICE & SHIPPING' %} bnon-amazon-integration__body--price-shipping{% endif %}">{{ feature_description | replace: '함께 확인해 채널별', '함께 확인해<br class="bnon-amazon-mobile-break"> 채널별' | replace: '채널별<br />', '채널별<br class="bnon-amazon-desktop-break">' }}</p>
         </div>
       {%- endfor -%}
     </div>

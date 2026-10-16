@@ -44,8 +44,8 @@
 .bnon-us-comparison__metric :is(dt, dd) { margin: 0; }
 .bnon-us-comparison__metric dd { font-weight: var(--bnon-weight-extrabold); }
 .bnon-us-comparison__providers { display: grid; gap: 20px; margin: 0; padding: 0; list-style: none; }
-.bnon-us-comparison__provider { display: flex; flex-direction: column; gap: 20px; min-width: 0; padding: 20px 40px; border-radius: 20px; color: #767676; background: #f2f2f2; }
-.bnon-us-comparison__provider h3 { border-bottom: 1px solid var(--bnon-color-black); color: #767676; font-family: var(--bnon-font-korean); font-size: 30px; font-weight: var(--bnon-weight-bold); line-height: 2; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.bnon-us-comparison__provider { display: flex; flex-direction: column; gap: 20px; min-width: 0; padding: 20px 40px; border-radius: 20px; color: var(--bnon-color-black); background: #e3ebf3; }
+.bnon-us-comparison__provider h3 { border-bottom: 1px solid var(--bnon-color-black); color: var(--bnon-color-black); font-family: var(--bnon-font-korean); font-size: 30px; font-weight: var(--bnon-weight-bold); line-height: 2; letter-spacing: -.04em; overflow-wrap: anywhere; }
 .bnon-us-comparison__provider p { white-space: pre-wrap; }
 @media screen and (min-width: 1024px) {
   /* Reserve the center illustration's space for the two middle-row copies. */

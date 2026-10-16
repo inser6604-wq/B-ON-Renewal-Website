@@ -38,6 +38,8 @@
 .bnon-amazon-integration__eyebrow { color: #6c6c6c !important; font: 700 24px/1.4 var(--bnon-font-latin); }
 .bnon-amazon-integration__feature h3 { font: 600 30px/1.3 var(--bnon-font-korean); }
 .bnon-amazon-integration__body { color: #373737 !important; font: 500 24px/1.5 var(--bnon-font-korean); word-break: keep-all; }
+.bnon-amazon-integration__body--price-shipping { text-wrap: balance; }
+.bnon-amazon-mobile-break { display: none; }
 @media screen and (max-width: 1199px) {
   .bnon-amazon-sections__inner,.bnon-amazon-integration .bnon-amazon-sections__inner { padding-inline: 32px; }
   .bnon-amazon-integration__channels { gap: 32px; }
@@ -66,6 +68,9 @@
   .bnon-amazon-sections__title h2 { font-size: 36px; }
   .bnon-amazon-process__description { margin-top: 32px; }
   .bnon-amazon-process__description p,.bnon-amazon-integration__description p { font-size: 16px; }
+  .bnon-amazon-process__description p { text-align: left; word-break: keep-all; }
+  .bnon-amazon-mobile-break { display: initial; }
+  .bnon-amazon-desktop-break { display: none; }
   .bnon-amazon-process__step,.bnon-amazon-process__step--right { padding: 24px 0; text-align: left; justify-content: flex-start; }
   .bnon-amazon-process__step-content { width: 100%; }
   .bnon-amazon-process__number { font-size: 44px; }
@@ -102,4 +107,7 @@
   .bnon-amazon-integration__sync { gap: 10px; padding-bottom: 4px; }
   .bnon-amazon-integration__sync img { margin-block: 8px; }
   .bnon-amazon-integration__channels { gap: 20px; }
+}
+@media screen and (max-width: 359px) {
+  .bnon-amazon-integration__body--sales { font-size: 15px; }
 }
